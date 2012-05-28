@@ -12,6 +12,7 @@ gem 'aws-s3'
 gem 'roo' #excel parser
 gem 'docsplit'
 gem 'rubyXL'
+gem 'devise'
 
 
 # GIS 
@@ -29,6 +30,7 @@ gem 'will_paginate', '~> 3.0'
 gem 'thin'
 
 gem 'newrelic_rpm'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
