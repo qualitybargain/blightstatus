@@ -4,7 +4,11 @@
       #address{"data-x" => @address.point.x, "data-y" => @address.point.y }
         #map{:style => "height: 200px;"}
     .address
-      %h1=@address.address_long
+      %h1{:style => "float: left"}=@address.address_long
+      .badge-yellow{:style => "float: right"} 
+        /=link_to_remote "Notify Me", :url => add_to_cart_url(product), :update => { :success => "cart", :failure => "error" }
+    .clearfix
+	  
 
   =render :partial => "addresses/status-update", :locals => {:address => @address}
 

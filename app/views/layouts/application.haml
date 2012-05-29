@@ -33,10 +33,14 @@
                 / %li.active
                 /  %a{:href => "#"} Home
               %ul.nav.pull-right
-                %li
-                  %a{:href => "#"} Register
-                %li
-                  %a{:href => "#"} Login
+                -if account_signed_in?
+                  %li
+                    =link_to "Logout", destroy_account_session_path, :method => :delete 
+                -else
+                  %li
+                    %a{:href => "#"} Register
+                  %li
+                    %a{:href => "/accounts/sign_in"} Login
     
 
 
