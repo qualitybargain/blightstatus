@@ -1,4 +1,8 @@
 Openblight::Application.routes.draw do
+
+  devise_for :accounts
+  resources :accounts
+
   get "statistics/show"
 
   # The priority is based upon order of creation:
@@ -31,6 +35,7 @@ Openblight::Application.routes.draw do
   
   resources :cases, :except => [:destroy, :create, :edit]
   
+      
   # Sample resource route with options:
   #   resources :products do
   #     member do
