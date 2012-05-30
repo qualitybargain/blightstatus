@@ -6,7 +6,7 @@
     .address
       %h1{:style => "float: left"}=@address.address_long
       .badge-yellow{:style => "float: right"} 
-        /=link_to_remote "Notify Me", :url => add_to_cart_url(product), :update => { :success => "cart", :failure => "error" }
+        =link_to_remote "Subscribe", :update => "accounts"
     .clearfix
 	  
 
