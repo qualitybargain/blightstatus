@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120514204730) do
+ActiveRecord::Schema.define(:version => 20120531163841) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "geopin"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20120514204730) do
     t.string   "parcel_id"
     t.boolean  "official"
     t.string   "street_full_name"
+    t.string   "assessor_url"
   end
 
   add_index "addresses", ["address_long"], :name => "index_addresses_on_address_long"
@@ -185,6 +186,11 @@ ActiveRecord::Schema.define(:version => 20120514204730) do
   create_table "searches", :force => true do |t|
     t.text     "term"
     t.string   "ip"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "statistics", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
