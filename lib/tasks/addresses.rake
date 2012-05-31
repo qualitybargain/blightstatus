@@ -36,6 +36,11 @@ namespace :addresses do
     Address.destroy_all
   end
 
+  desc "Set assessor_url for all addresses"
+  task :set_assessor_url => :environment do |t, args|
+    Address.all.each{ |a| a.set_assessor_link }
+  end
+
   desc "call get neighborhood"
   task :get_neighborhood => :environment do
     #addresses = Address.all
