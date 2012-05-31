@@ -10,3 +10,5 @@ admin = Account.create! do |u|
   u.password = 'password'  
   u.password_confirmation = 'password'  
 end
+
+
