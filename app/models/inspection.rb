@@ -11,4 +11,24 @@ class Inspection < ActiveRecord::Base
   def notes
   	self.result
   end
+
+  def self.matchedCount
+  	Inspection.count(:conditions =>'case_number is not null')
+  end
+
+  def self.unmatchedCount
+  	Inspection.count(:conditions => 'case_number is null')
+  end
+
+  def self.pctMatched
+  	Inspection.count(:conditions => "case_number is not null").to_f / Inspection.count.to_f * 100
+  end
+
+  def self.types
+  	Inspection.count(group: :inspection_type)
+  end
+
+  def self.results
+  	Inspection.count(group: :result)
+  end
 end

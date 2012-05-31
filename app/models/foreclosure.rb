@@ -5,4 +5,21 @@ class Foreclosure < ActiveRecord::Base
   def date
     self.sale_date || DateTime.new(0)
   end
+
+  def self.matched
+  	Foreclosure.count(:conditions =>'address_id is not null')
+  end
+
+  def self.unmatched
+  	Foreclosure.count(:conditions => 'address_id is null')
+  end
+
+  def self.pctMatched
+  	Foreclosure.count(:conditions => "address_id is not null").to_f / Foreclosure.count.to_f * 100
+  end
+
+  def self.status
+  	Foreclosure.count(group: :status)
+  end
+  
 end

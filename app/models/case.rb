@@ -46,4 +46,16 @@ class Case < ActiveRecord::Base
     self.save!
   end
 
+  def self.matchedCount
+    Case.count(:conditions =>'address_id is not null')
+  end
+
+  def self.unmatchedCount
+    Case.count(:conditions => 'address_id is null')
+  end
+
+  def self.pctMatched
+    Case.count(:conditions => "address_id is not null").to_f / Case.count.to_f * 100
+  end
+  
 end
