@@ -71,7 +71,8 @@
           =image_tag('check_mark.png', :width => '20px')
         .note
           .hearing
-            %t=kase.judgement.notes
+            %t=kase.judgement.notes + " on "
+            %b=kase.judgement.judgement_date.strftime("%m/%d/%Y")
 
     -unless kase.resets.empty?
       .span13
