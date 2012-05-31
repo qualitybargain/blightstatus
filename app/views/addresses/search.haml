@@ -30,19 +30,11 @@
     .left-bar
     .right-bar
       .suggestions
-        %h2 Sorry! We couldn't find a case with the search term 
-        %p This could mean a few different things:
+        %h3 The address "#{@search_term}" was not found
 
-        %h4 Typo?
-        %p 1) Check to see if you typed the address correct.
-	  
-        %h4 Check back later
-        %p 2) We get our data from the city. 
-	 
-        %h4 No Case
-        %p 3) The city does not have a case on this property
-	  
+        %p{:style => "margin-top: 20px"} This could mean a few different things:
 
-        %h4 Techincal Glitch	  
-        %p 4) We get our data from a few different sources. Sometimes there are mistakes in importing the data. If you believe there is a technical problem. Please contact us
+        %p 1) Check to see if you typed the address correctly. 
+	          
+        %p 2) If you believe you've run into a technical glitch, please report it to support@blightstatus.org
 

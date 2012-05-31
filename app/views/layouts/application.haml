@@ -8,7 +8,6 @@
     = stylesheet_link_tag    "application", :media => "all"
     %link{:href => "http://code.leafletjs.com/leaflet-0.3.1/leaflet.css", :rel => "stylesheet"}/
     %link{:href => "/wax/theme/controls.css", :rel => "stylesheet", :type => "text/css"}/
-    %link{:href => "https://raw.github.com/mapbox/wax/master/ext/leaflet.css", :rel => "stylesheet", :type => "text/css"}/
     = csrf_meta_tags
     %meta{:charset => "utf-8"}
       %meta{:content => "", :name => "description"}
@@ -18,18 +17,21 @@
     %div{:id => "wrapper", :class => "container-#{controller_name} container-#{controller_name}-#{action_name}"}
       #tag
         %a{:href => "http://www.codeforamerica.org"}
-          %img{:border => "0", :src => "http://jlord.us/tag_cfa.png", :width => "100px"}/
+          %img{:border => "0", :src => "/assets/tag_cfa.png", :width => "100px"}/
 
       .navbar
         .navbar-inner
           .container
             %p
-              %img{:height => "20px", :src => "http://jlord.us/code_flag.png"}>/
+              %img{:height => "20px", :src => "/assets/code_flag.png"}>/
               Created by Code for America in partnership with the City of New Orleans.
               = succeed "." do
                 %a{:href => "http://www.codeforamerica.org", :target => "_blank"} Learn more
       %header.page-header
         %h1#logo= link_to("blightSTATUS", root_path)
+        -if(controller_name == 'home')
+          =render "home/tag-line"
+
         %div{ :class => "top-search-bar"}
           - if(controller_name == 'addresses')
             =render "addresses/search"
@@ -37,7 +39,6 @@
             =render "home/legal-disclaimer"	
 
       = yield
-	  
 	  
       %footer
         .footer
@@ -49,7 +50,6 @@
             %a{:href => "/stats"} Statistics
             \-
             %a{:href => "/feedback"} Send feedback
-        
 
         .demo
           %p
