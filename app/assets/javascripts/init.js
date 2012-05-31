@@ -36,7 +36,16 @@ OpenBlight = {
     init: function() {    
     }
   },
-  
+    
+  statistics: {
+    init: function(){
+      console.log("SHOW ALL THE THINGS!");
+    },
+    graphs: function(){
+
+    }
+  },
+
   addresses: {
     init: function(){
     },
