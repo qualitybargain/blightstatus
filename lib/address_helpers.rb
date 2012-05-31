@@ -128,6 +128,7 @@ module AddressHelpers
   end
 
   def find_address(orig_address)
+    return [] if orig_address.nil?
     address_string = orig_address.upcase.single_space.delete('.')
 
     address = Address.where("address_long = ?", "#{address_string}")

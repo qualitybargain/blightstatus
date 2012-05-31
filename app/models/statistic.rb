@@ -1,4 +1,4 @@
-class Statistic < ActiveRecord::Base
+class Statistic
 
 	def Addresses
 		{:total => Address.count}

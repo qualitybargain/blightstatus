@@ -91,23 +91,6 @@
         %tr
       %tr
         %tr
-          %th Inspections
-          %td Abated
-          %td Violation WIP
-          %td Violation Posted No WIP
-          %td Violation Unoccupied
-          %td Demolished
-        %tr
-        %tr
-          %td Results
-          %td=Inspection.count(:conditions => "result = 'Abated'")
-          %td=Inspection.count(:conditions => "result = 'Violation WIP'")
-          %td=Inspection.count(:conditions => "result = 'Violation Posted No WIP'")
-          %td=Inspection.count(:conditions => "result = 'Violation Unoccupied'")
-          %td=Inspection.count(:conditions => "result = 'Demolished'")
-        %tr
-      %tr
-        %tr
           %th Notifications
         %tr
           %td Types

@@ -46,7 +46,7 @@ namespace :inspections do
       rescue Exception=>e
         puts e.to_s
         puts oo.row(row).to_s
-        exceptions.push(row + ": " + e.to_s)
+        exceptions.push("#{row} : #{e.to_s}")
       end  
     end
 
@@ -56,6 +56,12 @@ namespace :inspections do
         puts " Failed Record: #{row.to_s}"
       end
     end
+  end
+
+  desc "Delete all inspections and inspector data" 
+  task :drop => :environment do |t|
+    Inspection.destroy_all
+    Inspector.destroy_all
   end
 end
   

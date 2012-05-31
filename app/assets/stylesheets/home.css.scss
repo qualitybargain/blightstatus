@@ -11,13 +11,12 @@
 	}	
   
   .page-header{
-   border: 0px; 
-
-   h1 {
-       line-height: 1;
-       padding: 100px 0 50px;
-   }
-
+     border: 0px; 
+     margin: 30px 0;
+     h1 {
+      line-height: 1;
+      padding: 60px 0 8px;
+     }
   }
   
 	.content{
@@ -33,9 +32,13 @@
 	
   
   .homesearch{
-    width: 500px;
+    background: none repeat scroll 0 0 #CBDCA3;
+    border-radius: 7px 7px 7px 7px;
+    box-shadow: 3px 3px 5px #AAAAAA;
     margin: 0 auto;
-    
+    padding: 15px;
+    width: 525px;
+            
     .search-form{
       width: 515px;
       margin: 0 auto;
@@ -47,7 +50,11 @@
         padding: 1px 2px;
       }
     }
-
+  }
+  
+  footer{
+    position: absolute;
+    bottom: 0;
   }
 
 
