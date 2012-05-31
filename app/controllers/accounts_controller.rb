@@ -1,9 +1,10 @@
 class AccountsController < ApplicationController
   before_filter :authenticate_account!
+  respond_to :html, :json, :xml
 
-  def index
-    street_name = AddressHelpers.get_street_name('Van Ave')
-    @my_addresses = Address.find_addresses_with_cases_by_street(street_name).page(params[:page]).order(:house_num)
+  def index    
+    user = current_account
+    @account_subcriptions = user.addresses
   end
   
   def show

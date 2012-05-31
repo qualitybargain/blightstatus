@@ -5,6 +5,11 @@ class Address < ActiveRecord::Base
   has_many :foreclosures
   has_many :maintenances
 
+  has_many :subscriptions
+  has_many :accounts, :through => :subscriptions
+  accepts_nested_attributes_for :subscriptions, :allow_destroy => true
+  
+
   has_many :inspections, :through => :cases
   has_many :notifications, :through => :cases
   has_many :hearings, :through => :cases

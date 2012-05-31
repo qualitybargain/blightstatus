@@ -89,6 +89,11 @@
 		margin: 0 auto;
     width: 500px;
     
+    .subscribe-button{
+      &:hover{
+        cursor: pointer;
+      }
+    }
     .show-grid{
     
     }

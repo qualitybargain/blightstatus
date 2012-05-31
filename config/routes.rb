@@ -1,8 +1,10 @@
 Openblight::Application.routes.draw do
 
+#  devise_for :accounts
   devise_for :accounts
   resources :accounts
-
+  resources :subscriptions
+  
   get "statistics/show"
 
   # The priority is based upon order of creation:
