@@ -12,8 +12,6 @@ class Address < ActiveRecord::Base
 
   validates_uniqueness_of :address_id
 
-  self.per_page = 50
-
   def workflow_steps
     steps_ary = []
     self.cases.each do |c|
