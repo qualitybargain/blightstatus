@@ -14,7 +14,7 @@ class Foreclosure < ActiveRecord::Base
   	Foreclosure.count(:conditions => 'address_id is null')
   end
 
-  def self.pctMatched
+  def self.pct_matched
   	Foreclosure.count(:conditions => "address_id is not null").to_f / Foreclosure.count.to_f * 100
   end
 

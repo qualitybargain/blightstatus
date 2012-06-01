@@ -27,7 +27,7 @@ class Maintenance < ActiveRecord::Base
     Maintenance.count(:conditions => 'address_id is null')
   end
 
-  def self.pctMatched
+  def self.pct_matched
     Maintenance.count(:conditions => "address_id is not null").to_f / Maintenance.count.to_f * 100
   end
 

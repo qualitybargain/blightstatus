@@ -12,15 +12,15 @@ class Inspection < ActiveRecord::Base
   	self.result
   end
 
-  def self.matchedCount
+  def self.matched_count
   	Inspection.count(:conditions =>'case_number is not null')
   end
 
-  def self.unmatchedCount
+  def self.unmatched_count
   	Inspection.count(:conditions => 'case_number is null')
   end
 
-  def self.pctMatched
+  def self.pct_matched
   	Inspection.count(:conditions => "case_number is not null").to_f / Inspection.count.to_f * 100
   end
 

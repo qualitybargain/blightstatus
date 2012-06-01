@@ -7,15 +7,15 @@ class Reset < ActiveRecord::Base
     self.reset_date || DateTime.new(0)
   end
 
-  def self.matchedCount
+  def self.matched_count
   	Reset.count(:conditions =>'case_number is not null')
   end
 
-  def self.unmatchedCount
+  def self.unmatched_count
   	Reset.count(:conditions => 'case_number is null')
   end
 
-  def self.pctMatched
+  def self.pct_matched
   	Reset.count(:conditions => "case_number is not null").to_f / Reset.count.to_f * 100
   end
 
