@@ -42,6 +42,19 @@ class Address < ActiveRecord::Base
     self.cases.sort{ |a, b| a.most_recent_status.date <=> b.most_recent_status.date }
   end
 
+  def cardinal
+    if address_long.match(' (W|E|N|S) ')
+      $1
+    end
+  end
+
+  def set_assessor_link
+    url = "http://qpublic4.qpublic.net/la_orleans_display.php?KEY=#{cardinal}#{house_num}-#{street_name}#{street_type}".gsub(" ", "")
+    p url
+    page = Net::HTTP.get(URI(url))
+    self.update_attributes(:assessor_url => url) unless page.match(/No Data at this time/)
+  end
+
   def most_recent_status_preview
     s = self.most_recent_status
     {:type => s.class.to_s, :date => s.date.strftime('%B %e, %Y')}

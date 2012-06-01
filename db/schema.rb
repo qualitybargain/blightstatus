@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120529052027) do
+ActiveRecord::Schema.define(:version => 20120531163841) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20120529052027) do
     t.string   "parcel_id"
     t.boolean  "official"
     t.string   "street_full_name"
+    t.string   "assessor_url"
   end
 
   add_index "addresses", ["address_long"], :name => "index_addresses_on_address_long"

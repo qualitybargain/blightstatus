@@ -10,6 +10,10 @@
           Subscribe
     .clearfix
 	  
+      %h1=@address.address_long
+    -if @address.assessor_url
+      .assessor_link
+        =link_to "Assessor's office", @address.assessor_url
 
   =render :partial => "addresses/status-update", :locals => {:address => @address}
 
