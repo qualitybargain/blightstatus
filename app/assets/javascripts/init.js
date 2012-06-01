@@ -9,7 +9,7 @@ OpenBlight = {
     handle_auto_complete_address: function(){      
   	  $('#main-search-field').keyup(function(key){
     		  var first_char = $(this).val().substr(0, 1);
-		  
+		      // rationale explained in addresses_controller
     		  if(isNaN(first_char)){
     		      $("#main-search-field").autocomplete({
     		        source: "/streets/autocomplete_street_full_name"
@@ -36,7 +36,16 @@ OpenBlight = {
     init: function() {    
     }
   },
-  
+    
+  statistics: {
+    init: function(){
+      console.log("SHOW ALL THE THINGS!");
+    },
+    graphs: function(){
+
+    }
+  },
+
   addresses: {
     init: function(){
     },

@@ -32,6 +32,15 @@
               .span4
                 -@address.resolutions.each do |r|
                   .resolution
-                    This property was successfully demolished by #{r.program_name} 
-                    -# =r.date.strftime("%m/%d/%Y")
-      .clearfix
+                  - if r.class == Demolition
+                    This property was successfully demolished by #{r.program_name} on 
+                    %b=r.date.strftime("%m/%d/%Y")
+                  - elsif r.class == Foreclosure
+                    This property was foreclosed on 
+                    %b=r.date.strftime("%m/%d/%Y")
+                  - elsif r.class == Maintenance
+                    This property was maintained by #{r.program_name} on 
+                    %b=r.date.strftime("%m/%d/%Y")
+                  - else
+                    %b=r.class.to_s + ": " + r.date.strftime("%m/%d/%Y")
+                  .clearfix
