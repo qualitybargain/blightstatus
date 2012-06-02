@@ -15,31 +15,34 @@ OpenBlight = {
     		        source: "/streets/autocomplete_street_full_name"
     		      });
     		  }
-    		  else{		  	
+    		  else{	
     		      $("#main-search-field").autocomplete({
     		        source: "/addresses/autocomplete_address_address_long"
-    		      });			
-    		  }		
-  	    });	  
+    		      });
+    		  }
+  	    });
     },
-    
-    show_disclaimer: function(){
-      $('#legal-disclaimer').modal('show');
 
+    show_disclaimer: function(){
+      if($.cookie('agree_to_legal_disclaimer') != 'true' && $.cookie('agree_to_legal_disclaimer') != true){
+        $('#legal-disclaimer').modal('show');
+      } else {
+        $('#legal-disclaimer').modal('hide');
+      }
       $('#legal-disclaimer .btn-primary').click(function(){
-        $.cookie('agree_to_legal_disclaimer', true);			
+        $.cookie('agree_to_legal_disclaimer', true);
       })
-    }    
+    }
   },
   
   home: {
-    init: function() {    
+    init: function() {
     }
   },
     
   statistics: {
     init: function(){
-      console.log("SHOW ALL THE THINGS!");
+
     },
     graphs: function(){
 
@@ -57,9 +60,8 @@ OpenBlight = {
           var json_path = window.location.toString().replace(/search\?/i, 'search.json\?');
 
           jQuery.getJSON( json_path, function(data) {
-            
+
             if(data.length){
-            
               var map = new L.Map('map').addLayer(new wax.leaf.connector(tilejson));
               var popup = new L.Popup();
 
