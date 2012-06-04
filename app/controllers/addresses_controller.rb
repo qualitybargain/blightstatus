@@ -33,6 +33,7 @@ class AddressesController < ApplicationController
       # if it's not a direct hit, then we look at the street name and just present a list of properties
       # with that street name that have a case. No point in printing out a bunch of houses without cases
       street_name = AddressHelpers.get_street_name(@search_term)
+
       @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:house_num).page(params[:page]).per(15)
 
 #      factory = RGeo::Geographic::simple_mercator_factory
