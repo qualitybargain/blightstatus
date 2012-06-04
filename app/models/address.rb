@@ -43,7 +43,6 @@ class Address < ActiveRecord::Base
 
   def set_assessor_link
     url = "http://qpublic4.qpublic.net/la_orleans_display.php?KEY=#{house_num}-#{cardinal}#{street_name}#{street_type}".gsub(" ", "")
-    p url
     page = Net::HTTP.get(URI(url))
     self.update_attributes(:assessor_url => url) unless page.match(/No Data at this time/)
   end

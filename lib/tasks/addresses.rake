@@ -38,7 +38,14 @@ namespace :addresses do
 
   desc "Set assessor_url for all addresses"
   task :set_assessor_url => :environment do |t, args|
-    Address.all.each{ |a| a.set_assessor_link }
+    Address.all.each do |a|
+      begin
+       a.set_assessor_link 
+      rescue Exception => e
+       p "Assessor link could not be set for #{a.address_long}"
+       p e.to_s
+      end
+    end
   end
 
   desc "call get neighborhood"
