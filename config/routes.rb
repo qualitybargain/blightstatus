@@ -31,6 +31,8 @@ Openblight::Application.routes.draw do
   
   resources :cases, :except => [:destroy, :create, :edit]
   
+  match "pages/:id" => "pages#show", :as => "page" 
+
   # Sample resource route with options:
   #   resources :products do
   #     member do
