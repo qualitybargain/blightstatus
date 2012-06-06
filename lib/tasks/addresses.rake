@@ -38,7 +38,7 @@ namespace :addresses do
 
   desc "Set assessor_url for all addresses"
   task :set_assessor_urls => :environment do |t, args|
-    Address.find_in_batches(:batch_size => 10000) do |group|
+    Address.find_in_batches do |group|
       group.each do |a|
         begin
          a.set_assessor_link 
