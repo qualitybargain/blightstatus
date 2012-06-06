@@ -15,10 +15,7 @@
   %body{"data-action" => action_name, "data-controller" => controller_name}
     %div{:id => "wrapper", :class => "container-#{controller_name} container-#{controller_name}-#{action_name}"}
 
-      #tag
-        %a{:href => "http://www.codeforamerica.org"}
-          %img{:border => "0", :src => "/assets/tag_cfa.png", :width => "100px"}/
-
+      
 
       .navbar	  
         .navbar-inner
@@ -40,9 +37,9 @@
                     =link_to "Logout", destroy_account_session_path, :method => :delete 
                 -else
                   %li
-                    %a{:href => "#"} Register
+                    =link_to('Register', new_account_registration_path)
                   %li
-                    %a{:href => "/accounts/sign_in"} Login
+                    =link_to('Login', new_account_session_path) 
 
 
       %header.page-header
@@ -93,9 +90,6 @@
             .btn
               %a{:href => "/cases"} View Cases
 
-      %script{:src => "http://code.leafletjs.com/leaflet-0.3.1/leaflet.js", :type => "text/javascript"}
-      %script{:src => "https://raw.github.com/mapbox/wax/master/dist/wax.leaf.min.js", :type => "text/javascript"}
-      %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js", :type => "text/javascript"}
       :javascript
         var uvOptions = {};
         (function() {

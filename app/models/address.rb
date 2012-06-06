@@ -17,8 +17,6 @@ class Address < ActiveRecord::Base
 
   validates_uniqueness_of :address_id
 
-  self.per_page = 50
-
   def workflow_steps
     steps_ary = []
     self.cases.each do |c|
@@ -49,8 +47,7 @@ class Address < ActiveRecord::Base
   end
 
   def set_assessor_link
-    url = "http://qpublic4.qpublic.net/la_orleans_display.php?KEY=#{cardinal}#{house_num}-#{street_name}#{street_type}".gsub(" ", "")
-    p url
+    url = "http://qpublic4.qpublic.net/la_orleans_display.php?KEY=#{house_num}-#{cardinal}#{street_name}#{street_type}".gsub(" ", "")
     page = Net::HTTP.get(URI(url))
     self.update_attributes(:assessor_url => url) unless page.match(/No Data at this time/)
   end

@@ -15,28 +15,40 @@ OpenBlight = {
     		        source: "/streets/autocomplete_street_full_name"
     		      });
     		  }
-    		  else{		  	
+    		  else{	
     		      $("#main-search-field").autocomplete({
     		        source: "/addresses/autocomplete_address_address_long"
-    		      });			
-    		  }		
-  	    });	  
+    		      });
+    		  }
+  	    });
     },
-    
-    show_disclaimer: function(){
-      $('#legal-disclaimer').modal('show');
 
+    show_disclaimer: function(){
+      if($.cookie('agree_to_legal_disclaimer') != 'true' && $.cookie('agree_to_legal_disclaimer') != true){
+        $('#legal-disclaimer').modal('show');
+      } else {
+        $('#legal-disclaimer').modal('hide');
+      }
       $('#legal-disclaimer .btn-primary').click(function(){
-        $.cookie('agree_to_legal_disclaimer', true);			
+        $.cookie('agree_to_legal_disclaimer', true);
       })
-    }    
-  },
-  
-  home: {
-    init: function() {    
     }
   },
   
+  home: {
+    init: function() {
+    }
+  },
+    
+  statistics: {
+    init: function(){
+
+    },
+    graphs: function(){
+
+    }
+  },
+
   addresses: {
     init: function(){
     },

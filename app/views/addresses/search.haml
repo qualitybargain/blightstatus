@@ -10,18 +10,16 @@
                 %img{ :width => "10px", :src => "http://code.leafletjs.com/leaflet-0.3.1/images/marker.png"  }
                 %i.home
                 =link_to a.address_long, address_path(a.id)
-        
+
+        .clearfix
     .right-bar
       %h3 Result only show properties with cases:
-	    
       #map{:style => "height: 400px;"}
     .row
-  
+    .btn-toolbar
+      .btn-group
+        =paginate @addresses
 
-  .btn-toolbar
-    .btn-group
-      =will_paginate @addresses
-	  
 -else
   .no-search-results
     .left-bar
