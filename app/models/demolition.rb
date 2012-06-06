@@ -6,11 +6,11 @@ class Demolition < ActiveRecord::Base
     self.date_completed || self.date_started || DateTime.new(0)
   end
 
-  def self.matched
+  def self.matched_count
   	Demolition.count(:conditions =>'address_id is not null')
   end
 
-  def self.unmatched
+  def self.unmatched_count
   	Demolition.count(:conditions => 'address_id is null')
   end
 

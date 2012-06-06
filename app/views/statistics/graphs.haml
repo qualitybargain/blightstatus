@@ -1,7 +1,7 @@
 .inner
   .row-fluid{"class" => "show-grid"}
     %h1 Statistics
-	
+  
     %h2 Data Quality
     %table{:border => "0"}
       %tr
@@ -13,65 +13,75 @@
         %tr
           %tr
             %th Addresses
-            %td= @addrStats[ :total]
+            -addrStats = addresses
+            %td= addrStats[ :total]
             %td/
             %td/
             %td/
           %tr
             %th Cases
-            %td= @caseStats[:total]
-            %td= @caseStats[:matched]
-            %td= @caseStats[:unmatched]
-            %td= @caseStats[:percentageMatched]
+            -caseStats = cases
+            %td= caseStats[:total]
+            %td= caseStats[:matched]
+            %td= caseStats[:unmatched]
+            %td= caseStats[:percentageMatched]
           %tr
             %th Inspections
-            %td= @inspStats[:total]
-            %td= @inspStats[:matched]
-            %td= @inspStats[:unmatched]
-            %td= @inspStats[:percentageMatched]
+            -inspStats = inspections
+            %td= inspStats[:total]
+            %td= inspStats[:matched]
+            %td= inspStats[:unmatched]
+            %td= inspStats[:percentageMatched]
           %tr
             %th Notifications
-            %td= @notiStats[:total]
-            %td= @notiStats[:matched]
-            %td= @notiStats[:unmatched]
-            %td= @notiStats[:percentageMatched]
+            -notiStats = notifications
+            %td= notiStats[:total]
+            %td= notiStats[:matched]
+            %td= notiStats[:unmatched]
+            %td= notiStats[:percentageMatched]
           %tr
             %th Hearings
-            %td= @hearStats[:total]
-            %td= @hearStats[:matched]
-            %td= @hearStats[:unmatched]
-            %td= @hearStats[:percentageMatched]
+            -hearStats = hearings
+            %td= hearStats[:total]
+            %td= hearStats[:matched]
+            %td= hearStats[:unmatched]
+            %td= hearStats[:percentageMatched]
           %tr
             %th Resets
-            %td= @resetStats[:total]
-            %td= @resetStats[:matched]
-            %td= @resetStats[:unmatched]
-            %td= @resetStats[:percentageMatched]
+            -resetStats = resets
+            %td= resetStats[:total]
+            %td= resetStats[:matched]
+            %td= resetStats[:unmatched]
+            %td= resetStats[:percentageMatched]
           %tr
             %th Judgements
-            %td= @judgeStats[:total]
-            %td= @judgeStats[:matched]
-            %td= @judgeStats[:unmatched]
-            %td= @judgeStats[:percentageMatched]
+            -judgeStats = judgements
+            %td= judgeStats[:total]
+            %td= judgeStats[:matched]
+            %td= judgeStats[:unmatched]
+            %td= judgeStats[:percentageMatched]
           %tr
             %th Maintenances
-            %td= @maintStats[:total]
-            %td= @maintStats[:matched]
-            %td= @maintStats[:unmatched]
-            %td= @maintStats[:percentageMatched]
+            -maintStats = maintenances
+            %td= maintStats[:total]
+            %td= maintStats[:matched]
+            %td= maintStats[:unmatched]
+            %td= maintStats[:percentageMatched]
           %tr
             %th Foreclosures
-            %td= @foreclStats[:total]
-            %td= @foreclStats[:matched]
-            %td= @foreclStats[:unmatched]
-            %td= @foreclStats[:percentageMatched]
+            -foreclStats = foreclosures
+            %td= foreclStats[:total]
+            %td= foreclStats[:matched]
+            %td= foreclStats[:unmatched]
+            %td= foreclStats[:percentageMatched]
           %tr
             %th Demolitions
-            %td= @demoStats[:total]
-            %td= @demoStats[:matched]
-            %td= @demoStats[:unmatched]
-            %td= @demoStats[:percentageMatched]
-			  
+            -demoStats = demolitions
+            %td= demoStats[:total]
+            %td= demoStats[:matched]
+            %td= demoStats[:unmatched]
+            %td= demoStats[:percentageMatched]
+        
     %br
     %br
     %h2 City Stats
@@ -81,12 +91,12 @@
           %th Inspections
         %tr
           %td Results
-          - @inspStats[:results].each do |l,v|
+          - inspStats[:results].each do |l,v|
             %td= l.class == String ? l.capitalize : "Undeclared"
         %tr
         %tr
           %th 
-          - @inspStats[:results].each do |l,v|
+          - inspStats[:results].each do |l,v|
             %td= v.to_s
         %tr
       %tr
@@ -94,12 +104,12 @@
           %th Notifications
         %tr
           %td Types
-          - @notiStats[:types].each do |l,v|
+          - notiStats[:types].each do |l,v|
             %td= l.class == String ? l.capitalize : "Undeclared"
         %tr
         %tr
           %th 
-          - @notiStats[:types].each do |l,v|
+          - notiStats[:types].each do |l,v|
             %td= v.to_s
         %tr
       %tr
@@ -107,12 +117,12 @@
           %th Hearings
         %tr
           %td Status
-          - @hearStats[:status].each do |l,v|
+          - hearStats[:status].each do |l,v|
             %td= l.class == String ? l.capitalize : "Undeclared"
         %tr
         %tr
           %th 
-          - @hearStats[:status].each do |l,v|
+          - hearStats[:status].each do |l,v|
             %td= v.to_s
         %tr
       %tr
@@ -120,12 +130,12 @@
           %th Judgements
         %tr
           %td Status
-          - @judgeStats[:status].each do |l,v|
+          - judgeStats[:status].each do |l,v|
             %td= l.class == String ? l.capitalize : "Undeclared"
         %tr
         %tr
           %th 
-          - @judgeStats[:status].each do |l,v|
+          - judgeStats[:status].each do |l,v|
             %td= v.to_s
         %tr
       %tr
@@ -133,21 +143,21 @@
           %th Maintenances
         %tr
           %td Status
-          - @maintStats[:status].each do |l,v|
+          - maintStats[:status].each do |l,v|
             %td= l.class == String ? l.capitalize : "Undeclared"
         %tr
         %tr
           %th 
-          - @maintStats[:status].each do |l,v|
+          - maintStats[:status].each do |l,v|
             %td= v.to_s
         %tr
           %td Program Name
-          - @maintStats[:program_names].each do |l,v|
+          - maintStats[:program_names].each do |l,v|
             %td= l.class == String ? l.capitalize : "Undeclared"
         %tr
         %tr
           %th 
-          - @maintStats[:program_names].each do |l,v|
+          - maintStats[:program_names].each do |l,v|
             %td= v.to_s
         %tr
       %tr
@@ -155,12 +165,12 @@
           %th Foreclosures
         %tr
           %td Status
-          - @foreclStats[:status].each do |l,v|
+          - foreclStats[:status].each do |l,v|
             %td= l.class == String ? l.capitalize : "Undeclared"
         %tr
         %tr
           %th 
-          - @foreclStats[:status].each do |l,v|
+          - foreclStats[:status].each do |l,v|
             %td= v.to_s
         %tr
       %tr
