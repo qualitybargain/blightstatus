@@ -1,18 +1,4 @@
-
-        BlightStats = {};
-        BlightStats.data = {
-        addresses: {"total":197510},
-        cases: {"total":5926,"matched":5879,"unmathed":47,"percentageMatche":99.20688491393858},
-        inspections: {"total":5336,"matched":5336,"unmatched":0,"percentageMatched":100.0,"types":{"Posting of Hearing":995,"Compliance Inspection":12,"Posting of Judgment":427,"Initial Inspection":2555,"Lot Inspection":1,"Reinspection":1346},"results":{"Violation Unoccupied":1830,"Complied":5,"No Violation Found":1,"Violation Posted No WIP":2469,"Cancelled":3,"Abated":292,"Scheduled":2,"Road Home":1,"Abated Demolished":46,"Violation WIP":431,"Work In Progress":51,"Occupied":80,"Violation Unoccupied - Bldg":1,"Existing Case":10,"Violation":2,"Demolished":75,"Not Complied":13,"Violation Work in Progress":1,"Address Does Not Exist":1,"In Compliance":22}},
-        notifications: {"total":2869,"matched":2869,"unmatched":0,"percentageMatched":100.0,"types":{"hearing owner":2869}},
-        hearings: {"total":3383,"matched":3382,"unmatched":1,"percentageMatched":99.97044043748153,"status":{"guilty":1307,"":255,"dismissed":197,"reset":916,"closed":708}},
-        judgements: {"total":2774,"matched":2774,"unmatched":0,"percentageMatched":100.0,"status":{"guilty":1577,"dismissed":270,"closed":927}},
-        resets: {"total":6585,"matched":6585,"unmatched":0,"percentageMatched":100.0},
-        foreclosures: {"total":26,"matched":25,"unmatched":1,"percentageMatched":96.15384615384616,"status":{"":26}},
-        demolitions: {"total":2088,"matched":2064,"unmatched":24,"percentageMatched":98.85057471264368},
-        maintenances: {"total":943,"matched":877,"unmatched":66,"percentageMatched":93.00106044538707,"program_names":{"INAP":940,"Program":3},"status":{"":943}}
-        }
-        Raphael.fn.pieChart = function (cx, cy, r, values, labels, stroke) {
+Raphael.fn.pieChart = function (cx, cy, r, values, labels, stroke) {
     var paper = this,
         rad = Math.PI / 180,
         chart = this.set();

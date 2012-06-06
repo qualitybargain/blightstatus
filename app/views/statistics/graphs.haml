@@ -175,7 +175,7 @@
         %tr
       %tr
 =content_for :javascripts do
-  BlightStats = BlightStats || {};
+  BlightStats = {};
   BlightStats.data = {
   addresses: #{addresses_stats.to_json.html_safe},
   cases: #{cases_stats.to_json.html_safe},
@@ -187,4 +187,4 @@
   foreclosures: #{foreclosures_stats.to_json.html_safe},
   demolitions: #{demolitions_stats.to_json.html_safe},
   maintenances: #{maintenances_stats.to_json.html_safe}
-}
+  }
