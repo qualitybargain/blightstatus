@@ -1,5 +1,5 @@
 
-        BlightStats = BlightStats || {};
+        BlightStats = {};
         BlightStats.data = {
         addresses: {"total":197510},
         cases: {"total":5926,"matched":5879,"unmathed":47,"percentageMatche":99.20688491393858},
