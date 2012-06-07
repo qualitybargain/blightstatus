@@ -6,7 +6,6 @@
   %head
     %title blightSTATUS
     = stylesheet_link_tag    "application", :media => "all"
-    %link{:href => "http://code.leafletjs.com/leaflet-0.3.1/leaflet.css", :rel => "stylesheet"}/
     = csrf_meta_tags
     %meta{:charset => "utf-8"}
       %meta{:content => "", :name => "description"}
@@ -19,12 +18,7 @@
 
       .navbar	  
         .navbar-inner
-          .container
-            %img{:height => "20px", :src => "/assets/code_flag.png"}>/
-            Created by Code for America in partnership with the City of New Orleans.
-            = succeed "." do
-              %a{:href => "http://www.codeforamerica.org", :target => "_blank"} Learn more
-					
+          .container					
             .nav-collapse
               %ul.nav
                 / %li.active
@@ -90,26 +84,28 @@
             .btn
               %a{:href => "/cases"} View Cases
 
-      :javascript
-        var uvOptions = {};
-        (function() {
-          var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-          uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/sbCfvA4L1mTaaViXwjCtg.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
-        })();
+      / :javascript
+      /   var uvOptions = {};
+      /   (function() {
+      /     var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+      /     uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/sbCfvA4L1mTaaViXwjCtg.js';
+      /     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+      /   })();
   	  
-      /[if lte IE 8]
-        <link rel="stylesheet" href="http://code.leafletjs.com/leaflet-0.3.1/leaflet.ie.css" />
-      = javascript_include_tag "application"
-      :javascript
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-31630834-1']);
-        _gaq.push(['_setDomainName', 'herokuapp.com']);
-        _gaq.push(['_setAllowLinker', true]);
-        _gaq.push(['_trackPageview']);
+      / /[if lte IE 8]
+      /   <link rel="stylesheet" href="http://code.leafletjs.com/leaflet-0.3.1/leaflet.ie.css" />
+      / %link{:href => "http://code.leafletjs.com/leaflet-0.3.1/leaflet.css", :rel => "stylesheet"}/
 
-        (function() {
-          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
+      / = javascript_include_tag "application"
+      / :javascript
+      /   var _gaq = _gaq || [];
+      /   _gaq.push(['_setAccount', 'UA-31630834-1']);
+      /   _gaq.push(['_setDomainName', 'herokuapp.com']);
+      /   _gaq.push(['_setAllowLinker', true]);
+      /   _gaq.push(['_trackPageview']);
+
+      /   (function() {
+      /     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      /     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      /     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      /   })();
