@@ -51,13 +51,11 @@ OpenBlight = {
 
   addresses: {
     init: function(){
-      console.log('init');
       OpenBlight.addresses.setup_observers();
     },
 
     setup_observers: function(){
 
-      console.log('observer');
       OpenBlight.addresses.subscribe_button();
 
     },
@@ -67,7 +65,6 @@ OpenBlight = {
       jQuery(".subscribe-button").click(function(){
         var that = this;
         jQuery.post( '/subscriptions', { id: $('#address').attr('internal_address_id') }, function(data) {
-          //console.log(data);
           jQuery(that).html('Thank You');
         }, 'json');
       });   
@@ -105,7 +102,6 @@ OpenBlight = {
       });
     },
     show: function(){
-      console.log("using addresses:show");
 		  OpenBlight.addresses.init_address_map();
       
       $(".property-status").popover({placement: 'bottom'});
