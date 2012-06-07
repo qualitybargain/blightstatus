@@ -3,11 +3,13 @@ class AccountsController < ApplicationController
   respond_to :html, :json, :xml
 
   def index    
-    user = current_account
-    @account_subcriptions = user.addresses
+    @user = current_account
+    # @user.inspect
+    @account_subcriptions = @user.addresses
   end
   
   def show
+
   end
 
   def edit

@@ -1,18 +1,17 @@
 .inner.single
   .show-grid
     .map
-      #address{"address_id" => @address.address_id, "data-x" => @address.point.x, "data-y" => @address.point.y }
+      #address{"internal_address_id" => @address.id, "address_id" => @address.address_id, "data-x" => @address.point.x, "data-y" => @address.point.y }
         #map{:style => "height: 200px;"}
     .address
       %h1{:style => "float: left"}=@address.address_long
       -if(account_signed_in?)
         .badge-yellow.subscribe-button{:style => "float: right", :data => @address.address_id} 
-          =@account.subscriptions.inspect
 
-          -if(@account.subscriptions.empty?)
-            Subscribe
-          -else
+          -if(@account_subscribed)
             Thank You
+          -else
+            Subscribe
     .clearfix
 	  
       %h1=@address.address_long

@@ -1,31 +1,12 @@
 .container-fluid
   .row-fluid
     .span2
-      / Sidebar content
-      .well{:style => "padding: 8px 0;"}
-        %ul.nav.nav-list
-          %li.nav-header List header
-          %li.active
-            %a{:href => "#"} Subscriptions
-          %li.nav-header Custom Lists
-          %li
-            %a{:href => "#"} Pending Sale
-          %li
-            %a{:href => "#"} On-going Repairs
-          %li
-            %a{:href => "#"} Title Cleared            
-          %li
-            %a{:href => "#"} Add New            
-          %li
-            %a{:href => "#"} 
-          %li.divider
-          %li
-            %a{:href => "#"} Settings
-          %li
-            %a{:href => "#"} Help
+      =render "accounts/menu"
       
     .span8
       / Body content
+      =@user.inspect
+      =@account_subcriptions.length
       %table.table.table-bordered
         %thead
           %tr
@@ -41,11 +22,11 @@
               %td
                 %input{:type => "checkbox"}
               %td
-                =image_tag("/assets/house_icon.png")
+                =image_tag "/assets/house_icon.png"
               %td
                 =link_to n.address_long, address_path(n)
               %td
                 Inpections
               %td
                 Random notes
-                
+

@@ -15,9 +15,12 @@ class AddressesController < ApplicationController
   end
 
   def show
-    @address = Address.find(params[:id])
     @account = current_account
-    respond_with(@address, @account)
+
+    @address = Address.find(params[:id])
+    @account_subscribed = !@account.subscriptions.where(:address_id => params[:id]).empty? 
+
+    respond_with(@address, @account_subscribed)
   end
 
   def search

@@ -84,28 +84,29 @@
             .btn
               %a{:href => "/cases"} View Cases
 
-      / :javascript
-      /   var uvOptions = {};
-      /   (function() {
-      /     var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-      /     uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/sbCfvA4L1mTaaViXwjCtg.js';
-      /     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
-      /   })();
+      = javascript_include_tag "application"
+
+      :javascript
+        var uvOptions = {};
+        (function() {
+          var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+          uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/sbCfvA4L1mTaaViXwjCtg.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+        })();
   	  
-      / /[if lte IE 8]
-      /   <link rel="stylesheet" href="http://code.leafletjs.com/leaflet-0.3.1/leaflet.ie.css" />
-      / %link{:href => "http://code.leafletjs.com/leaflet-0.3.1/leaflet.css", :rel => "stylesheet"}/
+      /[if lte IE 8]
+        <link rel="stylesheet" href="http://code.leafletjs.com/leaflet-0.3.1/leaflet.ie.css" />
+      %link{:href => "http://code.leafletjs.com/leaflet-0.3.1/leaflet.css", :rel => "stylesheet"}/
 
-      / = javascript_include_tag "application"
-      / :javascript
-      /   var _gaq = _gaq || [];
-      /   _gaq.push(['_setAccount', 'UA-31630834-1']);
-      /   _gaq.push(['_setDomainName', 'herokuapp.com']);
-      /   _gaq.push(['_setAllowLinker', true]);
-      /   _gaq.push(['_trackPageview']);
+      :javascript
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-31630834-1']);
+        _gaq.push(['_setDomainName', 'herokuapp.com']);
+        _gaq.push(['_setAllowLinker', true]);
+        _gaq.push(['_trackPageview']);
 
-      /   (function() {
-      /     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      /     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      /     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      /   })();
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();

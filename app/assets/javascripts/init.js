@@ -51,7 +51,29 @@ OpenBlight = {
 
   addresses: {
     init: function(){
+      console.log('init');
+      OpenBlight.addresses.setup_observers();
     },
+
+    setup_observers: function(){
+
+      console.log('observer');
+      OpenBlight.addresses.subscribe_button();
+
+    },
+
+    subscribe_button: function(){
+
+      jQuery(".subscribe-button").click(function(){
+        var that = this;
+        jQuery.post( '/subscriptions', { id: $('#address').attr('internal_address_id') }, function(data) {
+          //console.log(data);
+          jQuery(that).html('Thank You');
+        }, 'json');
+      });   
+
+    },
+
     search: function(){
 
       wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',
@@ -88,11 +110,6 @@ OpenBlight = {
       
       $(".property-status").popover({placement: 'bottom'});
       
-      $(".subscribe-button").click(function(){
-        jQuery.post( '/subscriptions', { id: $('#address').attr('address_id') }, function(data) {
-          console.log(data);
-        }, 'json');
-      });		
     },
 
     
