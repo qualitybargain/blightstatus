@@ -71,6 +71,9 @@ module AddressHelpers
     streetname = streetname.to_s.single_space.upcase
     streetname = strip_address_number(streetname)
     streetname = strip_address_unit(streetname)
+    streetname = strip_direction(streetname)
+    
+    
     unless streetname.nil?
       @street_types.each do |(label, value)|
         if streetname.match(/\s#{label}$/)
@@ -102,10 +105,13 @@ module AddressHelpers
 
   def strip_direction(streetname)
     streetname.upcase!
-    @street_direction.each do |(label, value)|
-      if streetname.match(/^\d+\s#{label}\s/)
-        return streetname.sub(/\s#{label}\s/, ' ')
-      end 
+    @street_direction.each do |(abbr, full)|
+      if streetname.match(/(^|\s)#{abbr}(\s|$)/)
+        return streetname.sub(/(^|\s)#{abbr}(\s|$)/, ' ')
+      end
+      if streetname.match(/(^|\s)#{full}(\s|$)/)
+        return streetname.sub(/(^|\s)#{full}(\s|$)/, ' ')
+      end
     end
     return streetname
   end

@@ -16,6 +16,7 @@
               .inspection
                 Property was inspected on
                 %b #{i.inspection_date.strftime("%m/%d/%Y")}
+                , with a finding of #{i.result}
         -if kase.inspections.empty? && !kase.notifications.empty?
           .inspection
             No Data Available
@@ -71,7 +72,8 @@
           =image_tag('check_mark.png', :width => '20px')
         .note
           .hearing
-            %t=kase.judgement.notes
+            %t=kase.judgement.notes + " on "
+            %b=kase.judgement.judgement_date.strftime("%m/%d/%Y")
 
     -unless kase.resets.empty?
       .span13
@@ -83,6 +85,6 @@
           .span4 
             -kase.resets.each do |r|
               .reset
-                ="This case was reset on " << r.reset_date.strftime("%m/%d/%Y")
+                ="This case was reset for " << r.reset_date.strftime("%m/%d/%Y")
 
 

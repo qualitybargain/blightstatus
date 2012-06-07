@@ -13,8 +13,6 @@ class Case < ActiveRecord::Base
   validates_presence_of :case_number
   validates_uniqueness_of :case_number
 
-  self.per_page = 50
-
   def accela_steps
     steps_ary = []
     steps_ary << self.hearings << self.inspections << self.demolitions << self.resets << self.foreclosure << self.notifications

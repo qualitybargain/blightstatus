@@ -19,6 +19,9 @@ You can see a running version of the application at
 [demo]: http://blightstatus-dev.herokuapp.com/
 
 ## <a name="installation"></a>Installation
+
+[Instructions for Ubuntu 12.04 Precise Pangolin (LTS)](https://gist.github.com/2843358)
+
     git clone git://github.com/codeforamerica/openblight.git
     cd openblight
     bundle install

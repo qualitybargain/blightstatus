@@ -5,7 +5,8 @@ include AddressHelpers
 class AddressesController < ApplicationController
   respond_to :html, :xml, :json
 
-  autocomplete :address, :address_long
+  # we are not using  :full => true  because we want to show only street names or addresses. not mix 'em
+  autocomplete :address, :address_long 
 
   def index
     @addresses = Address.page(params[:page]).order(:address_long)
@@ -32,18 +33,17 @@ class AddressesController < ApplicationController
       # if it's not a direct hit, then we look at the street name and just present a list of properties
       # with that street name that have a case. No point in printing out a bunch of houses without cases
       street_name = AddressHelpers.get_street_name(@search_term)
-      @addresses = Address.find_addresses_with_cases_by_street(street_name).page(params[:page]).order(:house_num)
+
+      @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:house_num).page(params[:page]).per(15)
 
 #      factory = RGeo::Geographic::simple_mercator_factory
 #      bbox = RGeo::Cartesian::BoundingBox.new(factory)
         
       @addresses.each {|addr| 
-        addr.address_long = AddressHelpers.unabbreviate_street_types(addr.address_long) 
+        addr.address_long = AddressHelpers.unabbreviate_street_types(addr.address_long).capitalize
 #        bbox.add(addr.point)
       } 
-      
-      
-      
+
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @addresses }
