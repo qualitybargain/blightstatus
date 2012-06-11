@@ -63,7 +63,7 @@ OpenBlight = {
           
           if(key === "")
             key = "undeclared";// : key;
-          keys[i] = key + " - %%.%%";
+          keys[i] = key + " - " + value + " (%%.%%)";
           values[i] = value;
           i++;
         });
@@ -88,13 +88,13 @@ OpenBlight = {
                         this.label[1].attr({ "font-weight": 400 });
                     }
                 });
+
       }
       console.log("SHOW ALL THE GRAPHS!");
       console.log(BlightStats.data);
       
       graph("inspection_types",BlightStats.data.inspections.types,"Inspection by Type");
       graph("inspection_results",BlightStats.data.inspections.results,"Inspection Results");
-      //graph("notification_types",BlightStats.data.notifications.types, "Notification by Type");
       graph("hearing_status",BlightStats.data.hearings.status,"Hearing Status");
       graph("judgement_status",BlightStats.data.judgements.status,"Judgement Status");
       graph("maintenance_programs",BlightStats.data.maintenances.program_names,"Maintenance by Program");

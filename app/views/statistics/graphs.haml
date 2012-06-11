@@ -9,91 +9,19 @@
   
     %h2 City Stats
     %div{:id => "inspection_results"}
-    %table{:border => "0"}
-      %tr
-        %tr
-          %th Inspections
-        %tr
-          %td Results
-          - inspStats[:results].each do |l,v|
-            %td= l.class == String ? l.capitalize : "Undeclared"
-        %tr
-        %tr
-          %th 
-          - inspStats[:results].each do |l,v|
-            %td= v.to_s
-        %tr
+    
     %div{:id => "inspection_types"}
-    %table{:border => "0"}
-      %tr    
-        %tr
-          %td Types
-          - inspStats[:types].each do |l,v|
-            %td= l.class == String ? l.capitalize : "Undeclared"
-        %tr
-        %tr
-          %th 
-          - inspStats[:types].each do |l,v|
-            %td= v.to_s
-        %tr
+    
     %div{:id => "notification_types"}
-    %table{:border => "0"}  
-      %tr
-        %tr
-          %th Notifications
-        %tr
-          %td Types
-          - notiStats[:types].each do |l,v|
-            %td= l.class == String ? l.capitalize : "Undeclared"
-        %tr
-        %tr
-          %th 
-          - notiStats[:types].each do |l,v|
-            %td= v.to_s
-        %tr
+    
     %div{:id => "hearing_status"}
-    %table{:border => "0"}    
-      %tr
-        %tr
-          %th Hearings
-        %tr
-          %td Status
-          - hearStats[:status].each do |l,v|
-            %td= l.class == String ? l.capitalize : "Undeclared"
-        %tr
-        %tr
-          %th 
-          - hearStats[:status].each do |l,v|
-            %td= v.to_s
-        %tr
+    
     %div{:id => "judgement_status"}
-    %table{:border => "0"}    
-      %tr
-        %tr
-          %th Judgements
-        %tr
-          %td Status
-          - judgeStats[:status].each do |l,v|
-            %td= l.class == String ? l.capitalize : "Undeclared"
-        %tr
-        %tr
-          %th 
-          - judgeStats[:status].each do |l,v|
-            %td= v.to_s
-        %tr
+    
+    %div{:id => "maintenance_status"}
+    
     %div{:id => "maintenance_programs"}
-    %table{:border => "0"}    
-      %tr
-        %tr
-          %td Program Name
-          - maintStats[:program_names].each do |l,v|
-            %td= l.class == String ? l.capitalize : "Undeclared"
-        %tr
-        %tr
-          %th 
-          - maintStats[:program_names].each do |l,v|
-            %td= v.to_s
-        %tr
+    
     
 =content_for :javascripts do
   BlightStats = {};
