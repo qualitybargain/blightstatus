@@ -5,8 +5,8 @@ OpenBlight = {
 		  OpenBlight.common.show_disclaimer();
 		  OpenBlight.common.handle_auto_complete_address();
     },
-    
-    handle_auto_complete_address: function(){      
+
+    handle_auto_complete_address: function(){
   	  $('#main-search-field').keyup(function(key){
     		  var first_char = $(this).val().substr(0, 1);
 		      // rationale explained in addresses_controller
@@ -14,8 +14,7 @@ OpenBlight = {
     		      $("#main-search-field").autocomplete({
     		        source: "/streets/autocomplete_street_full_name"
     		      });
-    		  }
-    		  else{	
+    		  }else{
     		      $("#main-search-field").autocomplete({
     		        source: "/addresses/autocomplete_address_address_long"
     		      });
@@ -52,54 +51,155 @@ OpenBlight = {
   addresses: {
     init: function(){
     },
+
     search: function(){
+      var map = new L.Map('map');
+      var group = new L.LayerGroup();
 
       wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',
         function(tilejson) {
           // this shoud be moved into a function
           var json_path = window.location.toString().replace(/search\?/i, 'search.json\?');
+          map.addLayer(new wax.leaf.connector(tilejson));
 
-          jQuery.getJSON( json_path, function(data) {
-
+          jQuery.getJSON(json_path, function(data) {
             if(data.length){
-              var map = new L.Map('map').addLayer(new wax.leaf.connector(tilejson));
               var popup = new L.Popup();
 
               var y = 29.95;
               var x = -90.05;
               var zoom = 12
 
-              for ( i = 0; i < data.length; i++ ){
-                var point = data[i].point.substring(7, data[i].point.length -1).split(' ');
-                var y = point[1];
-                var x= point[0];                				
-                var popupContent = '<h3><a href="/addresses/'+ data[i].id +'">'+ data[i].address_long + '</a></h3><h4>'+ data[i].most_recent_status_preview.type + ' on ' + data[i].most_recent_status_preview.date + '</h4>' 
-                map.addLayer(new L.Marker(new L.LatLng(point[1] , point[0])).bindPopup(popupContent));
-        zoom = 14
-              }
-              // we center the map on the last position
+              OpenBlight.addresses.populateMap(map, group, data);
+
+             // we center the map on the last position
               map.setView(new L.LatLng(y, x), zoom);
+
+              map.on('dragend', function(e){
+                OpenBlight.addresses.mapSearch(map, group);
+              });
             }
           });
       });
+
+      $('.pagination.dynamic a').live('click', function(e){
+        e.preventDefault();
+        var bounds = map.getBounds();
+        bounds = {
+          northEast: {
+            lat: bounds._northEast.lat,
+            lng: bounds._northEast.lng
+          },
+          southWest: {
+            lat: bounds._southWest.lat,
+            lng: bounds._southWest.lng
+          }
+        }
+
+        $.get($(this).attr('href'), function(data, status){
+          group.clearLayers();
+          var $ul = $('.search-results ul.nav');
+          $ul.html('');
+
+          var stats = data[1], data = $.parseJSON(data[0]);
+
+          OpenBlight.addresses.paginate(data, stats, bounds);
+          OpenBlight.addresses.populateMap(map, group, data);
+        }, 'json');
+      });
     },
+
     show: function(){
       $(".property-status").popover({placement: 'bottom'});
 		
-      wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',
-        function(tilejson) {
+      wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
 
           // this should not be hard coded. do json request?
         var x = $("#address").attr("data-x");
         var y = $("#address").attr("data-y");
-        
+
         var map = new L.Map('map')
           .addLayer(new wax.leaf.connector(tilejson))
           .addLayer(new L.Marker(new L.LatLng(y , x)))
           .setView(new L.LatLng(y , x), 17);
       });
+    },
+
+    mapSearch: function(map, group){
+      var bounds = map.getBounds();
+      bounds = {
+        northEast: {
+          lat: bounds._northEast.lat,
+          lng: bounds._northEast.lng
+        },
+        southWest: {
+          lat: bounds._southWest.lat,
+          lng: bounds._southWest.lng
+        }
+      }
+
+      $.get('/addresses/map_search', bounds, function(data, status){
+        group.clearLayers();
+        var $ul = $('.search-results ul.nav');
+        $ul.html('');
+
+        var stats = data[1], data = $.parseJSON(data[0]);
+
+        if(data.length){
+          OpenBlight.addresses.paginate(data, stats, bounds);
+          OpenBlight.addresses.populateMap(map, group, data);
+        }else{
+          $ul.append('<li>No properties found</li>');
+        }
+      }, 'json');
+    },
+
+    paginate: function(data, stats, bounds){
+      var $pag = $('.pagination');
+      if($pag.length == 0){
+        $('.btn-group').append('<nav class="pagination"></nav>');
+        $pag = $('.pagination');
+      } else {
+        $pag.html('');
+      }
+      $pag.addClass('dynamic');
+      if(stats.page_count > 1){
+        var pagination = "";
+        var query_string = "/addresses/map_search?northEast%5Blat%5D=" + bounds.northEast.lat + "&northEast%5Blng%5D=" + bounds.northEast.lng + "&southWest%5Blat%5D=" + bounds.southWest.lat + "&southWest%5Blng%5D=" + bounds.southWest.lng;
+        if(stats.page !== 1){
+          pagination = pagination + '<span class="first"><a href="' + query_string + '&page=1">« First</a></span> <span class="prev"><a href="'+ query_string + '&page=' + (stats.page - 1) + '"> ‹ Prev </a></span>';
+          if(stats.page > 2){
+            pagination = pagination + '<span class="page"><a href="' + query_string + '&page='+ (stats.page - 2) +'">'+ (stats.page - 2) +'</a></span>';
+          }
+          pagination = pagination + '<span class="page"><a href="' + query_string + '&page='+ (stats.page - 1 ) +'">'+ (stats.page - 1) +'</a></span>';
+        }
+        pagination = pagination + '<span class="page current">'+ stats.page +'</span>';
+        if(stats.page !== stats.page_count) {
+          pagination = pagination + '<span class="page"><a href="' + query_string + '&page='+ (stats.page + 1)+'">'+ (stats.page + 1) +'</a></span>';
+          if(stats.page_count - stats.page > 1){
+            pagination = pagination + '<span class="page"><a href="' + query_string + '&page='+ (stats.page + 2)+'">'+ (stats.page + 2) +'</a></span>';
+          }
+          pagination = pagination + '<span class="next"><a href="' + query_string + '&page='+ (stats.page + 1)+'">Next ›</a></span><span class="last"><a href="'+ query_string + '&page='+ stats.page_count +'">Last »</a></span>';
+        }
+        $pag.append(pagination);
+      }
+    },
+
+    populateMap: function(map, group, data){
+      for ( i = 0; i < data.length; i++ ){
+        var point = data[i].point.substring(7, data[i].point.length -1).split(' ');
+        var y = point[1], x= point[0];
+        var popupContent = '<h3><a href="/addresses/'+ data[i].id +'">'+ data[i].address_long + '</a></h3><h4>'+ data[i].most_recent_status_preview.type + ' on ' + data[i].most_recent_status_preview.date + '</h4>'
+        group.addLayer(new L.Marker(new L.LatLng(point[1] , point[0])).bindPopup(popupContent));
+
+        $('.search-results ul.list').append('<li class="active address result"><a href="/addresses/'+ data[i].id +'"><img width="10px" src="/assets/marker.png">'+ data[i].address_long +'</a></li>');
+      }
+      zoom = 14
+      map.addLayer(group);
     }
-  }
+
+  },
+
 };
 
 UTIL = {
@@ -121,5 +221,5 @@ UTIL = {
     UTIL.exec( controller, action );
   }
 };
- 
+
 $(document).ready( UTIL.init );

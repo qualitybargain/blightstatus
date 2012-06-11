@@ -2,14 +2,13 @@
   .search-results
     .left-bar      
       .well{:style => "padding: 8px 0;"}
+        .nav-header Search Results
         %ul.nav.list
-          %li.nav-header Search Results
-          -@addresses.each do |a|
+          -#-@addresses.each do |a|
             %li.active.address.result
-              %a{:href => "#"}
-                %img{ :width => "10px", :src => "http://code.leafletjs.com/leaflet-0.3.1/images/marker.png"  }
-                %i.home
-                =link_to a.address_long, address_path(a.id)
+              %a{:href => address_path(a)}
+                %img{ :width => "10px", :src => "/assets/marker.png"  }
+                =a.address_long
         .clearfix
     .right-bar
       %h3 Result only show properties with cases:

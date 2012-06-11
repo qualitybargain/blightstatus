@@ -56,4 +56,13 @@ class Address < ActiveRecord::Base
     Address.joins(:cases).where(:addresses => {:street_name => street_string})
   end
 
+  def self.find_addresses_within_area(ne, sw)
+    factory = Address.first.point.factory
+    box = RGeo::Cartesian::BoundingBox.new(factory)
+    p1 = factory.point(ne["lng"].to_f, ne["lat"].to_f)
+    p2 = factory.point(sw["lng"].to_f, sw["lat"].to_f)
+    box.add(p1).add(p2)
+    @addresses = Address.find_by_sql("SELECT a.* FROM addresses a INNER JOIN cases c ON c.address_id = a.id WHERE ST_Within(point, ST_GeomFromText('#{box.to_geometry.as_text}')) GROUP BY a.id ORDER BY a.street_name ASC, a.house_num ASC;")
+  end
+
 end

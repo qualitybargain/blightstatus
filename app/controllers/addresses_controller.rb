@@ -27,22 +27,17 @@ class AddressesController < ApplicationController
 
     # When user searches they get a direct hit!
     if address_result.length == 1
-      # TODO: if json, then we should not redirect.
       redirect_to :action => "show", :id => address_result.first.id
+      # TODO: if json, then we should not redirect.
+      # This shouldn't be hard to do - just check if it's an xhr request with request.xhr?
     else
-      # if it's not a direct hit, then we look at the street name and just present a list of properties
-      # with that street name that have a case. No point in printing out a bunch of houses without cases
       street_name = AddressHelpers.get_street_name(@search_term)
 
       @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:house_num).page(params[:page]).per(15)
 
-#      factory = RGeo::Geographic::simple_mercator_factory
-#      bbox = RGeo::Cartesian::BoundingBox.new(factory)
-        
       @addresses.each {|addr| 
         addr.address_long = AddressHelpers.unabbreviate_street_types(addr.address_long).capitalize
-#        bbox.add(addr.point)
-      } 
+      }
 
       respond_to do |format|
         format.html # show.html.erb
@@ -52,4 +47,17 @@ class AddressesController < ApplicationController
     end
   end
 
+  def map_search
+    ne = params["northEast"]
+    sw = params["southWest"]
+
+    @addresses = Address.find_addresses_within_area(ne, sw)
+
+    page = (params[:page] || 1).to_i
+    offset = (page - 1) * 15
+    page_count = @addresses.count / 15
+    @addresses = @addresses.slice(offset, 15)
+
+    respond_with [@addresses.to_json(:methods => [:most_recent_status_preview]), :page_count => page_count, :page => page]
+  end
 end
