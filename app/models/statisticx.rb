@@ -1,4 +1,4 @@
-class Statistic
+class Statisticx
 
 	def Addresses
 		{:total => Address.count}
