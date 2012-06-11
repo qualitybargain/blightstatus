@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require ./lib/leaflet
+//= require ./lib/wax.leaf.min
 //= require_directory ./controllers
 //= require init
 //= require ./lib/jquery-cookie
