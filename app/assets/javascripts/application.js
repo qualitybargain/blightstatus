@@ -15,6 +15,8 @@
 //= require jquery-ui
 //= require_directory ./controllers
 //= require ./lib/raphael-min.js
+//= require ./lib/g.raphael.js
+//= require ./lib/g.pie.js
 //= require init
 //= require ./lib/jquery-cookie
 //= require ./lib/bootstrap-tooltip

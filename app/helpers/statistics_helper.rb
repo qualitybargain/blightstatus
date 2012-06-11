@@ -5,7 +5,7 @@ module StatisticsHelper
 	end
 
 	def cases_stats
-		{:total => Case.count, :matched => Case.matched_count, :unmathed => Case.unmatched_count, :percentageMatche => Case.pct_matched}
+		{:total => Case.count, :matched => Case.matched_count, :unmatched => Case.unmatched_count, :percentageMatche => Case.pct_matched}
 	end
 
 	def inspections_stats

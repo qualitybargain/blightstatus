@@ -1,90 +1,14 @@
+- inspStats = inspections_stats
+- notiStats = notifications_stats
+- hearStats = hearings_stats
+- judgeStats = judgements_stats
+- maintStats = maintenances_stats
 .inner
   .row-fluid{"class" => "show-grid"}
     %h1 Statistics
   
-    %h2 Data Quality
-    %table{:border => "0"}
-      %tr
-        %th/
-        %th Total
-        %th # Matched
-        %th # Unmatched
-        %th % Matched
-        %tr
-          %tr
-            %th Addresses
-            -addrStats = addresses_stats
-            %td= addrStats[ :total]
-            %td/
-            %td/
-            %td/
-          %tr
-            %th Cases
-            -caseStats = cases_stats
-            %td= caseStats[:total]
-            %td= caseStats[:matched]
-            %td= caseStats[:unmatched]
-            %td= caseStats[:percentageMatched]
-          %tr
-            %th Inspections
-            -inspStats = inspections_stats
-            %td= inspStats[:total]
-            %td= inspStats[:matched]
-            %td= inspStats[:unmatched]
-            %td= inspStats[:percentageMatched]
-          %tr
-            %th Notifications
-            -notiStats = notifications_stats
-            %td= notiStats[:total]
-            %td= notiStats[:matched]
-            %td= notiStats[:unmatched]
-            %td= notiStats[:percentageMatched]
-          %tr
-            %th Hearings
-            -hearStats = hearings_stats
-            %td= hearStats[:total]
-            %td= hearStats[:matched]
-            %td= hearStats[:unmatched]
-            %td= hearStats[:percentageMatched]
-          %tr
-            %th Resets
-            -resetStats = resets_stats
-            %td= resetStats[:total]
-            %td= resetStats[:matched]
-            %td= resetStats[:unmatched]
-            %td= resetStats[:percentageMatched]
-          %tr
-            %th Judgements
-            -judgeStats = judgements_stats
-            %td= judgeStats[:total]
-            %td= judgeStats[:matched]
-            %td= judgeStats[:unmatched]
-            %td= judgeStats[:percentageMatched]
-          %tr
-            %th Maintenances
-            -maintStats = maintenances_stats
-            %td= maintStats[:total]
-            %td= maintStats[:matched]
-            %td= maintStats[:unmatched]
-            %td= maintStats[:percentageMatched]
-          %tr
-            %th Foreclosures
-            -foreclStats = foreclosures_stats
-            %td= foreclStats[:total]
-            %td= foreclStats[:matched]
-            %td= foreclStats[:unmatched]
-            %td= foreclStats[:percentageMatched]
-          %tr
-            %th Demolitions
-            -demoStats = demolitions_stats
-            %td= demoStats[:total]
-            %td= demoStats[:matched]
-            %td= demoStats[:unmatched]
-            %td= demoStats[:percentageMatched]
-        
-    %br
-    %br
     %h2 City Stats
+    %div{:id => "inspection_results"}
     %table{:border => "0"}
       %tr
         %tr
@@ -99,6 +23,21 @@
           - inspStats[:results].each do |l,v|
             %td= v.to_s
         %tr
+    %div{:id => "inspection_types"}
+    %table{:border => "0"}
+      %tr    
+        %tr
+          %td Types
+          - inspStats[:types].each do |l,v|
+            %td= l.class == String ? l.capitalize : "Undeclared"
+        %tr
+        %tr
+          %th 
+          - inspStats[:types].each do |l,v|
+            %td= v.to_s
+        %tr
+    %div{:id => "notification_types"}
+    %table{:border => "0"}  
       %tr
         %tr
           %th Notifications
@@ -112,6 +51,8 @@
           - notiStats[:types].each do |l,v|
             %td= v.to_s
         %tr
+    %div{:id => "hearing_status"}
+    %table{:border => "0"}    
       %tr
         %tr
           %th Hearings
@@ -125,6 +66,8 @@
           - hearStats[:status].each do |l,v|
             %td= v.to_s
         %tr
+    %div{:id => "judgement_status"}
+    %table{:border => "0"}    
       %tr
         %tr
           %th Judgements
@@ -138,18 +81,9 @@
           - judgeStats[:status].each do |l,v|
             %td= v.to_s
         %tr
+    %div{:id => "maintenance_programs"}
+    %table{:border => "0"}    
       %tr
-        %tr
-          %th Maintenances
-        %tr
-          %td Status
-          - maintStats[:status].each do |l,v|
-            %td= l.class == String ? l.capitalize : "Undeclared"
-        %tr
-        %tr
-          %th 
-          - maintStats[:status].each do |l,v|
-            %td= v.to_s
         %tr
           %td Program Name
           - maintStats[:program_names].each do |l,v|
@@ -160,20 +94,7 @@
           - maintStats[:program_names].each do |l,v|
             %td= v.to_s
         %tr
-      %tr
-        %tr
-          %th Foreclosures
-        %tr
-          %td Status
-          - foreclStats[:status].each do |l,v|
-            %td= l.class == String ? l.capitalize : "Undeclared"
-        %tr
-        %tr
-          %th 
-          - foreclStats[:status].each do |l,v|
-            %td= v.to_s
-        %tr
-      %tr
+    
 =content_for :javascripts do
   BlightStats = {};
   BlightStats.data = {

@@ -1,48 +1,3 @@
-Raphael.fn.pieChart = function (cx, cy, r, values, labels, stroke) {
-    var paper = this,
-        rad = Math.PI / 180,
-        chart = this.set();
-    function sector(cx, cy, r, startAngle, endAngle, params) {
-        var x1 = cx + r * Math.cos(-startAngle * rad),
-            x2 = cx + r * Math.cos(-endAngle * rad),
-            y1 = cy + r * Math.sin(-startAngle * rad),
-            y2 = cy + r * Math.sin(-endAngle * rad);
-        return paper.path(["M", cx, cy, "L", x1, y1, "A", r, r, 0, +(endAngle - startAngle > 180), 0, x2, y2, "z"]).attr(params);
-    }
-    var angle = 0,
-        total = 0,
-        start = 0,
-        process = function (j) {
-            var value = values[j],
-                angleplus = 360 * value / total,
-                popangle = angle + (angleplus / 2),
-                color = Raphael.hsb(start, .75, 1),
-                ms = 500,
-                delta = 30,
-                bcolor = Raphael.hsb(start, 1, 1),
-                p = sector(cx, cy, r, angle, angle + angleplus, {fill: "90-" + bcolor + "-" + color, stroke: stroke, "stroke-width": 3}),
-                txt = paper.text(cx + (r + delta + 55) * Math.cos(-popangle * rad), cy + (r + delta + 25) * Math.sin(-popangle * rad), labels[j]).attr({fill: bcolor, stroke: "none", opacity: 0, "font-size": 20});
-            p.mouseover(function () {
-                p.stop().animate({transform: "s1.1 1.1 " + cx + " " + cy}, ms, "elastic");
-                txt.stop().animate({opacity: 1}, ms, "elastic");
-            }).mouseout(function () {
-                p.stop().animate({transform: ""}, ms, "elastic");
-                txt.stop().animate({opacity: 0}, ms);
-            });
-            angle += angleplus;
-            chart.push(p);
-            chart.push(txt);
-            start += .1;
-        };
-    for (var i = 0, ii = values.length; i < ii; i++) {
-        total += values[i];
-    }
-    for (i = 0; i < ii; i++) {
-        process(i);
-    }
-    return chart;
-};
-
 OpenBlight = {
   common: {
     init: function() {
@@ -87,12 +42,63 @@ OpenBlight = {
       console.log("SHOW ALL THE THINGS!");
     },
     graphs: function(){
-      console.log(BlightStats.data)
+      //var stats = BlightStats.data;
+      //jQuery.each(obj, function(key, val) {
+        //$("#" + i).append(document.createTextNode(" - " + val));
+      //});
+
+      //var results = BlightStats.data.judgements.result;
+      //$.each(results, function(key, value) {
+      //  Console.log(key + ' => ' + value);
+      //});
+      var i;
+      var keys = []
+      var values = [];
+      //var values = [];
+      var graph = function(id, data,title){
+        i = 0;
+        keys =[];
+        values = [];
+        $.each(data, function(key, value) {
+          
+          if(key === "")
+            key = "undeclared";// : key;
+          keys[i] = key + " - %%.%%";
+          values[i] = value;
+          i++;
+        });
+        
+        var r = Raphael(id), pie = r.piechart(320, 240, 100, values, { legend: keys, legendpos: "east", href: [".", "."]});
+
+                r.text(320, 100, title).attr({ font: "20px sans-serif" });
+                pie.hover(function () {
+                    this.sector.stop();
+                    this.sector.scale(1.1, 1.1, this.cx, this.cy);
+
+                    if (this.label) {
+                        this.label[0].stop();
+                        this.label[0].attr({ r: 7.5 });
+                        this.label[1].attr({ "font-weight": 800 });
+                    }
+                }, function () {
+                    this.sector.animate({ transform: 's1 1 ' + this.cx + ' ' + this.cy }, 500, "bounce");
+
+                    if (this.label) {
+                        this.label[0].animate({ r: 5 }, 500, "bounce");
+                        this.label[1].attr({ "font-weight": 400 });
+                    }
+                });
+      }
       console.log("SHOW ALL THE GRAPHS!");
-       var values = [10,20,30,40],
-        labels = ["red","blue","green","purple"];
+      console.log(BlightStats.data);
       
-      Raphael("tag", 700, 700).pieChart(350, 350, 200, values, labels, "#fff");
+      graph("inspection_types",BlightStats.data.inspections.types,"Inspection by Type");
+      graph("inspection_results",BlightStats.data.inspections.results,"Inspection Results");
+      //graph("notification_types",BlightStats.data.notifications.types, "Notification by Type");
+      graph("hearing_status",BlightStats.data.hearings.status,"Hearing Status");
+      graph("judgement_status",BlightStats.data.judgements.status,"Judgement Status");
+      graph("maintenance_programs",BlightStats.data.maintenances.program_names,"Maintenance by Program");
+      
     }
   },
 
