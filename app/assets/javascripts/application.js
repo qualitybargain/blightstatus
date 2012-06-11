@@ -15,7 +15,11 @@
 //= require jquery-ui
 //= require_directory ./controllers
 //= require init
+//= require ./lib/leaflet
+//= require ./lib/wax.leaf.min
 //= require ./lib/jquery-cookie
 //= require ./lib/bootstrap-tooltip
 //= require ./lib/bootstrap-popover
 //= require ./lib/bootstrap-modal
+
+
