@@ -2,24 +2,24 @@ OpenBlight = {
   common: {
     init: function() {
       // application-wide code
-		  OpenBlight.common.show_disclaimer();
-		  OpenBlight.common.handle_auto_complete_address();
+      OpenBlight.common.show_disclaimer();
+      OpenBlight.common.handle_auto_complete_address();
     },
 
     handle_auto_complete_address: function(){
-  	  $('#main-search-field').keyup(function(key){
-    		  var first_char = $(this).val().substr(0, 1);
-		      // rationale explained in addresses_controller
-    		  if(isNaN(first_char)){
-    		      $("#main-search-field").autocomplete({
-    		        source: "/streets/autocomplete_street_full_name"
-    		      });
-    		  }else{
-    		      $("#main-search-field").autocomplete({
-    		        source: "/addresses/autocomplete_address_address_long"
-    		      });
-    		  }
-  	    });
+      $('#main-search-field').keyup(function(key){
+        var first_char = $(this).val().substr(0, 1);
+         // rationale explained in addresses_controller
+        if(isNaN(first_char)){
+          $("#main-search-field").autocomplete({
+            source: "/streets/autocomplete_street_full_name"
+          });
+        }else{
+          $("#main-search-field").autocomplete({
+            source: "/addresses/autocomplete_address_address_long"
+          });
+        }
+      });
     },
 
     show_disclaimer: function(){
@@ -33,12 +33,12 @@ OpenBlight = {
       })
     }
   },
-  
+
   home: {
     init: function() {
     }
   },
-    
+
   statistics: {
     init: function(){
 
@@ -93,14 +93,15 @@ OpenBlight = {
 
     show: function(){
       $(".property-status").popover({placement: 'bottom'});
-		
+
       wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
+        var x, y, map;
 
           // this should not be hard coded. do json request?
-        var x = $("#address").attr("data-x");
-        var y = $("#address").attr("data-y");
+        x = $("#address").attr("data-x");
+        y = $("#address").attr("data-y");
 
-        var map = new L.Map('map')
+        map = new L.Map('map')
           .addLayer(new wax.leaf.connector(tilejson))
           .addLayer(new L.Marker(new L.LatLng(y , x)))
           .setView(new L.LatLng(y , x), 17);
