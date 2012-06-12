@@ -32,10 +32,15 @@ class AddressesController < ApplicationController
     else
       # if it's not a direct hit, then we look at the street name and just present a list of properties
       # with that street name that have a case. No point in printing out a bunch of houses without cases
+
+        
       street_name = AddressHelpers.get_street_name(@search_term)
 
-      @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:house_num).page(params[:page]).per(15)
-
+      if(dir = AddressHelpers.get_direction(@search_term))
+        @addresses = Address.find_addresses_with_cases_by_cardinal_street(dir,street_name).uniq.order(:house_num).page(params[:page]).per(15)
+      else
+        @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:house_num).page(params[:page]).per(15)
+      end
 #      factory = RGeo::Geographic::simple_mercator_factory
 #      bbox = RGeo::Cartesian::BoundingBox.new(factory)
         

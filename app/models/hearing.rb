@@ -6,4 +6,20 @@ class Hearing < ActiveRecord::Base
   def date
     self.hearing_date || DateTime.new(0)
   end
+
+  def self.matched_count
+  	Hearing.count(:conditions =>'case_number is not null')
+  end
+
+  def self.unmatched_count
+  	Hearing.count(:conditions => 'case_number is null')
+  end
+
+  def self.pct_matched
+  	Hearing.count(:conditions => "case_number is not null").to_f / Hearing.count.to_f * 100
+  end
+
+  def self.status
+  	Hearing.count(group: :hearing_status)
+  end
 end

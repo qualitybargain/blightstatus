@@ -16,6 +16,7 @@ Openblight::Application.routes.draw do
   #   resources :products
 
   match "addresses/search" => "addresses#search"
+  match "stats/graphs" => "statistics#graphs"
   match "stats" => "statistics#index"
   resources :addresses, :except => [:destroy, :create, :edit] do
     collection do
