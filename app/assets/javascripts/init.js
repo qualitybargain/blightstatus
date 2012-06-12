@@ -83,29 +83,11 @@ OpenBlight = {
       });
 
       $('.pagination.dynamic a').live('click', function(e){
-        e.preventDefault();
-        var bounds = map.getBounds();
-        bounds = {
-          northEast: {
-            lat: bounds._northEast.lat,
-            lng: bounds._northEast.lng
-          },
-          southWest: {
-            lat: bounds._southWest.lat,
-            lng: bounds._southWest.lng
-          }
-        }
+          e.preventDefault();
+          page = $(this).attr('data-page');
+          bounds = $(this).attr('data-bounds');
 
-        $.get($(this).attr('href'), function(data, status){
-          group.clearLayers();
-          var $ul = $('.search-results ul.nav');
-          $ul.html('');
-
-          var stats = data[1], data = $.parseJSON(data[0]);
-
-          OpenBlight.addresses.paginate(data, stats, bounds);
-          OpenBlight.addresses.populateMap(map, group, data);
-        }, 'json');
+          OpenBlight.addresses.mapSearch(map, group, page, bounds);
       });
     },
 
@@ -125,17 +107,25 @@ OpenBlight = {
       });
     },
 
-    mapSearch: function(map, group){
-      var bounds = map.getBounds();
-      bounds = {
-        northEast: {
-          lat: bounds._northEast.lat,
-          lng: bounds._northEast.lng
-        },
-        southWest: {
-          lat: bounds._southWest.lat,
-          lng: bounds._southWest.lng
+    mapSearch: function(map, group, page, pag_bounds){
+      var bounds;
+      if(pag_bounds){
+        bounds = JSON.parse(pag_bounds);
+      } else {
+        bounds = map.getBounds();
+        bounds = {
+          northEast: {
+            lat: bounds._northEast.lat,
+            lng: bounds._northEast.lng
+          },
+          southWest: {
+            lat: bounds._southWest.lat,
+            lng: bounds._southWest.lng
+          }
         }
+      }
+      if(page){
+        bounds.page = page;
       }
 
       $.get('/addresses/map_search', bounds, function(data, status){
@@ -165,21 +155,22 @@ OpenBlight = {
       $pag.addClass('dynamic');
       if(stats.page_count > 1){
         var pagination = "";
-        var query_string = "/addresses/map_search?northEast%5Blat%5D=" + bounds.northEast.lat + "&northEast%5Blng%5D=" + bounds.northEast.lng + "&southWest%5Blat%5D=" + bounds.southWest.lat + "&southWest%5Blng%5D=" + bounds.southWest.lng;
+        var query_string = "northEast%5Blat%5D=" + bounds.northEast.lat + "&northEast%5Blng%5D=" + bounds.northEast.lng + "&southWest%5Blat%5D=" + bounds.southWest.lat + "&southWest%5Blng%5D=" + bounds.southWest.lng;
+        var json_bounds = JSON.stringify(bounds);
         if(stats.page !== 1){
-          pagination = pagination + '<span class="first"><a href="' + query_string + '&page=1">« First</a></span> <span class="prev"><a href="'+ query_string + '&page=' + (stats.page - 1) + '"> ‹ Prev </a></span>';
+          pagination = pagination + "<span class='first'><a data-bounds='"+ json_bounds + "' data-page='1' href='" + query_string + "&page=1'>« First</a></span> <span class='prev'><a href='"+ query_string + "&page=" + (stats.page - 1) + "'> ‹ Prev </a></span>";
           if(stats.page > 2){
-            pagination = pagination + '<span class="page"><a href="' + query_string + '&page='+ (stats.page - 2) +'">'+ (stats.page - 2) +'</a></span>';
+            pagination = pagination + "<span class='page'><a data-bounds='"+ json_bounds + "' data-page='"+ (stats.page - 2) +"' href='" + query_string + "&page="+ (stats.page - 2) +"'>"+ (stats.page - 2) +"</a></span>";
           }
-          pagination = pagination + '<span class="page"><a href="' + query_string + '&page='+ (stats.page - 1 ) +'">'+ (stats.page - 1) +'</a></span>';
+          pagination = pagination + "<span class='page'><a data-bounds='"+ json_bounds + "' data-page='"+ (stats.page - 1) +"' href='" + query_string + "&page="+ (stats.page - 1 ) +"'>"+ (stats.page - 1) +"</a></span>";
         }
-        pagination = pagination + '<span class="page current">'+ stats.page +'</span>';
+        pagination = pagination + "<span class='page current'>"+ stats.page +"</span>";
         if(stats.page !== stats.page_count) {
-          pagination = pagination + '<span class="page"><a href="' + query_string + '&page='+ (stats.page + 1)+'">'+ (stats.page + 1) +'</a></span>';
+          pagination = pagination + "<span class='page'><a data-bounds='"+ json_bounds + "' data-page='"+ (stats.page + 1) +"' href='" + query_string + "&page="+ (stats.page + 1)+"'>"+ (stats.page + 1) +"</a></span>";
           if(stats.page_count - stats.page > 1){
-            pagination = pagination + '<span class="page"><a href="' + query_string + '&page='+ (stats.page + 2)+'">'+ (stats.page + 2) +'</a></span>';
+            pagination = pagination + "<span class='page'><a data-bounds='"+ json_bounds + "' data-page='"+ (stats.page + 2) +"' href='" + query_string + "&page="+ (stats.page + 2)+"'>"+ (stats.page + 2) +"</a></span>";
           }
-          pagination = pagination + '<span class="next"><a href="' + query_string + '&page='+ (stats.page + 1)+'">Next ›</a></span><span class="last"><a href="'+ query_string + '&page='+ stats.page_count +'">Last »</a></span>';
+          pagination = pagination + "<span class='next'><a data-bounds='"+ json_bounds + "' data-page='"+ (stats.page + 1) +"' href='" + query_string + "&page="+ (stats.page + 1)+"'>Next ›</a></span><span class='last'><a  data-bounds='"+ query_string + "' data-page='"+ (stats.page_count) +"' href='"+ query_string + "&page="+ stats.page_count +"'>Last »</a></span>";
         }
         $pag.append(pagination);
       }

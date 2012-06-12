@@ -33,7 +33,7 @@ class AddressesController < ApplicationController
     else
       street_name = AddressHelpers.get_street_name(@search_term)
 
-      @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:house_num).page(params[:page]).per(15)
+      @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:street_name, :house_num).page(params[:page]).per(15)
 
       @addresses.each {|addr| 
         addr.address_long = AddressHelpers.unabbreviate_street_types(addr.address_long).capitalize
