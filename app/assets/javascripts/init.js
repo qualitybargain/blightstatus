@@ -110,6 +110,9 @@ OpenBlight = {
 
     mapSearch: function(map, group, page, pag_bounds){
       var bounds;
+
+      $('ul.nav').addClass('loading');
+      $('#loading').show();
       if(pag_bounds){
         bounds = JSON.parse(pag_bounds);
       } else {
@@ -142,6 +145,8 @@ OpenBlight = {
         }else{
           $ul.append('<li>No properties found</li>');
         }
+        $('ul.nav').removeClass('loading');
+        $('#loading').hide();
       }, 'json');
     },
 

@@ -9,6 +9,7 @@
               %a{:href => address_path(a)}
                 %img{ :width => "10px", :src => "/assets/marker.png"  }
                 =a.address_long
+        #loading=image_tag('ajax-loader.gif')
         .clearfix
     .right-bar
       %h3 Result only show properties with cases:
