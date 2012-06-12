@@ -56,4 +56,7 @@ class Address < ActiveRecord::Base
     Address.joins(:cases).where(:addresses => {:street_name => street_string})
   end
 
+  def self.find_addresses_with_cases_by_cardinal_street(card, street_string)
+    Address.joins(:cases).where('address_long like ?', '%' + card + ' ' + street_string + '%')
+  end
 end
