@@ -18,4 +18,25 @@ class Maintenance < ActiveRecord::Base
       end
     end
   end
+
+  def self.matched
+    Maintenance.count(:conditions =>'address_id is not null')
+  end
+
+  def self.unmatched
+    Maintenance.count(:conditions => 'address_id is null')
+  end
+
+  def self.pct_matched
+    Maintenance.count(:conditions => "address_id is not null").to_f / Maintenance.count.to_f * 100
+  end
+
+  def self.program_names
+    Maintenance.count(group: :program_name)
+  end
+
+  def self.status
+    Maintenance.count(group: :status)
+  end
+
 end

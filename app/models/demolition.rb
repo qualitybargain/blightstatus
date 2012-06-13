@@ -6,6 +6,16 @@ class Demolition < ActiveRecord::Base
     self.date_completed || self.date_started || DateTime.new(0)
   end
 
- 
+  def self.matched_count
+  	Demolition.count(:conditions =>'address_id is not null')
+  end
+
+  def self.unmatched_count
+  	Demolition.count(:conditions => 'address_id is null')
+  end
+
+  def self.pct_matched
+  	Demolition.count(:conditions => "address_id is not null").to_f / Demolition.count.to_f * 100
+  end
 
 end

@@ -1,0 +1,39 @@
+- inspStats = inspections_stats
+- notiStats = notifications_stats
+- hearStats = hearings_stats
+- judgeStats = judgements_stats
+- maintStats = maintenances_stats
+.inner
+  .row-fluid{"class" => "show-grid"}
+    %h1 Statistics
+  
+    %h2 City Stats
+    %div{:id => "inspection_results"}
+    
+    %div{:id => "inspection_types"}
+    
+    %div{:id => "notification_types"}
+    
+    %div{:id => "hearing_status"}
+    
+    %div{:id => "judgement_status"}
+    
+    %div{:id => "maintenance_status"}
+    
+    %div{:id => "maintenance_programs"}
+    
+    
+=content_for :javascripts do
+  BlightStats = {};
+  BlightStats.data = {
+  addresses: #{addresses_stats.to_json.html_safe},
+  cases: #{cases_stats.to_json.html_safe},
+  inspections: #{inspections_stats.to_json.html_safe},
+  notifications: #{notifications_stats.to_json.html_safe},
+  hearings: #{hearings_stats.to_json.html_safe},
+  judgements: #{judgements_stats.to_json.html_safe},
+  resets: #{resets_stats.to_json.html_safe},
+  foreclosures: #{foreclosures_stats.to_json.html_safe},
+  demolitions: #{demolitions_stats.to_json.html_safe},
+  maintenances: #{maintenances_stats.to_json.html_safe}
+  }
