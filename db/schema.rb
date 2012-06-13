@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120531163841) do
+ActiveRecord::Schema.define(:version => 20120613185728) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "geopin"
@@ -111,6 +111,8 @@ ActiveRecord::Schema.define(:version => 20120531163841) do
     t.datetime "updated_at",         :null => false
   end
 
+  add_index "hearings", ["case_number"], :name => "index_hearings_on_case_number"
+
   create_table "inspections", :force => true do |t|
     t.string   "case_number"
     t.string   "result"
@@ -121,6 +123,8 @@ ActiveRecord::Schema.define(:version => 20120531163841) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
+
+  add_index "inspections", ["case_number"], :name => "index_inspections_on_case_number"
 
   create_table "inspectors", :force => true do |t|
     t.string   "name"
@@ -136,6 +140,8 @@ ActiveRecord::Schema.define(:version => 20120531163841) do
     t.string   "notes"
     t.datetime "judgement_date"
   end
+
+  add_index "judgements", ["case_number"], :name => "index_judgements_on_case_number"
 
   create_table "maintenances", :force => true do |t|
     t.string   "house_num"
@@ -183,14 +189,11 @@ ActiveRecord::Schema.define(:version => 20120531163841) do
     t.string   "notes"
   end
 
+  add_index "resets", ["case_number"], :name => "index_resets_on_case_number"
+
   create_table "searches", :force => true do |t|
     t.text     "term"
     t.string   "ip"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "statistics", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

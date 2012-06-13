@@ -63,14 +63,14 @@ OpenBlight = {
         keys =[];
         values = [];
         $.each(data, function(key, value) {
-          
+
           if(key === "")
             key = "undeclared";// : key;
           keys[i] = key + " - " + value + " (%%.%%)";
           values[i] = value;
           i++;
         });
-        
+
         var r = Raphael(id), pie = r.piechart(320, 240, 100, values, { legend: keys, legendpos: "east", href: [".", "."]});
 
                 r.text(320, 100, title).attr({ font: "20px sans-serif" });
@@ -93,15 +93,11 @@ OpenBlight = {
                 });
 
       }
-      console.log("SHOW ALL THE GRAPHS!");
-      console.log(BlightStats.data);
-      
       graph("inspection_types",BlightStats.data.inspections.types,"Inspection by Type");
       graph("inspection_results",BlightStats.data.inspections.results,"Inspection Results");
       graph("hearing_status",BlightStats.data.hearings.status,"Hearing Status");
       graph("judgement_status",BlightStats.data.judgements.status,"Judgement Status");
       graph("maintenance_programs",BlightStats.data.maintenances.program_names,"Maintenance by Program");
-      
     }
   },
 
@@ -177,7 +173,5 @@ UTIL = {
     UTIL.exec( controller, action );
   }
 };
-
-
 
 $(document).ready( UTIL.init );
