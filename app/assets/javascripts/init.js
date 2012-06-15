@@ -128,7 +128,9 @@ OpenBlight = {
               OpenBlight.addresses.associateMarkers();
 
               map.on('dragend', function(e){
-                OpenBlight.addresses.mapSearch(map, group);
+                if($('#map-search-mode').attr('checked')){
+                  OpenBlight.addresses.mapSearch(map, group);
+                }
               });
             }
           });
