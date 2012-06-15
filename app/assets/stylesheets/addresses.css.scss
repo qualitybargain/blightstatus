@@ -286,3 +286,11 @@
   line-height: 16px;
   padding-bottom: 10px;
 }
+
+.leaflet-marker-pane img.marked {
+  border: 1px solid red;
+}
+
+.address.result.marked {
+  border: 2px solid red;
+}

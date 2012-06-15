@@ -71,7 +71,6 @@ OpenBlight = {
         });
 
         var r = Raphael(id), pie = r.piechart(320, 240, 100, values, { legend: keys, legendpos: "east", href: [".", "."]});
-
                 r.text(320, 100, title).attr({ font: "20px sans-serif" });
                 pie.hover(function () {
                     this.sector.stop();
@@ -126,6 +125,7 @@ OpenBlight = {
 
              // we center the map on the last position
               map.setView(new L.LatLng(y, x), zoom);
+              OpenBlight.addresses.associateMarkers();
 
               map.on('dragend', function(e){
                 OpenBlight.addresses.mapSearch(map, group);
@@ -141,6 +141,7 @@ OpenBlight = {
 
           OpenBlight.addresses.mapSearch(map, group, page, bounds);
       });
+
     },
 
     show: function(){
@@ -157,6 +158,30 @@ OpenBlight = {
           .addLayer(new wax.leaf.connector(tilejson))
           .addLayer(new L.Marker(new L.LatLng(y , x)))
           .setView(new L.LatLng(y , x), 17);
+      });
+    },
+
+    associateMarkers: function(){
+      for(var i = 0; i < OpenBlight.markers.length; i++){
+        var m = OpenBlight.markers[i];
+        $(m.marker["_icon"]).attr("id", "marker-" + m.id);
+      }
+
+      $('li.result').each(function(){
+        var $this = $(this), $marker = $("#marker-" + $this.attr('data-id'));
+
+        $this.hover(function(){
+          $marker.addClass('marked');
+        }, function(){
+          $marker.removeClass('marked');
+        });
+
+        $marker.hover(function(){
+          $this.addClass('marked');
+        }, function(){
+          $this.removeClass('marked');
+        });
+
       });
     },
 
@@ -194,6 +219,7 @@ OpenBlight = {
         if(data.length){
           OpenBlight.addresses.paginate(data, stats, bounds);
           OpenBlight.addresses.populateMap(map, group, data);
+          OpenBlight.addresses.associateMarkers();
         }else{
           $ul.append('<li>No properties found</li>');
         }
@@ -235,13 +261,19 @@ OpenBlight = {
     },
 
     populateMap: function(map, group, data){
+      OpenBlight.markers = [];
       for ( i = 0; i < data.length; i++ ){
         var point = data[i].point.substring(7, data[i].point.length -1).split(' ');
         var y = point[1], x= point[0];
         var popupContent = '<h3><a href="/addresses/'+ data[i].id +'">'+ data[i].address_long + '</a></h3><h4>'+ data[i].most_recent_status_preview.type + ' on ' + data[i].most_recent_status_preview.date + '</h4>'
-        group.addLayer(new L.Marker(new L.LatLng(point[1] , point[0])).bindPopup(popupContent));
+        var marker;
 
-        $('.search-results ul.list').append('<li class="active address result"><a href="/addresses/'+ data[i].id +'"><img width="10px" src="/assets/marker.png">'+ data[i].address_long +'</a></li>');
+        group.addLayer(marker = new L.Marker(new L.LatLng(point[1] , point[0])).bindPopup(popupContent));
+
+        li = '<li class="active address result" data-id="'+ data[i].id +'"> <a href="/addresses/'+ data[i].id +'"><img width="10px" src="/assets/marker.png">'+ data[i].address_long +'</a></li>';
+        $('.search-results ul.list').append(li);
+
+        OpenBlight.markers.push({id: data[i].id, marker: marker});
       }
       zoom = 14
       map.addLayer(group);
