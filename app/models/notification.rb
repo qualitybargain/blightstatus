@@ -11,4 +11,19 @@ class Notification < ActiveRecord::Base
   	"Notice of Hearing"
   end
 
+  def self.matched_count
+  	Notification.count(:conditions =>'case_number is not null')
+  end
+
+  def self.unmatched_count
+  	Notification.count(:conditions => 'case_number is null')
+  end
+
+  def self.pct_matched
+  	Notification.count(:conditions => "case_number is not null").to_f / Notification.count.to_f * 100
+  end
+
+  def self.types
+  	Notification.count(group: :notification_type)
+  end
 end

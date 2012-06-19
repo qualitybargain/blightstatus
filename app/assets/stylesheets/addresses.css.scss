@@ -51,11 +51,22 @@
 			height: 100%;
 			min-height: 500px;
 			width: 20%;
-      
+
       .result {
         a{
           text-transform:capitalize;
         }
+      }
+
+      ul.list.loading {
+        opacity: 0.4;
+      }
+
+      #loading {
+        display: none;
+        top: 200px;
+        left: 145px;
+        position: absolute;
       }
 		}
     

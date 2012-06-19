@@ -6,11 +6,11 @@
     .address
       %h1{:style => "float: left"}=@address.address_long
       -if(account_signed_in?)
-        .badge-yellow.subscribe-button{:style => "float: right", :data => @address.address_id} 
-
-          -if(@account_subscribed)
-            Thank You
-          -else
+        -if(@account_subscribed)
+          .btn.btn-primary.btn-large.subscribe-button{:style => "float: right", :data => @address.address_id} 
+            Unsubscribe
+        -else
+          .btn.btn-warning.btn-large.subscribe-button{:style => "float: right", :data => @address.address_id} 
             Subscribe
     .clearfix
 	  

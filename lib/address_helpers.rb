@@ -116,6 +116,18 @@ module AddressHelpers
     return streetname
   end
 
+  def get_direction(streetname)
+    streetname.upcase!
+    @street_direction.each do |(abbr, full)|
+      if streetname.match(/(^|\s)#{abbr}(\s|$)/)
+        return streetname[/(^|\s)#{abbr}(\s|$)/].strip
+      end
+      if streetname.match(/(^|\s)#{full}(\s|$)/)
+        return streetname[/(^|\s)#{full}(\s|$)/].strip
+      end
+    end
+    return nil
+  end
   def strip_suffix(streetname)
     streetname.upcase!
     @address_suffix.each do |value|

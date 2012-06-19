@@ -38,6 +38,7 @@ header {
 	clear: both;
 }
 
+
 .navbar{ 
 	text-align: center; 
 	top: 0px; 
@@ -74,6 +75,7 @@ header {
 		color: white;
 		text-decoration: none; 
 		border-bottom:1px dotted #fff;
+		border: 0 !important;
 	}
 
 
@@ -282,4 +284,10 @@ footer{
   .pagination {
     border-left: 1px solid #ddd;
   }
+}
+
+#loader {
+  top: 200px;
+  left: 150px;
+  position: absolute;
 }

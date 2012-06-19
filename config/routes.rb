@@ -22,7 +22,11 @@ Openblight::Application.routes.draw do
   #   resources :products
 
   match "addresses/search" => "addresses#search"
+  match "addresses/map_search" => "addresses#map_search"
+
+  match "stats/graphs" => "statistics#graphs"
   match "stats" => "statistics#index"
+
   resources :addresses, :except => [:destroy, :create, :edit] do
     collection do
       get :autocomplete_address_address_long
@@ -37,7 +41,8 @@ Openblight::Application.routes.draw do
   
   resources :cases, :except => [:destroy, :create, :edit]
   
-      
+  match "pages/:id" => "pages#show", :as => "page" 
+
   # Sample resource route with options:
   #   resources :products do
   #     member do

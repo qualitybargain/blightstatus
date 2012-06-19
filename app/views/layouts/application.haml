@@ -51,14 +51,14 @@
 	  
       %footer
         .footer
-          %p        
-            %a{:href => "/about"} About
+          %p
+            %a{:href => "/pages/about"} About
             \-
-            %a{:href => "/terms-of-service"} Terms of Service
+            %a{:href => "/pages/terms"} Terms of Service
             \-
             %a{:href => "/stats"} Statistics
-            \-
-            %a{:href => "/feedback"} Send feedback
+            -#\-
+            -#%a{:href => "/feedback"} Send feedback
 
         .demo
           %p
@@ -96,8 +96,13 @@
   	  
       /[if lte IE 8]
         <link rel="stylesheet" href="http://code.leafletjs.com/leaflet-0.3.1/leaflet.ie.css" />
+
       %link{:href => "http://code.leafletjs.com/leaflet-0.3.1/leaflet.css", :rel => "stylesheet"}/
 
+
+      %script{:type => "text/javascript"}  
+        = yield :javascripts
+      = javascript_include_tag "application"
       :javascript
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-31630834-1']);
