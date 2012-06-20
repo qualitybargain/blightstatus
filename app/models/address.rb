@@ -4,7 +4,8 @@ class Address < ActiveRecord::Base
   has_many :demolitions
   has_many :foreclosures
   has_many :maintenances
-
+  #belongs_to :neighborhood
+  
   has_many :inspections, :through => :cases
   has_many :notifications, :through => :cases
   has_many :hearings, :through => :cases

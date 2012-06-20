@@ -18,6 +18,14 @@ describe Address do
     end
   end
 
+  describe "find_addresses_with_cases_by_cardinal_street" do
+   it "should return array of addreses that havee cases on a street" do
+      c = FactoryGirl.create(:case, :address => @address)
+
+      result = Address.find_addresses_with_cases_by_street('S','PETERS')
+      result.count.should > (Address.find_addresses_with_cases_by_street('N','PETERS').count + Address.find_addresses_with_cases_by_street('S','PETERS').count)
+    end
+  end
   describe "#workflow_steps" do
     context "no associated workflow steps" do
       it "returns an empty array" do
