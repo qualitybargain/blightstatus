@@ -8,9 +8,9 @@
     = stylesheet_link_tag    "application", :media => "all"
     = csrf_meta_tags
     %meta{:charset => "utf-8"}
-      %meta{:content => "", :name => "description"}
-        / Mobile viewport optimized: h5bp.com/viewport
-        %meta{:content => "width=device-width", :name => "viewport"}
+    %meta{:content => "", :name => "description"}
+    / Mobile viewport optimized: h5bp.com/viewport
+    %meta{:content => "width=device-width", :name => "viewport"}
   %body{"data-action" => action_name, "data-controller" => controller_name}
     %div{:id => "wrapper", :class => "container-#{controller_name} container-#{controller_name}-#{action_name}"}
 
@@ -20,6 +20,9 @@
         .navbar-inner
           .container					
             .nav-collapse
+              -if(controller_name != 'home')
+                %h1#small-logo= link_to("blightSTATUS", root_path)
+
               %ul.nav
                 / %li.active
                 /  %a{:href => "#"} Home
@@ -37,8 +40,8 @@
 
 
       %header.page-header
-        %h1#logo= link_to("blightSTATUS", root_path)
         -if(controller_name == 'home')
+          %h1#logo= link_to("blightSTATUS", root_path)
           =render "home/tag-line"
 
         %div{ :class => "top-search-bar"}
@@ -84,16 +87,7 @@
             .btn
               %a{:href => "/cases"} View Cases
 
-      = javascript_include_tag "application"
 
-      :javascript
-        var uvOptions = {};
-        (function() {
-          var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-          uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/sbCfvA4L1mTaaViXwjCtg.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
-        })();
-  	  
       /[if lte IE 8]
         <link rel="stylesheet" href="http://code.leafletjs.com/leaflet-0.3.1/leaflet.ie.css" />
 
