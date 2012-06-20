@@ -12,9 +12,13 @@
         -else
           .btn.btn-warning.btn-large.subscribe-button{:style => "float: right", :data => @address.address_id} 
             Subscribe
+      -else
+        .btn.btn-warning.btn-large.subscribe-button{:style => "float: right", :data => @address.address_id} 
+          =link_to('Subscribe', new_account_session_path) 
+
+
     .clearfix
 	  
-      %h1=@address.address_long
     -if @address.assessor_url
       .assessor_link
         =link_to "Assessor's office", @address.assessor_url
