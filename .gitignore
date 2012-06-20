@@ -21,3 +21,4 @@ coverage
 .DS_Store
 
 tags
+app/assets/.DS_Store

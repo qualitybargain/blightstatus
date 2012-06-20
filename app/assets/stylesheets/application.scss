@@ -50,9 +50,14 @@ header {
 	z-index: 99999;
 
 	.navbar-inner{
-		background: #CBDCA3;/*#419ED8;*/ 
+		background: #D82020;/*#419ED8;*/ 
 		border-radius: 0;
 	}
+
+  #small-logo{
+    position: absolute;
+
+  }
 
 	p {
 		font-family: 'Arvo'; 
@@ -103,11 +108,14 @@ header {
 
     
 .top-search-bar{
-	padding: 0;
-	position: absolute;
-	top: 40px;
-  left: 31%;
-        
+  left: 32%;
+  margin: 0 auto;
+  padding: 0;
+  position: absolute;
+  top: 50px;
+  width: 550px;
+
+
 	.search-form{
 		width: 600px;
 		margin: 0 auto;
