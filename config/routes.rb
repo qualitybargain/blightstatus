@@ -2,7 +2,6 @@ Openblight::Application.routes.draw do
 
 #  devise_for :accounts
   devise_for :accounts
-  resources :accounts
   resources :subscriptions
   
   get "statistics/show"
@@ -27,6 +26,13 @@ Openblight::Application.routes.draw do
   match "stats/graphs" => "statistics#graphs"
   match "stats" => "statistics#index"
 
+
+  resources :accounts, :except => [:destroy, :create, :edit] do
+    collection do
+      get :map
+    end
+  end
+  
   resources :addresses, :except => [:destroy, :create, :edit] do
     collection do
       get :autocomplete_address_address_long
