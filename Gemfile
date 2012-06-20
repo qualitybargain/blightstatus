@@ -13,7 +13,7 @@ gem 'roo' #excel parser
 gem 'docsplit'
 gem 'rubyXL'
 gem 'devise'
-
+#gem "cancan"
 
 # GIS 
 gem 'rgeo'
