@@ -13,8 +13,11 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/.sass-cache
 
 coverage
 
 .amazon_keys
 .DS_Store
+
+tags

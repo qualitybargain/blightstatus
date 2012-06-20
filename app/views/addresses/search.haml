@@ -19,6 +19,9 @@
     .right-bar
       %h3 Result only show properties with cases:
       #map{:style => "height: 400px;"}
+      .toggle
+        =check_box_tag('map-search-mode')
+        Redo search when map is moved
     .row
     .btn-toolbar
       .btn-group

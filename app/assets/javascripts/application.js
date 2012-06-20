@@ -13,18 +13,19 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require ./lib/leaflet
-//= require ./lib/wax.leaf.min
-//= require_directory ./controllers
-//= require ./lib/raphael-min.js
-//= require ./lib/g.raphael.js
-//= require ./lib/g.pie.js
+//= require leaflet
+//= require wax.leaf.min
+//= require Map.Draw.js
+//= require Control.Draw.js
+//= require raphael-min.js
+//= require g.raphael.js
+//= require g.pie.js
+//= require leaflet
+//= require wax.leaf.min
+//= require jquery-cookie
+//= require bootstrap-tooltip
+//= require bootstrap-popover
+//= require bootstrap-modal
 //= require init
-//= require ./lib/leaflet
-//= require ./lib/wax.leaf.min
-//= require ./lib/jquery-cookie
-//= require ./lib/bootstrap-tooltip
-//= require ./lib/bootstrap-popover
-//= require ./lib/bootstrap-modal
-
+//= require_directory ./controllers
 
