@@ -4,10 +4,13 @@ class SubscriptionsController < ApplicationController
   def create
     account = current_account
     
-    #@sub = Subscription.find_or_create_by_address_id_and_account_id({:address_id => params[:id], :account_id => account.id})
+    @sub = Subscription.create({:address_id => params[:id], :account_id => account.id})
+    # unless params[:polygon].nil?
+    #   @sub = Subscription.find_or_create_by({:thegeom => params[:polygon], :account_id => account.id})
+    # else
+    #   @sub = Subscription.find_or_create_by_address_id({:address_id => params[:id], :account_id => account.id})
 
-    @sub = Subscription.find_or_create_room({:address_id => params[:id], :account_id => account.id})
-        
+
     if @sub.save
       #success
       respond_with @sub
