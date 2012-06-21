@@ -88,12 +88,6 @@
               %a{:href => "/cases"} View Cases
 
 
-      /[if lte IE 8]
-        <link rel="stylesheet" href="http://code.leafletjs.com/leaflet-0.3.1/leaflet.ie.css" />
-
-      %link{:href => "http://code.leafletjs.com/leaflet-0.3.1/leaflet.css", :rel => "stylesheet"}/
-
-
       %script{:type => "text/javascript"}  
         = yield :javascripts
       = javascript_include_tag "application"

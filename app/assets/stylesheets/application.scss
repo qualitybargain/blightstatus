@@ -10,7 +10,12 @@
  *
  *= require_self
  *= require_tree .
-*/
+ *= require bootstrap.min.css
+ *= require jquery-ui.css
+ *= require leaflet.css
+ *= require Control.Draw.css
+ */
+
 
 #wrapper{
 	position: absolute;
