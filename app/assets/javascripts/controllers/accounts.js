@@ -31,6 +31,8 @@ OpenBlight.accounts = {
       }, 'json');
 
 
+      // return features
+
       console.log(features);    
     };
     
@@ -77,7 +79,13 @@ OpenBlight.accounts = {
         map.addControl(drawControl);
         
         map.on('drawend', function(e) {
+          var popupContent = '<p>Hello world!<br />This is a nice popup.</p>',
+              popup = new L.Popup();
+
+          //popup.setContent(popupContent);
           savePolygon(e);
+          //e.target.openPopup(popup);
+
         });
   
 
