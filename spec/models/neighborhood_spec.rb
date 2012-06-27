@@ -1,5 +1,11 @@
 require 'spec_helper'
 
 describe Neighborhood do
-  pending "add some examples to (or delete) #{__FILE__}"
+  
+  before(:each) do
+    @neighborhood = FactoryGirl.create(:neighborhood)
+  end
+
+  it { should validate_uniqueness_of(:name) }
+  #it { should validate_uniqueness_of(:the_geom) } 	r_spec
 end

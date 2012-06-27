@@ -20,10 +20,11 @@ describe Address do
 
   describe "find_addresses_with_cases_by_cardinal_street" do
    it "should return array of addreses that havee cases on a street" do
-      c = FactoryGirl.create(:case, :address => @address)
-
-      result = Address.find_addresses_with_cases_by_street('S','PETERS')
-      result.count.should > (Address.find_addresses_with_cases_by_street('N','PETERS').count + Address.find_addresses_with_cases_by_street('S','PETERS').count)
+      puts "@address  => " + @address.inspect
+      c1 = FactoryGirl.create(:case, :address => Address.create(:address_long => '1 N PETERS ST'))
+      c1 = FactoryGirl.create(:case, :address => Address.create(:address_long => '1 S PETERS ST'))
+      result = Address.find_addresses_with_cases_by_cardinal_street('S','PETERS')
+      result.count.should < (Address.find_addresses_with_cases_by_cardinal_street('N','PETERS').count + Address.find_addresses_with_cases_by_cardinal_street('S','PETERS').count)
     end
   end
   describe "#workflow_steps" do

@@ -4,7 +4,7 @@ FactoryGirl.define do
     # parcel_id         { 1 + rand(20000) }
     # geopin            { 1 + rand(30000) }
     geopin            { 41125604 }
-    address_id        { 85102061 }
+    address_id        {rand(1000)}#{ 85102061 }
     # parcel_id         { 1 + rand(20000) }
     address_long      { "1019 CHARBONNET ST" }
     street_name       { "CHARBONNET" }
@@ -28,6 +28,10 @@ FactoryGirl.define do
 
   factory :inspection do
     inspection_type   { "Violation Posted No WIP" }
+  end
+
+  factory :neighborhood do
+    name       { "HOOD " + rand(1000).to_s()}
   end
 
   factory :notification do
