@@ -7,16 +7,6 @@
         %a.btn &larr; Back to search results
       %li
         %a.btn Next &rarr;
-    -if(account_signed_in?)
-      -if(@account_subscribed)
-        .btn.btn-primary.btn-large.subscribe-button{:style => "float: right", :data => @address.address_id} 
-          Unsubscribe
-      -else
-        .btn.btn-warning.btn-large.subscribe-button{:style => "float: right", :data => @address.address_id} 
-          Subscribe
-    -else
-      .btn.btn-warning.btn-large.subscribe-button{:style => "float: right", :data => @address.address_id} 
-        =link_to('Subscribe', new_account_session_path) 
 %section.row-fluid
   .span4
     .map
@@ -25,6 +15,17 @@
     -if @address.assessor_url
       .assessor_link
         =link_to "Assessor's office", @address.assessor_url
+    -if(account_signed_in?)
+      -if(@account_subscribed)
+        .btn.btn-primary.btn-large.subscribe-button{:data => @address.address_id} 
+          Unsubscribe
+      -else
+        .btn.btn-warning.btn-large.subscribe-button{:data => @address.address_id} 
+          Subscribe
+    -else
+      .btn.btn-warning.btn-large.subscribe-button{:data => @address.address_id} 
+        =link_to('Subscribe', new_account_session_path) 
+
   .span8
     =render :partial => "addresses/status-update", :locals => {:address => @address}
     -unless @address.workflow_steps.empty?
