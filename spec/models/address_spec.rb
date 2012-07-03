@@ -112,4 +112,17 @@ describe Address do
       @address.assessor_url.should be_nil
     end
   end
+
+  describe "#most_recent_status_preview" do
+    it "dispalys the most recent status class and time" do
+      dt = DateTime.now
+      FactoryGirl.create(:demolition, :address => @address, :date_started => dt)
+      FactoryGirl.create(:maintenance, :address => @address, :date_completed => (DateTime.now - 2.days))
+      FactoryGirl.create(:foreclosure, :address => @address, :sale_date => (DateTime.now - 1.days))
+      c = FactoryGirl.create(:case, :address => @address)
+      FactoryGirl.create(:hearing, :case => c, :hearing_date => (DateTime.now - 30.days))  
+      
+      @address.most_recent_status_preview.should == {:type => 'Demolition', :date => dt.strftime('%B %e, %Y')}
+    end    
+  end
 end

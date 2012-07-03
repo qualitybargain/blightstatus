@@ -25,13 +25,14 @@ FactoryGirl.define do
   end
 
   factory :hearing do
-    hearing_date      { DateTime.now }
+    hearing_date      { DateTime.new(rand(1000)) }
   end
 
   factory :inspection do
     inspection_type   { "Violation Posted No WIP" }
   end
-
+  factory :maintenance do
+  end
   factory :notification do
     #are there any fields to require?
   end
