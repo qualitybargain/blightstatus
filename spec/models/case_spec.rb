@@ -115,4 +115,107 @@ describe Case do
       Case.complete.count == 2
     end
   end
+
+  describe "#at_inspection" do
+    it "returns # of cases at inspection, should be 0 - /w hearing" do
+      FactoryGirl.create(:hearing, :case => @case, :hearing_date => Time.now - 1.day)
+      FactoryGirl.create(:judgement, :case => @case)
+      result = Case.at_inspection
+      result.count.should == 0
+    end
+  end
+  describe "#at_inspection2" do
+    it "returns # of cases at inspection, should be 1" do
+      result = Case.at_inspection
+      result.count.should > 0
+    end
+  end
+
+  describe "#complete" do
+    it "returns # of cases at inspection, should be 1" do
+
+      FactoryGirl.create(:hearing, :case => @case, :hearing_date => Time.now - 1.day)
+      FactoryGirl.create(:judgement, :case => @case)
+      FactoryGirl.create(:inspection, :case => @case)
+      
+      case1 = FactoryGirl.create(:case)
+      FactoryGirl.create(:judgement, :case => case1)
+      FactoryGirl.create(:inspection, :case => case1)
+      
+      case2 = FactoryGirl.create(:case)
+      FactoryGirl.create(:hearing, :case => case2, :hearing_date => Time.now - 1.day)
+      FactoryGirl.create(:inspection, :case => case2)
+      
+      case3 = FactoryGirl.create(:case)
+      FactoryGirl.create(:hearing, :case => case3, :hearing_date => Time.now - 1.day)
+      FactoryGirl.create(:judgement, :case => case3)
+      
+
+      result = Case.complete
+      result.count.should == 1
+    end
+  end
+
+  describe "#hearings without judgement" do
+    it "returns # of cases at inspection, should be 1" do
+
+      FactoryGirl.create(:hearing, :case => @case, :hearing_date => Time.now - 1.day)
+      FactoryGirl.create(:judgement, :case => @case)
+      
+      case2 = FactoryGirl.create(:case)
+      FactoryGirl.create(:hearing, :case => case2, :hearing_date => Time.now - 1.day)
+      FactoryGirl.create(:inspection, :case => case2)
+      
+      case3 = FactoryGirl.create(:case)
+      FactoryGirl.create(:hearing, :case => case3)
+
+      result = Case.hearings_without_judgement
+      result.count.should == 2
+    end
+  end
+  describe "#without_inspection" do
+    it "returns # of cases without an inspection, should be 1" do
+
+      case2 = FactoryGirl.create(:case)
+      FactoryGirl.create(:hearing, :case => case2, :hearing_date => Time.now - 1.day)
+      FactoryGirl.create(:inspection, :case => case2)
+      
+      result = Case.without_inspection
+      result.count.should == 1
+    end
+  end
+  describe "#matched_count" do
+    it "returns # of cases matched" do
+      @case.address = FactoryGirl.create(:address)
+      @case.save
+      FactoryGirl.create(:case)
+      
+      result = Case.matched_count
+      result.should == 1
+    end
+  end
+  describe "#unmatched_count" do
+    it "returns # of cases unmatched" do
+      @case.address = FactoryGirl.create(:address)
+      @case.save
+      FactoryGirl.create(:case)
+      FactoryGirl.create(:case)
+
+      result = Case.unmatched_count
+      result.should == 2
+    end
+  end
+  describe "#pct_matched" do
+    it "returns pct of matched cases" do
+
+      @address = FactoryGirl.create(:address)
+
+      FactoryGirl.create(:case, :address => @address)
+      FactoryGirl.create(:case, :address => @address)
+      FactoryGirl.create(:case, :address => @address)
+
+      result = Case.pct_matched
+      result.should == 75.0
+    end
+  end
 end
