@@ -31,6 +31,8 @@ FactoryGirl.define do
   factory :inspection do
     inspection_type   { "Violation Posted No WIP" }
   end
+  factory :judgement do
+  end
   factory :maintenance do
   end
   factory :notification do

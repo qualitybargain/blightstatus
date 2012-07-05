@@ -118,11 +118,26 @@ describe Address do
       dt = DateTime.now
       FactoryGirl.create(:demolition, :address => @address, :date_started => dt)
       FactoryGirl.create(:maintenance, :address => @address, :date_completed => (DateTime.now - 2.days))
-      FactoryGirl.create(:foreclosure, :address => @address, :sale_date => (DateTime.now - 1.days))
+      FactoryGirl.create(:foreclosure, :address => @address, :sale_date => (DateTime.now - 3.days))
       c = FactoryGirl.create(:case, :address => @address)
       FactoryGirl.create(:hearing, :case => c, :hearing_date => (DateTime.now - 30.days))  
       
       @address.most_recent_status_preview.should == {:type => 'Demolition', :date => dt.strftime('%B %e, %Y')}
+    end    
+  end
+
+  describe "#find_addresses_with_cases_by_cardinal_street" do
+    it "display cases on a street with by cardinal_address" do
+      a = FactoryGirl.create(:address, :address_long => '1 N CFA ST', :street_name => 'CFA')
+      FactoryGirl.create(:case, :address => a)
+      a = FactoryGirl.create(:address, :address_long => '2 N CFA ST', :street_name => 'CFA')
+      FactoryGirl.create(:case, :address => a)
+      a =FactoryGirl.create(:address, :address_long => '1 S CFA ST', :street_name => 'CFA')
+      FactoryGirl.create(:case, :address => a)
+      a = FactoryGirl.create(:address, :address_long => '2 E CFA ST', :street_name => 'CFA')
+      FactoryGirl.create(:case, :address => a)
+      result = Address.find_addresses_with_cases_by_cardinal_street('E','CFA')
+      result.count.should < Address.find_addresses_with_cases_by_street('CFA').count
     end    
   end
 end
