@@ -65,7 +65,7 @@ class Address < ActiveRecord::Base
     Address.joins(:cases).where('address_long like ?', '%' + card + ' ' + street_string + '%')
   end
 
-  def self.find_addresses_within_area(ne, sw)
+  def self.find_addresses_with_cases_within_area(ne, sw)
     factory = Address.first.point.factory
     box = RGeo::Cartesian::BoundingBox.new(factory)
     p1 = factory.point(ne["lng"].to_f, ne["lat"].to_f)

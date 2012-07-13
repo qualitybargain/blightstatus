@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'rgeo'
 
 describe Address do
   before(:each) do
@@ -139,5 +140,13 @@ describe Address do
       result = Address.find_addresses_with_cases_by_cardinal_street('E','CFA')
       result.count.should < Address.find_addresses_with_cases_by_street('CFA').count
     end    
+  end
+  describe "#self.find_addresses_within_area(ne, sw)" do
+    it "return # of cases at -90.04223467290467 29.975021724674335 should be 1" do
+        FactoryGirl.create(:case, :address => @address)
+        ne = {"lng" => -90.04223467290467, "lat" => 29.975021724674335}
+        sw = {"lng" => -90.04223467290467, "lat" => 29.975021724674335}
+        Address.find_addresses_with_cases_within_area(ne,sw).count.should eq(1)    
+    end
   end
 end

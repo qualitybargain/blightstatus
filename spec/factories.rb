@@ -9,6 +9,7 @@ FactoryGirl.define do
     address_long      { "1019 CHARBONNET ST" }
     street_name       { "CHARBONNET" }
     street_type       { "ST" }
+    point             {"POINT (-90.04223467290467 29.975021724674335)"}
   end
 
 
