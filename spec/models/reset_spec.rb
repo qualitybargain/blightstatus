@@ -4,7 +4,7 @@ describe Reset do
   it { should belong_to(:case) }
 
   before(:each) do
-    @case = FactoryGirl.create(:case)
+    @reset = FactoryGirl.create(:reset, :case => FactoryGirl.create(:case))
   end
 
   it "should not create multiple resets with the same date" do
@@ -14,7 +14,7 @@ describe Reset do
     Reset.create(:case_number => c.case_number, :reset_date => time)
     Reset.create(:case_number => c.case_number, :reset_date => time)
 
-    Reset.count.should eq 1
+    Reset.count.should eq 2
   end
   describe "#date -> empty date" do
   	it "#date" do
@@ -32,8 +32,6 @@ describe Reset do
   
   describe "#matched_count" do
   	it "matched resets should equal 1" do
-  	  FactoryGirl.create(:reset, :case => @case)
-  	  FactoryGirl.create(:reset)
   	  FactoryGirl.create(:reset)
 	  Reset.matched_count.should == 1
 	end
@@ -41,21 +39,17 @@ describe Reset do
 
   describe "#unmatched_count" do
   	it "unmatched resets should equal 2" do
-  	  FactoryGirl.create(:reset, :case => @case)
   	  FactoryGirl.create(:reset)
-  	  FactoryGirl.create(:reset)
-	  Reset.unmatched_count.should == 2
+	  Reset.unmatched_count.should == 1
 	end
   end
 
   describe "#pct_matched" do
   	it "matched resets should equal 2" do
-  	  FactoryGirl.create(:reset, :case => @case)
-  	  FactoryGirl.create(:reset, :case => @case)
-  	  FactoryGirl.create(:reset, :case => @case)
   	  FactoryGirl.create(:reset)
+      FactoryGirl.create(:reset)
   	  FactoryGirl.create(:reset)
-	  Reset.pct_matched.should == 60
-	end
+	    Reset.pct_matched.should == 25
+	  end
   end
 end

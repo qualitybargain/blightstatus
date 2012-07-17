@@ -23,6 +23,7 @@ FactoryGirl.define do
   end
 
   factory :foreclosure do
+    sale_date {DateTime.now - 2.days}
   end
 
   factory :hearing do
@@ -31,10 +32,18 @@ FactoryGirl.define do
 
   factory :inspection do
     inspection_type   { "Violation Posted No WIP" }
+    inspection_date   { DateTime.new(rand(1000)) }
+    scheduled_date    { DateTime.new(rand(1000)) }
+  end
+  factory :inspector do
+    name              {"In Spector"}
   end
   factory :judgement do
+    status            {"guilty"}
   end
   factory :maintenance do
+    date_recorded   { DateTime.new(rand(1000)) }
+    date_completed  { DateTime.new(rand(1000)) }
   end
   factory :notification do
     #are there any fields to require?

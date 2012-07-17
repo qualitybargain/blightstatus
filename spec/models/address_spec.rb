@@ -116,7 +116,7 @@ describe Address do
 
   describe "#most_recent_status_preview" do
     it "dispalys the most recent status class and time" do
-      dt = DateTime.now
+      dt = DateTime.now - 1.day
       FactoryGirl.create(:demolition, :address => @address, :date_started => dt)
       FactoryGirl.create(:maintenance, :address => @address, :date_completed => (DateTime.now - 2.days))
       FactoryGirl.create(:foreclosure, :address => @address, :sale_date => (DateTime.now - 3.days))
@@ -143,7 +143,7 @@ describe Address do
   end
   describe "#self.find_addresses_within_area(ne, sw)" do
     it "return # of cases at -90.04223467290467 29.975021724674335 should be 1" do
-        FactoryGirl.create(:case, :address => @address)
+        FactoryGirl.create(:case, :address => FactoryGirl.create(:address))
         ne = {"lng" => -90.04223467290467, "lat" => 29.975021724674335}
         sw = {"lng" => -90.04223467290467, "lat" => 29.975021724674335}
         Address.find_addresses_with_cases_within_area(ne,sw).count.should eq(1)    

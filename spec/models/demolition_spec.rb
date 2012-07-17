@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Demolition do
   before(:each) do
-	@address = FactoryGirl.create(:address)
+	 @address = FactoryGirl.create(:address)
   end
   it { should belong_to(:case) }
   it { should belong_to(:address) }
