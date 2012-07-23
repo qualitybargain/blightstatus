@@ -8,24 +8,6 @@
       %li
         %a.btn Next &rarr;
 %section.row-fluid
-  .span4
-    .map
-      #address{"internal_address_id" => @address.id, "address_id" => @address.address_id, "data-x" => @address.point.x, "data-y" => @address.point.y }
-        #map{:style => "height: 200px;"}
-    -if @address.assessor_url
-      .assessor_link
-        =link_to "Assessor's office", @address.assessor_url
-    -if(account_signed_in?)
-      -if(@account_subscribed)
-        .btn.btn-primary.btn-large.subscribe-button{:data => @address.address_id} 
-          Unsubscribe
-      -else
-        .btn.btn-warning.btn-large.subscribe-button{:data => @address.address_id} 
-          Subscribe
-    -else
-      .btn.btn-warning.btn-large.subscribe-button{:data => @address.address_id} 
-        =link_to('Subscribe', new_account_session_path) 
-
   .span8
     =render :partial => "addresses/status-update", :locals => {:address => @address}
     -unless @address.workflow_steps.empty?
@@ -62,3 +44,26 @@
                       - else
                         %td
                         %td=r.class.to_s + ": " + r.date.strftime("%m/%d/%Y")
+
+  .span4
+    .map
+      #address{"internal_address_id" => @address.id, "address_id" => @address.address_id, "data-x" => @address.point.x, "data-y" => @address.point.y }
+        #map{:style => "height: 200px;"}
+    -if @address.assessor_url
+      .assessor_link
+        =link_to "Assessor's office", @address.assessor_url
+
+    
+    -if(account_signed_in?)
+      -if(@account_subscribed)
+        .btn.btn-primary.btn-large.subscribe-button{:data => @address.address_id} 
+          Unsubscribe
+      -else
+        .btn.btn-warning.btn-large.subscribe-button{:data => @address.address_id} 
+          Subscribe
+    -else
+      .btn.btn-warning.btn-large.subscribe-button{:data => @address.address_id} 
+        =link_to('Subscribe', new_account_session_path) 
+
+    .div.sidedivide
+      %img{:src => '/assets/star.png'}
