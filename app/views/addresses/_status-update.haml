@@ -9,15 +9,17 @@
           Before reporting the property please read the
           %a{:href=>'http://www.nola.gov/RESIDENTS/Code-Enforcement/City-of-New-Orleans-Housing-Standards/'} City of New Orleans Housing Standards
         
-        %p If you know that this property is already in our system and you believe you've run into a technical glitch, please report it to support@blightstatus.org. 
+        %p If you know that this property is already in our system and you believe you've run into a technical glitch, please report it to
+        %a{:href=>'mailto:support@blightstatus.org'}support@blightstatus.org
 
         %p We work hard to ensure you're seeing high quality data, but we are working with multiple data sources, and mistakes do exist. You can learn more about our data quality at the stats page.
         
         	  
   -else
     .recent
-      .recent-update-notice most recent update: 
-      .recent-update  #{address.most_recent_status.class} on #{address.most_recent_status.date.strftime('%B %e, %Y')}.
+      .recent-update-notice
+        Latest update: 
+        %span.recent-update  #{address.most_recent_status.class} on #{address.most_recent_status.date.strftime('%B %e, %Y')}.
       -case address.most_recent_status.class
         - when 'Inspection'
           .recommended-next-action This could mean that it has not been reported to the city. If you would like to make a report, you can do so by calling 311.
@@ -29,4 +31,3 @@
           .recommended-next-action This could mean that it has not been reported to the city. If you would like to make a report, you can do so by calling 311.
         - when 'Resolution'
           .recommended-next-action This could mean that it has not been reported to the city. If you would like to make a report, you can do so by calling 311.
-

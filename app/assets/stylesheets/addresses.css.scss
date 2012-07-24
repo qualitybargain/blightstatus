@@ -153,7 +153,7 @@
 }
 
 .progress-bar-wrapper {
-  margin-top: 60px;
+  margin-top: 10px;
 
   .date {
     &:before {
@@ -188,10 +188,19 @@
   }
 }
 
+.progress-bar-wrapper table{
+  width:100%;
+}
+
 .cases {
   margin-top: 40px;
 }
 
 .case {
   margin-top: 20px;
+}
+
+.sidedivide{
+  text-align:center;
+  margin: 8px 0 8px 0;
 }

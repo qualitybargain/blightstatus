@@ -1,5 +1,5 @@
 .progress-bar-wrapper
-  %table
+  %table.table
     %thead
       %tr
         %td
@@ -15,18 +15,18 @@
           %td
             -unless k.inspections.nil?
               -k.inspections.each do |i|
-                .date.inspection=i.date.strftime("%-m-%-d-%y")
+                .date.inspection=i.date.strftime("%-b %-d '%y")
           %td
             -unless k.notifications.nil?
               -k.notifications.each do |n|
-                .date.notification=n.date.strftime("%-m-%-d-%y")
+                .date.notification=n.date.strftime("%-b %-d '%y")
           %td
             -unless k.hearings.nil?
               -k.hearings.each do |h|
-                .date.hearing=h.date.strftime("%-m-%-d-%y")
+                .date.hearing=h.date.strftime("%-b %-d '%y")
           %td
             -unless k.judgement.nil?
-              .date.judgement=k.judgement.date.strftime("%-m-%-d-%y")
+              .date.judgement=k.judgement.date.strftime("%-b %-d '%y")
           %td
             -unless k.address.resolutions.empty?
-              .date.resolution=k.address.resolutions.first.date.strftime("%-m-%-d-%y")
+              .date.resolution=k.address.resolutions.first.date.strftime("%-b %-d '%y")

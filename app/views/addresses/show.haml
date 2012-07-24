@@ -1,12 +1,12 @@
 %section.row-fluid.address-header
   .span4.address-title
-    %h1.pull-left=@address.address_long
+    %h1.pull-left=@address.address_long.titleize
   .span8
     %ul.pager.pull-right
       %li
-        %a.btn &larr; Back to search results
+        %a &larr; Back to search results
       %li
-        %a.btn Next &rarr;
+        %a Next &rarr;
 %section.row-fluid
   .span8
     =render :partial => "addresses/status-update", :locals => {:address => @address}
@@ -53,17 +53,28 @@
       .assessor_link
         =link_to "Assessor's office", @address.assessor_url
 
-    
-    -if(account_signed_in?)
-      -if(@account_subscribed)
-        .btn.btn-primary.btn-large.subscribe-button{:data => @address.address_id} 
-          Unsubscribe
-      -else
-        .btn.btn-warning.btn-large.subscribe-button{:data => @address.address_id} 
-          Subscribe
-    -else
-      .btn.btn-warning.btn-large.subscribe-button{:data => @address.address_id} 
-        =link_to('Subscribe', new_account_session_path) 
+    .div
+      See <a href="">owner, parcel, and tax info</a> for this property on the Assessor’s Office website.
 
     .div.sidedivide
       %img{:src => '/assets/star.png'}
+
+    -if(account_signed_in?)
+      -if(@account_subscribed)
+        .btn.btn-primary.btn-large{:data => @address.address_id} 
+          Unsubscribe
+      -else
+        .btn.btn-warning.btn-large{:data => @address.address_id} 
+          Subscribe
+    -else
+      .btn.btn-warning.btn-large{:data => @address.address_id} 
+        =link_to('Subscribe', new_account_session_path) 
+
+    .br
+    Get an email anytime this property changes.
+
+    .div.sidedivide
+      %img{:src => '/assets/star.png'}
+
+    .div
+      What is a reset?
