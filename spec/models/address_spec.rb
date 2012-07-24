@@ -115,11 +115,12 @@ describe Address do
   end
 
   describe "#most_recent_status_preview" do
-    it "dispalys the most recent status class and time" do
-      dt = DateTime.now - 1.day
+    it "displays the most recent status class and time" do
+      dt = DateTime.now - (1.day + 7.hours) #TODO adjust for timezone. should detect timezone 
       FactoryGirl.create(:demolition, :address => @address, :date_started => dt)
       FactoryGirl.create(:maintenance, :address => @address, :date_completed => (DateTime.now - 2.days))
       FactoryGirl.create(:foreclosure, :address => @address, :sale_date => (DateTime.now - 3.days))
+
       c = FactoryGirl.create(:case, :address => @address)
       FactoryGirl.create(:hearing, :case => c, :hearing_date => (DateTime.now - 30.days))  
       
