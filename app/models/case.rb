@@ -19,8 +19,16 @@ class Case < ActiveRecord::Base
     steps_ary.flatten.compact
   end
 
+  def first_status
+    self.accela_steps.sort{ |a, b| a.date <=> b.date }.first
+  end
+
   def most_recent_status
     self.accela_steps.sort{ |a, b| a.date <=> b.date }.last
+  end
+
+  def elapsed_time
+    most_recent_status.date.to_datetime.mjd - first_status.date.to_datetime.mjd
   end
 
   def assign_address(options = {})
@@ -31,7 +39,7 @@ class Case < ActiveRecord::Base
       elsif a.length > 1 && geopin
         #find by geopin and address
         a = Address.where( "address_long = :address_long AND geopin = :pin_num", {:address_long => options[:address_long], :pin_num => geopin} )
-        if a.length = 1
+        if a.length == 1
           self.address = a.first
         end
       end
@@ -44,6 +52,22 @@ class Case < ActiveRecord::Base
     self.save!
   end
 
+  def self.complete
+    Case.joins(:hearings, :inspections, :judgement).uniq
+  end
+
+  def self.at_inspection
+    Case.includes([:hearings, :judgement]).where("hearings.id IS NULL AND judgements.id IS NULL")
+  end
+
+  def self.without_inspection
+    Case.includes([:inspections]).where("inspections.id IS NULL")
+  end
+
+  def self.hearings_without_judgement
+    Case.includes([:hearings, :judgement]).where("judgements.id IS NULL AND cases.case_number = hearings.case_number")
+  end
+
   def self.matched_count
     Case.count(:conditions =>'address_id is not null')
   end
@@ -53,7 +77,7 @@ class Case < ActiveRecord::Base
   end
 
   def self.pct_matched
-    Case.count(:conditions => "address_id is not null").to_f / Case.count.to_f * 100
+    Case.matched_count.to_f / Case.count.to_f * 100
   end
   
 end

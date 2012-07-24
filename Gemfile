@@ -12,7 +12,8 @@ gem 'aws-s3'
 gem 'roo' #excel parser
 gem 'docsplit'
 gem 'rubyXL'
-
+gem 'devise'
+#gem "cancan"
 
 # GIS 
 gem 'rgeo'
@@ -29,6 +30,7 @@ gem 'kaminari'
 gem 'thin'
 
 gem 'newrelic_rpm'
+
 
 # Gems used only for assets and not required
 # in production environments by default.

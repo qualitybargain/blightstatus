@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'rgeo'
 
 describe Address do
   before(:each) do
@@ -119,6 +120,43 @@ describe Address do
 
       @address.set_assessor_link
       @address.assessor_url.should be_nil
+    end
+  end
+
+  describe "#most_recent_status_preview" do
+    it "displays the most recent status class and time" do
+      dt = DateTime.now - (1.day + 7.hours) #TODO adjust for timezone. should detect timezone 
+      FactoryGirl.create(:demolition, :address => @address, :date_started => dt)
+      FactoryGirl.create(:maintenance, :address => @address, :date_completed => (DateTime.now - 2.days))
+      FactoryGirl.create(:foreclosure, :address => @address, :sale_date => (DateTime.now - 3.days))
+
+      c = FactoryGirl.create(:case, :address => @address)
+      FactoryGirl.create(:hearing, :case => c, :hearing_date => (DateTime.now - 30.days))  
+      
+      @address.most_recent_status_preview.should == {:type => 'Demolition', :date => dt.strftime('%B %e, %Y')}
+    end    
+  end
+
+  describe "#find_addresses_with_cases_by_cardinal_street" do
+    it "display cases on a street with by cardinal_address" do
+      a = FactoryGirl.create(:address, :address_long => '1 N CFA ST', :street_name => 'CFA')
+      FactoryGirl.create(:case, :address => a)
+      a = FactoryGirl.create(:address, :address_long => '2 N CFA ST', :street_name => 'CFA')
+      FactoryGirl.create(:case, :address => a)
+      a =FactoryGirl.create(:address, :address_long => '1 S CFA ST', :street_name => 'CFA')
+      FactoryGirl.create(:case, :address => a)
+      a = FactoryGirl.create(:address, :address_long => '2 E CFA ST', :street_name => 'CFA')
+      FactoryGirl.create(:case, :address => a)
+      result = Address.find_addresses_with_cases_by_cardinal_street('E','CFA')
+      result.count.should < Address.find_addresses_with_cases_by_street('CFA').count
+    end    
+  end
+  describe "#self.find_addresses_within_area(ne, sw)" do
+    it "return # of cases at -90.04223467290467 29.975021724674335 should be 1" do
+        FactoryGirl.create(:case, :address => FactoryGirl.create(:address))
+        ne = {"lng" => -90.04223467290467, "lat" => 29.975021724674335}
+        sw = {"lng" => -90.04223467290467, "lat" => 29.975021724674335}
+        Address.find_addresses_with_cases_within_area(ne,sw).count.should eq(1)    
     end
   end
 end

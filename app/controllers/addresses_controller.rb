@@ -15,10 +15,14 @@ class AddressesController < ApplicationController
   end
 
   def show
+    if account_signed_in?
+      @account = current_account
+      @account_subscribed = !@account.subscriptions.where(:address_id => params[:id]).empty? 
+    end
     @address = Address.find(params[:id])
-
-    respond_with(@address)
+    respond_with(@address, @account_subscribed)
   end
+
 
   def search
     @search_term = params[:address]
@@ -27,27 +31,21 @@ class AddressesController < ApplicationController
 
     # When user searches they get a direct hit!
     if address_result.length == 1
-      # TODO: if json, then we should not redirect.
       redirect_to :action => "show", :id => address_result.first.id
+      # TODO: if json, then we should not redirect.
+      # This shouldn't be hard to do - just check if it's an xhr request with request.xhr?
     else
-      # if it's not a direct hit, then we look at the street name and just present a list of properties
-      # with that street name that have a case. No point in printing out a bunch of houses without cases
-
-        
       street_name = AddressHelpers.get_street_name(@search_term)
 
       if(dir = AddressHelpers.get_direction(@search_term))
         @addresses = Address.find_addresses_with_cases_by_cardinal_street(dir,street_name).uniq.order(:house_num).page(params[:page]).per(15)
       else
-        @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:house_num).page(params[:page]).per(15)
+        @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:street_name, :house_num).page(params[:page]).per(15)
       end
-#      factory = RGeo::Geographic::simple_mercator_factory
-#      bbox = RGeo::Cartesian::BoundingBox.new(factory)
-        
-      @addresses.each {|addr| 
+
+      @addresses.each {|addr|
         addr.address_long = AddressHelpers.unabbreviate_street_types(addr.address_long).capitalize
-#        bbox.add(addr.point)
-      } 
+      }
 
       respond_to do |format|
         format.html # show.html.erb
@@ -57,4 +55,16 @@ class AddressesController < ApplicationController
     end
   end
 
+  def map_search
+    ne = params["northEast"]
+    sw = params["southWest"]
+    @addresses = Address.find_addresses_within_area(ne, sw)
+
+    page = (params[:page] || 1).to_i
+    offset = (page - 1) * 15
+    page_count = @addresses.count / 15
+    @addresses = @addresses.slice(offset, 15)
+
+    respond_with [@addresses.to_json(:methods => [:most_recent_status_preview]), :page_count => page_count, :page => page]
+  end
 end

@@ -1,0 +1,11 @@
+.container-fluid
+  .row-fluid
+    .span2
+      =render "accounts/menu"
+      
+    .span8
+      / Body content
+      /=@user.inspect
+      /=@account_subcriptions.length
+      #map{:style => "width: 800px; height: 800px"}
+      / =@polygon_subcriptions.inspect

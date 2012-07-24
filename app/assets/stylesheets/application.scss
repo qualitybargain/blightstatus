@@ -10,7 +10,12 @@
  *
  *= require_self
  *= require_tree .
-*/
+ *= require bootstrap.min.css
+ *= require jquery-ui.css
+ *= require leaflet.css
+ *= require Control.Draw.css
+ */
+
 
 #wrapper{
 	position: absolute;
@@ -38,11 +43,11 @@ header {
 	clear: both;
 }
 
+
 .navbar{ 
 	text-align: center; 
 	top: 0px; 
 	left: 0px; 
-	height: 30px; 
 	width: 100%; 
 	-moz-box-shadow: 0px 0px 5px 0px #888; 
 	-webkit-box-shadow: 0px 0px 9px 0px #888; 
@@ -50,9 +55,14 @@ header {
 	z-index: 99999;
 
 	.navbar-inner{
-		background: #CBDCA3;/*#419ED8;*/ 
+		background: #D82020;/*#419ED8;*/ 
 		border-radius: 0;
 	}
+
+  #small-logo{
+    position: absolute;
+
+  }
 
 	p {
 		font-family: 'Arvo'; 
@@ -75,6 +85,7 @@ header {
 		color: white;
 		text-decoration: none; 
 		border-bottom:1px dotted #fff;
+		border: 0 !important;
 	}
 
 
@@ -102,17 +113,20 @@ header {
 
     
 .top-search-bar{
-	padding: 0;
-	position: absolute;
-	top: 40px;
-  left: 31%;
-        
+  left: 32%;
+  margin: 0 auto;
+  padding: 0;
+  position: absolute;
+  top: 50px;
+  width: 550px;
+
+
 	.search-form{
 		width: 600px;
 		margin: 0 auto;
 
     form{
-      margin: 0 0 10px;
+		margin: 0 0 10px;
     }
     .search-field{
       font-size: 100%;
@@ -124,7 +138,7 @@ header {
 				height: 23px;
 				margin-right: 10px;
 				padding: 3px 10px;
-				width: 320px;
+				width: 355px;
 			}
     }
       
@@ -144,7 +158,8 @@ header {
   font-size: 200%;
   height: 30px;
   padding: 5px 10px;
-  width: 320px;
+  width: 318px;
+  line-height: 30px;
 }
 
 .address{
@@ -282,4 +297,10 @@ footer{
   .pagination {
     border-left: 1px solid #ddd;
   }
+}
+
+#loader {
+  top: 200px;
+  left: 150px;
+  position: absolute;
 }

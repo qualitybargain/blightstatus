@@ -13,6 +13,24 @@
 
 ActiveRecord::Schema.define(:version => 20120619203239) do
 
+  create_table "accounts", :force => true do |t|
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+  end
+
+  add_index "accounts", ["email"], :name => "index_accounts_on_email", :unique => true
+  add_index "accounts", ["reset_password_token"], :name => "index_accounts_on_reset_password_token", :unique => true
+
   create_table "addresses", :force => true do |t|
     t.integer  "geopin"
     t.integer  "address_id"
@@ -112,6 +130,8 @@ ActiveRecord::Schema.define(:version => 20120619203239) do
     t.datetime "updated_at",         :null => false
   end
 
+  add_index "hearings", ["case_number"], :name => "index_hearings_on_case_number"
+
   create_table "inspections", :force => true do |t|
     t.string   "case_number"
     t.string   "result"
@@ -122,6 +142,8 @@ ActiveRecord::Schema.define(:version => 20120619203239) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
+
+  add_index "inspections", ["case_number"], :name => "index_inspections_on_case_number"
 
   create_table "inspectors", :force => true do |t|
     t.string   "name"
@@ -138,6 +160,8 @@ ActiveRecord::Schema.define(:version => 20120619203239) do
     t.datetime "judgement_date"
   end
 
+  add_index "judgements", ["case_number"], :name => "index_judgements_on_case_number"
+
   create_table "maintenances", :force => true do |t|
     t.string   "house_num"
     t.string   "street_name"
@@ -146,7 +170,7 @@ ActiveRecord::Schema.define(:version => 20120619203239) do
     t.string   "program_name"
     t.datetime "date_recorded"
     t.datetime "date_completed"
-    t.datetime "status"
+    t.string   "status"
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
     t.integer  "address_id"
@@ -196,14 +220,11 @@ ActiveRecord::Schema.define(:version => 20120619203239) do
     t.string   "notes"
   end
 
+  add_index "resets", ["case_number"], :name => "index_resets_on_case_number"
+
   create_table "searches", :force => true do |t|
     t.text     "term"
     t.string   "ip"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "statistics", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -222,6 +243,15 @@ ActiveRecord::Schema.define(:version => 20120619203239) do
     t.spatial  "the_geom",         :limit => {:srid=>-1, :type=>"geometry"}
     t.string   "prefix_direction"
     t.string   "suffix_direction"
+  end
+
+  create_table "subscriptions", :force => true do |t|
+    t.integer  "address_id"
+    t.integer  "account_id"
+    t.string   "notes"
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
+    t.spatial  "thegeom",    :limit => {:srid=>-1, :type=>"geometry"}
   end
 
 end

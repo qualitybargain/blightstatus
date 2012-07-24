@@ -51,11 +51,22 @@
 			height: 100%;
 			min-height: 500px;
 			width: 20%;
-      
+
       .result {
         a{
           text-transform:capitalize;
         }
+      }
+
+      ul.list.loading {
+        opacity: 0.4;
+      }
+
+      #loading {
+        display: none;
+        top: 200px;
+        left: 145px;
+        position: absolute;
       }
 		}
     
@@ -89,6 +100,11 @@
 		margin: 0 auto;
     width: 500px;
     
+    .subscribe-button{
+      &:hover{
+        cursor: pointer;
+      }
+    }
     .show-grid{
     
     }
@@ -265,6 +281,10 @@
   	
 }
 
+.ui-autocomplete{
+  z-index: 100 !important;
+}
+
 .leaflet-container .leaflet-control-attribution{
 	display: none;
 }
@@ -274,4 +294,12 @@
   font-size: 14px;
   line-height: 16px;
   padding-bottom: 10px;
+}
+
+.leaflet-marker-pane img.marked {
+  border: 1px solid red;
+}
+
+.address.result.marked {
+  border: 2px solid red;
 }
