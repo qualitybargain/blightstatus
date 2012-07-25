@@ -14,7 +14,7 @@
               %table.table-nolines
                 -kase.inspections.each do |i|
                   %tr
-                    %td.date=i.inspection_date.strftime("%-m-%-d-%y")
+                    %td.date=i.inspection_date.strftime("%-b %-d '%y")
                     %td Property was inspected, with a finding of #{i.result}
         -unless kase.notifications.empty?
           %tr
@@ -24,7 +24,7 @@
               %table.table.table-nolines
                 -kase.notifications.each do |n|
                   %tr
-                    %td.date=n.date.strftime("%-m-%-d-%y")
+                    %td.date=n.date.strftime("%-b %-d '%y")
                     %td The owner was notified that an administrative case was being brought against this property for violations of the New Orleans Building Code.
         -unless kase.hearings.empty?
           %tr
@@ -34,7 +34,7 @@
               %table.table-nolines
                 -kase.hearings.each do |h|
                   %tr
-                    %td.date=h.hearing_date.strftime("%-m-%-d-%y")
+                    %td.date=h.hearing_date.strftime("%-b %-d '%y")
                     %td
                       The case against this property #{h.date > Time.now ? 'will be' : 'was'} heard in a public hearing at 
                       %b 10:00am 
@@ -48,5 +48,5 @@
               %table.table-nolines
                 -kase.resets.each do |r|
                   %tr
-                    %td.date=r.reset_date.strftime("%-m-%-d-%y")
+                    %td.date=r.reset_date.strftime("%-b %-d '%y")
 
