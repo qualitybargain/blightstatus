@@ -30,7 +30,24 @@
 	
 	}
 	
-  
+  .home-search{
+    text-align:right;
+  }
+
+  .search-bubble{
+    width: 420px;
+    float:right;
+    padding: 8px;
+    background-color: #ebe9e1;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+
+    #main-search-field{
+      font-size: 140%;
+    }
+  }
+
   .homesearch{
     background: none repeat scroll 0 0 #CBDCA3;
     border-radius: 7px 7px 7px 7px;

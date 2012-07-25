@@ -16,12 +16,16 @@
  *= require Control.Draw.css
  */
 
+body {
+	background-image: url('/assets/ricepaper2.png');
+}
+
 header {
 	text-align: center;
   border-bottom: 1px solid #F5F5F5;
   background: #D82020;/*#419ED8;*/ 
   padding: 10px 30px 10px 10px !important;
-  margin: 0px -20px 18px -20px !important;
+  margin: 0px -20px 24px -20px !important;
 	-moz-box-shadow: 0px 0px 5px 0px #888; 
 	-webkit-box-shadow: 0px 0px 9px 0px #888; 
 	box-shadow: 0px 0px 5px 0px #888; 
