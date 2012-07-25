@@ -7,56 +7,24 @@ OpenBlight.accounts = {
     
 
     var savePolygon = function (e){
-      var features = new Array();
+      console.log(e);
+      var latlngs = new Array();
 
-      if (L.Marker && (e.marker instanceof L.Marker)){
-        var type = 'marker';
-        var latlngs = e.marker._latlng;
-      } else {
-        if (L.Polygon && (e.poly instanceof L.Polygon)){
-          var type = 'polygon';
-        } else {
-          var type = 'polyline';
-        }
-        var latlngs = new Array();
-        $.each(e.poly._latlngs, function(i) {
-          latlngs.push(e.poly._latlngs[i]);
-        });
-      }
-      
-      features.push({'type':type, 'latlngs':latlngs});
+      $.each(e.poly._latlngs, function(i, item) {        
+          latlngs[i] = { lat : item.lat, lng : item.lng };
+      });
 
-      jQuery.post( '/subscriptions', { polygon: features }, function(data) {
+      jQuery.post( '/subscriptions', { polygon: latlngs }, function(data) {
         console.log(data);
       }, 'json');
-
-
-      // return features
-
-      console.log(features);    
     };
     
-
-    
     var loadPolygon = function (map){
-      var features; //get ajax
-      if (features){
-        $.each(features, function(i, feature) {
-          if (feature.type == 'marker'){
-            var geometry = new L.Marker(feature.latlngs);
-          } else {
-            if (this._type == 'polygon' || 'rectangle'){
-              var geometry = new L.Polygon([]);
-            } else {
-              var geometry = new L.Polyline([]);
-            }
-            $.each(feature.latlngs, function(i, latlng) {
-              geometry.addLatLng(new L.LatLng(latlng.lat, latlng.lng));
-            });
-          }
-          map.addLayer(geometry);
-        });
-      }
+      $.getJSON('/accounts/map.json', function(geojsonFeature) {
+        var geojsonLayer = new L.GeoJSON();
+        geojsonLayer.addGeoJSON(geojsonFeature);
+        map.addLayer(geojsonLayer);
+      });
     };    
 
     wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
@@ -78,10 +46,9 @@ OpenBlight.accounts = {
 
         map.addControl(drawControl);
         
-        map.on('drawend', function(e) {
-          var popupContent = '<p>Hello world!<br />This is a nice popup.</p>',
-              popup = new L.Popup();
+        loadPolygon(map);
 
+        map.on('drawend', function(e) {
           //popup.setContent(popupContent);
           savePolygon(e);
           //e.target.openPopup(popup);

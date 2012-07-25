@@ -7,13 +7,12 @@ class Address < ActiveRecord::Base
 
   has_many :subscriptions
   has_many :accounts, :through => :subscriptions
-  accepts_nested_attributes_for :subscriptions, :allow_destroy => true
-  
-
   has_many :inspections, :through => :cases
   has_many :notifications, :through => :cases
   has_many :hearings, :through => :cases
   has_many :judgements, :through => :cases
+
+  accepts_nested_attributes_for :subscriptions, :allow_destroy => true
 
   validates_uniqueness_of :address_id
 
@@ -65,7 +64,7 @@ class Address < ActiveRecord::Base
     Address.joins(:cases).where('address_long like ?', '%' + card + ' ' + street_string + '%')
   end
 
-  def self.find_addresses_within_area(ne, sw)
+  def self.find_addresses_with_cases_within_area(ne, sw)
     factory = Address.first.point.factory
     box = RGeo::Cartesian::BoundingBox.new(factory)
     p1 = factory.point(ne["lng"].to_f, ne["lat"].to_f)
