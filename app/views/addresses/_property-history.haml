@@ -1,90 +1,52 @@
 .case-history
   -unless kase.nil?
-
-    .case_number
+    .case-number
       -unless kase.case_number.nil?
-        %h5 Case Number: #{kase.case_number}
-    -if (kase.inspections.empty? && !kase.notifications.empty?) || kase.inspections != []
-      .span13
-        .classification
-          %span{:class=>'badge-yellow'} Inspected?
-        .status
-          =image_tag('check_mark.png', :width => '20px')
+        %h4 Case Details for #{kase.case_number}
+        .clearfix
+    %table.table.table-condensed
+      %tbody
         -unless kase.inspections.empty?
-          .note
-            -kase.inspections.each do |i|
-              .inspection
-                Property was inspected on
-                %b #{i.inspection_date.strftime("%m/%d/%Y")}
-                , with a finding of #{i.result}
-        -if kase.inspections.empty? && !kase.notifications.empty?
-          .inspection
-            No Data Available
-
-    -if (kase.notifications.empty? && !kase.hearings.empty?) || kase.notifications != []
-      .span13
-        .classification
-          %span{:class=>'badge-yellow'} Owner Notified?
-        .status
-          =image_tag('check_mark.png', :width => '20px')
+          %tr
+            %td
+            %td.status Inspected?
+            %td
+              %table.table-nolines
+                -kase.inspections.each do |i|
+                  %tr
+                    %td.date=i.inspection_date.strftime("%-b %-d '%y")
+                    %td Property was inspected, with a finding of #{i.result}
         -unless kase.notifications.empty?
-          .note
-            -kase.notifications.each do |n|
-              .notificaton
-                The owner was notified on 
-                %b #{n.date.strftime("%m/%d/%Y")} 
-                that an administrative case is being brought against this property for violations of New Orleans Building Code.
-        -if kase.notifications.empty? && !kase.hearings.empty?
-          .notificaton
-            No Data Available
+          %tr
+            %td
+            %td.status Owner Notified?
+            %td
+              %table.table.table-nolines
+                -kase.notifications.each do |n|
+                  %tr
+                    %td.date=n.date.strftime("%-b %-d '%y")
+                    %td The owner was notified that an administrative case was being brought against this property for violations of the New Orleans Building Code.
+        -unless kase.hearings.empty?
+          %tr
+            %td
+            %td.status Hearing Scheduled?
+            %td
+              %table.table-nolines
+                -kase.hearings.each do |h|
+                  %tr
+                    %td.date=h.hearing_date.strftime("%-b %-d '%y")
+                    %td
+                      The case against this property #{h.date > Time.now ? 'will be' : 'was'} heard in a public hearing at 
+                      %b 10:00am 
+                      at New Orleans Courthouse, 1234 Perdido St. with an outcome of #{h.hearing_status}
 
-
-    -unless kase.hearings.empty?
-      .span13
-        .classification
-          %span{:class=>'badge-yellow'} Hearing Scheduled?
-        .status
-          =image_tag('check_mark.png', :width => '20px')
-        .note
-          -kase.hearings.each do |h|
-            .hearing
-              The case against this property #{h.date > Time.now ? 'will be' : 'was'} heard in a public hearing at 
-              %b 10:00am 
-              on 
-              %b #{h.hearing_date.strftime("%m/%d/%Y")} 
-              at New Orleans Courthouse, 1234 Perdido St. with an outcome of #{h.hearing_status}
-
-    -if !kase.hearings.empty? && kase.judgement.nil?
-      .span13                
-        .classification
-          %span{:class=>'badge-yellow'} Judgment Reached?
-        .status 
-          %b{:style=>"color:red"} Pending
-        .note
-          Hearings provide an opportunity for the property owner and other concerned citizens to bring evidence to help inform the judge’s decision. 
-          A judgement will be posted shortly after the scheduled hearing date.
-
-    -unless kase.judgement.nil?
-      .span13
-        .classification
-          %span{:class=>'badge-yellow'} Judgment Reached?
-        .status
-          =image_tag('check_mark.png', :width => '20px')
-        .note
-          .hearing
-            %t=kase.judgement.notes + " on "
-            %b=kase.judgement.judgement_date.strftime("%m/%d/%Y")
-
-    -unless kase.resets.empty?
-      .span13
-        .classification
-          %span{:class=>'badge-yellow'} Resets
-        .status
-          =image_tag('check_mark.png', :width => '20px')
-        .note
-          .span4 
-            -kase.resets.each do |r|
-              .reset
-                ="This case was reset for " << r.reset_date.strftime("%m/%d/%Y")
-
+        -unless kase.resets.empty?
+          %tr
+            %td
+            %td.status Reset?
+            %td
+              %table.table-nolines
+                -kase.resets.each do |r|
+                  %tr
+                    %td.date=r.reset_date.strftime("%-b %-d '%y")
 

@@ -1,17 +1,32 @@
 .progress-bar-wrapper
-  -p = progressbar(@address)
-  .progress-bar
-    -## TODO: better solution to this; once we break down the regions into subregions this should be 
-    -## developed or use bootstrap
-    .progress-bar-overlay{:style => "width: #{p[:bar]}", :class => p[:class]}
-      %span{ :class=> 'property-status property-status-inspection', 'href'=> "#" , 'rel'=>"popover", 'data-content'=>"A property is inspected by the Code Enforcement Department in response to a resident complaint or area sweep by a city inspector.",  'data-original-title'=>"Inpection"}
-        %a Inspection
-      %span{ :class=> 'property-status property-status-notification', 'href'=> "#" , 'rel'=>"popover", 'data-content'=>"If a property is reported in violation of city housing standards by a city inspector, a Notice of Violation is posted on the property and the owner is mailed a Notice of Violation packet.",  'data-original-title'=>"Notification"}
-        %a Notification
-      %span{ :class=> 'property-status property-status-hearing', 'href'=> "#" , 'rel'=>"popover", 'data-content'=>"An administrative hearing is conducted by an impartial judge to determine whether a property is in compliance, a public nuisance or blight.",  'data-original-title'=>"Hearing"}
-        %a Hearing
-      %span{ :class=> 'property-status property-status-judgement', 'href'=> "#" , 'rel'=>"popover", 'data-content'=>"Within 7 days following the hearing, the judge decides whether the property is guilty, and if so, the property is declared a “public nuisance,” “blight,” or both. The judgment can include a fine of $100 to $500 per day until the violations are corrected.",  'data-original-title'=>"Judgement"} 
-        %a Judgement
-      %span{ :class=> 'property-status property-status-resolution', 'href'=> "#" , 'rel'=>"popover", 'data-content'=>"If an owner fails to bring a guilty property into compliance, the city may bring the property into compliance at the expense of the property owner.  In severe cases, the property may be seized by the city for foreclosure and possibly demolition.",  'data-original-title'=>"Resolution"} 
-        %a Resolution
-    .progress-bar-icon{:style => "left: #{p[:arrow]}"}
+  %table.table
+    %thead
+      %tr
+        %td
+        %td{ :class=> 'property-status property-status-inspection', 'href'=> "#" , 'rel'=>"popover", 'data-content'=>"A property is inspected by the Code Enforcement Department in response to a resident complaint or area sweep by a city inspector.",  'data-original-title'=>"Inpection"} Inspection
+        %td{ :class=> 'property-status property-status-notification', 'href'=> "#" , 'rel'=>"popover", 'data-content'=>"If a property is reported in violation of city housing standards by a city inspector, a Notice of Violation is posted on the property and the owner is mailed a Notice of Violation packet.",  'data-original-title'=>"Notification"} Notification
+        %td{ :class=> 'property-status property-status-hearing', 'href'=> "#" , 'rel'=>"popover", 'data-content'=>"An administrative hearing is conducted by an impartial judge to determine whether a property is in compliance, a public nuisance or blight.",  'data-original-title'=>"Hearing"} Hearing
+        %td{ :class=> 'property-status property-status-judgement', 'href'=> "#" , 'rel'=>"popover", 'data-content'=>"Within 7 days following the hearing, the judge decides whether the property is guilty, and if so, the property is declared a “public nuisance,” “blight,” or both. The judgment can include a fine of $100 to $500 per day until the violations are corrected.",  'data-original-title'=>"Judgement"} Judgement
+        %td{ :class=> 'property-status property-status-resolution', 'href'=> "#" , 'rel'=>"popover", 'data-content'=>"If an owner fails to bring a guilty property into compliance, the city may bring the property into compliance at the expense of the property owner.  In severe cases, the property may be seized by the city for foreclosure and possibly demolition.",  'data-original-title'=>"Resolution"}  Resolution
+    %tbody
+      -kases.each do |k|
+        %tr
+          %td= k.case_number
+          %td
+            -unless k.inspections.nil?
+              -k.inspections.each do |i|
+                .date.inspection=i.date.strftime("%-b %-d '%y")
+          %td
+            -unless k.notifications.nil?
+              -k.notifications.each do |n|
+                .date.notification=n.date.strftime("%-b %-d '%y")
+          %td
+            -unless k.hearings.nil?
+              -k.hearings.each do |h|
+                .date.hearing=h.date.strftime("%-b %-d '%y")
+          %td
+            -unless k.judgement.nil?
+              .date.judgement=k.judgement.date.strftime("%-b %-d '%y")
+          %td
+            -unless k.address.resolutions.empty?
+              .date.resolution=k.address.resolutions.first.date.strftime("%-b %-d '%y")

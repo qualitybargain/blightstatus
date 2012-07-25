@@ -1,5 +1,9 @@
 class Judgement < ActiveRecord::Base
 	belongs_to :case, :foreign_key => :case_number, :primary_key => :case_number
+  
+  def date
+    self.judgement_date || Time.now
+  end
 
 	def self.matched_count
 		Judgement.count(:conditions =>'case_number is not null')
