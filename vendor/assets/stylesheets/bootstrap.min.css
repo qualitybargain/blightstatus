@@ -116,8 +116,8 @@ pre code{padding:0;color:inherit;background-color:transparent;border:0;}
 form{margin:0 0 18px;}
 fieldset{padding:0;margin:0;border:0;}
 legend{display:block;width:100%;padding:0;margin-bottom:27px;font-size:19.5px;line-height:36px;color:#333333;border:0;border-bottom:1px solid #eee;}legend small{font-size:13.5px;color:#999999;}
-label,input,button,select,textarea{font-size:13px;font-weight:normal;line-height:18px;}
-input,button,select,textarea{font-family:'Ubuntu',Tahoma,sans-serif;}
+label,input,button,select,textarea{font-size:13px;font-weight:normal;line-height:16px;}
+input,button,select,textarea{font-family:Helvetica,Arial,sans-serif;}
 label{display:block;margin-bottom:5px;color:#333333;}
 input,textarea,select,.uneditable-input{display:inline-block;width:210px;height:18px;padding:4px;margin-bottom:9px;font-size:13px;line-height:18px;color:#555555;border:1px solid #cccccc;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
 .uneditable-textarea{width:auto;height:auto;}
@@ -126,7 +126,7 @@ input[type="image"],input[type="checkbox"],input[type="radio"]{width:auto;height
 input[type="image"]{border:0;}
 input[type="file"]{width:auto;padding:initial;line-height:initial;border:initial;background-color:#ffffff;background-color:initial;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;}
 input[type="button"],input[type="reset"],input[type="submit"]{width:auto;height:auto;}
-select,input[type="file"]{height:28px;*margin-top:4px;line-height:28px;}
+select,input[type="file"]{height:26px;*margin-top:4px;line-height:26px;}
 input[type="file"]{line-height:18px \9;}
 select{width:220px;background-color:#ffffff;}
 select[multiple],select[size]{height:auto;}

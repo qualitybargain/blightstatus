@@ -95,20 +95,20 @@ header {
     .search-field{
       font-size: 100%;
       float: left;
-      margin-left: 20px;
+      display: inline-block;
 
 			#main-search-field {
 				font-size: 140%;
-				height: 23px;
-				margin-right: 10px;
+				height: 20px;
 				padding: 3px 10px;
 				width: 355px;
 			}
     }
 
     .search-button{
-      font-size: 100%;
-			float: left;
+	  float: left;
+	  display:inline-block;
+
       .btn{
         height: 30px;
       }
@@ -119,9 +119,9 @@ header {
 #main-search-field{
   font-size: 200%;
   height: 30px;
-  padding: 5px 10px;
+  padding: 5px 10px 0 10px;
   width: 318px;
-  line-height: 30px;
+  line-height: 26px;
 }
 
 .address{
