@@ -193,6 +193,56 @@
   cursor:pointer;
 }
 
+.progress-indic-wrapper {
+  margin-top: 4px;
+
+  .date {
+    &:before {
+      width: 8px;
+      height: 8px;
+      margin: 2px 2px 0 0;
+      display: block;
+      float: left;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      color: #fff;
+      background-color: #16A765;
+      content: "_";
+    }
+
+    &.empty:before {
+      background-color: #fff;
+      border: 1px solid #CCCCCC;
+      width: 6px;
+      height: 6px;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+    }
+
+    &.inspection:before {
+      background-color: #FA573C;
+    }
+
+    &.notification:before {
+      background-color: #FFAD46;
+    }
+
+    &.hearing:before{
+      background-color: #16A765;
+    }
+
+    &.judgement:before {
+      background-color: #4986E7;
+    }
+
+    &.resolution:before {
+      background-color: #A47AE2;
+    }
+  }
+}
+
 .cases {
   margin-top: 40px;
 }
