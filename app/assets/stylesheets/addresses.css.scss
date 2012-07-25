@@ -35,9 +35,7 @@
 		.left-bar{
 			float:left;
 			padding: 0 20px;
-			border-width: 0 1px 0 0;
-			border-style: solid;
-			border-color: #eee;
+      border: none;
 			height: 100%;
 			min-height: 500px;
 			width: 20%;
@@ -158,7 +156,7 @@
     &:before {
       width: 10px;
       height: 10px;
-      margin: 5px 5px 0 0;
+      margin: 4px 5px 0 0;
       display: block;
       float: left;
       border-radius: 5px;
@@ -191,6 +189,10 @@
   width:100%;
 }
 
+.property-status:hover{
+  cursor:pointer;
+}
+
 .cases {
   margin-top: 40px;
 }
@@ -201,11 +203,24 @@
 
 .table-nolines th, .table-nolines td{
   border-top:none !important;
+  padding-top: 0px !important;
 }
 
 .sidedivide{
   text-align:center;
   margin: 8px 0 8px 0;
+}
+
+.centered{
+  text-align:center;
+}
+
+.assessor{
+  font-size: 16px;
+}
+
+.pager a{
+  cursor:pointer
 }
 
 .status-update{

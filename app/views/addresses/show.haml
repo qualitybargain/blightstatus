@@ -53,24 +53,30 @@
       .assessor_link
         =link_to "Assessor's office", @address.assessor_url
 
-    .div
-      See <a href="">owner, parcel, and tax info</a> for this property on the Assessor’s Office website.
+    .div.sidedivide
+      %img{:src => '/assets/star.png'}
+      
+    .div.centered
+      %span.assessor <a href="">Owner, parcel, and tax info</a>
+      %br
+      via Assessor’s Office
 
     .div.sidedivide
       %img{:src => '/assets/star.png'}
 
-    Get emailed when this property changes.
+    Get emailed when this property changes:
     %br
     -if(account_signed_in?)
+      
       -if(@account_subscribed)
         .btn.btn-primary.btn-large{:data => @address.address_id} 
           Unsubscribe
       -else
         .btn.btn-warning.btn-large{:data => @address.address_id} 
           Subscribe
+
     -else
-      .btn.btn-warning.btn-large{:data => @address.address_id} 
-        =link_to('Subscribe', new_account_session_path) 
+      =link_to('Subscribe', new_account_session_path, :class => "btn btn-large")
 
     .br
 
