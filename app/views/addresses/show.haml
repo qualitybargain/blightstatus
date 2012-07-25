@@ -59,6 +59,8 @@
     .div.sidedivide
       %img{:src => '/assets/star.png'}
 
+    Get emailed when this property changes.
+    %br
     -if(account_signed_in?)
       -if(@account_subscribed)
         .btn.btn-primary.btn-large{:data => @address.address_id} 
@@ -71,7 +73,6 @@
         =link_to('Subscribe', new_account_session_path) 
 
     .br
-    Get an email anytime this property changes.
 
     .div.sidedivide
       %img{:src => '/assets/star.png'}

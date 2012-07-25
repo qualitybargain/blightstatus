@@ -4,14 +4,14 @@
       -unless kase.case_number.nil?
         %h4 Case Details for #{kase.case_number}
         .clearfix
-    %table
+    %table.table.table-condensed
       %tbody
         -unless kase.inspections.empty?
           %tr
             %td
             %td.status Inspected?
             %td
-              %table
+              %table.table-nolines
                 -kase.inspections.each do |i|
                   %tr
                     %td.date=i.inspection_date.strftime("%-m-%-d-%y")
@@ -21,7 +21,7 @@
             %td
             %td.status Owner Notified?
             %td
-              %table
+              %table.table.table-nolines
                 -kase.notifications.each do |n|
                   %tr
                     %td.date=n.date.strftime("%-m-%-d-%y")
@@ -31,7 +31,7 @@
             %td
             %td.status Hearing Scheduled?
             %td
-              %table
+              %table.table-nolines
                 -kase.hearings.each do |h|
                   %tr
                     %td.date=h.hearing_date.strftime("%-m-%-d-%y")
@@ -45,7 +45,7 @@
             %td
             %td.status Reset?
             %td
-              %table
+              %table.table-nolines
                 -kase.resets.each do |r|
                   %tr
                     %td.date=r.reset_date.strftime("%-m-%-d-%y")

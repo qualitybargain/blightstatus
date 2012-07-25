@@ -91,7 +91,6 @@
     }
 
     td {
-      padding-right: 15px;
     }
 
     .status {
@@ -166,24 +165,24 @@
       -moz-border-radius: 5px;
       -webkit-border-radius: 5px;
       color: #fff;
-      background-color: green;
+      background-color: #16A765;
       content: "_";
     }
 
     &.inspection:before {
-      background-color: red;
+      background-color: #FA573C;
     }
 
     &.notification:before {
-      background-color: orange;
+      background-color: #FFAD46;
     }
 
     &.judgement:before {
-      background-color: blue;
+      background-color: #4986E7;
     }
 
     &.resolution:before {
-      background-color: purple;
+      background-color: #A47AE2;
     }
   }
 }
@@ -200,7 +199,17 @@
   margin-top: 20px;
 }
 
+.table-nolines th, .table-nolines td{
+  border-top:none !important;
+}
+
 .sidedivide{
   text-align:center;
   margin: 8px 0 8px 0;
+}
+
+.status-update{
+  background-color:#ffffcc;
+  display: inline-block;
+  padding: 2px;
 }
