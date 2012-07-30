@@ -3,15 +3,26 @@ class AccountsController < ApplicationController
   respond_to :html, :json, :xml
 
   def index    
-    @user = current_account
+    @account = current_account
     # @user.inspect
-    @account_subcriptions = @user.addresses
+    @account_subcriptions = @account.addresses
   end
 
   def map
-    @user = current_account
-    # @user.inspect
-    @account_subcriptions = @user.addresses
+    @account = current_account
+    @polygon_subcriptions = Subscription.where(:account_id => @account.id)
+
+
+    polygon = Subscription.last.thegeom
+    geojson = RGeo::GeoJSON::encode(polygon)
+
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => geojson.to_json }
+    end
+
+
   end
 
   def show

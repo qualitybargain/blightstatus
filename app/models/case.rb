@@ -39,7 +39,7 @@ class Case < ActiveRecord::Base
       elsif a.length > 1 && geopin
         #find by geopin and address
         a = Address.where( "address_long = :address_long AND geopin = :pin_num", {:address_long => options[:address_long], :pin_num => geopin} )
-        if a.length = 1
+        if a.length == 1
           self.address = a.first
         end
       end

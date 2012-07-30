@@ -3,20 +3,33 @@ class SubscriptionsController < ApplicationController
   
   def create
     account = current_account
-    
-    @sub = Subscription.create({:address_id => params[:id], :account_id => account.id})
-    # unless params[:polygon].nil?
-    #   @sub = Subscription.find_or_create_by({:thegeom => params[:polygon], :account_id => account.id})
-    # else
-    #   @sub = Subscription.find_or_create_by_address_id({:address_id => params[:id], :account_id => account.id})
+    points = Array.new
+    factory = RGeo::Cartesian.factory
 
+
+    puts "---------------------------------"
+    params[:polygon].each{|index, item|
+      puts item.inspect
+      points.push(factory.point( item['lng'].to_f, item['lat'].to_f ))
+    }
+    #close the polygon with the first position
+    # points << factory.point( params[:polygon].first.['lng'].to_f, params[:polygon].first.['lat'].to_f )
+    puts points.inspect
+
+
+    puts "---------------------------------"
+    polygon = factory.polygon(factory.linear_ring(points))
+    puts polygon.inspect
+
+    #TODO: you have to manually remove the 
+    @sub = Subscription.create({:address_id => params[:id], :account_id => account.id, :thegeom => polygon})
 
     if @sub.save
-      #success
       respond_with @sub
     else
-      #not success
       respond_with :errors => @sub.errors 
     end
   end
+
+  
 end

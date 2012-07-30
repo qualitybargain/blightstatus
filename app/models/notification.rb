@@ -4,7 +4,9 @@ class Notification < ActiveRecord::Base
   validates_uniqueness_of :notified, :scope => [:case_number, :notification_type]
 
   def date
-    self.notified.to_datetime || DateTime.new(0)
+    return DateTime.new(0) if notified.nil?
+    
+    self.notified.to_datetime
   end
 
   def notes
