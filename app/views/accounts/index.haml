@@ -1,32 +1,28 @@
 .container-fluid
   .row-fluid
-    .span2
-      =render "accounts/menu"
-      
     .span8
       / Body content
       /=@user.inspect
       /=@account_subcriptions.length
-      %table.table.table-bordered
+
+      %table{ :class => "table table-striped table-bordered", :id => "subscriptions"}
         %thead
           %tr
-            %th Select    
-            %th Photo    
+            / %th Select    
+            %th Location    
             %th Address
             %th Recent Status
-            %th Notes
+            / %th Notes
 
         %tbody
           -@account_subcriptions.each do |n|
             %tr
               %td
-                %input{:type => "checkbox"}
-              %td
                 %div{:style => "background: url('/assets/neworleans_homes.png') repeat scroll 206px 0 transparent; height: 80px; width: 90px;" }
               %td
                 =link_to n.address_long, address_path(n)
               %td
-                Inpections
-              %td
-                Random notes
+                -n.most_recent_status_preview.each do |index, val|
+                  .div
+                    =val
 

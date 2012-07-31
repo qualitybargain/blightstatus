@@ -2,11 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
-
 .container-addresses{
-	width: 100% !important;
-
 	header{
 		height: 40px;
     
@@ -19,15 +15,7 @@
   		width: 290px;
 		}
 	}
-  .show-grid{
-    
-    .address{
-      line-height: 20px;
-      margin-top: 20px;
-    }
-  }
-	
-  
+
   .no-search-results{
     position: relative;
 		
@@ -45,9 +33,7 @@
 		.left-bar{
 			float:left;
 			padding: 0 20px;
-			border-width: 0 1px 0 0;
-			border-style: solid;
-			border-color: #eee;
+      border: none;
 			height: 100%;
 			min-height: 500px;
 			width: 20%;
@@ -69,20 +55,6 @@
         position: absolute;
       }
 		}
-    
-		.right-bar{
-			float:left;
-			width: 74%;
-			padding-left: 20px;
-
-    	#map{
-        border: 1px solid #ccc;
-        height: 400px !important;
-        width: 600px !important;
-        position: relative;  
-      }
-      
-		}
 	}
   
   footer{
@@ -90,195 +62,42 @@
   	padding-bottom: 15px;
   	clear: both;
 		position: relative;
+    margin-top: 60px;
   	.footer{
   		bottom: 0;
   	}
   }
-  
-	
-	.single{
-		margin: 0 auto;
-    width: 500px;
-    
-    .subscribe-button{
-      &:hover{
-        cursor: pointer;
-      }
-    }
-    .show-grid{
-    
-    }
-    
-    .map{
-      width: 500px;
-      border: 1px solid #ccc;
-    }
-  
-    
-    .progress-bar-icon{
-      background: url('/assets/progress_arrow.png') no-repeat;
-      bottom: -11px;
-      height: 10px;
-      position: absolute;
-      right: 0;
-      width: 25px;
-    }
-                    
-    .progress-bar{
-      background-color: #F8DC8D;
-      border: 0 solid #AAAAAA;
-      border-radius: 10px 10px 10px 10px;
-      height: 30px;
-      padding: 3px;
-      position: relative;
-      text-transform: uppercase;
-      margin-top: 10px;
-          
-      .progress-bar-overlay{
-        background-color: #f9CC5d !important;
-        border-radius: 10px 0 0 10px;
-        height: 35px;
-        width: 80%;
-        position: absolute;
-        left: 0;
-        top: 0;
 
-        &.full {
-          border-radius: 10px 10px 10px 10px;
-        }
-        
-        .property-status-inspection{
-          height: 35px;
-          left: 0px;
-          padding-top: 9px;
-        }
-        .property-status-notification{
-          left: 100px;
-          height: 24px;
-          padding-top: 9px;
-        }
-        .property-status-hearing{
-          height: 24px;
-          padding-top: 9px;
-          left: 210px;
-        }
-        .property-status-judgement{
-          height: 24px;
-          padding-top: 9px;
-          left: 290px;
-        }
-        .property-status-resolution{
-          height: 24px;
-          padding-top: 9px;
-          left: 390px;
-        }
-        
-      }
+  .pager {
+    margin-bottom: 15px;
+  }
 
-      
-      .property-status{
-        width: 75px;
-        padding: 0 15px;
-        position: absolute;
-        a{
-          color: #6A6867;
-          text-decoration: none;
-          &:hover{
-            text-decoration: none;
-            color: #6A6867;
-            cursor: pointer;
-          }
-        }
-      }  
+  .subscribe-button{
+    &:hover{
+      cursor: pointer;
     }
-    
-    
-		.badge-info{
-      width: 58%;
-      margin: 0 auto;
-    }
-    .case-history{
-			.no-data-found{
-				margin-left: 0;
-			}
+  }
 
-    }
-    
-    .case {
-    	border: solid #aaa;
-      border-width: 1px 0 0 0 ;
-      margin: 30px 0 20px;
-      padding: 10px 0;
+  .map{
+    border: 1px solid #ccc;
+  }
 
-    	.span13{
-        border: 0 solid #EEEEEE;
-        padding: 15px 0;
-        width: 90%;    
-    	}
-    }
-    
-    .status-update{
-      margin: 0 auto;
-      padding: 10px 0 30px;
-      text-align: left;
-      width: 100%;
-
-      .recent-update-notice{
-        text-transform: uppercase;
-        color: #DC5C52;
-        font-weight: bold;
-        display: inline;
-      }
-    
-      .recent-update{
-        display: inline;
-        text-align:left;
-      }
-      
-      .no-record-notice{
-        font-size: 120%;
-        font-weight: bold;
-        color: #DC5C52;
-        padding: 0 0 10px;
-        text-align: left;
-      }
-      
-      .recommended-next-action{
-        text-align: left;
-      }
-
-    }
-    
-
-    
-    
-    .classification{
-      float: left;
-      width: 100px;
-    }
-    .status{
-      float: left;
-      text-align: center;
-      width: 100px;
-
-    }
-    .note{
-      float: left;
-      width: 245px;
-
-      .span3{
-        margin-left: 0;
-        padding-left: 0;
-      }
-      .span4{
-        margin-left: 0;
-        padding-left: 0;
-      }
-      
+  table {
+    tr {
+      padding: 5px 0;
     }
 
-	}
-  	
+    td {
+    }
+
+    .status {
+      min-width: 120px;
+    }
+
+    .date {
+      min-width: 80px;
+    }
+  }
 }
 
 .ui-autocomplete{
@@ -302,4 +121,161 @@
 
 .address.result.marked {
   border: 2px solid red;
+}
+
+.address-header {
+  border-bottom: 4px solid #DD4814;
+  margin-top: 6px;
+  margin-bottom: 20px;
+  height: 36px;
+
+  .address-title {
+    h1 {
+      background: #DD4814;
+      padding: 5px 10px;
+      color: #fff;
+    }
+  }
+}
+
+.case-number {
+  border-bottom: 3px solid #6e6e6e;
+  width: 100%;
+
+  h4 {
+    background: #6e6e6e;
+    color: #fff;
+    float: left;
+    padding: 3px 8px;
+  }
+}
+
+.progress-bar-wrapper {
+  margin-top: 10px;
+
+  .date {
+    &:before {
+      width: 10px;
+      height: 10px;
+      margin: 4px 5px 0 0;
+      display: block;
+      float: left;
+      border-radius: 5px;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+      color: #fff;
+      background-color: #16A765;
+      content: "_";
+    }
+
+    &.inspection:before {
+      background-color: #FA573C;
+    }
+
+    &.notification:before {
+      background-color: #FFAD46;
+    }
+
+    &.judgement:before {
+      background-color: #4986E7;
+    }
+
+    &.resolution:before {
+      background-color: #A47AE2;
+    }
+  }
+}
+
+.progress-bar-wrapper table{
+  width:100%;
+}
+
+.property-status:hover{
+  cursor:pointer;
+}
+
+.progress-indic-wrapper {
+  margin-top: 4px;
+
+  .date {
+    &:before {
+      width: 8px;
+      height: 8px;
+      margin: 2px 2px 0 0;
+      display: block;
+      float: left;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      color: #fff;
+      background-color: #16A765;
+      content: " ";
+    }
+
+    &.empty:before {
+      background-color: #fff;
+      border: 1px solid #CCCCCC;
+      width: 6px;
+      height: 6px;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+    }
+
+    &.inspection:before {
+      background-color: #FA573C;
+    }
+
+    &.notification:before {
+      background-color: #FFAD46;
+    }
+
+    &.hearing:before{
+      background-color: #16A765;
+    }
+
+    &.judgement:before {
+      background-color: #4986E7;
+    }
+
+    &.resolution:before {
+      background-color: #A47AE2;
+    }
+  }
+}
+
+.cases {
+  margin-top: 40px;
+}
+
+.case {
+  margin-top: 20px;
+}
+
+.table-nolines th, .table-nolines td{
+  border-top:none !important;
+  padding-top: 0px !important;
+}
+
+.sidedivide{
+  text-align:center;
+  margin: 8px 0 8px 0;
+}
+
+.centered{
+  text-align:center;
+}
+
+.assessor{
+  font-size: 16px;
+}
+
+.pager a{
+  cursor:pointer
+}
+
+.status-update{
+  background-color:#ffffcc;
+  display: inline-block;
+  padding: 2px;
 }

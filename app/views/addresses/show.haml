@@ -1,60 +1,87 @@
-.inner.single
-  .show-grid
+%section.row-fluid.address-header
+  .span8.address-title
+    %h1.pull-left=@address.address_long.titleize
+  .span4
+    %ul.pager.pull-right
+      %li
+        %a &larr; Back to search results
+      %li
+        %a Next &rarr;
+%section.row-fluid
+  .span8
+    =render :partial => "addresses/status-update", :locals => {:address => @address}
+    -unless @address.workflow_steps.empty?
+      .property_history
+        =render :partial => "addresses/progress-bar", :locals => {:kases => @address.sorted_cases}
+        .cases
+          -@address.sorted_cases.each do |c|
+            .case
+              =render :partial => "addresses/property-history", :locals => {:kase => c}
+            .clearfix
+          .case
+            -unless @address.resolutions.empty?
+              .case-number
+                %h4 Resolution
+                .clearfix
+              %table
+                %tbody
+                  -@address.resolutions.each do |r|
+                    %tr
+                      %td
+                      -if r.class == Demolition
+                        %td.status Demolition
+                        %td.date=r.date.strftime("%-m-%-d-%y")
+                        %td This property was demolished by #{r.program_name}
+                      - elsif r.class == Foreclosure
+                        %td.status Foreclosure
+                        %td.date=r.date.strftime("%-m-%-d-%y")
+                        %td This property was sent to code lien foreclosure
+                      - elsif r.class == Maintenance
+                        %td.date Interim Nuisanace Abatement Program
+                        %td.date=r.date.strftime("%-m-%-d-%y")
+                        %td This property was maintained by #{r.program_name} on 
+                        %b=r.date.strftime("%m/%d/%Y")
+                      - else
+                        %td
+                        %td=r.class.to_s + ": " + r.date.strftime("%m/%d/%Y")
+
+  .span4
     .map
       #address{"internal_address_id" => @address.id, "address_id" => @address.address_id, "data-x" => @address.point.x, "data-y" => @address.point.y }
         #map{:style => "height: 200px;"}
-    .address
-      %h1{:style => "float: left"}=@address.address_long
-      -if(account_signed_in?)
-        -if(@account_subscribed)
-          .btn.btn-primary.btn-large.subscribe-button{:style => "float: right", :data => @address.address_id} 
-            Unsubscribe
-        -else
-          .btn.btn-warning.btn-large.subscribe-button{:style => "float: right", :data => @address.address_id} 
-            Subscribe
-      -else
-        .btn.btn-warning.btn-large.subscribe-button{:style => "float: right", :data => @address.address_id} 
-          =link_to('Subscribe', new_account_session_path) 
-
-
-    .clearfix
-	  
     -if @address.assessor_url
       .assessor_link
         =link_to "Assessor's office", @address.assessor_url
 
-  =render :partial => "addresses/status-update", :locals => {:address => @address}
+    .div.sidedivide
+      %img{:src => '/assets/star.png'}
 
-  -unless @address.workflow_steps.empty?
-    .property_history
-      %h3 Property History
-      =render :partial => "addresses/progress-bar"
-      -@address.sorted_cases.each do |c|
-        .case
-          =render :partial => "addresses/property-history", :locals => {:kase => c}
-        .clearfix
-      .case
-        -unless @address.resolutions.empty?
-          .case_number
-            %h5 Resolution
-          .span13
-            .classification
-              %span{:class=>'badge-yellow'} Resolved?
-            .status
-              =image_tag('check_mark.png', :width => '20px')
-            .note
-              .span4
-                -@address.resolutions.each do |r|
-                  .resolution
-                  - if r.class == Demolition
-                    This property was successfully demolished by #{r.program_name} on 
-                    %b=r.date.strftime("%m/%d/%Y")
-                  - elsif r.class == Foreclosure
-                    This property was foreclosed on 
-                    %b=r.date.strftime("%m/%d/%Y")
-                  - elsif r.class == Maintenance
-                    This property was maintained by #{r.program_name} on 
-                    %b=r.date.strftime("%m/%d/%Y")
-                  - else
-                    %b=r.class.to_s + ": " + r.date.strftime("%m/%d/%Y")
-                  .clearfix
+    .div.centered
+      %span.assessor <a href="">Owner, parcel, and tax info</a>
+      %br
+      via Assessor’s Office
+
+    .div.sidedivide
+      %img{:src => '/assets/star.png'}
+
+    Get emailed when this property changes:
+    %br
+    -if(account_signed_in?)
+      
+      -if(@account_subscribed)
+        .btn.btn-primary.btn-large{:data => @address.address_id} 
+          Unsubscribe
+      -else
+        .btn.btn-warning.btn-large{:data => @address.address_id} 
+          Subscribe
+
+    -else
+      =link_to('Subscribe', new_account_session_path, :class => "btn btn-large")
+
+    .br
+
+    .div.sidedivide
+      %img{:src => '/assets/star.png'}
+
+    .div
+      What is a reset?

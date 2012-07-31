@@ -30,27 +30,43 @@
 	
 	}
 	
-  
-  .homesearch{
-    background: none repeat scroll 0 0 #CBDCA3;
-    border-radius: 7px 7px 7px 7px;
-    box-shadow: 3px 3px 5px #AAAAAA;
-    margin: 0 auto;
-    padding: 15px;
-    width: 530px;
-            
+  .home-search{
+    text-align:right;
+  }
+
+  .search-bubble{
+    width: 420px;
+    float:right;
+    padding: 8px;
+    background-color: #ebe9e1;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    text-align:left;
+
     .search-form{
-      width: 515px;
       margin: 0 auto;
+
       .search-field{
-        float: left;
+        display:inline-block;
+
+        #main-search-field{
+          width: 275px;
+          height: 32px;
+          font-size: 140%;
+    }
+
       }
       .search-button{
-        float: left;
-        padding: 1px 2px;
+        display:inline-block;
+        .btn{
+          margin-top: -10px;
+          height: 38px;
+        }
       }
     }
   }
+
   
   footer{
     position: absolute;

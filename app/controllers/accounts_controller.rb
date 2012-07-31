@@ -5,6 +5,8 @@ class AccountsController < ApplicationController
   def index    
     @account = current_account
     # @user.inspect
+
+
     @account_subcriptions = @account.addresses
   end
 

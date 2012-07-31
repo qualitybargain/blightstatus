@@ -6,20 +6,15 @@ class SubscriptionsController < ApplicationController
     points = Array.new
     factory = RGeo::Cartesian.factory
 
-
-    puts "---------------------------------"
     params[:polygon].each{|index, item|
       puts item.inspect
       points.push(factory.point( item['lng'].to_f, item['lat'].to_f ))
     }
     #close the polygon with the first position
     # points << factory.point( params[:polygon].first.['lng'].to_f, params[:polygon].first.['lat'].to_f )
-    puts points.inspect
 
-
-    puts "---------------------------------"
     polygon = factory.polygon(factory.linear_ring(points))
-    puts polygon.inspect
+    # puts polygon.inspect
 
     #TODO: you have to manually remove the 
     @sub = Subscription.create({:address_id => params[:id], :account_id => account.id, :thegeom => polygon})
@@ -29,6 +24,21 @@ class SubscriptionsController < ApplicationController
     else
       respond_with :errors => @sub.errors 
     end
+  end
+
+
+  def send_notifications
+    users = Subscription.find(:all).group("account_id")
+    
+    # Get all the subscribers
+    users.each{ | user, item | 
+
+      subscriptions = Subscription.find_by_user_id(user.account_id)
+
+      SubscriptionMailer.notify(@user).deliver
+
+    }
+
   end
 
   
