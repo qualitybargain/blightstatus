@@ -1,6 +1,6 @@
 OpenBlight.addresses = {
   init: function(){
-    OpenBlight.addresses.subscribe_button();
+    OpenBlight.addresses.subscribeButton();
   },
 
   search: function(){
@@ -63,7 +63,7 @@ OpenBlight.addresses = {
   },
 
 
-  subscribe_button: function(){
+  subscribeButton: function(){
 
     jQuery(".subscribe-button").click(function(){
       var that = this;
@@ -76,7 +76,8 @@ OpenBlight.addresses = {
   associateMarkers: function(){
     for(var i = 0; i < OpenBlight.markers.length; i++){
       var m = OpenBlight.markers[i];
-      $(m.marker["_icon"]).attr("id", "marker-" + m.id);
+      //console.log(m.marker['_icon'])
+      $(m.marker['_icon']).attr("id", "marker-" + m.id);
     }
 
     $('li.result').each(function(){
@@ -180,9 +181,20 @@ OpenBlight.addresses = {
       var popupContent = '<h3><a href="/addresses/'+ data[i].id +'">'+ data[i].address_long + '</a></h3><h4>'+ data[i].most_recent_status_preview.type + ' on ' + data[i].most_recent_status_preview.date + '</h4>'
       var marker;
 
-      group.addLayer(marker = new L.Marker(new L.LatLng(point[1] , point[0])).bindPopup(popupContent));
+      var LeafIcon = L.DivIcon.extend({
+        options: {
+          iconSize: new L.Point(10, 40),
+          className: "maps-marker"
+        }
+      });
 
-      li = '<li class="active address result" data-id="'+ data[i].id +'"> <a href="/addresses/'+ data[i].id +'"><img width="10px" src="/assets/marker.png">'+ data[i].address_long +'</a></li>';
+      var greenIcon = new LeafIcon({iconUrl: '/assets/images/marker-icon.png'});
+
+
+
+      group.addLayer(marker = new L.Marker(new L.LatLng(point[1] , point[0]), {icon: greenIcon} ).bindPopup(popupContent));
+
+      li = '<li class="address result" data-id="'+ data[i].id +'"> <span class="maps-marker">'+i+'</span><span class="search-address"><a href="/addresses/'+ data[i].id +'">'+ data[i].address_long +'</a></span></li>';
       $('.search-results ul.list').append(li);
 
       OpenBlight.markers.push({id: data[i].id, marker: marker});
