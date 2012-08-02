@@ -1,17 +1,56 @@
+$lightTeal: #62CCCC;
+$darkTeal: #008E8A;
+$lightBeige: #EBE9E1;
+$lightBeige: #D1CEC1;
+$grey: #6D6E71;
+$orange: #F1601D;
+
 body {
-	/*background-image: url('/assets/ricepaper2.png');*/
+	background-image: url('/assets/ricepaper2.png');
 }
 
-h1, h2, h3{
 
+header {
+  text-align: center;
+  border-bottom: 1px solid #F5F5F5;
+  padding: 10px 30px 10px 10px !important;
+  margin: 0px -20px 24px -20px !important;
+  -moz-box-shadow: 0px 0px 5px 0px #888; 
+  -webkit-box-shadow: 0px 0px 9px 0px #888; 
+  box-shadow: 0px 0px 5px 0px #888; 
+  z-index: 99999;
+  border-radius: 0;
+}
+
+
+h1{
+  text-transform: uppercase;
+  color: #F1601D;
+  font-size: 30pt;  
+}
+
+h2, h3{
   font-family: "Kreon";
   text-transform: uppercase;
+  color: $orange;
+}
 
+/*
+navbar
+*/
+.navbar .nav > li > a{
+  text-shadow: none;
+  font-size: 18px;
 }
 
 .navbar-inner{
-  background: url('/assets/header-gradient.png') repeat-x;
+  background: transparent;
+}
+
+
+.navbar-inner{
   box-shadow: none;
+  font-weight: 400;
 
 }
 
@@ -23,17 +62,16 @@ h1, h2, h3{
     position: relative;
 }
 
-header {
-	text-align: center;
-  border-bottom: 1px solid #F5F5F5;
-  padding: 10px 30px 10px 10px !important;
-  margin: 0px -20px 24px -20px !important;
-	-moz-box-shadow: 0px 0px 5px 0px #888; 
-	-webkit-box-shadow: 0px 0px 9px 0px #888; 
-	box-shadow: 0px 0px 5px 0px #888; 
-	z-index: 99999;
-  border-radius: 0;
+
+.btn{
+    background: none repeat scroll 0 0 #62C1CC;
+    border: 0 none;
+    border-radius: 10px 10px 10px 10px;
+    font-family: "Lato";
+    font-weight: 300;
+    text-transform: uppercase;  
 }
+
 
 .clear{
 	clear: both;
@@ -117,7 +155,7 @@ header {
     margin-bottom: 20px;
     min-height: 20px;
     padding: 19px;
-    background-color: white !important;
+    background-color: transparent;
     border: 0 !important;
     box-shadow: none !important;
 }
@@ -143,7 +181,7 @@ header {
 		&:hover{
 			text-decoration: none;
 			color: black;
-      		cursor: pointer;
+      cursor: pointer;
 		}
           
     a{

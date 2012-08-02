@@ -70,6 +70,12 @@
       }
 		}
 	}
+
+  .main{
+      background-color: white;
+      border-radius: 30px 30px 30px 30px;
+      padding: 30px 40px;
+  }
   
   footer{
   	bottom: 0;
@@ -150,14 +156,8 @@
 }
 
 .address-header {
-  border-bottom: 4px solid #DD4814;
-  margin-top: 6px;
-  margin-bottom: 20px;
-  height: 36px;
-
   .address-title {
     h1 {
-      background: #DD4814;
       padding: 5px 10px;
       color: #fff;
     }
@@ -305,3 +305,4 @@
   display: inline-block;
   padding: 2px;
 }
+

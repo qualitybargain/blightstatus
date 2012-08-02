@@ -57,24 +57,32 @@
                 %li.divider-vertical
                   - if(controller_name == 'addresses')
                     =render "addresses/search"
-      .container              
-        = yield
+                    
+      = yield
 
 
       %footer
-        .footer.navbar-inner
-          .navbar
-            .container
-            .nav-collapse.collapse
-              %ul.nav
-                %li 
-                  %a{:href => "/pages/about"}About
-                %li 
-                  %a{:href => "/stats"} Stats
-                %li 
-                  %a{:href => "/pages/help"} Help
-                %li 
-                  %a{:href => "https://github.com/codeforamerica/openblight"} Fork me on Github
+        .container
+          .signup.span4
+            .signup.dropdown.hidden{:style => "display: block;"}
+              %form{:action => "/signup", :method => "POST"}
+                .error
+                %input.email{:name => "email", :placeholder => "Email", :type => "text"}
+                  %input{:type => "submit", :value => "Sign me up", :class=>"btn btn-primary"}          
+          .logos.span3
+            =image_tag 'cfa_logo.png'
+          .logos.span3
+            =image_tag 'New_Orleans_City_Seal.png'
+          / .links.span4
+          /   %ul{:style => "float:left"}
+          /     %li 
+          /       %a{:href => "/pages/about"}About
+          /     %li 
+          /       %a{:href => "/stats"} Stats
+          /     %li 
+          /       %a{:href => "/pages/help"} Help
+          /     %li 
+          /       %a{:href => "https://github.com/codeforamerica/openblight"} Fork me on Github
 
 
       %script{:type => "text/javascript"}
