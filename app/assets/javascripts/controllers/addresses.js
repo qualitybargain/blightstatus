@@ -78,6 +78,7 @@ OpenBlight.addresses = {
       var m = OpenBlight.markers[i];
       //console.log(m.marker['_icon'])
       $(m.marker['_icon']).attr("id", "marker-" + m.id);
+      $(m.marker['_icon']).html(i+1);
     }
 
     $('li.result').each(function(){
@@ -194,7 +195,7 @@ OpenBlight.addresses = {
 
       group.addLayer(marker = new L.Marker(new L.LatLng(point[1] , point[0]), {icon: greenIcon} ).bindPopup(popupContent));
 
-      li = '<li class="address result" data-id="'+ data[i].id +'"> <span class="maps-marker">'+i+'</span><span class="search-address"><a href="/addresses/'+ data[i].id +'">'+ data[i].address_long +'</a></span></li>';
+      li = '<li class="address result" data-id="'+ data[i].id +'"> <span class="maps-marker">'+(i+1)+'</span><span class="search-address"><a href="/addresses/'+ data[i].id +'">'+ data[i].address_long +'</a></span></li>';
       $('.search-results ul.list').append(li);
 
       OpenBlight.markers.push({id: data[i].id, marker: marker});
