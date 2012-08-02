@@ -20,12 +20,12 @@ OpenBlight.addresses = {
 
             var y = 29.95;
             var x = -90.05;
-            var zoom = 12
+            var zoom = 13
 
             OpenBlight.addresses.populateMap(map, group, data);
-
-           // we center the map on the last position
-            map.setView(new L.LatLng(y, x), zoom);
+            // bounds = new L.Bounds(OpenBlight.map_points);
+            //console.log(OpenBlight.map_points);
+            map.fitBounds(OpenBlight.map_points) ;
             OpenBlight.addresses.associateMarkers();
 
             map.on('dragend', function(e){
@@ -85,7 +85,7 @@ OpenBlight.addresses = {
     $('li.result').each(function(){
       var $this = $(this), $marker = $("#marker-" + $this.attr('data-id'));
 
-      console.log($marker);
+      // console.log($marker);
       $this.hover(function(){
         $marker.addClass('marked').css("zIndex", 200);
         }, function(){
@@ -178,11 +178,13 @@ OpenBlight.addresses = {
 
   populateMap: function(map, group, data){
     OpenBlight.markers = [];
+    OpenBlight.map_points = [];
+
     for ( i = 0; i < data.length; i++ ){
       var point = data[i].point.substring(7, data[i].point.length -1).split(' ');
       var y = point[1], x= point[0];
       var popupContent = '<h3><a href="/addresses/'+ data[i].id +'">'+ data[i].address_long + '</a></h3><h4>'+ data[i].most_recent_status_preview.type + ' on ' + data[i].most_recent_status_preview.date + '</h4>'
-      var marker;
+      var map_point;
 
       var LeafIcon = L.DivIcon.extend({
         options: {
@@ -195,12 +197,15 @@ OpenBlight.addresses = {
 
 
 
-      group.addLayer(marker = new L.Marker(new L.LatLng(point[1] , point[0]), {icon: greenIcon} ).bindPopup(popupContent));
+      map_point = new L.LatLng(point[1] , point[0]);
+      group.addLayer(marker = new L.Marker(map_point, {icon: greenIcon} ).bindPopup(popupContent));
 
       li = '<li class="address result" data-id="'+ data[i].id +'"> <span class="maps-marker">'+(i+1)+'</span><span class="search-address"><a href="/addresses/'+ data[i].id +'">'+ data[i].address_long +'</a></span></li>';
       $('.search-results ul.list').append(li);
 
       OpenBlight.markers.push({id: data[i].id, marker: marker});
+      OpenBlight.map_points.push(map_point);
+
     }
     zoom = 14
     map.addLayer(group);
