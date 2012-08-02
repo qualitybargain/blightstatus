@@ -5,7 +5,7 @@
 .container-addresses{
   #map{
     /*padding-top: 50px;*/
-    box-shadow: 0 0 20px #AAAAAA;    
+    box-shadow: 0 0 20px #AAAAAA;
   }
 
 	header{
@@ -39,9 +39,9 @@
 			float:left;
 			padding: 0 20px;
       border: none;
-			height: 100%;
+			height: 700px;
 			min-height: 500px;
-			width: 27%;
+			width: 20%;
 
       .result {
         a{
@@ -76,7 +76,7 @@
       border-radius: 30px 30px 30px 30px;
       padding: 30px 40px;
   }
-  
+
   footer{
   	bottom: 0;
   	padding-bottom: 15px;
@@ -122,15 +122,16 @@
 
 
 .maps-marker{
-    background: url("/assets/marker.png") no-repeat scroll 0 0 transparent;
     margin: 0;
     position: absolute;
     height: 40px;
     width: 30px;
     color: white;
     font-weight: bold;
-    padding: 1px 7px;
+    padding: 0px 2px;
 }
+
+
 
 .ui-autocomplete{
   z-index: 100 !important;
@@ -145,6 +146,21 @@
   font-size: 14px;
   line-height: 16px;
   padding-bottom: 10px;
+}
+
+
+.marker, .address.result{
+    background: url("/assets/marker.png") no-repeat scroll 0 0 transparent;
+}
+
+.marked{
+    background: url("/assets/marker-selected.png") no-repeat scroll 0 0 transparent;
+}
+
+.leaflet-marker-icon{
+    padding: 4px 7px;
+    color: white;
+    font-weight: bold;
 }
 
 .leaflet-marker-pane img.marked {

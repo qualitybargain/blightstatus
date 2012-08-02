@@ -7,6 +7,7 @@ OpenBlight.addresses = {
     var map = new L.Map('map');
     var group = new L.LayerGroup();
 
+    $("#map").css("height", "600px");
     wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',
       function(tilejson) {
         // this shoud be moved into a function
@@ -84,16 +85,17 @@ OpenBlight.addresses = {
     $('li.result').each(function(){
       var $this = $(this), $marker = $("#marker-" + $this.attr('data-id'));
 
+      console.log($marker);
       $this.hover(function(){
-        $marker.addClass('marked');
-      }, function(){
-        $marker.removeClass('marked');
+        $marker.addClass('marked').css("zIndex", 200);
+        }, function(){
+        $marker.removeClass('marked').css("zIndex", 100);
       });
 
       $marker.hover(function(){
-        $this.addClass('marked');
+        $this.addClass('marked').css("zIndex", 200);
       }, function(){
-        $this.removeClass('marked');
+        $this.removeClass('marked').css("zIndex", 100);
       });
 
     });
@@ -185,7 +187,7 @@ OpenBlight.addresses = {
       var LeafIcon = L.DivIcon.extend({
         options: {
           iconSize: new L.Point(10, 40),
-          className: "maps-marker"
+          className: "marker"
         }
       });
 
