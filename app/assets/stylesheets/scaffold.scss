@@ -88,9 +88,9 @@ navbar
   }
 }
 
-.top-search-bar{
+.navbar-inner{
 	.search-form{
-		width: 600px;
+		width: 500px;
 		margin: 0 auto;
 
     form{
@@ -105,7 +105,7 @@ navbar
 				font-size: 140%;
 				height: 20px;
 				padding: 3px 10px;
-				width: 355px;
+				width: 300px;
 			}
     }
 
@@ -132,7 +132,7 @@ navbar
 
 	&.result{
 		margin-top: -1px;
-		padding: 5px;
+		padding: 5px 3px;
     height: 35px;
 
 		img{
@@ -200,7 +200,19 @@ footer{
   width: 100%;
   text-align: center;
   bottom: 0;
+
+  background: url("http://blog.civiccommons.org/wp-content/themes/biznizz/images/dark-noise.png") repeat scroll 0 0 #44484F;
+  color: #A5A5A5;
+  margin: 40px 0 0;
+  padding: 20px 0;
   
+  h3{
+    text-align: left;
+  }
+
+  p{
+    text-align: left;
+  }
   .footer{
     padding: 10px 0 20px;
   }
@@ -267,5 +279,7 @@ footer{
 .search-address{
   padding: 10px;
   padding-left: 30px;
+  color: #58595B;
+  text-transform: capitalize;
 
 }

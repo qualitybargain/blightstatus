@@ -18,13 +18,7 @@ OpenBlight.addresses = {
           if(data.length){
             var popup = new L.Popup();
 
-            var y = 29.95;
-            var x = -90.05;
-            var zoom = 13
-
             OpenBlight.addresses.populateMap(map, group, data);
-            // bounds = new L.Bounds(OpenBlight.map_points);
-            //console.log(OpenBlight.map_points);
             map.fitBounds(OpenBlight.map_points) ;
             OpenBlight.addresses.associateMarkers();
 
@@ -41,7 +35,6 @@ OpenBlight.addresses = {
         e.preventDefault();
         page = $(this).attr('data-page');
         bounds = $(this).attr('data-bounds');
-
         OpenBlight.addresses.mapSearch(map, group, page, bounds);
     });
   },
@@ -88,13 +81,17 @@ OpenBlight.addresses = {
       // console.log($marker);
       $this.hover(function(){
         $marker.addClass('marked').css("zIndex", 200);
+        $this.addClass('marked').css("zIndex", 200);
         }, function(){
         $marker.removeClass('marked').css("zIndex", 100);
+        $this.removeClass('marked').css("zIndex", 100);
       });
 
       $marker.hover(function(){
+        $marker.addClass('marked').css("zIndex", 200);
         $this.addClass('marked').css("zIndex", 200);
       }, function(){
+        $marker.removeClass('marked').css("zIndex", 100);
         $this.removeClass('marked').css("zIndex", 100);
       });
 
@@ -183,7 +180,10 @@ OpenBlight.addresses = {
     for ( i = 0; i < data.length; i++ ){
       var point = data[i].point.substring(7, data[i].point.length -1).split(' ');
       var y = point[1], x= point[0];
-      var popupContent = '<h3><a href="/addresses/'+ data[i].id +'">'+ data[i].address_long + '</a></h3><h4>'+ data[i].most_recent_status_preview.type + ' on ' + data[i].most_recent_status_preview.date + '</h4>'
+      var popupContent = '<h3><a href="/addresses/'+ data[i].id +'">'+ data[i].address_long + '</a></h3>' +
+
+      '<img src="http://maps.googleapis.com/maps/api/streetview?location='+y+','+x+'&size=200x100&sensor=true" >' +
+      '<p>'+ data[i].most_recent_status_preview.type + ' on ' + data[i].most_recent_status_preview.date + '</p>'
       var map_point;
 
       var LeafIcon = L.DivIcon.extend({
@@ -195,12 +195,12 @@ OpenBlight.addresses = {
 
       var greenIcon = new LeafIcon({iconUrl: '/assets/images/marker-icon.png'});
 
-
-
       map_point = new L.LatLng(point[1] , point[0]);
       group.addLayer(marker = new L.Marker(map_point, {icon: greenIcon} ).bindPopup(popupContent));
 
-      li = '<li class="address result" data-id="'+ data[i].id +'"> <span class="maps-marker">'+(i+1)+'</span><span class="search-address"><a href="/addresses/'+ data[i].id +'">'+ data[i].address_long +'</a></span></li>';
+      var pos = i+1;
+
+      li = '<li class="address result '+ ((pos > 9) ? "two_digits": "") +'" data-id="'+ data[i].id +'"> <span class="maps-marker">'+pos+'</span><span class="search-address"><a href="/addresses/'+ data[i].id +'">'+ data[i].address_long +'</a></span></li>';
       $('.search-results ul.list').append(li);
 
       OpenBlight.markers.push({id: data[i].id, marker: marker});

@@ -83,6 +83,7 @@
   	clear: both;
 		position: relative;
     margin-top: 60px;
+    
   	.footer{
   		bottom: 0;
   	}
@@ -128,7 +129,7 @@
     width: 30px;
     color: white;
     font-weight: bold;
-    padding: 0px 2px;
+    padding: 0px 3px;
 }
 
 
@@ -158,10 +159,22 @@
 }
 
 .leaflet-marker-icon{
-    padding: 4px 7px;
-    color: white;
-    font-weight: bold;
+  color: white;
+  font-weight: bold;
+
+  padding: 3px 6px;
+  width: 22px;  
 }
+
+.address.result.two_digits{
+  margin: 0;
+  padding: 3px 0;
+}
+
+.leaflet-clickable.two_digits{
+  /*padding: 4px 3px 16px;*/
+}
+
 
 .leaflet-marker-pane img.marked {
   border: 1px solid red;

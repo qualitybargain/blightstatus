@@ -38,9 +38,9 @@ class AddressesController < ApplicationController
       street_name = AddressHelpers.get_street_name(@search_term)
 
       if(dir = AddressHelpers.get_direction(@search_term))
-        @addresses = Address.find_addresses_with_cases_by_cardinal_street(dir,street_name).uniq.order(:house_num).page(params[:page]).per(15)
+        @addresses = Address.find_addresses_with_cases_by_cardinal_street(dir,street_name).uniq.order(:house_num).page(params[:page]).per(10)
       else
-        @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:street_name, :house_num).page(params[:page]).per(15)
+        @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:street_name, :house_num).page(params[:page]).per(10)
       end
 
       @addresses.each {|addr|
