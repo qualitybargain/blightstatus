@@ -1,12 +1,13 @@
 OpenBlight.addresses = {
   init: function(){
-    OpenBlight.addresses.subscribe_button();
+    OpenBlight.addresses.subscribeButton();
   },
 
   search: function(){
     var map = new L.Map('map');
     var group = new L.LayerGroup();
 
+    $("#map").css("height", "600px");
     wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',
       function(tilejson) {
         // this shoud be moved into a function
@@ -17,14 +18,8 @@ OpenBlight.addresses = {
           if(data.length){
             var popup = new L.Popup();
 
-            var y = 29.95;
-            var x = -90.05;
-            var zoom = 12
-
             OpenBlight.addresses.populateMap(map, group, data);
-
-           // we center the map on the last position
-            map.setView(new L.LatLng(y, x), zoom);
+            map.fitBounds(OpenBlight.map_points) ;
             OpenBlight.addresses.associateMarkers();
 
             map.on('dragend', function(e){
@@ -40,7 +35,6 @@ OpenBlight.addresses = {
         e.preventDefault();
         page = $(this).attr('data-page');
         bounds = $(this).attr('data-bounds');
-
         OpenBlight.addresses.mapSearch(map, group, page, bounds);
     });
   },
@@ -63,7 +57,7 @@ OpenBlight.addresses = {
   },
 
 
-  subscribe_button: function(){
+  subscribeButton: function(){
 
     jQuery(".subscribe-button").click(function(){
       var that = this;
@@ -76,22 +70,29 @@ OpenBlight.addresses = {
   associateMarkers: function(){
     for(var i = 0; i < OpenBlight.markers.length; i++){
       var m = OpenBlight.markers[i];
-      $(m.marker["_icon"]).attr("id", "marker-" + m.id);
+      //console.log(m.marker['_icon'])
+      $(m.marker['_icon']).attr("id", "marker-" + m.id);
+      $(m.marker['_icon']).html(i+1);
     }
 
     $('li.result').each(function(){
       var $this = $(this), $marker = $("#marker-" + $this.attr('data-id'));
 
+      // console.log($marker);
       $this.hover(function(){
-        $marker.addClass('marked');
-      }, function(){
-        $marker.removeClass('marked');
+        $marker.addClass('marked').css("zIndex", 200);
+        $this.addClass('marked').css("zIndex", 200);
+        }, function(){
+        $marker.removeClass('marked').css("zIndex", 100);
+        $this.removeClass('marked').css("zIndex", 100);
       });
 
       $marker.hover(function(){
-        $this.addClass('marked');
+        $marker.addClass('marked').css("zIndex", 200);
+        $this.addClass('marked').css("zIndex", 200);
       }, function(){
-        $this.removeClass('marked');
+        $marker.removeClass('marked').css("zIndex", 100);
+        $this.removeClass('marked').css("zIndex", 100);
       });
 
     });
@@ -174,18 +175,37 @@ OpenBlight.addresses = {
 
   populateMap: function(map, group, data){
     OpenBlight.markers = [];
+    OpenBlight.map_points = [];
+
     for ( i = 0; i < data.length; i++ ){
       var point = data[i].point.substring(7, data[i].point.length -1).split(' ');
       var y = point[1], x= point[0];
-      var popupContent = '<h3><a href="/addresses/'+ data[i].id +'">'+ data[i].address_long + '</a></h3><h4>'+ data[i].most_recent_status_preview.type + ' on ' + data[i].most_recent_status_preview.date + '</h4>'
-      var marker;
+      var popupContent = '<h3><a href="/addresses/'+ data[i].id +'">'+ data[i].address_long + '</a></h3>' +
 
-      group.addLayer(marker = new L.Marker(new L.LatLng(point[1] , point[0])).bindPopup(popupContent));
+      '<img src="http://maps.googleapis.com/maps/api/streetview?location='+y+','+x+'&size=200x100&sensor=true" >' +
+      '<p>'+ data[i].most_recent_status_preview.type + ' on ' + data[i].most_recent_status_preview.date + '</p>'
+      var map_point;
 
-      li = '<li class="active address result" data-id="'+ data[i].id +'"> <a href="/addresses/'+ data[i].id +'"><img width="10px" src="/assets/marker.png">'+ data[i].address_long +'</a></li>';
+      var LeafIcon = L.DivIcon.extend({
+        options: {
+          iconSize: new L.Point(10, 40),
+          className: "marker"
+        }
+      });
+
+      var greenIcon = new LeafIcon({iconUrl: '/assets/images/marker-icon.png'});
+
+      map_point = new L.LatLng(point[1] , point[0]);
+      group.addLayer(marker = new L.Marker(map_point, {icon: greenIcon} ).bindPopup(popupContent));
+
+      var pos = i+1;
+
+      li = '<li class="address result '+ ((pos > 9) ? "two_digits": "") +'" data-id="'+ data[i].id +'"> <span class="maps-marker">'+pos+'</span><span class="search-address"><a href="/addresses/'+ data[i].id +'">'+ data[i].address_long +'</a></span></li>';
       $('.search-results ul.list').append(li);
 
       OpenBlight.markers.push({id: data[i].id, marker: marker});
+      OpenBlight.map_points.push(map_point);
+
     }
     zoom = 14
     map.addLayer(group);

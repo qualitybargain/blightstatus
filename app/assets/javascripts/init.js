@@ -8,6 +8,7 @@ OpenBlight = {
     },
 
     handle_auto_complete_address: function(){
+      console.log('handle_auto_complete_address');
       $('#main-search-field').keyup(function(key){
         var first_char = $(this).val().substr(0, 1);
          // rationale explained in addresses_controller

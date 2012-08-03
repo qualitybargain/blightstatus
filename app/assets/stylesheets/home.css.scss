@@ -4,70 +4,100 @@
 
 .container-home{
 	
-	input.btn[type="submit"] {
-		font-size: 150%;
-		height: 40px;
-		margin: 0 5px;		
-	}	
-  
-  .page-header{
-     border: 0px; 
-     margin: 30px 0;
-     h1 {
-      line-height: 1;
-      padding: 60px 0 8px;
-     }
-  }
-  
-	.content{
+  .frontpage{
+    
+    position: relative;
 
-		margin: 0 auto;
-		position: relative;
-		width: 100%;
-		form {
-			text-align: center;
-		}	
-	
-	}
-	
-  .home-search{
-    text-align:right;
-  }
-
-  .search-bubble{
-    width: 420px;
-    float:right;
-    padding: 8px;
-    background-color: #ebe9e1;
-    border-radius: 8px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    text-align:left;
-
-    .search-form{
-      margin: 0 auto;
-
-      .search-field{
-        display:inline-block;
-
-        #main-search-field{
-          width: 275px;
-          height: 32px;
-          font-size: 140%;
+    h1{
+      color: #F1601D;
+      font-family: "Kreon", sarif;
+      font-size: 30pt;
     }
 
+  	input.btn[type="submit"] {
+  		font-size: 150%;
+  		height: 40px;
+  		margin: 0 5px;		
+  	}	
+    
+    form{
+      margin: 0;
+    }
+
+    .page-header{
+       border: 0px; 
+       margin: 30px 0;
+       h1 {
+        line-height: 1;
+        padding: 60px 0 8px;
+       }
+    }
+    
+  	.content{
+
+  		margin: 0 auto;
+  		position: relative;
+  		width: 100%;
+  		form {
+  			text-align: center;
+  		}	
+  	
+  	}
+  	
+    .home-search{
+      text-align:right;
+    }
+
+    .home-illustration{
+      left: 600px;
+      position: absolute;
+      top: 100px;
+    }
+
+
+    .search-bubble{
+      width: 420px;
+      float:right;
+      border-radius: 40px 40px 40px 40px;
+      padding: 20px 40px;    
+      background-color: #ebe9e1;
+      text-align:left;
+      position: relative;
+
+      .speak-bubble{
+        background: url("/assets/speak_bubble.png") no-repeat scroll 0 0 transparent;
+        bottom: -23px;
+        height: 45px;
+        position: absolute;
+        right: -15px;
+        width: 65px;
       }
-      .search-button{
-        display:inline-block;
-        .btn{
-          margin-top: -10px;
-          height: 38px;
+
+      .search-form{
+        margin: 0 auto;
+
+        .search-field{
+          display:inline-block;
+
+          #main-search-field{
+            width: 275px;
+            height: 32px;
+            font-size: 140%;
+          }
+
+        }
+        .search-button{
+          display:inline-block;
+          .btn{
+            margin-top: -10px;
+            height: 38px;
+          }
         }
       }
     }
-  }
 
-  
+  }
+    
   footer{
     position: absolute;
     bottom: 0;

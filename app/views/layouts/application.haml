@@ -25,69 +25,43 @@
       _kms('//i.kissmetrics.com/i.js');
       _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
   %body{"data-action" => action_name, "data-controller" => controller_name}
-    %div{:class => "container-fluid container-#{controller_name} container-#{controller_name}-#{action_name}"}
-      %header.row-fluid
-        -if(controller_name != 'home')
-          .span4
-            %h1#small-logo= link_to("blightSTATUS", root_path)
-          .span6
-            %div{ :class => "top-search-bar"}
-              - if(controller_name == 'addresses')
-                =render "addresses/search"
-              -unless @agree_to_legal_disclaimer
-                =render "home/legal-disclaimer"	
-          .span2
-            %ul.nav.pull-right
-              -if account_signed_in?
+    %div{:class => "container-#{controller_name} container-#{controller_name}-#{action_name}"}    
+      .navbar
+        .navbar-inner
+          .container
+            %button.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse", :type => "button"}
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            %a.brand{:href => "/"}
+              =image_tag "blightstatus-logo.png"
+            .nav-collapse.collapse
+              %ul.nav
                 %li
-                  =link_to "My Account", "/accounts"
+                  %a{:href => "/pages/about"} About
                 %li
-                  =link_to "Logout", destroy_account_session_path, :method => :delete 
-              -else
+                  %a{:href => "/stats"} Stats
                 %li
-                  =link_to('Register', new_account_registration_path)
+                  %a{:href => "/pages/help"} Help
+                %li.divider-vertical
+                -if account_signed_in?
+                  %li
+                    =link_to "My Account", "/accounts"
+                  %li
+                    =link_to "Logout", destroy_account_session_path, :method => :delete 
+                -else
+                  %li
+                    =link_to('Register', new_account_registration_path)
+                  %li
+                    =link_to('Login', new_account_session_path) 
                 %li
-                  =link_to('Login', new_account_session_path) 
-        -else
-          .span12
-            %h1#logo= link_to("blightSTATUS", root_path)
-            =render "home/tag-line"
-
-
+                  - if(controller_name == 'addresses')
+                    =render "addresses/search"
+                    
       = yield
 
-      %footer
-        .footer
-          %p
-            %a{:href => "/pages/about"} About
-            \&middot;
-            %a{:href => "/pages/terms"} Terms of Service
-            \&middot;
-            %a{:href => "/stats"} Statistics
 
-        .demo
-          %p
-            %br
-            %br
-            %b Search Results:
-            %a{:href => "/addresses/search?utf8=%E2%9C%93&address=MISTLETOE+ST+&commit=Search+Address"} MISTLETOE ST
-            %br
-            %b No Case:
-            %a{:href => "/addresses/15642" } 100 ALDEN PL
-            %br
-            %b Hearing Pending:
-            %a{:href => "/addresses/70086"} 2534 MISTLETOE ST
-            %br
-            %b Resolution:
-            %a{:href => "/addresses/44641"} 3137 PAUGER ST
-
-            %br
-            .btn
-              %a{:href => "/map"} View Map
-            .btn
-              %a{:href => "/stats"} View Stats
-            .btn
-              %a{:href => "/cases"} View Cases
+      =render :partial => "layouts/footer"
 
 
       %script{:type => "text/javascript"}

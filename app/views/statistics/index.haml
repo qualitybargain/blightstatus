@@ -1,4 +1,4 @@
-.inner
+.container
   .row-fluid{"class" => "show-grid"}
     %h1 Statistics
 	
@@ -60,13 +60,13 @@
             %td= judgeStats[:matched]
             %td= judgeStats[:unmatched]
             %td= judgeStats[:percentageMatched]
-          %tr
-            %th Maintenances
-            -maintStats = maintenances_stats
-            %td= maintStats[:total]
-            %td= maintStats[:matched]
-            %td= maintStats[:unmatched]
-            %td= maintStats[:percentageMatched]
+          / %tr
+          /   %th Maintenances
+          /   -maintStats = maintenances_stats
+          /   %td= maintStats[:total]
+          /   %td= maintStats[:matched]
+          /   %td= maintStats[:unmatched]
+          /   %td= maintStats[:percentageMatched]
           %tr
             %th Foreclosures
             -foreclStats = foreclosures_stats
@@ -138,28 +138,28 @@
           - judgeStats[:status].each do |l,v|
             %td= v.to_s
         %tr
-      %tr
-        %tr
-          %th Maintenances
-        %tr
-          %td Status
-          - maintStats[:status].each do |l,v|
-            %td= l.class == String ? l.capitalize : "Undeclared"
-        %tr
-        %tr
-          %th 
-          - maintStats[:status].each do |l,v|
-            %td= v.to_s
-        %tr
-          %td Program Name
-          - maintStats[:program_names].each do |l,v|
-            %td= l.class == String ? l.capitalize : "Undeclared"
-        %tr
-        %tr
-          %th 
-          - maintStats[:program_names].each do |l,v|
-            %td= v.to_s
-        %tr
+      / %tr
+      /   %tr
+      /     %th Maintenances
+      /   %tr
+      /     %td Status
+      /     - maintStats[:status].each do |l,v|
+      /       %td= l.class == String ? l.capitalize : "Undeclared"
+      /   %tr
+      /   %tr
+      /     %th 
+      /     - maintStats[:status].each do |l,v|
+      /       %td= v.to_s
+      /   %tr
+      /     %td Program Name
+      /     - maintStats[:program_names].each do |l,v|
+      /       %td= l.class == String ? l.capitalize : "Undeclared"
+      /   %tr
+      /   %tr
+      /     %th 
+      /     - maintStats[:program_names].each do |l,v|
+      /       %td= v.to_s
+      /   %tr
       %tr
         %tr
           %th Foreclosures
