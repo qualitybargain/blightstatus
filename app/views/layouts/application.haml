@@ -61,28 +61,7 @@
       = yield
 
 
-      %footer
-        .container
-          .signup.span4
-            .signup.dropdown.hidden{:style => "display: block;"}
-              %form{:action => "/signup", :method => "POST"}
-                .error
-                %input.email{:name => "email", :placeholder => "Email", :type => "text"}
-                  %input{:type => "submit", :value => "Sign me up", :class=>"btn btn-primary"}          
-          .logos.span3
-            =image_tag 'cfa_logo.png'
-          .logos.span3
-            =image_tag 'New_Orleans_City_Seal.png'
-          / .links.span4
-          /   %ul{:style => "float:left"}
-          /     %li 
-          /       %a{:href => "/pages/about"}About
-          /     %li 
-          /       %a{:href => "/stats"} Stats
-          /     %li 
-          /       %a{:href => "/pages/help"} Help
-          /     %li 
-          /       %a{:href => "https://github.com/codeforamerica/openblight"} Fork me on Github
+      =render :partial => "layouts/footer"
 
 
       %script{:type => "text/javascript"}
