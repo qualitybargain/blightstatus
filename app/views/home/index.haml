@@ -1,13 +1,16 @@
 %section.frontpage
-  .row
-    .span8.home-search
-      .search-bubble
-        %h1 What's the status?
-        %br
-        =render "addresses/search"
-        %span.help-block Enter any street name or address within Orleans Parish, Louisiana
-        .speak-bubble
-    .span4.home-illustration
-      %img{:src => "/assets/dude_house.png"}
+  .container
+    .row
+      .home-search
+        .search-bubble
+          %h1 What's the status?
+          %br
+          =render "addresses/search"
+          %span.help-block Enter any street name or address within Orleans Parish, Louisiana
+          .speak-bubble
+        .home-illustration
+        .tag-line
+          Find out what’s going on with properties in your area.  
 
-  .clear
+
+    .clear

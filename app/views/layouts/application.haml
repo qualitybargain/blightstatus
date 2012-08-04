@@ -26,56 +26,7 @@
       _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
   %body{"data-action" => action_name, "data-controller" => controller_name}
     %div{:class => "container-#{controller_name} container-#{controller_name}-#{action_name}"}    
-      .navbar
-        .navbar-inner
-          .container
-            %button.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse", :type => "button"}
-              %span.icon-bar
-              %span.icon-bar
-              %span.icon-bar
-            %a.brand{:href => "/"}
-              =image_tag "blightstatus-logo.png"
-            .nav-collapse.collapse
-              %ul.nav
-                %li
-                  %a{:href => "/pages/about"} About
-                %li
-                  %a{:href => "/stats"} Stats
-                %li
-                  %a{:href => "/pages/help"} Help
-                %li.divider-vertical
-                -if account_signed_in?
-                  %li
-                    =link_to "My Account", "/accounts"
-                  %li
-                    =link_to "Logout", destroy_account_session_path, :method => :delete 
-                -else
-                  %li
-                    =link_to('Register', new_account_registration_path)
-                  %li
-                    =link_to('Login', new_account_session_path) 
-                %li
-                  - if(controller_name == 'addresses')
-                    =render "addresses/search"
-                    
+      =render :partial => "layouts/header"
       = yield
-
-
-      =render :partial => "layouts/footer"
-
-
-      %script{:type => "text/javascript"}
-        = yield :javascripts
-      = javascript_include_tag "application"
-      :javascript
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-31630834-1']);
-        _gaq.push(['_setDomainName', 'herokuapp.com']);
-        _gaq.push(['_setAllowLinker', true]);
-        _gaq.push(['_trackPageview']);
-
-        (function() {
-          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
+    =render :partial => "layouts/footer"
+    =render :partial => "layouts/scripts"

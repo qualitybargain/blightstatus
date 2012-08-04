@@ -6,7 +6,7 @@ $grey: #6D6E71;
 $orange: #F1601D;
 
 body {
-	background-image: url('/assets/ricepaper2.png');
+//	background-image: url('/assets/ricepaper2.png');
 }
 
 
@@ -38,38 +38,84 @@ h2, h3{
 /*
 navbar
 */
-.navbar .nav > li > a{
-  text-shadow: none;
-  font-size: 18px;
+.navbar{
+
+  .navbar-inner{
+    box-shadow: none;
+    font-weight: 400;
+
+    background-image: linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
+    background-image: -o-linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
+    background-image: -moz-linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
+    background-image: -webkit-linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
+    background-image: -ms-linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
+
+    background-image: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      color-stop(0.25, rgb(241,235,229)),
+      color-stop(0.95, rgb(255,255,255))
+    );    
+
+    .nav {
+      display: block;
+      float: left;
+      left: 0;
+      margin: 15px 10px 0 0;
+      position: relative;
+
+      li{
+        a{
+          text-shadow: none;
+          font-size: 18px;
+        }
+      }
+    }
+
+
+    .search-form{
+      width: 500px;
+      margin: 0 auto;
+
+      form{
+        margin: 0 0 10px;
+      }
+
+      .search-field{
+        font-size: 100%;
+        float: left;
+        display: inline-block;
+
+        #main-search-field {
+          font-size: 140%;
+          height: 20px;
+          padding: 3px 10px;
+          width: 300px;
+        }
+      }
+
+      .search-button{
+        float: left;
+        display:inline-block;
+
+        .btn{
+          height: 30px;
+        }
+      }         
+    }    
+  }
 }
 
-.navbar-inner{
-  background: transparent;
-}
-
-
-.navbar-inner{
-  box-shadow: none;
-  font-weight: 400;
-
-}
-
-.navbar .nav {
-    display: block;
-    float: left;
-    left: 0;
-    margin: 15px 10px 0 0;
-    position: relative;
-}
 
 
 .btn{
-    background: none repeat scroll 0 0 #62C1CC;
-    border: 0 none;
-    border-radius: 10px 10px 10px 10px;
-    font-family: "Lato";
-    font-weight: 300;
-    text-transform: uppercase;  
+  background: none repeat scroll 0 0 #62C1CC;
+  border: 0 none;
+  border-radius: 10px 10px 10px 10px;
+  font-family: "Lato";
+  font-weight: 300;
+  text-transform: uppercase;  
 }
 
 
@@ -88,37 +134,6 @@ navbar
   }
 }
 
-.navbar-inner{
-	.search-form{
-		width: 500px;
-		margin: 0 auto;
-
-    form{
-		margin: 0 0 10px;
-    }
-    .search-field{
-      font-size: 100%;
-      float: left;
-      display: inline-block;
-
-			#main-search-field {
-				font-size: 140%;
-				height: 20px;
-				padding: 3px 10px;
-				width: 300px;
-			}
-    }
-
-    .search-button{
-	  float: left;
-	  display:inline-block;
-
-      .btn{
-        height: 30px;
-      }
-    }					
-	}
-}
 
 #main-search-field{
   font-size: 200%;
@@ -151,13 +166,13 @@ navbar
 }
 
 .well {
-    border: 0 none;
-    margin-bottom: 20px;
-    min-height: 20px;
-    padding: 19px;
-    background-color: transparent;
-    border: 0 !important;
-    box-shadow: none !important;
+  border: 0 none;
+  margin-bottom: 20px;
+  min-height: 20px;
+  padding: 19px;
+  background-color: transparent;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
 .progress {
@@ -189,42 +204,6 @@ navbar
       text-decoration: none;
     }
   }	
-}
-
-footer{
-  border-top: 1px solid #EEEEEE;
-  clear: both;
-  margin-top: 17px;
-  padding-top: 17px;
-  position: relative;
-  width: 100%;
-  text-align: center;
-  bottom: 0;
-
-  background: url("http://blog.civiccommons.org/wp-content/themes/biznizz/images/dark-noise.png") repeat scroll 0 0 #44484F;
-  color: #A5A5A5;
-  margin: 40px 0 0;
-  padding: 20px 0;
-  
-  h3{
-    text-align: left;
-  }
-
-  p{
-    text-align: left;
-  }
-  .footer{
-    padding: 10px 0 20px;
-  }
-  
-  .demo{
-    width: 500px;
-    margin: 0 auto;
-    text-align: center;
-    bottom: 100px;
-		display: none;
-  }
-
 }
 
 .form-search label{
@@ -281,5 +260,43 @@ footer{
   padding-left: 30px;
   color: #58595B;
   text-transform: capitalize;
+
+}
+
+
+
+footer{
+  border-top: 1px solid #EEEEEE;
+  clear: both;
+  margin-top: 17px;
+  padding-top: 17px;
+  position: relative;
+  width: 100%;
+  text-align: center;
+  bottom: 0;
+
+  background: url("http://blog.civiccommons.org/wp-content/themes/biznizz/images/dark-noise.png") repeat scroll 0 0 #44484F;
+  color: #A5A5A5;
+  margin: 40px 0 0;
+  padding: 20px 0;
+  
+  h3{
+    text-align: left;
+  }
+
+  p{
+    text-align: left;
+  }
+  .footer{
+    padding: 10px 0 20px;
+  }
+  
+  .demo{
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    bottom: 100px;
+    display: none;
+  }
 
 }

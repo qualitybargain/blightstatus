@@ -6,7 +6,9 @@
 	
   .frontpage{
     
+    margin-top: 10%;
     position: relative;
+    margin-bottom: 15%;
 
     h1{
       color: #F1601D;
@@ -46,23 +48,43 @@
   	
     .home-search{
       text-align:right;
+      width: 820px;
+      margin: 0 auto;
+
     }
 
     .home-illustration{
-      left: 600px;
-      position: absolute;
-      top: 100px;
+      background: url("/assets/dude_house.png") no-repeat scroll 0 bottom transparent;
+      border: 0px solid;
+      float: right;
+      height: 299px;
+      width: 320px;
     }
 
 
+
+
+    .tag-line{
+      float: left;
+      font-family: "Lato";
+      font-size: 35px;
+      line-height: 40px;
+      padding-left: 35px;
+      padding-top: 55px;
+      text-align: left;
+      width: 430px;
+      font-weight: 300;
+    }
+
     .search-bubble{
       width: 420px;
-      float:right;
       border-radius: 40px 40px 40px 40px;
       padding: 20px 40px;    
       background-color: #ebe9e1;
       text-align:left;
       position: relative;
+      margin: 0 0; 
+      float: left;
 
       .speak-bubble{
         background: url("/assets/speak_bubble.png") no-repeat scroll 0 0 transparent;

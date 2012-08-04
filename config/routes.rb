@@ -24,7 +24,7 @@ Openblight::Application.routes.draw do
   match "addresses/map_search" => "addresses#map_search"
 
   match "stats/graphs" => "statistics#graphs"
-  match "stats" => "statistics#index"
+  match "stats" => "statistics#graphs"
 
 
   resources :accounts, :except => [:destroy, :create, :edit] do
