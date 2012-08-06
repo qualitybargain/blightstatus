@@ -2,8 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$lighterTeal: #cceceb;
 $lightTeal: #62CCCC;
 $darkTeal: #008E8A;
+
 $lightBeige: #EBE9E1;
 $lightBeige: #D1CEC1;
 $grey: #6D6E71;
@@ -83,7 +85,7 @@ $orange: #F1601D;
   .main{
       background-color: white;
       border-radius: 30px 30px 30px 30px;
-      padding: 0px 40px 30px 20px;
+      padding: 0px 40px 30px;
   }
 
   footer{
@@ -235,13 +237,26 @@ $orange: #F1601D;
     margin-left: 0;
 
     li{
-      background: url("/assets/arrow-down.png") no-repeat scroll 10px 5px transparent;
-      color: $grey;
-      font-family: "Lato";
-      font-size: 16px;
-      font-weight: bold;
-      margin: 20px 0;
+
+      margin: 0px 0;
       padding-left: 30px;
+      background: url("/assets/arrow-down.png") no-repeat scroll 10px 20px transparent;
+      border-radius: 5px;
+      padding: 15px 15px 15px 30px;
+
+      .faq-title{
+        color: $grey;
+        font-family: "Lato";
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .faq-entry{
+        font-weight: normal;
+      }
+
+      &.selected{
+        background-color: $lighterTeal;
+      }
 
     }
 
