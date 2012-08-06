@@ -73,6 +73,9 @@ OpenBlight.addresses = {
       //console.log(m.marker['_icon'])
       $(m.marker['_icon']).attr("id", "marker-" + m.id);
       $(m.marker['_icon']).html(i+1);
+      if(i > 9){
+        $(m.marker['_icon']).addClass('two_digits');
+      }
     }
 
     $('li.result').each(function(){

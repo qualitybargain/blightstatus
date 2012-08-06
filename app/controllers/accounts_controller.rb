@@ -8,6 +8,7 @@ class AccountsController < ApplicationController
 
 
     @account_subcriptions = @account.addresses
+    # @account_subcriptions
   end
 
   def map

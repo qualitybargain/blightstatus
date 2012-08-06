@@ -7,6 +7,8 @@ $orange: #F1601D;
 
 body {
 //	background-image: url('/assets/ricepaper2.png');
+  font-family: "Lato";
+  font-weight: #58595B;
 }
 
 
@@ -24,7 +26,6 @@ header {
 
 
 h1{
-  text-transform: uppercase;
   color: #F1601D;
   font-size: 30pt;  
 }
@@ -87,12 +88,6 @@ navbar
         float: left;
         display: inline-block;
 
-        #main-search-field {
-          font-size: 140%;
-          height: 20px;
-          padding: 3px 10px;
-          width: 300px;
-        }
       }
 
       .search-button{
@@ -136,11 +131,12 @@ navbar
 
 
 #main-search-field{
-  font-size: 200%;
-  height: 30px;
-  padding: 5px 10px 0 10px;
-  width: 318px;
-  line-height: 26px;
+  font-family: "Lato";
+  font-size: 140%;
+  font-style: italic;
+//  text-transform: uppercase;
+//  height: 32px;
+//  width: 275px;
 }
 
 .address{
@@ -238,6 +234,9 @@ navbar
 
 .ui-corner-all{
 	border-radius: 0 !important;
+  font-family: "Lato";
+  font-style: italic;
+  text-transform: capitalize;  
 }
 
 .btn-toolbar {

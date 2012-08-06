@@ -2,6 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$lightTeal: #62CCCC;
+$darkTeal: #008E8A;
+$lightBeige: #EBE9E1;
+$lightBeige: #D1CEC1;
+$grey: #6D6E71;
+$darkGrey: #58595B;
+$orange: #F1601D;
+
+
 .container-addresses{
   #map{
     /*padding-top: 50px;*/
@@ -74,7 +83,7 @@
   .main{
       background-color: white;
       border-radius: 30px 30px 30px 30px;
-      padding: 30px 40px;
+      padding: 0px 40px 30px 20px;
   }
 
   footer{
@@ -184,70 +193,132 @@
   background-color: #62CCCC;
 }
 
-.address-header {
-  .address-title {
-    h1 {
-      padding: 5px 10px;
-      color: #fff;
-    }
+.address-title {
+  h1 {
+    padding: 5px 10px;
+    color: $darkGrey;
+    font-family: "Lato";
+    font-weight: 300;
+    font-size: 45px;
   }
+
+  border-bottom: 1px solid $darkGrey;
+  clear: both;
+
 }
 
 .case-number {
-  border-bottom: 3px solid #6e6e6e;
-  width: 100%;
-
   h4 {
-    background: #6e6e6e;
-    color: #fff;
+    color: $darkGrey;
     float: left;
     padding: 3px 8px;
+    font-size: 24px;
+    font-weight: 300;
   }
 }
 
+
+.faq{
+
+
+  h3{
+    font-size: 24px;
+    font-weight: 300;
+    padding: 3px 8px;
+    font-family: "Lato"  ;
+    border-bottom: 1px solid #CCC;  
+  }
+
+  ul{
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+
+    li{
+      background: url("/assets/arrow-down.png") no-repeat scroll 10px 5px transparent;
+      color: $grey;
+      font-family: "Lato";
+      font-size: 16px;
+      font-weight: bold;
+      margin: 20px 0;
+      padding-left: 30px;
+
+    }
+
+  }
+
+}
+
+
 .progress-bar-wrapper {
   margin-top: 10px;
+  min-height: 200px;
 
-  .date {
-    &:before {
-      width: 10px;
-      height: 10px;
-      margin: 4px 5px 0 0;
-      display: block;
-      float: left;
-      border-radius: 5px;
-      -moz-border-radius: 5px;
-      -webkit-border-radius: 5px;
-      color: #fff;
-      background-color: #16A765;
-      content: "_";
+  .table{
+    td{
+      padding: 0px 0;
     }
-
-    &.inspection:before {
-      background-color: #FA573C;
-    }
-
-    &.notification:before {
-      background-color: #FFAD46;
-    }
-
-    &.judgement:before {
-      background-color: #4986E7;
-    }
-
-    &.resolution:before {
-      background-color: #A47AE2;
+    thead{
+      .property-status{
+        padding: 10px;
+        font-size: 90%
+      }
     }
   }
+  .date {
+  }
+
+  .progress-arrow{
+    height: 25px;
+    position: relative;
+    width: 105px;
+
+    &.inspection {
+      background: url('/assets/progress-arrows.png') no-repeat 0 0;
+      z-index: 10;
+    }
+
+    &.notification {
+      background: url('/assets/progress-arrows.png') no-repeat 0 -25px;
+      margin-left: -15px;
+      z-index: 9;
+    }
+
+    &.hearing{
+      background: url('/assets/progress-arrows.png') no-repeat 0 -50px;
+      margin-left: -15px;
+      z-index: 8;
+    }
+
+    &.judgement {
+      background: url('/assets/progress-arrows.png') no-repeat 0 -75px;
+      margin-left: -15px;
+      z-index: 7;
+    }
+
+    &.resolution {
+      background: url('/assets/progress-arrows.png') no-repeat 0 -100px;
+      margin-left: -15px;
+      z-index: 6;
+
+    }
+  }
+
 }
 
 .progress-bar-wrapper table{
   width:100%;
 }
 
+
+.property-status{
+  text-transform: uppercase;
+}
+
 .property-status:hover{
   cursor:pointer;
 }
+
 
 .progress-indic-wrapper {
   margin-top: 4px;
@@ -323,6 +394,11 @@
 
 .assessor{
   font-size: 16px;
+  padding: 10px 0;
+}
+
+.subscribe{
+  padding: 2px;
 }
 
 .pager a{
@@ -333,5 +409,6 @@
   background-color:#ffffcc;
   display: inline-block;
   padding: 2px;
+  margin-top: 10px;
 }
 

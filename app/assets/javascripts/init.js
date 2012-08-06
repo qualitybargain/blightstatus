@@ -1,14 +1,14 @@
 OpenBlight = {
   common: {
     init: function() {
-      console.log('init');
+      // console.log('init');
       // application-wide code
       OpenBlight.common.show_disclaimer();
       OpenBlight.common.handle_auto_complete_address();
     },
 
     handle_auto_complete_address: function(){
-      console.log('handle_auto_complete_address');
+      // console.log('handle_auto_complete_address');
       $('#main-search-field').keyup(function(key){
         var first_char = $(this).val().substr(0, 1);
          // rationale explained in addresses_controller

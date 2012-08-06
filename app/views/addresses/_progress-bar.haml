@@ -15,18 +15,25 @@
           %td
             -unless k.inspections.nil?
               -k.inspections.each do |i|
-                .date.inspection=i.date.strftime("%-b %-d '%y")
+                .progress-arrow.inspection
+                .date=i.date.strftime("%-b %-d '%y")
           %td
             -unless k.notifications.nil?
               -k.notifications.each do |n|
-                .date.notification=n.date.strftime("%-b %-d '%y")
+                .progress-arrow.notification
+                .date=n.date.strftime("%-b %-d '%y")
           %td
             -unless k.hearings.nil?
               -k.hearings.each do |h|
-                .date.hearing=h.date.strftime("%-b %-d '%y")
+                .progress-arrow.hearing
+                .date=h.date.strftime("%-b %-d '%y")
           %td
             -unless k.judgement.nil?
-              .date.judgement=k.judgement.date.strftime("%-b %-d '%y")
+              .progress-arrow.judgement
+              .date=k.judgement.date.strftime("%-b %-d '%y")
+
           %td
             -unless k.address.resolutions.empty?
-              .date.resolution=k.address.resolutions.first.date.strftime("%-b %-d '%y")
+              .progress-arrow.resolution
+              .date=k.address.resolutions.first.date.strftime("%-b %-d '%y")
+

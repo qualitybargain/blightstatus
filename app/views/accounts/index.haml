@@ -1,6 +1,6 @@
-.container-fluid
-  .row-fluid
-    .span8
+.container
+  .container-fluid
+    .row-fluid
       / Body content
       /=@user.inspect
       /=@account_subcriptions.length
@@ -8,19 +8,33 @@
       %table{ :class => "table table-striped table-bordered", :id => "subscriptions"}
         %thead
           %tr
-            / %th Select    
-            %th Location    
+            %th Photo    
             %th Address
-            / %th Notes
-
+            %th Action
+            %th Date
+            %th 
         %tbody
           -@account_subcriptions.each do |n|
             %tr
               %td
-                %div{:style => "background: url('/assets/neworleans_homes.png') repeat scroll 206px 0 transparent; height: 80px; width: 90px;" }
+                / =n.inspect
+                =image_tag("http://maps.googleapis.com/maps/api/streetview?location="+n.point.y.to_s+","+n.point.x.to_s+"&size=200x100&sensor=true")
               %td
                 =link_to n.address_long, address_path(n)
+
+              -if n.most_recent_status_preview.count == 2
                 -n.most_recent_status_preview.each do |index, val|
-                  .div
+                  %td
                     =val
+              -else
+                %td
+                  
+                %td
+              %td
+                %div{:data=>n.id, :class=>"btn btn-primary btn-large"}
+                  Unsubscribe
+
+
+
+              
 

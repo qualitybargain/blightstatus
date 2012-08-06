@@ -12,7 +12,8 @@ class StreetsController < ApplicationController
      else
        items = {}
      end
-     render :json => json_for_autocomplete(items, :full_name)
+     # items.map{|c| c.downcase!}
+     render :json => json_for_autocomplete(items , :full_name)
   end
   
 end
