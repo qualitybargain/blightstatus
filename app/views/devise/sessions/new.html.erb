@@ -1,27 +1,28 @@
-<div class="container">
+<section class="container devise">
 	<div class="span12">
 
-		<div class="span3"><br></div>
+		<div class="span3"><br/></div>
 		<div class="span4">
-			<h2>Sign in a ling a ling</h2>
+			<h2>Sign in</h2>
 
 			<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-			  <div><%= f.label :email %><br />
+			  <div><%= f.label :email %>
 			  <%= f.email_field :email %></div>
 
-			  <div><%= f.label :password %><br />
+			  <div><%= f.label :password %>
 			  <%= f.password_field :password %></div>
 
 			  <% if devise_mapping.rememberable? -%>
 			    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
 			  <% end -%>
 
-			  <div><%= f.submit "Sign in" %></div>
+			  <!-- <div><%= f.submit "Sign in" ,%></div> -->
+			  <div><%= submit_tag("Sign in",  :disable_with => "Sigining in...", :class => "btn") %></div>
 			<% end %>
 
 			<%= render "links" %>
 		</div>
-		<div class="span4"><br></div>
+		<div class="span4"><br/></div>	
 
 	</div>
-</div>
+</section>

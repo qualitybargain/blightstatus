@@ -5,6 +5,16 @@ $lightBeige: #D1CEC1;
 $grey: #6D6E71;
 $orange: #F1601D;
 
+#wrapper{
+  height: 100%;
+
+  .devise, .frontpage{
+    margin-top: 5%;
+    position: relative;
+    margin-bottom: 15%;    
+  }
+}
+
 body {
 //	background-image: url('/assets/ricepaper2.png');
   font-family: "Lato";
@@ -91,8 +101,8 @@ navbar
       }
 
       .search-button{
-        float: left;
-        display:inline-block;
+//        float: left;
+//        display:inline-block;
 
         .btn{
           height: 30px;
@@ -131,9 +141,12 @@ navbar
 
 
 #main-search-field{
+
   font-family: "Lato";
-  font-size: 140%;
+  font-size: 120%;
   font-style: italic;
+  margin: 5px;
+  padding: 5px;
 //  text-transform: uppercase;
 //  height: 32px;
 //  width: 275px;

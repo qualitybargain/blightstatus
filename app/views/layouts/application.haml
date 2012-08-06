@@ -25,7 +25,7 @@
       _kms('//i.kissmetrics.com/i.js');
       _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
   %body{"data-action" => action_name, "data-controller" => controller_name}
-    %div{:class => "container-#{controller_name} container-#{controller_name}-#{action_name}"}    
+    %div{:id => "wrapper" ,:class => "container-#{controller_name} container-#{controller_name}-#{action_name}"}    
       =render :partial => "layouts/header"
       = yield
     =render :partial => "layouts/footer"

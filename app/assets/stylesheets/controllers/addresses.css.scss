@@ -88,6 +88,22 @@ $orange: #F1601D;
       padding: 0px 40px 30px;
   }
 
+
+  .case-history{
+
+    .arrow{
+      background: url("/assets/arrow-right.png") no-repeat scroll 10px 6px transparent;
+      padding: 10px;
+    }
+
+    .timeline{
+      font-size: 120%;
+      color: #58595B;
+      font-family: "Lato";   
+      margin-top: 10px;   
+    }
+  }
+
   footer{
   	bottom: 0;
   	padding-bottom: 15px;

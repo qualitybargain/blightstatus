@@ -4,17 +4,18 @@
       -unless kase.case_number.nil?
         %h4 Case Details for #{kase.case_number}
         .clearfix
-    %table.table.table-condensed
+    %table.table.table-condensed.timeline
       %tbody
         -unless kase.inspections.empty?
           %tr
-            %td 
-              .progress-indic-wrapper
-                .date.inspection
-                .date.empty
-                .date.empty
-                .date.empty
-                .date.empty
+            / %td 
+            /   .progress-indic-wrapper
+            /     .date.inspection
+            /     .date.empty
+            /     .date.empty
+            /     .date.empty
+            /     .date.empty
+            %td.arrow            
             %td.status Inspected?
             %td
               %table.table-nolines
@@ -24,13 +25,14 @@
                     %td Property was inspected, with a finding of #{i.result}
         -unless kase.notifications.empty?
           %tr
-            %td
-              .progress-indic-wrapper
-                .date.empty
-                .date.notification
-                .date.empty
-                .date.empty
-                .date.empty
+            / %td
+            /   .progress-indic-wrapper
+            /     .date.empty
+            /     .date.notification
+            /     .date.empty
+            /     .date.empty
+            /     .date.empty
+            %td.arrow            
             %td.status Owner Notified?
             %td
               %table.table.table-nolines
@@ -40,13 +42,14 @@
                     %td The owner was notified that an administrative case was being brought against this property for violations of the New Orleans Building Code.
         -unless kase.hearings.empty?
           %tr
-            %td
-              .progress-indic-wrapper
-                .date.empty
-                .date.empty
-                .date.hearing
-                .date.empty
-                .date.empty
+            / %td
+            /   .progress-indic-wrapper
+            /     .date.empty
+            /     .date.empty
+            /     .date.hearing
+            /     .date.empty
+            /     .date.empty
+            %td.arrow            
             %td.status Hearing Scheduled?
             %td
               %table.table-nolines
@@ -60,13 +63,14 @@
 
         -unless kase.resets.empty?
           %tr
-            %td
-              .progress-indic-wrapper
-                .date.empty
-                .date.empty
-                .date.empty
-                .date.empty
-                .date.reset
+            / %td
+            /   .progress-indic-wrapper
+            /     .date.empty
+            /     .date.empty
+            /     .date.empty
+            /     .date.empty
+            /     .date.reset
+            %td.arrow            
             %td.status Reset?
             %td
               %table.table-nolines
