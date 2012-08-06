@@ -3,4 +3,4 @@
     .search-field
       =text_field_tag 'address', '', :placeholder => "Example: 1300 Perdido St", :id => "main-search-field"
     .search-button
-      =submit_tag("Search", :class => 'btn btn-primary')
+      =submit_tag("Search", :disable_with => "Searching...", :class => 'btn btn-primary')
