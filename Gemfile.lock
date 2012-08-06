@@ -248,7 +248,7 @@ DEPENDENCIES
   rgeo-geojson
   rgeo-shapefile
   roo
-  rspec-rails
+  rspec-rails (>= 2.9.0)
   rubyXL
   sass-rails (~> 3.2.3)
   shoulda

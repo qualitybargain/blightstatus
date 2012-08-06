@@ -48,7 +48,7 @@ end
 # Testing
 group :test, :development do
   gem "test-unit"
-	gem "rspec-rails"
+	gem "rspec-rails", '>= 2.9.0' 
 	gem "shoulda"
 
 	gem "capybara"
