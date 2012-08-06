@@ -2,14 +2,25 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$lightTeal: #62CCCC;
+$darkTeal: #008E8A;
+$lightBeige: #EBE9E1;
+$lightBeige: #D1CEC1;
+$grey: #6D6E71;
+$darkGrey: #58595B;
+$orange: #F1601D;
+
+
 .container-home{
 	
   .frontpage{
 
     h1{
+      font-size: 39pt;
+      padding-top: 22px;
       color: #F1601D;
       font-family: "Kreon", sarif;
-      font-size: 30pt;
+      line-height: 15px;
     }
 
   	input.btn[type="submit"] {
@@ -29,6 +40,10 @@
         line-height: 1;
         padding: 60px 0 8px;
        }
+    }
+
+    .help-block{
+      margin-left: 6px;
     }
     
   	.content{
@@ -70,12 +85,13 @@
       text-align: left;
       width: 430px;
       font-weight: 300;
+      color: $darkGrey;
     }
 
     .search-bubble{
       width: 420px;
       border-radius: 40px 40px 40px 40px;
-      padding: 20px 40px;    
+      padding: 20px 25px 20px 40px;
       background-color: #ebe9e1;
       text-align:left;
       position: relative;
@@ -107,7 +123,7 @@
         .search-button{
           display:inline-block;
           .btn{
-            margin-top: -10px;
+            margin-top: 0px;
             height: 38px;
           }
         }

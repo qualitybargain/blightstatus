@@ -11,7 +11,9 @@
     %tbody
       -kases.each do |k|
         %tr
-          %td= k.case_number
+          %td
+            .case-number
+              = k.case_number
           %td
             -unless k.inspections.nil?
               -k.inspections.each do |i|

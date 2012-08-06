@@ -1,13 +1,13 @@
 .container
-  %section.row-fluid.address-header
-    .span8
+  / %section.row-fluid.address-header
+  /   .span8
 
-    .span4
-      / %ul.pager.pull-right
-      /   %li
-      /     %a &larr; Back to search results
-      /   %li
-      /     %a Next &rarr;
+  /   .span4
+  /     / %ul.pager.pull-right
+  /     /   %li
+  /     /     %a &larr; Back to search results
+  /     /   %li
+  /     /     %a Next &rarr;
   %section.row-fluid
     .span8.main
       .address-title
@@ -57,70 +57,71 @@
         -if @address.assessor_url
           .assessor_link
             =link_to "Assessor's office", @address.assessor_url
-        %a{:href=>""} 
-          parcel, tax, and ownership details 
-        %br
+        .parcel-link
+          %a{:href=>""} 
+            parcel, tax, and ownership details 
+        %p
           via the Orleans Parish Assessor’s website
 
 
       .subscribe.centered 
 
-        Get emailed when this property changes:
-        %br
+        / Get emailed when this property changes:
+        / %br
 
-        .subscribe
-        -if(account_signed_in?)
+        / .subscribe
+        / -if(account_signed_in?)
           
-          -if(@account_subscribed)
-            .btn.btn-primary.btn-large{:data => @address.address_id} 
-              Unsubscribe
-          -else
-            .btn.btn-warning.btn-large{:data => @address.address_id} 
-              Subscribe
+        /   -if(@account_subscribed)
+        /     .btn.btn-primary.btn-large{:data => @address.address_id} 
+        /       Unsubscribe
+        /   -else
+        /     .btn.btn-warning.btn-large{:data => @address.address_id} 
+        /       Subscribe
 
-        -else
-          =link_to('Subscribe', new_account_session_path, :class => "btn btn-large")
+        / -else
+        /   =link_to('Subscribe', new_account_session_path, :class => "btn btn-large")
 
         / .br
 
         / .div.sidedivide
         /   %img{:src => '/assets/star.png'}
 
-      .faq
-        %h3
-          FAQ
-        %ul
-          %li
-            .faq-title
-              How are hearing dates assigned?
-            .faq-entry
+      / .faq
+      /   %h3
+      /     FAQ
+      /   %ul
+      /     %li
+      /       .faq-title
+      /         How are hearing dates assigned?
+      /       .faq-entry
 
-          %li.selected{:style => "background-color: $lighterTeal"}
-            .faq-title
-              Why isn’t the judgment posted on the day of the hearing?
-            .faq-entry
-              Paperwork must be filed in order for a judgment to be legally binding. The judgment is not officially “posted” until all the paperwork has cleared to ensure it is an accurate.
-          %li
-            .faq-title
-              What does the “Blight” judgment mean?
-            .faq-entry
+      /     %li.selected{:style => "background-color: $lighterTeal"}
+      /       .faq-title
+      /         Why isn’t the judgment posted on the day of the hearing?
+      /       .faq-entry
+      /         Paperwork must be filed in order for a judgment to be legally binding. The judgment is not officially “posted” until all the paperwork has cleared to ensure it is an accurate.
+      /     %li
+      /       .faq-title
+      /         What does the “Blight” judgment mean?
+      /       .faq-entry
 
-          %li
-            .faq-title
-              What does the “Public Nuisance” judgment mean?
-            .faq-entry
+      /     %li
+      /       .faq-title
+      /         What does the “Public Nuisance” judgment mean?
+      /       .faq-entry
 
-          %li
-            .faq-title
-              What is a writ?
-            .faq-entry
+      /     %li
+      /       .faq-title
+      /         What is a2 writ?
+      /       .faq-entry
 
-          %li
-            .faq-title
-              What is a code lien foreclosure?
-            .faq-entry
+      /     %li
+      /       .faq-title
+      /         What is a code lien foreclosure?
+      /       .faq-entry
 
-          %li
-            .faq-title
-              View all FAQs
-            .faq-entry
+      /     %li
+      /       .faq-title
+      /         View all FAQs
+      /       .faq-entry

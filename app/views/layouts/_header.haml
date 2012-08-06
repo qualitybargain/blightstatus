@@ -10,21 +10,21 @@
       .nav-collapse.collapse
         %ul.nav
           %li
-            %a{:href => "/pages/about"} About
-          %li
-            %a{:href => "/stats"} Stats
-          %li
-            %a{:href => "/pages/help"} Help
-          -if account_signed_in?
-            %li
-              =link_to "My Account", "/accounts"
-            %li
-              =link_to "Logout", destroy_account_session_path, :method => :delete 
-          -else
-            %li
-              =link_to('Register', new_account_registration_path)
-            %li
-              =link_to('Login', new_account_session_path) 
-          %li
             - if(controller_name == 'addresses')
-              =render "addresses/search"
+              =render "addresses/search"        
+          / %li
+          /   %a{:href => "/pages/about"} About
+          / %li
+          /   %a{:href => "/stats"} Stats
+          / %li
+          /   %a{:href => "/pages/help"} Help
+          / -if account_signed_in?
+          /   %li
+          /     =link_to "My Account", "/accounts"
+          /   %li
+          /     =link_to "Logout", destroy_account_session_path, :method => :delete 
+          / -else
+          /   %li
+          /     =link_to('Register', new_account_registration_path)
+          /   %li
+          /     =link_to('Login', new_account_session_path) 

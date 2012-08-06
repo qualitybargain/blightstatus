@@ -8,15 +8,17 @@
       %tbody
         -unless kase.inspections.empty?
           %tr
-            / %td 
+            %td 
+              %span.arrow            
             /   .progress-indic-wrapper
             /     .date.inspection
             /     .date.empty
             /     .date.empty
             /     .date.empty
             /     .date.empty
-            %td.arrow            
-            %td.status Inspected?
+
+            %td.status 
+              Inspected
             %td
               %table.table-nolines
                 -kase.inspections.each do |i|
@@ -33,7 +35,7 @@
             /     .date.empty
             /     .date.empty
             %td.arrow            
-            %td.status Owner Notified?
+            %td.status Owner Notified
             %td
               %table.table.table-nolines
                 -kase.notifications.each do |n|
@@ -50,7 +52,7 @@
             /     .date.empty
             /     .date.empty
             %td.arrow            
-            %td.status Hearing Scheduled?
+            %td.status Hearing Scheduled
             %td
               %table.table-nolines
                 -kase.hearings.each do |h|
@@ -71,7 +73,7 @@
             /     .date.empty
             /     .date.reset
             %td.arrow            
-            %td.status Reset?
+            %td.status Reset
             %td
               %table.table-nolines
                 -kase.resets.each do |r|

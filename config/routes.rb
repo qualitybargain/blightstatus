@@ -46,7 +46,9 @@ Openblight::Application.routes.draw do
   end
   
   resources :cases, :except => [:destroy, :create, :edit]
-  
+
+
+  # match "cases/:case_type" => "cases#index", :as => "case"   
   match "pages/:id" => "pages#show", :as => "page" 
 
   # Sample resource route with options:

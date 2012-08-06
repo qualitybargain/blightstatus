@@ -8,15 +8,20 @@ $orange: #F1601D;
 #wrapper{
   height: 100%;
 
-  .devise, .frontpage{
-    margin-top: 5%;
+  .devise, .frontpage, .no-search-results{
     position: relative;
-    margin-bottom: 15%;    
+    margin: 7% 0;    
+    bottom: 0;
   }
+
+  .devise+footer, .frontpage+footer, .no-search-results+footer{
+    position: absolute;
+  }
+
 }
 
 body {
-//	background-image: url('/assets/ricepaper2.png');
+	background-image: url('/assets/ricepaper2.png');
   font-family: "Lato";
   font-weight: #58595B;
 }
@@ -55,23 +60,25 @@ navbar
     box-shadow: none;
     font-weight: 400;
 
-    background-image: linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
-    background-image: -o-linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
-    background-image: -moz-linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
-    background-image: -webkit-linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
-    background-image: -ms-linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
+//    background-image: linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
+//    background-image: -o-linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
+//    background-image: -moz-linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
+//    background-image: -webkit-linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
+//    background-image: -ms-linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
 
-    background-image: -webkit-gradient(
-      linear,
-      left top,
-      left bottom,
-      color-stop(0.25, rgb(241,235,229)),
-      color-stop(0.95, rgb(255,255,255))
-    );    
+//    background-image: -webkit-gradient(
+//      linear,
+//      left top,
+//      left bottom,
+//      color-stop(0.25, rgb(241,235,229)),
+//      color-stop(0.95, rgb(255,255,255))
+//    );    
+
+    background: transparent;
 
     .nav {
       display: block;
-      float: left;
+      float: right;
       left: 0;
       margin: 15px 10px 0 0;
       position: relative;
@@ -86,7 +93,7 @@ navbar
 
 
     .search-form{
-      width: 500px;
+      width: 440px;
       margin: 0 auto;
 
       form{
@@ -268,11 +275,9 @@ navbar
 
 
 .search-address{
-  padding: 10px;
-  padding-left: 30px;
   color: #58595B;
+  padding: 10px 10px 10px 40px;
   text-transform: capitalize;
-
 }
 
 
@@ -282,7 +287,6 @@ footer{
   clear: both;
   margin-top: 17px;
   padding-top: 17px;
-  position: relative;
   width: 100%;
   text-align: center;
   bottom: 0;
@@ -312,3 +316,4 @@ footer{
   }
 
 }
+

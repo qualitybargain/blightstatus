@@ -16,7 +16,8 @@ $orange: #F1601D;
 .container-addresses{
   #map{
     /*padding-top: 50px;*/
-    box-shadow: 0 0 20px #AAAAAA;
+//    box-shadow: 0 0 20px #AAAAAA;
+    border: 1px solid #ccc;
   }
 
 	header{
@@ -31,6 +32,7 @@ $orange: #F1601D;
   		width: 290px;
 		}
 	}
+
 
   .no-search-results{
     position: relative;
@@ -54,6 +56,7 @@ $orange: #F1601D;
 			min-height: 500px;
 			width: 20%;
 
+
       .result {
         a{
           text-transform:capitalize;
@@ -65,8 +68,8 @@ $orange: #F1601D;
       }
 
       li.result:hover{
-        background-color: #62CCCC;
-
+        background: url("/assets/marker-selected.png") no-repeat 10px 4px  $lighterTeal;
+        border-radius: 5px;
       }
 
       ul.list.loading {
@@ -79,29 +82,50 @@ $orange: #F1601D;
         left: 145px;
         position: absolute;
       }
+
+      .nav-header{
+        text-align: left;
+        p{
+          font-family: "Lato";
+          font-weight: 300;
+          font-style: italic;
+        }
+
+        border-bottom: #ccc 1px solid;
+        margin-bottom: 20px;
+
+      }
 		}
 	}
 
   .main{
-      background-color: white;
-      border-radius: 30px 30px 30px 30px;
-      padding: 0px 40px 30px;
+    background-color: white;
+    border: 1px solid #efefef;
+    border-radius: 30px 30px 30px 30px;
+    padding: 40px;
   }
 
 
   .case-history{
 
     .arrow{
-      background: url("/assets/arrow-right.png") no-repeat scroll 10px 6px transparent;
-      padding: 10px;
+      background: url("/assets/arrow-right.png") no-repeat scroll 10px 20px transparent;
+      padding: 15px;
     }
 
     .timeline{
       font-size: 120%;
       color: #58595B;
       font-family: "Lato";   
-      margin-top: 10px;   
+      margin-top: 10px; 
+      font-weight: 300;  
     }
+
+    .status{
+      font-weight: normal;
+    }
+
+
   }
 
   footer{
@@ -126,13 +150,10 @@ $orange: #F1601D;
     }
   }
 
-  .map{
-    border: 1px solid #ccc;
-  }
 
   table {
     tr {
-      padding: 5px 0;
+      padding: 10px 0;
     }
 
     td {
@@ -150,16 +171,29 @@ $orange: #F1601D;
 
 
 .maps-marker{
-    margin: 0;
-    position: absolute;
-    height: 40px;
-    width: 30px;
     color: white;
     font-weight: bold;
-    padding: 0px 3px;
+    height: 40px;
+    padding: 2px 13px;
+    position: absolute;
+    width: 30px;
 }
 
 
+.assessor{
+  .parcel-link{
+    font-weight: 400;
+    font-size: 120%;
+  }
+
+  p{
+    font-weight: 200;
+    font-style: italic;
+    font-size: 90%;
+//    padding: 5px;
+  }
+
+}
 
 .ui-autocomplete{
   z-index: 100 !important;
@@ -178,19 +212,19 @@ $orange: #F1601D;
 
 
 .marker, .address.result{
-    background: url("/assets/marker.png") no-repeat scroll 0 0 transparent;
+    background: url("/assets/marker.png") no-repeat scroll 10px 4px transparent;
+
 }
 
 .marked{
-    background: url("/assets/marker-selected.png") no-repeat scroll 0 0 transparent;
+    background: url("/assets/marker-selected.png") no-repeat scroll 10px 4px transparent;
 }
 
 .leaflet-marker-icon{
-  color: white;
-  font-weight: bold;
-
-  padding: 3px 6px;
-  width: 22px;  
+    color: white;
+    font-weight: bold;
+    padding: 7px 16px;
+    width: 22px;
 }
 
 .address.result.two_digits{
@@ -208,7 +242,7 @@ $orange: #F1601D;
 }
 
 .address.result.marked {
-  background-color: #62CCCC;
+  background-color: $lighterTeal;
 }
 
 .address-title {
@@ -287,12 +321,22 @@ $orange: #F1601D;
 
   .table{
     td{
-      padding: 0px 0;
+      padding: 10px 0;
     }
     thead{
       .property-status{
         padding: 10px;
-        font-size: 90%
+        font-size: 80%
+      }
+    }
+
+    .case-number{
+      padding: 5px;
+
+      .table-condensed{
+        td{
+          padding: 10px;
+        }
       }
     }
   }
@@ -302,34 +346,35 @@ $orange: #F1601D;
   .progress-arrow{
     height: 25px;
     position: relative;
-    width: 105px;
+    width: 107px;
 
     &.inspection {
       background: url('/assets/progress-arrows.png') no-repeat 0 0;
+      margin-right: -15px;
       z-index: 10;
     }
 
     &.notification {
       background: url('/assets/progress-arrows.png') no-repeat 0 -25px;
-      margin-left: -15px;
+      margin-right: -15px;
       z-index: 9;
     }
 
     &.hearing{
       background: url('/assets/progress-arrows.png') no-repeat 0 -50px;
-      margin-left: -15px;
+      margin-right: -15px;
       z-index: 8;
     }
 
     &.judgement {
       background: url('/assets/progress-arrows.png') no-repeat 0 -75px;
-      margin-left: -15px;
+      margin-right: -15px;
       z-index: 7;
     }
 
     &.resolution {
       background: url('/assets/progress-arrows.png') no-repeat 0 -100px;
-      margin-left: -15px;
+      margin-right: -15px;
       z-index: 6;
 
     }
@@ -401,6 +446,11 @@ $orange: #F1601D;
   }
 }
 
+.container-addresses-search .container{
+  width: 100% !important;
+
+}
+
 .cases {
   margin-top: 40px;
 }
@@ -425,7 +475,7 @@ $orange: #F1601D;
 
 .assessor{
   font-size: 16px;
-  padding: 10px 0;
+  padding: 20px 0;
 }
 
 .subscribe{

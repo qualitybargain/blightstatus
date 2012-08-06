@@ -17,9 +17,9 @@
         	  
   -else
     .recent
-      .recent-update-notice
-        Latest update: 
-        %span.recent-update  #{address.most_recent_status.class} on #{address.most_recent_status.date.strftime('%B %e, %Y')}.
+      / .recent-update-notice
+      /   Latest update: 
+      /   %span.recent-update  #{address.most_recent_status.class} on #{address.most_recent_status.date.strftime('%B %e, %Y')}.
       -case address.most_recent_status.class
         - when 'Inspection'
           .recommended-next-action This could mean that it has not been reported to the city. If you would like to make a report, you can do so by calling 311.
