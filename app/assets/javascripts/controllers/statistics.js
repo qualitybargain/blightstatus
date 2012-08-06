@@ -54,7 +54,7 @@ OpenBlight.statistics = {
       graph("inspection_results",BlightStats.data.inspections.results,"Inspection Results");
       graph("hearing_status",BlightStats.data.hearings.status,"Hearing Status");
       graph("judgement_status",BlightStats.data.judgements.status,"Judgement Status");
-      graph("maintenance_programs",BlightStats.data.maintenances.program_names,"Maintenance by Program");
+      // graph("maintenance_programs",BlightStats.data.maintenances.program_names,"Maintenance by Program");
     }
 
 }
