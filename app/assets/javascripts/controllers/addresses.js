@@ -49,10 +49,25 @@ OpenBlight.addresses = {
       x = $("#address").attr("data-x");
       y = $("#address").attr("data-y");
 
+
+      var CustomIcon = L.DivIcon.extend({
+        options: {
+          iconSize: new L.Point(10, 40),
+          className: "dotmarker"
+        }
+      });
+      console.log(1);
+
+      var dotIcon = new CustomIcon({iconUrl: '/assets/dotmarker.png'});
+
+      console.log(dotIcon);
+
       map = new L.Map('map')
         .addLayer(new wax.leaf.connector(tilejson))
-        .addLayer(new L.Marker(new L.LatLng(y , x)))
+        .addLayer(new L.Marker(new L.LatLng(y , x), {icon: dotIcon} ))
         .setView(new L.LatLng(y , x), 17);
+
+
     });
   },
 
@@ -189,17 +204,17 @@ OpenBlight.addresses = {
       '<p>'+ data[i].most_recent_status_preview.type + ' on ' + data[i].most_recent_status_preview.date + '</p>'
       var map_point;
 
-      var LeafIcon = L.DivIcon.extend({
+      var CustomIcon = L.DivIcon.extend({
         options: {
           iconSize: new L.Point(10, 40),
           className: "marker"
         }
       });
 
-      var greenIcon = new LeafIcon({iconUrl: '/assets/images/marker-icon.png'});
+      var blankIcon = new CustomIcon({iconUrl: '/assets/marker-icon.png'});
 
       map_point = new L.LatLng(point[1] , point[0]);
-      group.addLayer(marker = new L.Marker(map_point, {icon: greenIcon} ).bindPopup(popupContent));
+      group.addLayer(marker = new L.Marker(map_point, {icon: blankIcon} ).bindPopup(popupContent));
 
       var pos = i+1;
 
