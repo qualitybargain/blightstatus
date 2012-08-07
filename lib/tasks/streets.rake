@@ -9,8 +9,7 @@ namespace :streets do
 
     RGeo::Shapefile::Reader.open(shpfile, {:srid => -1}) do |file|
       puts "File contains #{file.num_records} records"
-      nums = 0..file.num_records
-      nums.each do |n|
+      file.num_records.times do |n|
          record = file.get(n).attributes
          st = Street.create( :prefix_direction => record["PREFIX_DIR"], :prefix_type => record["PREFIX_TYP"], :name => record["ST_NAME"], :suffix_direction => record["SUFFIX_DIR"], :suffix_type => record["SUFFIX_TYP"], :full_name => record["NAME"], :shape_len => record["SHAPE_LEN"], :the_geom => file.get(n).geometry)
       end
