@@ -58,7 +58,7 @@ class AddressesController < ApplicationController
   def map_search
     ne = params["northEast"]
     sw = params["southWest"]
-    @addresses = Address.find_addresses_within_area(ne, sw)
+    @addresses = Address.find_addresses_with_cases_within_area(ne, sw)
 
     page = (params[:page] || 1).to_i
     offset = (page - 1) * 15
