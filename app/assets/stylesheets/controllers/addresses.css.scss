@@ -54,7 +54,6 @@ $orange: #F1601D;
       border: none;
 			height: 700px;
 			min-height: 500px;
-			width: 20%;
 
 
       .result {
@@ -103,6 +102,10 @@ $orange: #F1601D;
     border: 1px solid #efefef;
     border-radius: 30px 30px 30px 30px;
     padding: 40px;
+  }
+
+  .toggle {
+    padding: 10px 0;
   }
 
 
@@ -204,12 +207,16 @@ $orange: #F1601D;
 }
 
 
-.leaflet-popup-content h4{
-  font-size: 14px;
-  line-height: 16px;
-  padding-bottom: 10px;
-}
+.leaflet-popup-content {
 
+  overflow: hidden;
+
+  h4 {
+    font-size: 14px;
+    line-height: 16px;
+    padding-bottom: 10px;
+  }
+}
 
 .dotmarker{
   background: url("/assets/dotmarker.png") no-repeat scroll 10px 4px transparent;  
@@ -239,13 +246,18 @@ $orange: #F1601D;
   /*padding: 4px 3px 16px;*/
 }
 
+.leaflet-marker-icon.marked{
+  z-index: 1000 !important;
+}
 
 .leaflet-marker-pane img.marked {
   border: 1px solid red;
+  z-index: 200;
 }
 
 .address.result.marked {
   background-color: $lighterTeal;
+  z-index: 200;
 }
 
 .address-title {

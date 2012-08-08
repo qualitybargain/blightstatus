@@ -1,35 +1,36 @@
-.container
+.container-fluid
   -unless @addresses.empty?
     %section.search-results
-      .left-bar      
-        .well{:style => "padding: 8px 0;"}
-          .nav-header 
-            %h2
-              Search Results
-            %p
-              (only showing properties with cases history)
-          %ul.nav.list
-            -#-@addresses.each do |a|
-              %li.active.address.result
-                %a{:href => "#"}
-                  %img{ :width => "10px", :src => "/assets/marker.png"  }
-                  %i.home
-                  =link_to a.address_long, address_path(a.id)
+      .row-fluid
+        .span3.left-bar      
+          .well{:style => "padding: 8px 0;"}
+            .nav-header 
+              %h2
+                Search Results
+              %p
+                (only showing properties with cases history)
+            %ul.nav.list
+              -#-@addresses.each do |a|
+                %li.active.address.result
+                  %a{:href => "#"}
+                    %img{ :width => "10px", :src => "/assets/marker.png"  }
+                    %i.home
+                    =link_to a.address_long, address_path(a.id)
 
-                %a{:href => address_path(a)}
-                  .maps-marker
-                  =a.address_long
-          #loading=image_tag('ajax-loader.gif')
-          .clearfix
-      .right-bar
-        #map{:style => "height: 400px;"}
-        .toggle
-          =check_box_tag('map-search-mode')
-          Redo search when map is moved
-      .row
-      .btn-toolbar
-        .btn-group
-          =paginate @addresses
+                  %a{:href => address_path(a)}
+                    .maps-marker
+                    =a.address_long
+            #loading=image_tag('ajax-loader.gif')
+            .clearfix
+        .span9.right-bar
+          #map{:style => "height: 400px;"}
+          .toggle
+            =check_box_tag('map-search-mode')
+            Redo search when map is moved
+        .row
+        .btn-toolbar
+          .btn-group
+            =paginate @addresses
 
   -else
     %section.no-search-results

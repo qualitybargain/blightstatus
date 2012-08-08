@@ -43,24 +43,20 @@ OpenBlight.addresses = {
     $(".property-status").popover({placement: 'bottom'});
 
     wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
-      var x, y, map;
+      var x, y, map, CustomIcon, dotIcon;
 
         // this should not be hard coded. do json request?
       x = $("#address").attr("data-x");
       y = $("#address").attr("data-y");
 
-
-      var CustomIcon = L.DivIcon.extend({
+      CustomIcon = L.DivIcon.extend({
         options: {
           iconSize: new L.Point(10, 40),
           className: "dotmarker"
         }
       });
-      console.log(1);
 
-      var dotIcon = new CustomIcon({iconUrl: '/assets/dotmarker.png'});
-
-      console.log(dotIcon);
+      dotIcon = new CustomIcon({iconUrl: '/assets/dotmarker.png'});
 
       map = new L.Map('map')
         .addLayer(new wax.leaf.connector(tilejson))
@@ -98,19 +94,19 @@ OpenBlight.addresses = {
 
       // console.log($marker);
       $this.hover(function(){
-        $marker.addClass('marked').css("zIndex", 200);
-        $this.addClass('marked').css("zIndex", 200);
+        $marker.addClass('marked');
+        $this.addClass('marked');
         }, function(){
-        $marker.removeClass('marked').css("zIndex", 100);
-        $this.removeClass('marked').css("zIndex", 100);
+        $marker.removeClass('marked');
+        $this.removeClass('marked');
       });
 
       $marker.hover(function(){
-        $marker.addClass('marked').css("zIndex", 200);
-        $this.addClass('marked').css("zIndex", 200);
+        $marker.addClass('marked');
+        $this.addClass('marked');
       }, function(){
-        $marker.removeClass('marked').css("zIndex", 100);
-        $this.removeClass('marked').css("zIndex", 100);
+        $marker.removeClass('marked');
+        $this.removeClass('marked');
       });
 
     });
@@ -203,6 +199,7 @@ OpenBlight.addresses = {
       '<img src="http://maps.googleapis.com/maps/api/streetview?location='+y+','+x+'&size=200x100&sensor=true" >' +
       '<p>'+ data[i].most_recent_status_preview.type + ' on ' + data[i].most_recent_status_preview.date + '</p>'
       var map_point;
+      var marker;
 
       var CustomIcon = L.DivIcon.extend({
         options: {
