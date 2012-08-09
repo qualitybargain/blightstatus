@@ -3,11 +3,11 @@
     %thead
       %tr
         %td
-        %td{ :class=> 'property-status property-status-inspection', 'href'=> "#" , 'rel'=>"popover", 'data-content'=>"A property is inspected by the Code Enforcement Department in response to a resident complaint or area sweep by a city inspector.",  'data-original-title'=>"Inspection"} Inspection
-        %td{ :class=> 'property-status property-status-notification', 'href'=> "#" , 'rel'=>"popover", 'data-content'=>"If a property is reported in violation of city housing standards by a city inspector, a Notice of Violation is posted on the property and the owner is mailed a Notice of Violation packet.",  'data-original-title'=>"Notification"} Notification
-        %td{ :class=> 'property-status property-status-hearing', 'href'=> "#" , 'rel'=>"popover", 'data-content'=>"An administrative hearing is conducted by an impartial judge to determine whether a property is in compliance, a public nuisance or blight.",  'data-original-title'=>"Hearing"} Hearing
-        %td{ :class=> 'property-status property-status-judgement', 'href'=> "#" , 'rel'=>"popover", 'data-content'=>"Within 7 days following the hearing, the judge decides whether the property is guilty, and if so, the property is declared a “public nuisance,” “blight,” or both. The judgment can include a fine of $100 to $500 per day until the violations are corrected.",  'data-original-title'=>"Judgement"} Judgement
-        %td{ :class=> 'property-status property-status-resolution', 'href'=> "#" , 'rel'=>"popover", 'data-content'=>"If an owner fails to bring a guilty property into compliance, the city may bring the property into compliance at the expense of the property owner.  In severe cases, the property may be seized by the city for foreclosure and possibly demolition.",  'data-original-title'=>"Resolution"}  Resolution
+        %td{ :class=> 'property-status property-status-inspection'} Inspection
+        %td{ :class=> 'property-status property-status-notification'} Notification
+        %td{ :class=> 'property-status property-status-hearing'} Hearing
+        %td{ :class=> 'property-status property-status-judgement'} Judgement
+        %td{ :class=> 'property-status property-status-resolution'}  Resolution
     %tbody
       -kases.each do |k|
         %tr

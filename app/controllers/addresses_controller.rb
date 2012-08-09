@@ -6,7 +6,7 @@ class AddressesController < ApplicationController
   respond_to :html, :xml, :json
 
   # we are not using  :full => true  because we want to show only street names or addresses. not mix 'em
-  autocomplete :address, :address_long 
+  autocomplete :address, :address_long
 
   def index
     @addresses = Address.page(params[:page]).order(:address_long)
@@ -32,8 +32,6 @@ class AddressesController < ApplicationController
     # When user searches they get a direct hit!
     if address_result.length == 1
       redirect_to :action => "show", :id => address_result.first.id
-      # TODO: if json, then we should not redirect.
-      # This shouldn't be hard to do - just check if it's an xhr request with request.xhr?
     else
       street_name = AddressHelpers.get_street_name(@search_term)
 

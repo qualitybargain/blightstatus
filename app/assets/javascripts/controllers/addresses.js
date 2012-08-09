@@ -71,7 +71,6 @@ OpenBlight.addresses = {
 
 
   subscribeButton: function(){
-
     jQuery(".subscribe-button").click(function(){
       var that = this;
         jQuery.post( '/subscriptions', { id: $('#address').attr('internal_address_id') }, function(data) {
@@ -83,7 +82,6 @@ OpenBlight.addresses = {
   associateMarkers: function(){
     for(var i = 0; i < OpenBlight.markers.length; i++){
       var m = OpenBlight.markers[i];
-      //console.log(m.marker['_icon'])
       $(m.marker['_icon']).attr("id", "marker-" + m.id);
       $(m.marker['_icon']).html(i+1);
       if(i > 9){
@@ -94,7 +92,6 @@ OpenBlight.addresses = {
     $('li.result').each(function(){
       var $this = $(this), $marker = $("#marker-" + $this.attr('data-id'));
 
-      // console.log($marker);
       $this.hover(function(){
         $marker.addClass('marked');
         $this.addClass('marked');
