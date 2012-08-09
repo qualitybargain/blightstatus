@@ -51,12 +51,14 @@ OpenBlight.addresses = {
 
       CustomIcon = L.DivIcon.extend({
         options: {
-          iconSize: new L.Point(10, 40),
+          iconSize: [ 22, 37 ],
+          iconAnchor: [ 0, 0 ],
+          popupAnchor: [ 11, 0 ],
           className: "dotmarker"
         }
       });
 
-      dotIcon = new CustomIcon({iconUrl: '/assets/dotmarker.png'});
+      dotIcon = new CustomIcon();
 
       map = new L.Map('map')
         .addLayer(new wax.leaf.connector(tilejson))
