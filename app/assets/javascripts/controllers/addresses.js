@@ -203,8 +203,9 @@ OpenBlight.addresses = {
 
       var CustomIcon = L.DivIcon.extend({
         options: {
-          iconSize: new L.Point(22, 37),
-          iconAnchor: new L.Point(11, 37),
+          iconSize: [ 22, 37 ],
+          iconAnchor: [ 0, 0 ],
+          popupAnchor: [ 11, 0 ],
           className: "marker"
         }
       });
