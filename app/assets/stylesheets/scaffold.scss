@@ -151,12 +151,18 @@ navbar
 
   font-family: "Lato";
   font-size: 120%;
-  font-style: italic;
   margin: 5px;
   padding: 5px;
 //  text-transform: uppercase;
 //  height: 32px;
 //  width: 275px;
+}
+
+::-webkit-input-placeholder {
+    font-style: italic;
+}
+:-moz-placeholder {
+    font-style: italic;
 }
 
 .address{
