@@ -194,10 +194,10 @@ OpenBlight.addresses = {
     for ( i = 0; i < data.length; i++ ){
       var point = data[i].point.substring(7, data[i].point.length -1).split(' ');
       var y = point[1], x= point[0];
-      var popupContent = '<h3><a href="/addresses/'+ data[i].id +'">'+ data[i].address_long + '</a></h3>' +
-
+      var link = '/addresses/'+ data[i].id;
+      var popupContent = '<h3><a href="' + link + '">' + data[i].address_long + '</a></h3>' +
       '<img src="http://maps.googleapis.com/maps/api/streetview?location='+y+','+x+'&size=200x100&sensor=true" >' +
-      '<p>'+ data[i].most_recent_status_preview.type + ' on ' + data[i].most_recent_status_preview.date + '</p>'
+      '<p>'+ data[i].most_recent_status_preview.type + ' on ' + data[i].most_recent_status_preview.date + '</p>';
       var map_point;
       var marker;
 
@@ -212,6 +212,7 @@ OpenBlight.addresses = {
 
       map_point = new L.LatLng(point[1] , point[0]);
       group.addLayer(marker = new L.Marker(map_point, {icon: blankIcon} ).bindPopup(popupContent));
+      marker.on('dblclick', function(){ window.location.href = link });
 
       var pos = i+1;
 
