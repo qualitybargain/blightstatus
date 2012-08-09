@@ -203,12 +203,13 @@ OpenBlight.addresses = {
 
       var CustomIcon = L.DivIcon.extend({
         options: {
-          iconSize: new L.Point(10, 40),
+          iconSize: new L.Point(22, 37),
+          iconAnchor: new L.Point(11, 37),
           className: "marker"
         }
       });
 
-      var blankIcon = new CustomIcon({iconUrl: '/assets/marker-icon.png'});
+      var blankIcon = new CustomIcon();
 
       map_point = new L.LatLng(point[1] , point[0]);
       group.addLayer(marker = new L.Marker(map_point, {icon: blankIcon} ).bindPopup(popupContent));

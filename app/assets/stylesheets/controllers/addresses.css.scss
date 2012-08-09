@@ -173,16 +173,6 @@ $orange: #F1601D;
 }
 
 
-.maps-marker{
-    color: white;
-    font-weight: bold;
-    height: 40px;
-    padding: 2px 13px;
-    position: absolute;
-    width: 30px;
-}
-
-
 .assessor{
   .parcel-link{
     font-weight: 400;
@@ -219,27 +209,32 @@ $orange: #F1601D;
 }
 
 .dotmarker{
-  background: url("/assets/dotmarker.png") no-repeat scroll 10px 4px transparent;  
-}
-.marker, .address.result{
-    background: url("/assets/marker.png") no-repeat scroll 10px 4px transparent;
-
+  background: url("/assets/dotmarker.png") no-repeat scroll 0px 0px transparent;  
 }
 
-.marked{
-    background: url("/assets/marker-selected.png") no-repeat scroll 10px 4px transparent;
+.maps-marker{
+    color: white;
+    font-weight: bold;
+    height: 40px;
+    margin: 0px 13px 2px 8px;
+    width: 22px;
+    position: absolute;
+}
+
+.marker, .address.result .maps-marker{
+    text-align: center;
+    padding-top: 2px;
+    background: url("/assets/marker.png") no-repeat scroll 0px 0px transparent;
+}
+
+.marker.marked, .marked.address.result .maps-marker{
+   background: url("/assets/marker-selected.png") no-repeat scroll 0px 0px transparent;
 }
 
 .leaflet-marker-icon{
     color: white;
     font-weight: bold;
-    padding: 7px 16px;
-    width: 22px;
-}
-
-.address.result.two_digits{
-  margin: 0;
-  padding: 3px 0;
+    margin: 7px 16px;
 }
 
 .leaflet-clickable.two_digits{
