@@ -56,11 +56,11 @@ class Address < ActiveRecord::Base
   end
 
   def self.find_addresses_with_cases_by_street(street_string)
-    Address.joins(:cases).where(:addresses => {:street_name => street_string})
+    Address.joins(:cases).where(:addresses => {:street_name => street_string}).order("house_num ASC")
   end
 
   def self.find_addresses_with_cases_by_cardinal_street(card, street_string)
-    Address.joins(:cases).where('address_long like ?', '%' + card.single_space + ' ' + street_string.single_space + '%')
+    Address.joins(:cases).where('address_long like ?', '%' + card.single_space + ' ' + street_string.single_space + '%').order("house_num ASC")
   end
 
   def self.find_addresses_with_cases_within_area(ne, sw)
