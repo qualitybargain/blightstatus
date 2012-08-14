@@ -2,16 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$lighterTeal: #cceceb;
-$lightTeal: #62CCCC;
-$darkTeal: #008E8A;
-
-$lightBeige: #EBE9E1;
-$lightBeige: #D1CEC1;
-$grey: #6D6E71;
-$darkGrey: #58595B;
-$orange: #F1601D;
-
+@import "variables.css.scss";
 
 .container-addresses{
   #map{
@@ -289,37 +280,6 @@ $orange: #F1601D;
     padding: 3px 8px;
     font-family: "Lato"  ;
     border-bottom: 1px solid #CCC;  
-  }
-
-  ul{
-    list-style: none;
-    padding-left: 0;
-    margin-left: 0;
-
-    li{
-
-      margin: 0px 0;
-      padding-left: 30px;
-      background: url("/assets/arrow-down.png") no-repeat scroll 10px 20px transparent;
-      border-radius: 5px;
-      padding: 15px 15px 15px 30px;
-
-      .faq-title{
-        color: $grey;
-        font-family: "Lato";
-        font-size: 16px;
-        font-weight: bold;
-      }
-      .faq-entry{
-        font-weight: normal;
-      }
-
-      &.selected{
-        background-color: $lighterTeal;
-      }
-
-    }
-
   }
 
 }

@@ -13,7 +13,8 @@
  *= require jquery-ui.css
  *= require leaflet.css
  *= require Control.Draw.css
- *= require_tree .
+ *= require variables
+ *= require scaffold
  *= require_tree ./controllers
  */
 
