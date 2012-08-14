@@ -44,11 +44,12 @@ class AddressesController < ApplicationController
       @addresses.each {|addr|
         addr.address_long = AddressHelpers.unabbreviate_street_types(addr.address_long).capitalize
       }
-
+      @address_list = @addresses.sort{ |a, b| a.house_num.to_i <=> b.house_num.to_i }
+      
       respond_to do |format|
         format.html # show.html.erb
-        format.xml  { render :xml => @addresses }
-        format.json { render :json => @addresses.to_json(:methods => [:most_recent_status_preview]) }
+        format.xml  { render :xml => @addresses_list }
+        format.json { render :json => @address_list.to_json(:methods => [:most_recent_status_preview]) }
       end
     end
   end

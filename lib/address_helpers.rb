@@ -115,7 +115,12 @@ module AddressHelpers
     end
     return streetname
   end
-
+  def get_short_direction(streetname)
+      if(dir = get_direction(streetname))
+        return dir[0]
+      end
+      return nil
+  end
   def get_direction(streetname)
     streetname.upcase!
     @street_direction.each do |(abbr, full)|
