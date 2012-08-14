@@ -1,3 +1,5 @@
+require "#{Rails.root}/lib/address_helpers.rb"
+include AddressHelpers
 
 class StreetsController < ApplicationController
   respond_to :html, :json, :xml	
@@ -12,7 +14,11 @@ class StreetsController < ApplicationController
      else
        items = {}
      end
-     # items.map{|c| c.downcase!}
+     items.each{|c| 
+      c.full_name.downcase!
+     }
+
+
      render :json => json_for_autocomplete(items , :full_name)
   end
   
