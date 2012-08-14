@@ -1,9 +1,11 @@
-$lightTeal: #62CCCC;
-$darkTeal: #008E8A;
-$lightBeige: #EBE9E1;
-$lightBeige: #D1CEC1;
-$grey: #6D6E71;
-$orange: #F1601D;
+@import "variables.css.scss";
+
+body {
+  background-image: url('/assets/ricepaper2.png');
+  font-family: "Lato";
+  font-weight: #58595B;
+}
+
 
 #wrapper{
   height: 100%;
@@ -20,11 +22,6 @@ $orange: #F1601D;
 
 }
 
-body {
-	background-image: url('/assets/ricepaper2.png');
-  font-family: "Lato";
-  font-weight: #58595B;
-}
 
 
 header {
@@ -153,9 +150,12 @@ navbar
   font-size: 120%;
   margin: 5px;
   padding: 5px;
-//  text-transform: uppercase;
+ background: url("/assets/search-icon.png") no-repeat scroll 265px center white;
+   text-transform: capitalize;
+  float: left;
 //  height: 32px;
 //  width: 275px;
+  font-weight: 100;
 }
 
 ::-webkit-input-placeholder {
@@ -261,7 +261,7 @@ navbar
 .ui-corner-all{
 	border-radius: 0 !important;
   font-family: "Lato";
-  font-style: italic;
+  font-weight: 300;
   text-transform: capitalize;  
 }
 
@@ -323,3 +323,34 @@ footer{
 
 }
 
+
+
+ul.arrow-list{
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+
+  li{
+
+    margin: 0px 0;
+    padding-left: 30px;
+    background: url("/assets/arrow-down.png") no-repeat scroll 10px 20px transparent;
+    border-radius: 5px;
+    padding: 15px 15px 15px 30px;
+
+    .faq-title{
+      color: $grey;
+      font-family: "Lato";
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .faq-entry{
+      font-weight: normal;
+    }
+
+    &.selected{
+      background-color: $lighterTeal;
+    }
+
+  }
+}
