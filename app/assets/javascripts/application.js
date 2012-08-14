@@ -26,6 +26,7 @@
 //= require bootstrap-tooltip
 //= require bootstrap-popover
 //= require bootstrap-modal
+//= require bootstrap-tabs
 //= require init
 //= require_directory ./controllers
 
