@@ -10,14 +10,11 @@
       .nav-collapse.collapse
         %ul.nav
           %li
-            - if(controller_name == 'addresses')
-              =render "addresses/search"        
-          / %li
-          /   %a{:href => "/pages/about"} About
+            =link_to "About", "/pages/about"
+          %li
+            =link_to "Help", "/pages/help"
           / %li
           /   %a{:href => "/stats"} Stats
-          / %li
-          /   %a{:href => "/pages/help"} Help
           / -if account_signed_in?
           /   %li
           /     =link_to "My Account", "/accounts"
@@ -28,3 +25,6 @@
           /     =link_to('Register', new_account_registration_path)
           /   %li
           /     =link_to('Login', new_account_session_path) 
+          %li
+            - if(controller_name != 'home')
+              =render "layouts/search"        

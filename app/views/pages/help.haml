@@ -1,17 +1,20 @@
 .container
-	%h2 Help
-	%p 
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam quis rhoncus tellus. In tincidunt massa quis augue aliquet ornare. Quisque laoreet feugiat iaculis. Aliquam erat volutpat. Cras pharetra justo diam. Suspendisse potenti. Nulla sem nisl, interdum at lobortis sit amet, egestas id massa. Suspendisse non sapien quis tellus placerat fermentum eu vel turpis. Vivamus interdum tristique mi, ut lobortis diam laoreet et.
+  .row.helpcenter-logo
+    =image_tag "/assets/HelpCenter-Logo.png"
 
-	%p
-		Donec non odio nibh, vel porttitor magna. Ut vel libero tellus, a convallis purus. Etiam iaculis ornare ullamcorper. Curabitur placerat convallis sem a bibendum. Etiam a ullamcorper orci. Maecenas ornare, augue non pulvinar fermentum, lacus ipsum euismod lacus, id varius dui felis sed sem. Phasellus vel rutrum tortor. Maecenas nec sem a orci posuere consequat feugiat vitae eros. Nulla in condimentum mi. Curabitur molestie diam turpis, eu tempor lacus. Mauris commodo tincidunt vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce tellus purus, consequat sed varius ut, mattis nec arcu.
+  %ul.nav.nav-tabs
+    %li.active
+      =link_to "Common Questions", "#common-questions", {"data-toggle" => "tab"}
+    %li
+      =link_to "About the Blight Process", "#about-the-blight-process", {"data-toggle" => "tab"}
+    %li
+      =link_to "Glossary", "#glossary", {"data-toggle" => "tab"}
 
-	%p
-		Ut tellus nisi, congue non ornare at, bibendum sed risus. Nulla diam nisi, ullamcorper eget ornare vitae, interdum eu elit. Etiam eget orci lacus, sed malesuada magna. Nulla augue sem, feugiat ut eleifend ac, pulvinar et nibh. Proin dignissim venenatis ante, sed fermentum erat bibendum vitae. Duis pellentesque accumsan cursus. Praesent auctor enim id justo tristique suscipit a ut neque. Nam posuere fringilla augue. Aenean pretium dapibus egestas. Integer vulputate consequat libero, eu dignissim ligula posuere a. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla mattis feugiat ante, a posuere nisl fermentum euismod.
-
-
-	%p
-		Curabitur egestas tellus vitae metus lobortis molestie. Donec eget massa metus, ut ultrices dui. Donec tempus ipsum vitae magna adipiscing in pulvinar dolor dictum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur vitae nisi nisl. Duis imperdiet consequat metus, non adipiscing nisi tincidunt ac. Donec pharetra elit id mauris faucibus vitae aliquam risus ultricies.
-
-	%p
-		Quisque porttitor neque lobortis mauris faucibus et congue nibh porta. Quisque volutpat quam ut risus euismod euismod. Nunc congue, neque eu placerat aliquam, ligula quam iaculis est, id tincidunt odio purus commodo tellus. Nunc tincidunt, nunc pulvinar dapibus vestibulum, nibh urna pharetra mi, eu volutpat arcu leo et odio. Ut vestibulum auctor luctus. Etiam varius, lectus vel suscipit varius, nibh ligula scelerisque urna, quis pulvinar enim ante eget urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc laoreet mattis lorem, vitae blandit magna mattis a. Quisque venenatis vestibulum tortor, ornare mollis augue venenatis mollis. Aliquam adipiscing augue sit amet purus gravida sollicitudin. Mauris feugiat turpis cursus nisl vulputate at dapibus tellus vulputate. Suspendisse faucibus interdum nunc. Donec tellus risus, ullamcorper eget aliquam eu, tempus nec mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sit amet accumsan sapien. 
+  .tab-content
+    #common-questions.tab-pane.active
+      =render :partial => "pages/help/common-questions"
+    #about-the-blight-process.tab-pane
+      =render :partial => "pages/help/about-the-blight-process"    
+    #glossary.tab-pane
+      =render :partial => "pages/help/glossary"
+    
