@@ -34,14 +34,15 @@
 
   -else
     %section.no-search-results
-      .left-bar
-      .right-bar
-        .suggestions
-          %h3 The address "#{@search_term}" was not found
+      .row-fluid
+        .left-bar
+        .right-bar
+          .suggestions
+            %h3 The address "#{@search_term}" was not found
 
-          %p{:style => "margin-top: 20px"} This could mean a few different things:
+            %p{:style => "margin-top: 20px"} This could mean a few different things:
 
-          %p 1) Check to see if you typed the address correctly. 
-  	          
-          %p 2) If you believe you've run into a technical glitch, please report it to support@blightstatus.org
+            %p 1) Check to see if you typed the address correctly. 
+    	          
+            %p 2) If you believe you've run into a technical glitch, please report it to support@blightstatus.org
 
