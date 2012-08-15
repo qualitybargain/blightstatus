@@ -119,7 +119,14 @@
       font-weight: normal;
     }
 
+    .case-number{
+      border-bottom: 1px solid #58595B;
+    }
 
+
+    td{
+      border-top: none;
+    }
   }
 
   footer{
@@ -255,7 +262,7 @@
     font-size: 45px;
   }
 
-  border-bottom: 3px solid $darkGrey;
+  border-bottom: 1px solid $darkGrey;
   clear: both;
 
 }
