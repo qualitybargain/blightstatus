@@ -14,6 +14,7 @@ gem 'docsplit'
 gem 'rubyXL'
 gem 'devise'
 #gem "cancan"
+gem 'savon'
 
 # GIS 
 gem 'rgeo'
