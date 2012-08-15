@@ -1,37 +1,39 @@
 %footer
   .container
-    .span4
-      %h3
-        We're in Beta!
-      %p
-        We're busy at work building and improving this website, so we want your feedback! Please feel free to ask a question, report a problem, or suggest a feature.
-      %p
-        If you are a developer and want to help us build this thing, check out the developer site
-      %p
-        Thanks!
+    .row
+      .span4
+        %h3
+          We're in Beta!
+        %p
+          We're busy at work building and improving this website, so we want your feedback! Please feel free to ask a question, report a problem, or suggest a feature.
+        %p
+          If you are a developer and want to help us build this thing, check out the developer site
+        %p
+          Thanks!
 
-    .span3
-      %h3
-        Contact Us
-      %p
-        %a{:href => "http://codeforamerica.org"}      
-          Visit Code for America
-      %p
-        Email
-        %br
-          neworleans@codeforamerica.org
-      %p
-        Twitter
-        %br
-          %a{:href => "http://twitter.com/blightstatus"}
-            @blightstatus
+      .span3
+        %h3
+          Contact Us
+        %p
+          Website
+          %br
+            =link_to "http://codeforamerica.org", "http://codeforamerica.org"
+        %p
+          Email
+          %br
+            =mail_to "neworleans@codeforamerica.org", "neworleans@codeforamerica.org"
+        %p
+          Twitter
+          %br
+            =link_to "http://twitter.com/blightstatus", "@blightstatus"
+              
 
-    .span2
-      %h3
-        Partners
-      %p
-        %a{:href => "http://codeforamerica.org"}              
-          =image_tag 'http://commons.codeforamerica.org//sites/all/themes/civiccommons/images/codeforamerica.png'
-      %p
-        %a{:href => "http://nola.gov"}      
-          =image_tag 'http://www.nola.gov/images/logo-footer.png'
+      .span2
+        %h3
+          Partners
+        %p
+          %a{:href => "http://codeforamerica.org"}              
+            =image_tag 'http://commons.codeforamerica.org//sites/all/themes/civiccommons/images/codeforamerica.png'
+        %p
+          %a{:href => "http://nola.gov"}      
+            =image_tag 'http://www.nola.gov/images/logo-footer.png'

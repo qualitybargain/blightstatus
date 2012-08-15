@@ -1,40 +1,75 @@
 @import "variables.css.scss";
 
-body {
-  background-image: url('/assets/ricepaper2.png');
-  font-family: "Lato";
-  font-weight: #58595B;
-}
-
-
-#wrapper{
+html{
   height: 100%;
 
-  .devise, .frontpage, .no-search-results{
-    position: relative;
-    margin: 7% 0;    
+  body {
+    background-image: url('/assets/ricepaper2.png');
+    font-family: "Lato";
+    font-weight: #58595B;
+    min-height: 100%;  
+  }
+
+
+
+  #wrapper{
+    height: 100%;
+    padding-bottom: 225px;
+  }
+
+
+  header {
+    text-align: center;
+    border-bottom: 1px solid #F5F5F5;
+    padding: 10px 30px 10px 10px !important;
+    margin: 0px -20px 24px -20px !important;
+    -moz-box-shadow: 0px 0px 5px 0px #888; 
+    -webkit-box-shadow: 0px 0px 9px 0px #888; 
+    box-shadow: 0px 0px 5px 0px #888; 
+    z-index: 99999;
+    border-radius: 0;
+  }
+
+
+
+  footer{
+    border-top: 1px solid #EEEEEE;
+    clear: both;
+    width: 100%;
+    text-align: center;
     bottom: 0;
+    background: url("http://blog.civiccommons.org/wp-content/themes/biznizz/images/dark-noise.png") repeat scroll 0 0 #44484F;
+    color: #A5A5A5;
+    margin: 0px 0px 0px;
+    padding: 20px 0;
+    
+    h3{
+      text-align: left;
+    }
+
+    p{
+      text-align: left;
+    }
+    .footer{
+      padding: 10px 0 20px;
+    }
+    
+    .demo{
+      width: 500px;
+      margin: 0 auto;
+      text-align: center;
+      bottom: 100px;
+      display: none;
+    }
+
   }
 
-  .devise+footer, .frontpage+footer, .no-search-results+footer{
-    position: absolute;
-  }
+
 
 }
 
 
 
-header {
-  text-align: center;
-  border-bottom: 1px solid #F5F5F5;
-  padding: 10px 30px 10px 10px !important;
-  margin: 0px -20px 24px -20px !important;
-  -moz-box-shadow: 0px 0px 5px 0px #888; 
-  -webkit-box-shadow: 0px 0px 9px 0px #888; 
-  box-shadow: 0px 0px 5px 0px #888; 
-  z-index: 99999;
-  border-radius: 0;
-}
 
 
 h1{
@@ -284,43 +319,6 @@ navbar
   color: #58595B;
   padding: 10px 10px 10px 40px;
   text-transform: capitalize;
-}
-
-
-
-footer{
-  border-top: 1px solid #EEEEEE;
-  clear: both;
-  margin-top: 17px;
-  padding-top: 17px;
-  width: 100%;
-  text-align: center;
-  bottom: 0;
-
-  background: url("http://blog.civiccommons.org/wp-content/themes/biznizz/images/dark-noise.png") repeat scroll 0 0 #44484F;
-  color: #A5A5A5;
-  margin: 40px 0 0;
-  padding: 20px 0;
-  
-  h3{
-    text-align: left;
-  }
-
-  p{
-    text-align: left;
-  }
-  .footer{
-    padding: 10px 0 20px;
-  }
-  
-  .demo{
-    width: 500px;
-    margin: 0 auto;
-    text-align: center;
-    bottom: 100px;
-    display: none;
-  }
-
 }
 
 
