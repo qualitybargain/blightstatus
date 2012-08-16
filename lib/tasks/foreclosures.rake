@@ -10,9 +10,19 @@ include Savon
 namespace :foreclosures do
   desc "Downloading files from s3.amazon.com"  
   task :load, [:file_name, :bucket_name] => :environment  do |t, args|
-    client = Savon.client("http://www.civilsheriff.com/ForeclosureWebService/Foreclosure.svc?wsdl")
-    client.wsse.credentials ENV['SHERIFF_USER'], ENV['SHERIFF_PASSWORD']
-    #response = client.request :get_all_users
+    
+    
+    client = Savon::Client.new(ENV['SHERIFF_WSDL'])
+    puts "ENV['SHERIFF_WSDL'] => " + ENV['SHERIFF_WSDL']
+    puts "ENV['SHERIFF_USER'] => " + ENV['SHERIFF_USER']
+    puts "ENV['SHERIFF_PASSWORD'] => " + ENV['SHERIFF_PASSWORD']
+    
+    client.request.basic_auth ENV['SHERIFF_USER'], ENV['SHERIFF_PASSWORD']
+    client.wsdl.soap_actions
+    #response = client.http.request(:get_foreclosure)#{soap.body = { "CdcCaseNumber" => 1 }}
+    
+
+    #puts response.body
   end
 
   desc "Correlate foreclosure data with addresses"  
