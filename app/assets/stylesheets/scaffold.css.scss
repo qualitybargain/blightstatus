@@ -66,6 +66,38 @@ html{
 
 
 
+  .full-width{
+    width: 1000px;
+    margin: 0 auto;
+  }
+  .left-bar{
+    float:left;
+    padding: 0 20px;
+    border: none;
+    min-height: 500px;
+    width: 65%;
+  }
+  .right-bar{
+    float:left;
+    padding: 0 20px;
+    border: none;
+    min-height: 500px;
+    width: 25%;
+
+  }
+
+  .left{
+    float: left;
+    width: 47%;
+    margin-right: 6%;
+  }
+
+
+  .right{
+    float: left;
+    width: 47%;
+  }
+
 }
 
 
@@ -81,6 +113,13 @@ h2, h3{
   font-family: "Kreon";
   text-transform: uppercase;
   color: $orange;
+}
+
+
+h4{
+  font-family: "Kreon";
+  color: $orange;
+  font-weight: 100;
 }
 
 /*
@@ -108,46 +147,64 @@ navbar
 
     background: transparent;
 
-    .nav {
+    li{
+      a{
+        text-shadow: none;
+        font-size: 18px;
+      }
+    }
+
+
+    .top-account{
+
+      text-transform: uppercase;
+      background: url(/assets/arrow-down.png) no-repeat right 15px;
+      padding-right: 5px;
+
+      a{
+        font-size: 100%;
+      }
+
+    }
+
+    .top-links{
+
+    }
+
+    .top-search {
       display: block;
       float: right;
       left: 0;
       margin: 15px 10px 0 0;
       position: relative;
 
-      li{
-        a{
-          text-shadow: none;
-          font-size: 18px;
+      .search-form{
+        width: 325px;
+        margin: 0 auto;
+
+        form{
+          margin: 0 0 10px;
         }
+
+        .search-field{
+          font-size: 100%;
+          float: left;
+          display: inline-block;
+
+        }
+
+        .search-button{
+  //        float: left;
+  //        display:inline-block;
+
+          .btn{
+            height: 30px;
+          }
+        }         
       }
     }
 
 
-    .search-form{
-      width: 440px;
-      margin: 0 auto;
-
-      form{
-        margin: 0 0 10px;
-      }
-
-      .search-field{
-        font-size: 100%;
-        float: left;
-        display: inline-block;
-
-      }
-
-      .search-button{
-//        float: left;
-//        display:inline-block;
-
-        .btn{
-          height: 30px;
-        }
-      }         
-    }    
   }
 }
 
@@ -185,12 +242,14 @@ navbar
   font-size: 120%;
   margin: 5px;
   padding: 5px;
- background: url("/assets/search-icon.png") no-repeat scroll 265px center white;
-   text-transform: capitalize;
+  background: url("/assets/search-icon.png") no-repeat scroll 210px 6px white;
+  text-transform: capitalize;
   float: left;
-//  height: 32px;
-//  width: 275px;
   font-weight: 100;
+  width: 220px;
+}
+
+.btn-primary-search{
 }
 
 ::-webkit-input-placeholder {
@@ -321,6 +380,11 @@ navbar
   text-transform: capitalize;
 }
 
+.nav-collapse{
+  .nav{
+    margin-top: 15px;
+  }
+}
 
 
 ul.arrow-list{
