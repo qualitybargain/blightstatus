@@ -93,14 +93,20 @@
 
   #common-questions{
     padding-top: 10px 40px;
-    border: 1px solid #ddd;
     border-width: 0 1px 1px 1px;
-    padding: 10px 40px;
   }
 
   .tab-content{
     width: 930px;
   }
+
+
+  .tab-pane-content{
+    border: 1px solid #ddd;
+    border-radius: 0 0 20px 20px;
+    padding: 10px 40px 50px;
+  }
+
 
   .our-partners{
 
