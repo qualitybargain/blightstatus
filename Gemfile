@@ -15,7 +15,9 @@ gem 'rubyXL'
 gem 'devise'
 #gem "cancan"
 gem 'lama', :git => 'https://github.com/eddietejeda/lama.git'
+#gem 'httpi', :git => 'git://github.com/bensie/httpi.git', :branch => 'ntlm'
 gem 'savon'
+gem "httpclient", "~> 2.1.5"
 
 # GIS 
 gem 'rgeo'
