@@ -4,8 +4,17 @@
 @import "variables.css.scss";
 
 .container-home{
-	
+
+
+  .nav-collapse{
+    .nav{
+      float: right;
+      margin-top: 15px;
+    }
+  }
+
   .frontpage{
+
 
     h1{
       font-size: 39pt;
@@ -64,6 +73,7 @@
       height: 299px;
       width: 320px;
     }
+
 
 
 

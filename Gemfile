@@ -14,8 +14,8 @@ gem 'docsplit'
 gem 'rubyXL'
 gem 'devise'
 #gem "cancan"
-gem 'lama', :git => 'https://github.com/eddietejeda/lama.git'
-#gem 'httpi', :git => 'git://github.com/bensie/httpi.git', :branch => 'ntlm'
+
+gem 'lama', :git => 'https://github.com/gangleton/lama.git'
 gem 'savon'
 gem "httpclient", "~> 2.1.5"
 
