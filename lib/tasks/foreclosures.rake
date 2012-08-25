@@ -13,9 +13,13 @@ namespace :foreclosures do
     
     
     client = Savon::Client.new do |wsdl|# ENV['SHERIFF_WSDL']
-wsdl.endpoint = "http://www.civilsheriff.com/ForeclosureWebService/Foreclosure.svc"
-  wsdl.namespace = "http://tempuri.org/"
+      wsdl.document = ENV['SHERIFF_WSDL']
+      wsdl.endpoint = "http://www.civilsheriff.com/ForeclosureWebService/Foreclosure.svc"
+      wsdl.namespace = "http://www.civilsheriff.com/ForeclosureWebService"
     end
+
+    client.http.headers["SOAPAction"] = '"http://tempuri.org/IForeclosure/GetForeclosure"'
+    #puts "CLIENT XML" << client.soap
     #client.wsdl.endpoint = "http://www.civilsheriff.com/ForeclosureWebService/Foreclosure.svc"
     # puts "ENV['SHERIFF_WSDL'] => " + ENV['SHERIFF_WSDL']
     # puts "ENV['SHERIFF_USER'] => " + ENV['SHERIFF_USER']
@@ -30,9 +34,9 @@ wsdl.endpoint = "http://www.civilsheriff.com/ForeclosureWebService/Foreclosure.s
     #response = client.request :wsdl, :get_foreclosure, cdcCaseNumber: "2012-5607"
     #response = client.request #get_foreclosure, "2012-5607", ENV['SHERIFF_PASSWORD']
     #puts client.http.auth.inspect
-    response = client.request :wsdl, :get_foreclosure, body: {cdcCaseNumber: "2012-5607", key: ENV['SHERIFF_PASSWORD']}
+    response = client.request("GetForeclosure", body: {cdcCaseNumber: "2012-5607", key: ENV['SHERIFF_PASSWORD']})#.to_xml#, xmlns: "http://tempuri.org/"
 
-    # response = client.request :get_foreclosure do
+    # response = client.request "GetForeclosure" do#:get_foreclosure do
     #   soap.body = {:cdcCaseNumber => "2012-5607", :key => ENV['SHERIFF_PASSWORD'] }
     # end
     #puts response.body
