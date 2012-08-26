@@ -11,20 +11,47 @@
   }
 
 
-
-  .question{
-    background: url("/assets/arrow-right.png") no-repeat scroll 0 20px transparent;
-    color: #F1601D;
-    font-size: 130%;
-    padding: 17px 10px 10px 25px;
-    &:hover{
-      cursor: pointer;
+  .timeline{
+    margin: 20px 0 30px;
+    .category{
+      display: inline;
+      padding: 20px 60px 20px 5px;
+      font-size: 120%;
+      color: $orange;
+      font-family: "Lato";
+      font-weight: 400;
     }
+    clear: both;
   }
-  .answer{
-    padding-left: 25px;
-    padding-top: 10px;
-    font-size: 120%;
+
+
+  h3.category-label{
+    font-family: "Lato";
+    font-weight: 200;
+    color: $Lightgrey;
+  }
+
+  .questions{
+
+    border-top: 1px solid $Lightgrey;
+    padding: 10px 0;
+
+    .question{
+      background: url("/assets/arrow-right.png") no-repeat scroll 0 8px transparent;
+      color: #F1601D;
+      font-size: 130%;
+      padding: 5px 25px;
+      &:hover{
+        cursor: pointer;
+      }
+    }
+    .answer{
+      padding-left: 25px;
+      padding-top: 10px;
+      font-size: 120%;
+    }
+
+
   }
 
 
@@ -36,19 +63,27 @@
       margin: 10px 0px -1px 0;
 
       a{
-        text-transform: uppercase;
-        font-size: 120%;
-        padding: 15px 75px;
         border: 0;
         background-color: $lighterTeal;
         border-radius: 20px 20px 0 0;
-        border: 1px solid #ccc;
+        border-style: solid;
+        border-width: 1px 1px 0 1px;
+        border-color:  #ccc;
+        text-transform: uppercase;
+        font-size: 140%;
+        padding: 15px 64.333px; 
+        color: $darkGrey;       
 
       }
 
       &.active{
-        background-color: white;
-        border-radius: 20px 20px 0 0;
+        a{
+          background-color: white;
+          border-radius: 20px 20px 0 0;
+          margin-bottom: -1px;          
+          color: $darkGrey;       
+
+        }
 
       }
 
@@ -58,9 +93,65 @@
 
   #common-questions{
     padding-top: 10px 40px;
-    border: 1px solid #ddd;
     border-width: 0 1px 1px 1px;
-    padding: 10px 40px;
+  }
+
+  .tab-content{
+    width: 930px;
+  }
+
+
+  .tab-pane-content{
+    border: 1px solid #ddd;
+    border-radius: 0 0 20px 20px;
+    padding: 10px 40px 50px;
+  }
+
+
+  .our-partners{
+
+
+    .code-for-america{
+      background: url("/assets/partner-logos.png") no-repeat scroll 7px -60px transparent;
+      width: 155px;
+      height: 70px;
+      
+    }
+
+    .city-of-new-orleans{
+      background: url("/assets/partner-logos.png") no-repeat scroll -130px 0px transparent;
+      width: 155px;
+      height: 130px;      
+    }
+
+    .nora{
+      background: url("/assets/partner-logos.png") no-repeat scroll 0px -10px transparent;
+      width: 140px;
+      height: 50px;
+    }
+
+
+  }
+  .meet-the-team, .our-partners, .get-in-touch{
+
+    margin-bottom: 40px;
+    h2{
+      font-weight: 200;
+      font-family: "Lato";
+      border-bottom: 1px solid $Lightgrey;
+      margin-bottom: 10px;
+
+    }
+
+    .img-block{
+      width: 100px;
+      float: left;
+      padding: 8px 5px;
+
+      img{
+        border: 1px solid #ccc;
+      }
+    }
   }
 
 }

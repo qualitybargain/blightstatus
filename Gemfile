@@ -14,8 +14,10 @@ gem 'docsplit'
 gem 'rubyXL'
 gem 'devise'
 #gem "cancan"
+
 gem 'lama', :git => 'https://github.com/gangleton/lama.git'
 gem 'savon'
+gem "httpclient", "~> 2.1.5"
 
 # GIS 
 gem 'rgeo'

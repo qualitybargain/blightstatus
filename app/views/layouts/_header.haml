@@ -8,23 +8,15 @@
       %a.brand{:href => "/"}
         =image_tag "blightstatus-logo.png"
       .nav-collapse.collapse
-        %ul.nav
+        %ul.nav.top-account.pull-right
+          %li
+            =link_to "Account", "/pages/about"
+        %ul.nav.top-links
           %li
             =link_to "About", "/pages/about"
           %li
             =link_to "Help", "/pages/help"
-          / %li
-          /   =link_to "Stats", "/stats"
-          / -if account_signed_in?
-          /   %li
-          /     =link_to "My Account", "/accounts"
-          /   %li
-          /     =link_to "Logout", destroy_account_session_path, :method => :delete 
-          / -else
-          /   %li
-          /     =link_to('Register', new_account_registration_path)
-          /   %li
-          /     =link_to('Login', new_account_session_path) 
+        %ul.nav.top-search
           %li
             - if(controller_name != 'home')
               =render "layouts/search"        

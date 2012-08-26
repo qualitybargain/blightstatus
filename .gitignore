@@ -25,3 +25,4 @@ coverage
 
 tags
 app/assets/.DS_Store
+config/initializers/nola_keys.rb

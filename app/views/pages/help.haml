@@ -11,10 +11,10 @@
       =link_to "Glossary", "#glossary", {"data-toggle" => "tab"}
 
   .tab-content
-    #common-questions.tab-pane.active
+    #common-questions.tab-pane.tab-pane-content.active
       =render :partial => "pages/help/common-questions"
-    #about-the-blight-process.tab-pane
+    #about-the-blight-process.tab-pane.tab-pane-content
       =render :partial => "pages/help/about-the-blight-process"    
-    #glossary.tab-pane
+    #glossary.tab-pane.tab-pane-content
       =render :partial => "pages/help/glossary"
     

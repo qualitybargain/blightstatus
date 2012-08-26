@@ -1,30 +1,35 @@
-.container
-  .span7
-    %h2 What does it do?
-
-    %p
-      BlightSTATUS makes it simple for residents to find out what’s going on with blighted properties in their community – no long waits on the telephone or visits to City Hall required. 
-    %p
-      A great example of government transparency at work, BlightSTATUS pulls up-to-date property information directly from the City’s official records, providing a single, comprehensive and authoritiative view to the public for the very first time.       
-    .span5
-      %h3 The latest status, at a glance
-
+.container.full-width
+  .left-bar
+    .row
+      %h2 What does it do?
       %p
-        Check out a property’s status bar to instantly see where that property stands in the blight process – and what’s coming next. Want to know more? Scroll down  to the detailed case history for a step-by-step description of what’s happened so far, and when. 
+        BlightSTATUS makes it simple for residents to find out what’s going on with blighted properties in their community – no long waits on the telephone or visits to City Hall required. 
+      %p
+        A great example of government transparency at work, BlightSTATUS pulls up-to-date property information directly from the City’s official records, providing a single, comprehensive and authoritiative view to the public for the very first time.       
 
-    .span5
-      %h3 Receive alerts on the go
-      %p Subscribe to receive instant alerts via email or text message the moment the status changes on properties you care about. Subscribe to one property, a whole block, or your entire neighborhood, and you’ll always be in the know.      
+      .left
+        %h4 The latest status, at a glance
+
+        %p
+          Check out a property’s status bar to instantly see where that property stands in the blight process – and what’s coming next. Want to know more? Scroll down  to the detailed case history for a step-by-step description of what’s happened so far, and when. 
+
+      .right
+        %h4 Receive alerts on the go
+        %p Subscribe to receive instant alerts via email or text message the moment the status changes on properties you care about. Subscribe to one property, a whole block, or your entire neighborhood, and you’ll always be in the know.      
+
+      .clear
 
     .row
       %h2 Why did we make it?
-      %p BlightSTATUS makes it simple for residents to find out what’s going on with blighted properties in their community – no long waits on the telephone or visits to City Hall required. 
-      %p A great example of government transparency at work, BlightSTATUS pulls up-to-date property information directly from the City’s official records, providing a single, comprehensive and authoritiative view to the public for the very first time. 
+      %p In New Orleans, countless organizations are working around the clock to improve local communities and reduce blight throughout the city -- from community groups and non-profits to City Hall and the local Redevelopment Authority (NORA). 
 
+      %p However, each of these organizations collect and manage data about blighted properties in entirely different ways, which results in duplicated efforts, inconsistent information, and precious energy wasted.
+
+      %p We’ve partnered with New Orleans City Hall and NORA to create this site to provide accurate and up-to-date information about the City’s efforts to reduce blight that everybody can use. We hope that this simple and publicly-accessible resource will make the work of these great organizations just a little bit easier.
 
     .row
       %h2 BlightSTATUS in your city
-      %p We know this problem isn’t unique to New Orleans - there are numerous municipalities across the country tasked with managing a large number of vacant or blighted properties. We want to put blightSTATUS to work for you, too!
+      %p We know this problem isn’t unique to New Orleans - there are many cities across the country tasked with managing a large number of vacant or blighted properties. We want to put blightSTATUS to work for you, too!
       %p 
         Let’s collaborate: partnerships@blightstat.us
 
@@ -39,43 +44,60 @@
 
 
 
-  .span4
+  .right-bar
     .meet-the-team.row
-      %h3
+      %h2
         MEET THE TEAM      
-      .span4
+      .span4.img-block
         =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Amir.jpg'
-        %p
+        .image-name
           Amir Revis-Bay
-      .span4
+      .span4.img-block
         =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Serena.jpg'
-        %p
+        .image-name
           Serena Wales
-      .span4
+      .span4.img-block
         =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Alex.jpg'
-        %p
+        .image-name
           Alex Pandel
-      .span4
+      .span4.img-block
         =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Eddie.jpg'
-        %p
+        .image-name
           Eddie A Tejeda
 
 
       
 
-    .assessor.row
-      %h3
+    .our-partners.row
+      %h2
         OUR PARTNERS
-      %p
+      %row
+        .code-for-america
+        .city-of-new-orleans
+        .nora
 
     .get-in-touch.row
-      %h3
+      %h2
         GET IN TOUCH          
       %p
         Questions, technical problems:
-        support@blightstat.us
+        %br
+          =mail_to "support@blightstat.us", "support@blightstat.us"
+      %p
+        Get blightSTATUS in your city:
+        %br
+          =mail_to "partnerships@blightstat.us", "partnerships@blightstat.us"
+      %p
+        General
+        %br
+          =link_to "info@blightstat.us", "info@blightstat.us"
 
-        Get blightSTATUS in your city: partnerships@blightstat.us
 
-        General:
-        info@blightstat.us          
+
+
+
+        
+        
+
+         
+          

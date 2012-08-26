@@ -1,6 +1,6 @@
 GIT
-  remote: https://github.com/eddietejeda/lama.git
-  revision: c8f4a9c2f4f3a41d5691df28e282de3d04231093
+  remote: https://github.com/gangleton/lama.git
+  revision: 3175c57590d2d9ccbc207d093cc86d6aed021a9f
   specs:
     lama (0.0.1)
       faraday
@@ -108,6 +108,7 @@ GEM
     haml (3.1.4)
     hashie (1.2.0)
     hike (1.2.1)
+    httpclient (2.1.7.2)
     httpi (1.1.1)
       rack
     i18n (0.6.0)
@@ -273,6 +274,7 @@ DEPENDENCIES
   faker
   foreigner
   haml
+  httpclient (~> 2.1.5)
   jquery-rails
   kaminari
   lama!

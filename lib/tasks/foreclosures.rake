@@ -10,9 +10,34 @@ include Savon
 namespace :foreclosures do
   desc "Downloading files from s3.amazon.com"  
   task :load, [:file_name, :bucket_name] => :environment  do |t, args|
-    client = Savon.client("http://www.civilsheriff.com/ForeclosureWebService/Foreclosure.svc?wsdl")
-    client.wsse.credentials ENV['SHERIFF_USER'], ENV['SHERIFF_PASSWORD']
-    #response = client.request :get_all_users
+    
+    
+    client = Savon::Client.new do |wsdl|# ENV['SHERIFF_WSDL']
+wsdl.endpoint = "http://www.civilsheriff.com/ForeclosureWebService/Foreclosure.svc"
+  wsdl.namespace = "http://tempuri.org/"
+    end
+    #client.wsdl.endpoint = "http://www.civilsheriff.com/ForeclosureWebService/Foreclosure.svc"
+    # puts "ENV['SHERIFF_WSDL'] => " + ENV['SHERIFF_WSDL']
+    # puts "ENV['SHERIFF_USER'] => " + ENV['SHERIFF_USER']
+    # puts "ENV['SHERIFF_PASSWORD'] => " + ENV['SHERIFF_PASSWORD']
+    #client.wsse.credentials ENV['SHERIFF_USER'], ENV['SHERIFF_PASSWORD'], :digest
+    #client.http.auth.basic ENV['SHERIFF_USER'], ENV['SHERIFF_PASSWORD']
+    #HTTPI.adapter = :httpclient
+    #client.wsdl.soap_actions
+    
+    #response = client.request(:get_foreclosure){soap.body = "2012-5607" }
+    #response = client.request(:get_foreclosure, cdcCaseNumber: "2012-5607")
+    #response = client.request :wsdl, :get_foreclosure, cdcCaseNumber: "2012-5607"
+    #response = client.request #get_foreclosure, "2012-5607", ENV['SHERIFF_PASSWORD']
+    #puts client.http.auth.inspect
+    response = client.request :wsdl, :get_foreclosure, body: {cdcCaseNumber: "2012-5607", key: ENV['SHERIFF_PASSWORD']}
+
+    # response = client.request :get_foreclosure do
+    #   soap.body = {:cdcCaseNumber => "2012-5607", :key => ENV['SHERIFF_PASSWORD'] }
+    # end
+    #puts response.body
+
+    
   end
 
   desc "Correlate foreclosure data with addresses"  
