@@ -14,8 +14,8 @@ namespace :foreclosures do
     
     client = Savon.client ENV['SHERIFF_WSDL']
     response = client.request 'm:GetForeclosure' do  #:get_foreclosure do
-      http.headers['SOAPAction'] = %("http://www.civilsheriff.com/ForeclosureWebService/IForeclosure/GetForeclosure")
-      soap.namespaces['xmlns:m'] = 'http://www.civilsheriff.com/ForeclosureWebService'
+      http.headers['SOAPAction'] = ENV['SHERIFF_ACTION']
+      soap.namespaces['xmlns:m'] = ENV['SHERIFF_NS']
       soap.body = {'m:cdcCaseNumber' => "2012-5607", 'm:key' => ENV['SHERIFF_PASSWORD'] }
     end
     puts response.body
