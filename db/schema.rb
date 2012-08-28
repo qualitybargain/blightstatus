@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120717020621) do
+ActiveRecord::Schema.define(:version => 20120828073708) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -105,6 +105,10 @@ ActiveRecord::Schema.define(:version => 20120717020621) do
     t.integer  "address_match_confidence"
     t.integer  "address_id"
     t.datetime "sale_date"
+    t.string   "cdc_case_number"
+    t.string   "title"
+    t.string   "defendant"
+    t.string   "plaintiff"
   end
 
   add_index "foreclosures", ["address_id"], :name => "index_foreclosures_on_address_id"

@@ -18,7 +18,23 @@ namespace :foreclosures do
       soap.namespaces['xmlns:m'] = ENV['SHERIFF_NS']
       soap.body = {'m:cdcCaseNumber' => "2012-5607", 'm:key' => ENV['SHERIFF_PASSWORD'] }
     end
-    puts response.body
+    foreclosure = response.hash[:envelope][:body][:get_foreclosure_response][:get_foreclosure_result][:foreclosure]
+
+    puts "foreclosure => " << foreclosure.to_s
+    address = foreclosure[:property_address].split ","
+    addr = {}
+    if (address)
+      addr[:zip] = address.pop.strip
+      addr[:state] = address.pop.strip
+      addr[:city] = address.pop.strip
+      addr[:house_num] = address.first.strip
+      addr[:address_long] = address.join(" ").single_space
+      street_info = address.pop.strip
+      addr[:street_type] = AddressHelpers.get_street_type addr[:address_long] 
+      addr[:street_name] = AddressHelpers.get_street_name addr[:address_long]
+      puts addr.inspect
+    end
+    Foreclosure.create(house_num: addr[:house_num], street_name: addr[:street_name], street_type: addr[:street_type], address_long: addr[:address_long], status: foreclosure[:sale_status], notes: "", sale_date: DateTime.strptime(foreclosure[:sale_date], '%m/%d/%Y %H:%M:%S %p'), title: foreclosure[:case_title], cdc_case_number: foreclosure[:cdc_case_number], defendant: foreclosure[:defendant], plaintiff: foreclosure[:plaintiff]) 
   end
 
   desc "Correlate foreclosure data with addresses"  
