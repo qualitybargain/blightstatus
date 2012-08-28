@@ -1,6 +1,7 @@
 require "#{Rails.root}/lib/import_helpers.rb"
 require "#{Rails.root}/lib/spreadsheet_helpers.rb"
 require "#{Rails.root}/lib/address_helpers.rb"
+require "savon"
 
 include ImportHelpers
 include SpreadsheetHelpers
@@ -11,33 +12,29 @@ namespace :foreclosures do
   desc "Downloading files from s3.amazon.com"  
   task :load, [:file_name, :bucket_name] => :environment  do |t, args|
     
-    
-    client = Savon::Client.new do |wsdl|# ENV['SHERIFF_WSDL']
-wsdl.endpoint = "http://www.civilsheriff.com/ForeclosureWebService/Foreclosure.svc"
-  wsdl.namespace = "http://tempuri.org/"
+    client = Savon.client ENV['SHERIFF_WSDL']
+    response = client.request 'm:GetForeclosure' do  #:get_foreclosure do
+      http.headers['SOAPAction'] = ENV['SHERIFF_ACTION']
+      soap.namespaces['xmlns:m'] = ENV['SHERIFF_NS']
+      soap.body = {'m:cdcCaseNumber' => "2012-5607", 'm:key' => ENV['SHERIFF_PASSWORD'] }
     end
-    #client.wsdl.endpoint = "http://www.civilsheriff.com/ForeclosureWebService/Foreclosure.svc"
-    # puts "ENV['SHERIFF_WSDL'] => " + ENV['SHERIFF_WSDL']
-    # puts "ENV['SHERIFF_USER'] => " + ENV['SHERIFF_USER']
-    # puts "ENV['SHERIFF_PASSWORD'] => " + ENV['SHERIFF_PASSWORD']
-    #client.wsse.credentials ENV['SHERIFF_USER'], ENV['SHERIFF_PASSWORD'], :digest
-    #client.http.auth.basic ENV['SHERIFF_USER'], ENV['SHERIFF_PASSWORD']
-    #HTTPI.adapter = :httpclient
-    #client.wsdl.soap_actions
-    
-    #response = client.request(:get_foreclosure){soap.body = "2012-5607" }
-    #response = client.request(:get_foreclosure, cdcCaseNumber: "2012-5607")
-    #response = client.request :wsdl, :get_foreclosure, cdcCaseNumber: "2012-5607"
-    #response = client.request #get_foreclosure, "2012-5607", ENV['SHERIFF_PASSWORD']
-    #puts client.http.auth.inspect
-    response = client.request :wsdl, :get_foreclosure, body: {cdcCaseNumber: "2012-5607", key: ENV['SHERIFF_PASSWORD']}
+    foreclosure = response.hash[:envelope][:body][:get_foreclosure_response][:get_foreclosure_result][:foreclosure]
 
-    # response = client.request :get_foreclosure do
-    #   soap.body = {:cdcCaseNumber => "2012-5607", :key => ENV['SHERIFF_PASSWORD'] }
-    # end
-    #puts response.body
-
-    
+    puts "foreclosure => " << foreclosure.to_s
+    address = foreclosure[:property_address].split ","
+    addr = {}
+    if (address)
+      addr[:zip] = address.pop.strip
+      addr[:state] = address.pop.strip
+      addr[:city] = address.pop.strip
+      addr[:house_num] = address.first.strip
+      addr[:address_long] = address.join(" ").single_space
+      street_info = address.pop.strip
+      addr[:street_type] = AddressHelpers.get_street_type addr[:address_long] 
+      addr[:street_name] = AddressHelpers.get_street_name addr[:address_long]
+      puts addr.inspect
+    end
+    Foreclosure.create(house_num: addr[:house_num], street_name: addr[:street_name], street_type: addr[:street_type], address_long: addr[:address_long], status: foreclosure[:sale_status], notes: "", sale_date: DateTime.strptime(foreclosure[:sale_date], '%m/%d/%Y %H:%M:%S %p'), title: foreclosure[:case_title], cdc_case_number: foreclosure[:cdc_case_number], defendant: foreclosure[:defendant], plaintiff: foreclosure[:plaintiff]) 
   end
 
   desc "Correlate foreclosure data with addresses"  
