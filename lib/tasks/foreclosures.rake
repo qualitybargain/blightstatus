@@ -10,13 +10,13 @@ include Savon
 
 namespace :foreclosures do
   desc "Downloading files from s3.amazon.com"  
-  task :load, [:file_name, :bucket_name] => :environment  do |t, args|
+  task :load, [:cdc_number] => :environment  do |t, args|
     
     client = Savon.client ENV['SHERIFF_WSDL']
     response = client.request 'm:GetForeclosure' do  #:get_foreclosure do
       http.headers['SOAPAction'] = ENV['SHERIFF_ACTION']
       soap.namespaces['xmlns:m'] = ENV['SHERIFF_NS']
-      soap.body = {'m:cdcCaseNumber' => "2012-5607", 'm:key' => ENV['SHERIFF_PASSWORD'] }
+      soap.body = {'m:cdcCaseNumber' => args.cdc_number, 'm:key' => ENV['SHERIFF_PASSWORD'] }
     end
     foreclosure = response.hash[:envelope][:body][:get_foreclosure_response][:get_foreclosure_result][:foreclosure]
 
