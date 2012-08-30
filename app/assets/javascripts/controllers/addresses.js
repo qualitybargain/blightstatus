@@ -42,7 +42,6 @@ OpenBlight.addresses = {
   show: function(){
     $(".property-status").popover({placement: 'bottom'});
 
-    wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
       var x, y, map, CustomIcon, dotIcon;
 
         // this should not be hard coded. do json request?
@@ -61,12 +60,14 @@ OpenBlight.addresses = {
       dotIcon = new CustomIcon();
 
       map = new L.Map('map')
-        .addLayer(new wax.leaf.connector(tilejson))
+        .addLayer(new L.TileLayer.WMS("http://http://gis.nola.gov/ArcGIS/rest/services/basemapcache_wgs/MapServer",{
+          layers: '0,1,2,3,4',
+          format: 'image/png'
+        }))
         .addLayer(new L.Marker(new L.LatLng(y , x), {icon: dotIcon} ))
         .setView(new L.LatLng(y , x), 17);
 
 
-    });
   },
 
 
