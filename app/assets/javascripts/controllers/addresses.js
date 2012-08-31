@@ -181,7 +181,7 @@ OpenBlight.addresses = {
         }
         pagination = pagination + "<span class='page'><a data-bounds='"+ json_bounds + "' data-page='"+ (stats.page - 1) +"' href='" + query_string + "&page="+ (stats.page - 1 ) +"'>"+ (stats.page - 1) +"</a></span>";
       }
-      pagination = pagination + "<span class='page current'>"+ stats.page +"</span>";
+      pagination = pagination + "<span class='page current'><a href='#'> "+ stats.page +"</a></span>";
       if(stats.page !== stats.page_count) {
         pagination = pagination + "<span class='page'><a data-bounds='"+ json_bounds + "' data-page='"+ (stats.page + 1) +"' href='" + query_string + "&page="+ (stats.page + 1)+"'>"+ (stats.page + 1) +"</a></span>";
         if(stats.page_count - stats.page > 1){

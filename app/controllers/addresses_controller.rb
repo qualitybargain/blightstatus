@@ -60,9 +60,9 @@ class AddressesController < ApplicationController
     @addresses = Address.find_addresses_with_cases_within_area(ne, sw)
 
     page = (params[:page] || 1).to_i
-    offset = (page - 1) * 15
-    page_count = @addresses.count / 15
-    @addresses = @addresses.slice(offset, 15)
+    offset = (page - 1) * 10
+    page_count = @addresses.count / 10
+    @addresses = @addresses.slice(offset, 10)
 
     respond_with [@addresses.to_json(:methods => [:most_recent_status_preview]), :page_count => page_count, :page => page]
   end
