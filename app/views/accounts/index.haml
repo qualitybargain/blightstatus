@@ -6,7 +6,7 @@
       /=@account_subcriptions.length
 
       .notice
-        %h2{:style => "padding: 20px; border: 1px solid #aaa; margin: 20px 0"}
+        %h2
           You are subscribe to the following properties. You will receive email notifications when any of their statuses change
       #subscriptions
         -@account_subcriptions.each do |address|
@@ -16,12 +16,12 @@
                 =address.address_long
 
 
-            .map{:style => "padding: 10px 0"}
+            .map
               .map-address{"internal_address_id" => address.id, "address_id" => address.address_id, "map-id" => "map-#{address.id}" , "data-x" => address.point.x, "data-y" => address.point.y }
-                .leaflet-map{:style => "border: 1px solid #aaa; padding: 0 10px 0 0; width: 250px; height: 200px;", :id => "map-#{address.id}"}
+                .leaflet-map{:id => "map-#{address.id}"}
 
 
-            .progress-bar{:style => "float: right; padding: 0 25px; width: 560px;"}
+            .progress-bar
               =render :partial => "addresses/progress-bar", :locals => {:kases => address.sorted_cases}
     
             / .cases
