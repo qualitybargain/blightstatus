@@ -1,6 +1,6 @@
 OpenBlight.addresses = {
   init: function(){
-    OpenBlight.addresses.subscribeButton();
+    // OpenBlight.addresses.subscribeButton();
   },
 
   search: function(){
@@ -37,47 +37,66 @@ OpenBlight.addresses = {
         bounds = $(this).attr('data-bounds');
         OpenBlight.addresses.mapSearch(map, group, page, bounds);
     });
+
   },
 
   show: function(){
     $(".property-status").popover({placement: 'bottom'});
+    
+    OpenBlight.addresses.mapAddresses();
+    OpenBlight.accounts.subscriptionButton()
 
-    wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
-      var x, y, map, CustomIcon, dotIcon;
-
-        // this should not be hard coded. do json request?
-      x = $("#address").attr("data-x");
-      y = $("#address").attr("data-y");
-
-      CustomIcon = L.DivIcon.extend({
-        options: {
-          iconSize: [ 22, 37 ],
-          iconAnchor: [ 0, 0 ],
-          popupAnchor: [ 11, 0 ],
-          className: "dotmarker"
-        }
-      });
-
-      dotIcon = new CustomIcon();
-
-      map = new L.Map('map')
-        .addLayer(new wax.leaf.connector(tilejson))
-        .addLayer(new L.Marker(new L.LatLng(y , x), {icon: dotIcon} ))
-        .setView(new L.LatLng(y , x), 17);
-
-
-    });
   },
 
 
-  subscribeButton: function(){
-    jQuery(".subscribe-button").click(function(){
-      var that = this;
-        jQuery.post( '/subscriptions', { id: $('#address').attr('internal_address_id') }, function(data) {
-          jQuery(that).html('Unsubscribe');
-        }, 'json');
-    });   
-  },  
+  mapAddresses: function(){
+    $(".map-address").each(function(index, address){
+      wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
+        var x, y, map, CustomIcon, dotIcon;
+
+        // console.log(address);
+        // this should not be hard coded. do json request?
+        x = $(address).attr("data-x");
+        y = $(address).attr("data-y");
+
+        CustomIcon = L.DivIcon.extend({
+          options: {
+            iconSize: [ 22, 37 ],
+            iconAnchor: [ 0, 0 ],
+            popupAnchor: [ 11, 0 ],
+            className: "dotmarker"
+          }
+        });
+
+        dotIcon = new CustomIcon();
+
+        console.log($(address).attr('map-id'));
+        map = new L.Map($(address).attr('map-id'))
+          .addLayer(new wax.leaf.connector(tilejson))
+          .addLayer(new L.Marker(new L.LatLng(y , x), {icon: dotIcon} ))
+          .setView(new L.LatLng(y , x), 17);
+      });
+    });
+  },
+
+  // subscribeButton: function(){
+  //   jQuery(".subscribe-button").click(function(){
+  //     var that = this;
+  //       jQuery.post( '/subscriptions', { id: $('#address').attr('internal_address_id') }, function(data) {
+  //         jQuery(that).html('Unsubscribe');
+  //       }, 'json');
+  //   });
+
+  //   jQuery(".unsubscribe-button").click(function(){
+  //     var that = this;
+  //       jQuery.post( '/subscriptions', { id: $('#address').attr('internal_address_id') }, function(data) {
+  //         jQuery(that).html('Unsubscribe');
+  //       }, 'json');
+  //   });
+
+  // },  
+
+
  
   associateMarkers: function(){
     for(var i = 0; i < OpenBlight.markers.length; i++){
