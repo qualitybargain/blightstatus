@@ -1,45 +1,42 @@
 class SubscriptionsController < ApplicationController
-  respond_to :html, :json, :xml
-  
-  def create
+  respond_to :html, :json
+  # before_filter :authenticate_account!
+
+  def update
     account = current_account
-    points = Array.new
-    factory = RGeo::Cartesian.factory
+    # points = Array.new
+    # factory = RGeo::Cartesian.factory
 
-    params[:polygon].each{|index, item|
-      puts item.inspect
-      points.push(factory.point( item['lng'].to_f, item['lat'].to_f ))
-    }
-    #close the polygon with the first position
-    # points << factory.point( params[:polygon].first.['lng'].to_f, params[:polygon].first.['lat'].to_f )
+    # params[:polygon].each{|index, item|
+    #   puts item.inspect
+    #   points.push(factory.point( item['lng'].to_f, item['lat'].to_f ))
+    # }
 
-    polygon = factory.polygon(factory.linear_ring(points))
-    # puts polygon.inspect
+    # polygon = factory.polygon(factory.linear_ring(points))
 
-    #TODO: you have to manually remove the 
-    @sub = Subscription.create({:address_id => params[:id], :account_id => account.id, :thegeom => polygon})
+    @subscription = Subscription.find_or_create_by_address_id_and_account_id({:address_id => params[:id], :account_id => account.id})
 
-    if @sub.save
-      respond_with @sub
-    else
-      respond_with :errors => @sub.errors 
+
+    if @subscription.save
+      respond_to do |format|
+        format.html
+        format.json { render :json => @subscription.to_json }
+      end
     end
   end
 
 
-  def send_notifications
-    users = Subscription.find(:all).group("account_id")
-    
-    # Get all the subscribers
-    users.each{ | user, item | 
+  def destroy
+    account = current_account
 
-      subscriptions = Subscription.find_by_user_id(user.account_id)
+    @subscription = Subscription.destroy_all({:address_id => params[:id], :account_id => account.id})
 
-      SubscriptionMailer.notify(@user).deliver
-
-    }
-
+    if @subscription
+      respond_to do |format|
+        format.html
+        format.json { render :json => @subscription.to_json }
+      end
+    end
   end
-
   
 end
