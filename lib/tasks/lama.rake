@@ -10,7 +10,7 @@ namespace :lama do
     incidents = l.incidents_by_date(args.start_date, args.end_date)
 
     p "There are #{incidents.length} incidents"
-    incidents.first(5).each do |incident|
+    incidents.each do |incident|
       case_number = incident.Number
       kase = Case.find_or_initialize_by_case_number(case_number)
 
@@ -21,41 +21,61 @@ namespace :lama do
       inspections = incident_full.Inspections
       inspections.each do |inspection|
         inspection = inspection[1].first
-        if inspection.class == "Hashie::Mash"
-          Inspection.create(:case_number => case_number, :inspection_date => inspection.InspectionDate, :notes => inspection.Comment, :result => inspection.Findings)
+        if inspection.class == Hashie::Mash
+          i = Inspection.create(:case_number => case_number, :inspection_date => inspection.InspectionDate, :notes => inspection.Comment)
+          if inspection.Findings != nil && inspection.Findings.InspectionFinding != nil
+            inspection.Findings.InspectionFinding.each do |finding|
+              if finding.class == Hashie::Mash
+                i.inspection_findings.build(:finding => finding.Finding, :label => finding.Label)
+              end
+            end
+          end
         end
       end
-      
+
       #Actions
       actions = []
       if incident_full.Actions && incident_full.Actions.CodeAction
         actions == incident_full.Actions.CodeAction
       end
       actions.each do |action|
-        if action.Type =~ /Notice/
-          Notification.create(:case_number => case_number, :notified => action.DateComplete, :notification_type => action.Type)
-        end
-        
-        if action.Type =~ /Hearing/
-          unless action.Type =~ /Notice/
-           Hearing.create(:case_number => case_number, :hearing_date => action.DateComplete, :hearing_type => action.Type)
+        if action.class == Hashie::Mash
+          if action.Type =~ /Notice of Hearing/
+            Notification.create(:case_number => case_number, :notified => action.DateComplete, :notification_type => action.Type)
+          end
+          
+          if action.Type =~ /Administrative Hearing/
+            unless action.Type =~ /Notice/
+             Hearing.create(:case_number => case_number, :hearing_date => action.DateComplete, :hearing_type => action.Type)
+            end
           end
         end
       end
       
+      #Events
       events = []
       if incident_full.Events && incident_full.Events.IncidEvent
         events = incident_full.Events.IncidEvent
       end
       events.each do |event|
-        if event.class == "Hashie::Mash"
-           if event.Type =~ /Notice/
+        if event.class == Hashie::Mash
+          if event.Type =~ /Notice of Hearing/
             Notification.create(:case_number => case_number, :notified => event.DateEvent, :notification_type => event.Type)
-           end
-           
-           if event.Type =~ /Hearing/
-             unless event.Type =~ /Notice/
-             Hearing.create(:case_number => case_number, :hearing_date => event.DateEvent, :hearing_status => event.Status, :hearing_type => event.Type)
+          end
+
+          if event.Type =~ /Administrative Hearing/
+           Hearing.create(:case_number => case_number, :hearing_date => event.DateEvent, :hearing_status => event.Status, :hearing_type => event.Type)
+          end
+          
+          if event.Type =~ /Input Hearing Results/
+           if event.Items != nil and event.IncidEventItem != nil
+             event.IncidEventItem.each do |item|
+               if item.class == Hashie::Mash
+                 if item.Title =~ /Reset Hearing/ && item.IsComplete == "true"
+                    Reset.create(:case_number => case_number, :reset_date => item.DateCompleted)
+                 end
+               end
+             end
            end
           end
        end

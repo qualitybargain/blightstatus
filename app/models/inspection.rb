@@ -1,6 +1,7 @@
 class Inspection < ActiveRecord::Base
   belongs_to :case, :foreign_key => :case_number, :primary_key => :case_number
   belongs_to :inspector
+  has_many :inspection_findings
 
   validates_uniqueness_of :inspection_date, :scope => :case_number
 
