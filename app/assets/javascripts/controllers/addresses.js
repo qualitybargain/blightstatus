@@ -71,30 +71,18 @@ OpenBlight.addresses = {
         dotIcon = new CustomIcon();
 
         console.log($(address).attr('map-id'));
-        map = new L.Map($(address).attr('map-id'))
+        map = new L.Map($(address).attr('map-id'),{
+            zoomControl: false,
+            touchZoom: false,
+            scrollWheelZoom: false,
+            boxZoom: false
+          })
           .addLayer(new wax.leaf.connector(tilejson))
           .addLayer(new L.Marker(new L.LatLng(y , x), {icon: dotIcon} ))
           .setView(new L.LatLng(y , x), 17);
       });
     });
   },
-
-  // subscribeButton: function(){
-  //   jQuery(".subscribe-button").click(function(){
-  //     var that = this;
-  //       jQuery.post( '/subscriptions', { id: $('#address').attr('internal_address_id') }, function(data) {
-  //         jQuery(that).html('Unsubscribe');
-  //       }, 'json');
-  //   });
-
-  //   jQuery(".unsubscribe-button").click(function(){
-  //     var that = this;
-  //       jQuery.post( '/subscriptions', { id: $('#address').attr('internal_address_id') }, function(data) {
-  //         jQuery(that).html('Unsubscribe');
-  //       }, 'json');
-  //   });
-
-  // },  
 
 
  

@@ -10,7 +10,6 @@ OpenBlight.accounts = {
   },
 
 
-  //
   subscriptionButton: function(){
     $(".subscribe-button").bind("ajax:success",
        function(evt, data, status, xhr){
