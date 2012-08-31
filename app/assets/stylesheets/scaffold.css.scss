@@ -130,22 +130,17 @@ navbar
   .navbar-inner{
     box-shadow: none;
     font-weight: 400;
+      background: transparent;
 
-//    background-image: linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
-//    background-image: -o-linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
-//    background-image: -moz-linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
-//    background-image: -webkit-linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
-//    background-image: -ms-linear-gradient(top, rgb(241,235,229) 25%, rgb(255,255,255) 95%);
+    .border{
+      position: absolute; width: 78%; 
+      left: 260px; 
+      top: 60px;
+//      padding: 5px;
+//      background: url('/assets/header_line.png') no-repeat;
+      border-bottom: 1px solid #eee;
 
-//    background-image: -webkit-gradient(
-//      linear,
-//      left top,
-//      left bottom,
-//      color-stop(0.25, rgb(241,235,229)),
-//      color-stop(0.95, rgb(255,255,255))
-//    );    
-
-    background: transparent;
+    }
 
     li{
       a{

@@ -66,6 +66,7 @@
       .faq.centered
         %h3
           FAQ
+        =@address.most_recent_status.class.to_s
         -case @address.most_recent_status.class.to_s
           - when 'Inspection'
             =render "pages/help/questions/inspections"
