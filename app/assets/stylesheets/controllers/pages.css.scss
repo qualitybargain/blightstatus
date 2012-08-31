@@ -31,28 +31,7 @@
     color: $Lightgrey;
   }
 
-  .questions{
-
-    border-top: 1px solid $Lightgrey;
-    padding: 10px 0;
-
-    .question{
-      background: url("/assets/arrow-right.png") no-repeat scroll 0 8px transparent;
-      color: #F1601D;
-      font-size: 130%;
-      padding: 5px 25px;
-      &:hover{
-        cursor: pointer;
-      }
-    }
-    .answer{
-      padding-left: 25px;
-      padding-top: 10px;
-      font-size: 120%;
-    }
-
-
-  }
+  @include faq-mixin;
 
 
   .page-tabs{
