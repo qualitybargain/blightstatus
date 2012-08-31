@@ -23,11 +23,7 @@
 //= require leaflet
 //= require wax.leaf.min
 //= require jquery-cookie
-//= require bootstrap-tooltip
-//= require bootstrap-popover
-//= require bootstrap-modal
-//= require bootstrap-tabs
-//= require bootstrap-collapse.js
+//= require bootstrap.min.js
 //= require init
 //= require_directory ./controllers
 
