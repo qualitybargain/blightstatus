@@ -7,10 +7,23 @@
         %span.icon-bar
       %a.brand{:href => "/"}
         =image_tag "blightstatus-logo.png"
-      .nav-collapse.collapse
-        %ul.nav.top-account.pull-right
-          %li
-            =link_to "Account", "/pages/about"
+      .nav-collapse
+        %ul.nav.nav-pills.top-account.pull-right{"role" => "navigation"}
+          %li.dropdown
+            %a#drop1.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"}
+              Account
+              %b.caret
+            .dropdown-menu{"aria-labelledby" => "drop1", :role => "menu"}
+              -if account_signed_in?
+                .span3
+                  You are logged in as 
+                  =current_account.email
+                =link_to "Properties", "/accounts"
+                =link_to('Logout', destroy_account_session_path, :method => :delete)
+              -else
+                not signed in
+
+
         %ul.nav.top-links
           %li
             =link_to "About", "/pages/about"
@@ -20,3 +33,5 @@
           %li
             - if(controller_name != 'home')
               =render "layouts/search"        
+
+
