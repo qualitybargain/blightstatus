@@ -9,33 +9,60 @@
         %td{ :class=> 'property-status property-status-judgement'} Judgement
         %td{ :class=> 'property-status property-status-resolution'}  Resolution
     %tbody
-      -kases.each do |k|
+      -if kases.length == 0
         %tr
           %td
             .case-number
-              = k.case_number
+              &nbsp;
           %td
-            -unless k.inspections.nil?
-              -k.inspections.each do |i|
-                .progress-arrow.inspection
-                .date=i.date.strftime("%-m/%-d/%y")
+            .progress-arrow.pending
           %td
-            -unless k.notifications.nil?
-              -k.notifications.each do |n|
-                .progress-arrow.notification
-                .date=n.date.strftime("%-m/%-d/%y")
+            .progress-arrow.pending
           %td
-            -unless k.hearings.nil?
-              -k.hearings.each do |h|
-                .progress-arrow.hearing
-                .date=h.date.strftime("%-m/%-d/%y")
+            .progress-arrow.pending
           %td
-            -unless k.judgement.nil?
-              .progress-arrow.judgement
-              .date=k.judgement.date.strftime("%-m/%-d/%y")
+            .progress-arrow.pending
+          %td
+            .progress-arrow.pending
 
-          %td
-            -unless k.address.resolutions.empty?
-              .progress-arrow.resolution
-              .date=k.address.resolutions.first.date.strftime("%-m/%-d/%y")
+      -else
+        -kases.each do |k|
+          %tr
+            %td
+              .case-number
+                = k.case_number
+            %td
+              -unless k.inspections.nil?
+                -k.inspections.each do |i|
+                  .progress-arrow.inspection
+                  .date=i.date.strftime("%-m/%-d/%y")
+              -else
+                .progress-arrow.pending
+            %td
+              -unless k.notifications.nil?
+                -k.notifications.each do |n|
+                  .progress-arrow.notification
+                  .date=n.date.strftime("%-m/%-d/%y")
+              -else
+                .progress-arrow.pending
+            %td
+              -unless k.hearings.nil?
+                -k.hearings.each do |h|
+                  .progress-arrow.hearing
+                  .date=h.date.strftime("%-m/%-d/%y")
+              -else
+                .progress-arrow.pending
+            %td
+              -unless k.judgement.nil?
+                .progress-arrow.judgement
+                .date=k.judgement.date.strftime("%-m/%-d/%y")
+              -else
+                .progress-arrow.pending
+
+            %td
+              -unless k.address.resolutions.empty?
+                .progress-arrow.resolution
+                .date=k.address.resolutions.first.date.strftime("%-m/%-d/%y")
+              -else
+                .progress-arrow.pending
 
