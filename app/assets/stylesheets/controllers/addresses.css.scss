@@ -6,7 +6,7 @@
 
 .container-addresses{
   #map{
-    /*padding-top: 50px;*/
+//    padding-top: 50px;
 //    box-shadow: 0 0 20px #AAAAAA;
     border: 1px solid #ccc;
   }
@@ -166,6 +166,7 @@
 
     .date {
       min-width: 80px;
+      text-align: center;
     }
   }
 }
@@ -278,18 +279,8 @@
 }
 
 
-.faq{
 
-
-  h3{
-    font-size: 24px;
-    font-weight: 300;
-    padding: 3px 8px;
-    font-family: "Lato"  ;
-    border-bottom: 1px solid #CCC;  
-  }
-
-}
+@include faq-mixin;
 
 
 .progress-bar-wrapper {
@@ -309,10 +300,11 @@
 
     .case-number{
       padding: 5px;
-
+      width: 95px;
       .table-condensed{
         td{
           padding: 10px;
+
         }
       }
     }
@@ -325,42 +317,51 @@
     position: relative;
     width: 107px;
 
+
+
     &.inspection {
       background: url('/assets/progress-arrows.png') no-repeat 0 0;
-      margin-right: -15px;
+      margin-right: -25px;
       z-index: 10;
     }
 
     &.notification {
       background: url('/assets/progress-arrows.png') no-repeat 0 -25px;
-      margin-right: -15px;
+      margin-right: -25px;
       z-index: 9;
     }
 
     &.hearing{
-      background: url('/assets/progress-arrows.png') no-repeat 0 -50px;
-      margin-right: -15px;
+      background: url('/assets/progress-arrows.png') no-repeat 0 -49px;
+      margin-right: -25px;
       z-index: 8;
     }
 
     &.judgement {
-      background: url('/assets/progress-arrows.png') no-repeat 0 -75px;
-      margin-right: -15px;
+      background: url('/assets/progress-arrows.png') no-repeat 0 -73px;
+      margin-right: -25px;
       z-index: 7;
     }
 
     &.resolution {
       background: url('/assets/progress-arrows.png') no-repeat 0 -100px;
-      margin-right: -15px;
+      margin-right: -25px;
       z-index: 6;
-
     }
+
+    &.pending {
+      background: url('/assets/progress-arrows.png') no-repeat 0 -97px;
+      margin-right: -25px;
+      z-index: 5;
+    }
+
+
   }
 
 }
 
 .progress-bar-wrapper table{
-  width:100%;
+  width:inherit;
 }
 
 
