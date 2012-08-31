@@ -96,6 +96,7 @@
 
   .tab-content{
     width: 930px;
+    background: white;
   }
 
 
@@ -111,21 +112,25 @@
 
     .code-for-america{
       background: url("/assets/partner-logos.png") no-repeat scroll 7px -60px transparent;
-      width: 155px;
+      width: 135px;
       height: 70px;
+      float: left;
+
       
     }
 
     .city-of-new-orleans{
-      background: url("/assets/partner-logos.png") no-repeat scroll -130px 0px transparent;
-      width: 155px;
+      background: url("/assets/partner-logos.png") no-repeat scroll -145px 0px transparent;
+      width: 130px;
       height: 130px;      
+      float: left;
     }
 
     .nora{
       background: url("/assets/partner-logos.png") no-repeat scroll 0px -10px transparent;
       width: 140px;
       height: 50px;
+      float: left;
     }
 
 
@@ -134,7 +139,7 @@
 
     margin-bottom: 40px;
     h2{
-      font-weight: 200;
+      font-weight: 300;
       font-family: "Lato";
       border-bottom: 1px solid $Lightgrey;
       margin-bottom: 10px;
@@ -154,6 +159,22 @@
     }
   }
 
+
+  .about-page-content{
+
+    .left-bar{
+      border-left: medium none;
+      border-radius: 30px;
+      border-top: medium none;
+      float: left;
+      margin-right: 30px;
+      min-height: 500px;
+      padding: 20px 45px 45px;
+      width: 55%;
+      background: white;
+    }
+
+  }
 }
 
 

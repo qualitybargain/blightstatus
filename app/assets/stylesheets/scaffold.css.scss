@@ -110,16 +110,16 @@ h1{
 }
 
 h2, h3{
-  font-family: "Kreon";
+  font-family: "Lato";
   /* text-transform: uppercase; */ 
   color: $orange;
 }
 
 
 h4{
-  font-family: "Kreon";
+  font-family: "Lato";
   color: $orange;
-  font-weight: 100;
+  font-weight: 500;
 }
 
 /*
@@ -135,10 +135,10 @@ navbar
     .border{
       position: absolute; width: 78%; 
       left: 260px; 
-      top: 60px;
+      top: 54px;
 //      padding: 5px;
 //      background: url('/assets/header_line.png') no-repeat;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid $headerLineBreakColor;
 
     }
 
@@ -170,8 +170,9 @@ navbar
       display: block;
       float: right;
       left: 0;
-      margin: 15px 10px 0 0;
+      margin: 0px 0 0 0;
       position: relative;
+      width: 240px;
 
       .search-form{
         width: 325px;
@@ -179,12 +180,21 @@ navbar
 
         form{
           margin: 0 0 10px;
+
+          .btn-primary-search{
+            display: none;
+          }
         }
 
         .search-field{
           font-size: 100%;
           float: left;
           display: inline-block;
+
+          .main-search-field{
+            width: 250px;
+
+          }
 
         }
 
