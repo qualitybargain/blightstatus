@@ -5,6 +5,9 @@ OpenBlight = {
       // application-wide code
       OpenBlight.common.show_disclaimer();
       OpenBlight.common.handle_auto_complete_address();
+
+      $('.dropdown-toggle').dropdown()
+
     },
 
     handle_auto_complete_address: function(){
@@ -24,6 +27,12 @@ OpenBlight = {
       });
     },
 
+
+    show_accounts_popover: function(){
+
+      // $('.top-account').popover(options)
+
+    },
     show_disclaimer: function(){
       if($.cookie('agree_to_legal_disclaimer') != 'true' && $.cookie('agree_to_legal_disclaimer') != true){
         $('#legal-disclaimer').modal('show');
