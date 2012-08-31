@@ -92,11 +92,29 @@
     background-color: white;
     border: 1px solid #efefef;
     border-radius: 30px 30px 30px 30px;
-    padding: 40px;
+    padding: 40px 20px;
   }
 
   .toggle {
     padding: 10px 0;
+  }
+
+
+  .status-update{
+    display: inline-block;
+    padding: 2px;
+    margin-top: 10px;
+    font-size: 115%;
+
+    .no-record-notice{
+
+      padding: 15px;
+      background-color: $lighterTeal;
+      border-radius: 10px;
+      margin: 15px 0;
+      font-family: "Lato";
+      font-size: 120%;
+    }
   }
 
 
@@ -182,7 +200,6 @@
     font-weight: 200;
     font-style: italic;
     font-size: 90%;
-//    padding: 5px;
   }
 
 }
@@ -281,6 +298,10 @@
 
 
 @include faq-mixin;
+
+.view-all-faq{
+  font-size: 150%;
+}
 
 
 .progress-bar-wrapper {
@@ -464,10 +485,4 @@
   cursor:pointer
 }
 
-.status-update{
-  background-color:#ffffcc;
-  display: inline-block;
-  padding: 2px;
-  margin-top: 10px;
-}
 

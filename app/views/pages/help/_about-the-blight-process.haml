@@ -1,3 +1,34 @@
-%ul.arrow-list
-  %li
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam quis rhoncus tellus. In tincidunt massa quis augue aliquet ornare. Quisque laoreet feugiat iaculis. Aliquam erat volutpat. Cras pharetra justo diam. Suspendisse potenti. Nulla sem nisl, interdum at lobortis sit amet, egestas id massa. Suspendisse non sapien quis tellus placerat fermentum eu vel turpis. Vivamus interdum tristique mi, ut lobortis diam laoreet et. about the blight proccess
+.timeline
+  .category
+    INSPECTIONS
+  .category
+    NOTIFICATIONS
+  .category
+    HEARINGS
+  .category
+    JUDGMENTS
+  .category 
+    ABATEMENT
+
+.faq
+  %h3.category-label
+    INSPECTIONS
+  =render :partial => "pages/help/questions/inspections"
+
+  %h3.category-label
+    NOTIFICATIONS
+  =render :partial => "pages/help/questions/notifications"
+
+  %h3.category-label
+    HEARINGS
+  =render :partial => "pages/help/questions/hearings"
+
+  %h3.category-label
+    JUDGMENTS
+  =render :partial => "pages/help/questions/judgements"
+
+  %h3.category-label
+    ABATEMENT
+  =render :partial => "pages/help/questions/abatement"
+
+

@@ -392,6 +392,18 @@ ul.arrow-list{
   padding-left: 0;
   margin-left: 0;
 
+  li{
+    margin: 0px 0;
+    padding-left: 30px;
+    background: url("/assets/arrow-right.png") no-repeat scroll 10px 20px transparent;
+    border-radius: 5px;
+    padding: 15px 15px 15px 30px;
+
+    &.active{
+      background: url("/assets/arrow-down.png") no-repeat scroll 10px 20px transparent;      
+    }
+
+  }
 
 }
 
