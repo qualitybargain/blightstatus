@@ -31,12 +31,16 @@
 
         margin: 0px 0;
         padding-left: 30px;
-        background: url("/assets/arrow-down.png") no-repeat scroll 10px 20px transparent;
+        background: url("/assets/arrow-down-orange.png") no-repeat scroll 10px 20px transparent;
         border-radius: 5px;
         padding: 15px 15px 15px 30px;
 
         &:hover{
           cursor: pointer;
+        }
+
+        &.collapsed{
+          background: url("/assets/arrow-right-orange.png") no-repeat scroll 10px 20px transparent;          
         }
       }
 
@@ -45,8 +49,7 @@
         padding: 0 0 0 30px;
         margin-bottom: 10px;
       }
-
-
     }
   }
 }
+
