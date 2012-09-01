@@ -8,9 +8,19 @@
   margin: 0 auto;
 
   .subscription{
-    border: 1px solid #aaa;
-    padding: 10px;
+
+    h3{
+      padding-left: 10px;
+      padding-bottom: 10px;
+    }
+
+    background-color: white;
+    border-bottom: 0 none;
+    border-radius: 40px;
     margin: 10px 0;
+    padding: 20px;
+    border: 0;
+
     .map{
       float: left;
 

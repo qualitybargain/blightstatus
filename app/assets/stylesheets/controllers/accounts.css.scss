@@ -6,11 +6,10 @@
 
   .notice{
 
-    h2{
-      padding: 20px; 
-      border: 1px solid #aaa; 
-      margin: 20px 0
-    }
+    background-color: white;
+    border-radius: 40px;
+    padding: 40px;
+    margin: 20px;
   }
 
 	#subscriptions{
@@ -31,7 +30,7 @@
 		}
 
     .map{
-      padding: 10px 0
+      padding: 10px;
     }
 
 
@@ -45,8 +44,8 @@
 
     .progress-bar{
       float: right; 
-      padding: 0 25px; 
-      width: 560px;
+      padding: 0;
+      width: 570px;
     }    
 
 
