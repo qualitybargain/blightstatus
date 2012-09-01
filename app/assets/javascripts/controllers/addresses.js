@@ -1,6 +1,6 @@
 OpenBlight.addresses = {
   init: function(){
-    // OpenBlight.addresses.subscribeButton();
+    OpenBlight.addresses.highlightCaseHistory();
   },
 
   search: function(){
@@ -49,6 +49,16 @@ OpenBlight.addresses = {
   },
 
 
+  highlightCaseHistory: function(){
+
+    $(".progress-arrow").hover(function(){
+      // console.log('.case-history-' + $(this).attr('class').split(' ').last());
+      $('.case-history-' + $(this).attr('class').split(' ').last()).css('background-color', '#F5F5F5')
+    }, function(){
+      $('.case-history-' + $(this).attr('class').split(' ').last()).css('background-color', 'transparent')
+    })
+
+  },
   mapAddresses: function(){
     $(".map-address").each(function(index, address){
       wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {

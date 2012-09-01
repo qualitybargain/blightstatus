@@ -7,7 +7,7 @@
     %table.table.table-condensed.timeline
       %tbody
         -unless kase.inspections.empty?
-          %tr
+          %tr{:class => "case-history-inspection"}
             %td 
               %span.arrow            
             /   .progress-indic-wrapper
@@ -26,7 +26,7 @@
                     %td.date=i.inspection_date.strftime("%-m/%-d/%y")
                     %td Property was inspected, with a finding of #{i.result}
         -unless kase.notifications.empty?
-          %tr
+          %tr{:class => "case-history-notification"}
             / %td
             /   .progress-indic-wrapper
             /     .date.empty
@@ -44,7 +44,7 @@
                     %td.date=n.date.strftime("%-m/%-d/%y")
                     %td The owner was notified that an administrative case was being brought against this property for violations of the New Orleans Building Code.
         -unless kase.hearings.empty?
-          %tr
+          %tr{:class => "case-history-hearing"}
             / %td
             /   .progress-indic-wrapper
             /     .date.empty
@@ -66,7 +66,7 @@
                       at New Orleans Courthouse, 1234 Perdido St. with an outcome of #{h.hearing_status}
 
         -unless kase.resets.empty?
-          %tr
+          %tr{:class => "case-history-reset"}
             / %td
             /   .progress-indic-wrapper
             /     .date.empty

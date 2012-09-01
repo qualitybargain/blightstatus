@@ -8,9 +8,14 @@ OpenBlight = {
       
 
 
-      $('.dropdown-toggle').dropdown()
+      if(!Array.prototype.last) {
+          Array.prototype.last = function() {
+              return this[this.length - 1];
+          }
+      }
 
     },
+
 
 
     goToByScroll: function(id){
