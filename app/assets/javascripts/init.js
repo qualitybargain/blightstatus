@@ -5,9 +5,16 @@ OpenBlight = {
       // application-wide code
       OpenBlight.common.show_disclaimer();
       OpenBlight.common.handle_auto_complete_address();
+      
+
 
       $('.dropdown-toggle').dropdown()
 
+    },
+
+
+    goToByScroll: function(id){
+      $('html,body').animate({scrollTop: $("#"+id).offset().top},'fast');
     },
 
     handle_auto_complete_address: function(){
