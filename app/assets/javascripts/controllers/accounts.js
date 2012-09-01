@@ -19,7 +19,7 @@ OpenBlight.accounts = {
             $(this).parentsUntil('.subscription').parent().fadeOut('slow');
           }
           else{
-            $(this).html('Subscribe');
+            $(this).html('Receive Alerts');
             $(this).data('method', 'put')           
           }
         }

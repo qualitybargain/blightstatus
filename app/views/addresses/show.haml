@@ -57,10 +57,10 @@
           -if(@account_subscribed)
             =link_to('Unsubscribe', "/subscriptions/#{@address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-large subscribe-button' , :id => "subscribe-button")
           -else
-            =link_to('Subscribe', "/subscriptions/#{@address.id}", :remote => true, :method => :put,  'data-type' => 'json', :class => 'btn btn-primary btn-large subscribe-button' , :id => "subscribe-button")
+            =link_to('Receive Alerts', "/subscriptions/#{@address.id}", :remote => true, :method => :put,  'data-type' => 'json', :class => 'btn btn-primary btn-large subscribe-button' , :id => "subscribe-button")
         -else
-          .btn.btn-warning.btn-large.subscribe-button
-            =link_to('Subscribe', new_account_session_path) 
+          =link_to('Receive Alerts', new_account_session_path, :class => 'btn btn-primary btn-large subscribe-button' , :id => "subscribe-button")
+
 
 
       .faq.centered
