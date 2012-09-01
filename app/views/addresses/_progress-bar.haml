@@ -8,6 +8,8 @@
         %td{:class=> 'property-status property-status-hearing'} Hearing
         %td{:class=> 'property-status property-status-judgement'} Judgement
         %td{:class=> 'property-status property-status-resolution'}  Resolution
+        %td{:style => "width: 20px"}
+
     %tbody
       -if kases.length == 0
         %tr
@@ -15,54 +17,55 @@
             .case-number
               &nbsp;
           %td
-            .progress-arrow.pending
+            .progress-arrow.pending{:style => "z-index: 14"}
           %td
-            .progress-arrow.pending
+            .progress-arrow.pending{:style => "z-index: 13"}
           %td
-            .progress-arrow.pending
+            .progress-arrow.pending{:style => "z-index: 12"}
           %td
-            .progress-arrow.pending
+            .progress-arrow.pending{:style => "z-index: 11"}
           %td
-            .progress-arrow.pending
+            .progress-arrow.pending{:style => "z-index: 10"}
+          %td
 
       -else
         -kases.each do |k|
           %tr
             %td
-              .case-number
+              .case-number{:style => "font-size: 90%"}
                 = k.case_number
             %td
               -unless k.inspections.nil?
                 -k.inspections.each do |i|
-                  .progress-arrow.inspection
+                  .progress-arrow.inspection{:style => "z-index: 14"}
                   .date=i.date.strftime("%-m/%-d/%y")
               -else
-                .progress-arrow.pending
+                .progress-arrow.pending{:style => "z-index: 14"}
             %td
               -unless k.notifications.nil?
                 -k.notifications.each do |n|
-                  .progress-arrow.notification
+                  .progress-arrow.notification{:style => "z-index: 13"}
                   .date=n.date.strftime("%-m/%-d/%y")
               -else
-                .progress-arrow.pending
+                .progress-arrow.pending{:style => "z-index: 13"}
             %td
               -unless k.hearings.nil?
                 -k.hearings.each do |h|
-                  .progress-arrow.hearing
+                  .progress-arrow.hearing{:style => "z-index: 12"}
                   .date=h.date.strftime("%-m/%-d/%y")
               -else
-                .progress-arrow.pending
+                .progress-arrow.pending{:style => "z-index: 12"}
             %td
               -unless k.judgement.nil?
-                .progress-arrow.judgement
+                .progress-arrow.judgement{:style => "z-index: 11"}
                 .date=k.judgement.date.strftime("%-m/%-d/%y")
               -else
-                .progress-arrow.pending
+                .progress-arrow.pending{:style => "z-index: 11"}
 
             %td
               -unless k.address.resolutions.empty?
-                .progress-arrow.resolution
+                .progress-arrow.resolution{:style => "z-index: 10"}
                 .date=k.address.resolutions.first.date.strftime("%-m/%-d/%y")
               -else
-                .progress-arrow.pending
-
+                .progress-arrow.pending{:style => "z-index: 10"}
+            %td

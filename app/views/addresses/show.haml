@@ -5,7 +5,7 @@
         %h1=@address.address_long.titleize
       =render :partial => "addresses/status-update", :locals => {:address => @address}
       -unless @address.workflow_steps.empty?
-        .property_history
+        .property-history
           =render :partial => "addresses/progress-bar", :locals => {:kases => @address.sorted_cases}
           .cases
             -@address.sorted_cases.each do |c|
@@ -66,7 +66,6 @@
       .faq.centered
         %h3
           FAQ
-        =@address.most_recent_status.class.to_s
         -case @address.most_recent_status.class.to_s
           - when 'Inspection'
             =render "pages/help/questions/inspections"

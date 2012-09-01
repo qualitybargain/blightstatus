@@ -91,7 +91,7 @@
     background-color: white;
     border: 1px solid #efefef;
     border-radius: 30px 30px 30px 30px;
-    padding: 40px 20px;
+    padding: 40px;
   }
 
   .toggle {
@@ -137,7 +137,8 @@
     }
 
     .case-number{
-      border-bottom: 1px solid #58595B;
+      border-bottom: 1px solid $lightGrey;
+      padding-bottom: 8px;
     }
 
 
@@ -328,9 +329,25 @@
   min-height: 200px;
 
   .table{
-    td{
-      padding: 15px 0;
+
+
+    tr{
+
+      &:hover{
+        background: transparent !important;
+      }
+
+      td{
+        padding: 15px 0;
+
+        &:hover{
+          background: transparent !important;
+        }
+      }
+
     }
+
+
     thead{
       .property-status{
         padding: 10px;
@@ -340,7 +357,6 @@
 
     .case-number{
       padding: 5px;
-      width: 95px;
       .table-condensed{
         td{
           padding: 10px;
@@ -355,44 +371,35 @@
   .progress-arrow{
     height: 25px;
     position: relative;
-    width: 107px;
+    width: 102px;
+    margin-right: -25px;
 
-
+    &:hover{
+      cursor: pointer;
+    }
 
     &.inspection {
       background: url('/assets/progress-arrows.png') no-repeat 0 0;
-      margin-right: -25px;
-      z-index: 10;
     }
 
     &.notification {
-      background: url('/assets/progress-arrows.png') no-repeat 0 -25px;
-      margin-right: -25px;
-      z-index: 9;
+      background: url('/assets/progress-arrows.png') no-repeat 0 -25px transparent;
     }
 
     &.hearing{
-      background: url('/assets/progress-arrows.png') no-repeat 0 -49px;
-      margin-right: -25px;
-      z-index: 8;
+      background: url('/assets/progress-arrows.png') no-repeat -5px -49px transparent;
     }
 
     &.judgement {
-      background: url('/assets/progress-arrows.png') no-repeat 0 -73px;
-      margin-right: -25px;
-      z-index: 7;
+      background: url('/assets/progress-arrows.png') no-repeat 0 -73px transparent;
     }
 
     &.resolution {
-      background: url('/assets/progress-arrows.png') no-repeat 0 -100px;
-      margin-right: -25px;
-      z-index: 6;
+      background: url('/assets/progress-arrows.png') no-repeat 0 -100px transparent;
     }
 
     &.pending {
-      background: url('/assets/progress-arrows.png') no-repeat 0 -97px;
-      margin-right: -25px;
-      z-index: 5;
+      background: url("/assets/progress-arrows.png") no-repeat scroll -228px -2px transparent;
     }
 
 

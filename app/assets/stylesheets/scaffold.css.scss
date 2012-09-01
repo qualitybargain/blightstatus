@@ -3,11 +3,11 @@
 html{
   height: 100%;
 
-  body {
-    background-image: url('/assets/ricepaper2.png');
-    font-family: "Lato";
-    font-weight: #58595B;
-    min-height: 100%;  
+  body { 
+    background-image: url('/assets/ricepaper2.png'); 
+    font-family: "Lato"; 
+    font-weight: #58595B; 
+    min-height: 100%; 
   }
 
 
@@ -128,9 +128,11 @@ navbar
 .navbar{
 
   .navbar-inner{
+
+    font-size: $largeFontSize;
     box-shadow: none;
     font-weight: 400;
-      background: transparent;
+    background: transparent;
 
     .border{
       position: absolute; width: 78%; 
@@ -140,22 +142,40 @@ navbar
     }
 
     li{
-      a{
-        text-shadow: none;
-        font-size: 18px;
+      &.active{
+        background-color: transparent;
+        color: $orange;        
       }
     }
 
 
+    .dropdown-menu{
+
+      .logged-in{
+        padding: 10px 20px;
+      }
+
+      .span3{
+        margin-left:0;
+        margin: 5px;
+        a{
+          margin:0; 
+          padding: 0         
+        }
+      }
+
+    }
+
     .top-account{
 
-      text-transform: uppercase;
-      background: url('/assets/arrow-down-orange.png') no-repeat right 15px;
-      padding-right: 5px;
+      background: url('/assets/arrow-down-orange.png') no-repeat right 16px;
+      padding-right: 0px;
 
       a{
-        font-size: 100%;
+        color: $orange;        
+        text-shadow: none;
       }
+
 
     }
 
@@ -241,7 +261,7 @@ navbar
 #main-search-field{
 
   font-family: "Lato";
-  font-size: 120%;
+  font-size: 100%;
   margin: 5px;
   padding: 5px;
   background: url("/assets/search-icon.png") no-repeat scroll 210px 6px white;
@@ -409,3 +429,7 @@ ul.arrow-list{
 
 }
 
+.progress-bar-wrapper .table tbody tr:hover td,
+.progress-bar-wrapper .table tbody tr:hover th {
+    background-color: inherit;
+}
