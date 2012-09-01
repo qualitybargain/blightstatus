@@ -16,12 +16,11 @@
       text-align: left;
       font-size: 120%;
       line-height: 130%;
-
+      padding-bottom: 25px;
 
 
       .question{
         margin: 10px 0;
-        padding-left: 10px;
 
 
         color: $grey;
@@ -33,7 +32,7 @@
         padding-left: 30px;
         background: url("/assets/arrow-down-orange.png") no-repeat scroll 10px 20px transparent;
         border-radius: 5px;
-        padding: 15px 15px 15px 30px;
+        padding: 15px 15px 5px 30px;
 
         &:hover{
           cursor: pointer;

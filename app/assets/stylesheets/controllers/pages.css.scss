@@ -56,6 +56,11 @@
   .page-tabs{
     padding-bottom: 0;
     margin-bottom: 0;
+
+    &.nav-tabs{
+      border: 0px;
+    }
+
     li{
       
       margin: 10px 0px -2px 0;
@@ -69,7 +74,7 @@
         border-color:  #ccc;
         text-transform: uppercase;
         font-size: 140%;
-        padding: 15px 64.333px; 
+        padding: 15px 63.66px;
         color: $darkGrey;       
 
       }
@@ -90,7 +95,6 @@
   }
 
   #common-questions{
-    padding-top: 10px 40px;
     border-width: 0 1px 1px 1px;
   }
 
@@ -103,7 +107,9 @@
   .tab-pane-content{
     border: 1px solid #ddd;
     border-radius: 0 0 20px 20px;
-    padding: 10px 40px 50px;
+//    padding: 10px 40px 50px;
+    padding: 40px;
+
   }
 
 
