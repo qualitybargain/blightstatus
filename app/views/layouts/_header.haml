@@ -26,11 +26,11 @@
                     =link_to('Logout', destroy_account_session_path, :method => :get)
                   .clearfix
               -else
-                %ul.nav.nav-tabs
-                  %li.active
-                    %a{:href => "#"} Sign In
-                  %li
-                    %a{:href => "#"} Register
+                .logged-out
+                  .span3              
+                    =link_to "Sign In", "/accounts"
+                  .span3
+                    =link_to "Register", "/accounts/sign_up"
                   .clearfix
 
         %ul.nav.top-links
