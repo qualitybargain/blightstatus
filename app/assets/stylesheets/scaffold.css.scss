@@ -136,10 +136,7 @@ navbar
       position: absolute; width: 78%; 
       left: 260px; 
       top: 54px;
-//      padding: 5px;
-//      background: url('/assets/header_line.png') no-repeat;
       border-bottom: 1px solid $headerLineBreakColor;
-
     }
 
     li{
@@ -397,7 +394,7 @@ ul.arrow-list{
   padding-left: 0;
   margin-left: 0;
 
-  li{
+  &>li{
     margin: 0px 0;
     padding-left: 30px;
     background: url("/assets/arrow-right-orange.png") no-repeat scroll 10px 20px transparent;

@@ -1,34 +1,34 @@
 .timeline
   .category
-    INSPECTIONS
+    =link_to "INSPECTIONS", "#INSPECTIONS"
   .category
-    NOTIFICATIONS
+    =link_to "NOTIFICATIONS", "#NOTIFICATIONS"
   .category
-    HEARINGS
+    =link_to "HEARINGS","#HEARINGS"
   .category
-    JUDGMENTS
+    =link_to "JUDGMENTS","#JUDGMENTS"
   .category 
-    ABATEMENT
+    =link_to "ABATEMENT","#ABATEMENT"
 
 .faq
-  %h3.category-label
+  %h3.category-label{:name => "INSPECTIONS"}
     INSPECTIONS
   =render :partial => "pages/help/questions/inspections"
 
-  %h3.category-label
+  %h3.category-label{:name => "NOTIFICATIONS"}
     NOTIFICATIONS
   =render :partial => "pages/help/questions/notifications"
 
-  %h3.category-label
+  %h3.category-label{:name => "HEARINGS"}
     HEARINGS
   =render :partial => "pages/help/questions/hearings"
 
-  %h3.category-label
+  %h3.category-label{:name => "JUDGMENTS"}
     JUDGMENTS
   =render :partial => "pages/help/questions/judgements"
 
-  %h3.category-label
+  %h3.category-label{:name => "ABATEMENT"}
     ABATEMENT
-  =render :partial => "pages/help/questions/abatement"
+  =render :partial => "pages/help/questions/resolution"
 
 
