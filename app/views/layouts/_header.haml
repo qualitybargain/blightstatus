@@ -23,7 +23,7 @@
                   .span3
                     =link_to "Manage Alerts", "/accounts"
                   .span3
-                    =link_to('Logout', destroy_account_session_path, :method => :delete)
+                    =link_to('Logout', destroy_account_session_path, :method => :get)
                   .clearfix
               -else
                 %ul.nav.nav-tabs
