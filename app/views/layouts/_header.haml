@@ -14,16 +14,24 @@
             %a#drop1.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"}
               Account
               %b.caret
-            .dropdown-menu{"aria-labelledby" => "drop1", :role => "menu"}
+            .dropdown-menu.container{"aria-labelledby" => "drop1", :role => "menu"}
               -if account_signed_in?
-                .span3
-                  You are logged in as 
-                  =current_account.email
-                =link_to "Properties", "/accounts"
-                =link_to('Logout', destroy_account_session_path, :method => :delete)
+                .logged-in
+                  .span3
+                    You are logged in as 
+                    =current_account.email
+                  .span3
+                    =link_to "Manage Alerts", "/accounts"
+                  .span3
+                    =link_to('Logout', destroy_account_session_path, :method => :delete)
+                  .clearfix
               -else
-                not signed in
-
+                %ul.nav.nav-tabs
+                  %li.active
+                    %a{:href => "#"} Sign In
+                  %li
+                    %a{:href => "#"} Register
+                  .clearfix
 
         %ul.nav.top-links
           %li
