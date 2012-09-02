@@ -1,40 +1,39 @@
-%footer
+%footer{:style => "font-weight: 300"}
   .container
     .row-fluid
-      .span1
-      .span4
-        %h3
-          We're in Beta!
-        %p
-          We're busy at work building and improving this website, so we want your feedback! Please feel free to ask a question, report a problem, or suggest a feature.
-        %p
-          If you are a developer and want to help us build this thing, check out the developer site
-        %p
-          Thanks!
+      .span5
+        %p{:style=>"padding-top: 20px;font-size: 150%;  line-height: 155%; font-style: italic; font-weight: 500"}
+          BlightSTATUS provides clear and concise information about what’s happening with properties in your area. 
+
+        %h4{:style => "text-align: left; font-size: 150%"}
+          Learn More >
+
 
       .span3
-        %h3
-          Contact Us
+        %h3{:style => "padding-bottom: 5px;"}
+          We're in Beta!
         %p
-          Website
-          %br
-            =link_to "http://codeforamerica.org", "http://codeforamerica.org"
-        %p
-          Email
-          %br
-            =mail_to "neworleans@codeforamerica.org", "neworleans@codeforamerica.org"
-        %p
-          Twitter
-          %br
-            =link_to "http://twitter.com/blightstatus", "@blightstatus"
-              
+          The quality of our data may not be perfect, and will improve over time. Learn more about our data quality at our
 
-      .span2
-        %h3
-          Partners
+          =link_to "Stats page", "/stats"
+
         %p
-          %a{:href => "http://codeforamerica.org"}              
-            =image_tag 'http://commons.codeforamerica.org//sites/all/themes/civiccommons/images/codeforamerica.png'
+          We want your feedback! Please feel free to ask a question, report a problem, or suggest a feature. 
+              
+      .span1
+
+      .span3
+        %h3{:style => "padding-bottom: 5px;"}
+          Partner with us
         %p
-          %a{:href => "http://nola.gov"}      
-            =image_tag 'http://www.nola.gov/images/logo-footer.png'
+          If you’d like to see blightSTATUS in your city, please let us know! We want to work with you.
+      
+        %h3{:style => "padding-bottom: 5px;"}
+          Get in touch
+        %p
+
+          =mail_to "neworleans@codeforamerica.org", "> neworleans@codeforamerica.org"
+
+
+
+      
