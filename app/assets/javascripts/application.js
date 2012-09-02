@@ -20,9 +20,8 @@
 //= require raphael-min.js
 //= require g.raphael.js
 //= require g.pie.js
-//= require leaflet
-//= require wax.leaf.min
 //= require jquery-cookie
+//= require jquery.slider.min.js
 //= require bootstrap.min.js
 //= require init
 //= require_directory ./controllers
