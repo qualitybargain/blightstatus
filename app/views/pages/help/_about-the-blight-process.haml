@@ -1,34 +1,24 @@
 .timeline
-  .category{"data-scroll-to" => "INSPECTIONS"}
-    INSPECTIONS
-  .category{"data-scroll-to" => "NOTIFICATIONS"}
-    NOTIFICATIONS
-  .category{"data-scroll-to" => "HEARINGS"}
-    HEARINGS
-  .category{"data-scroll-to" => "JUDGMENTS"}
-    JUDGMENTS
-  .category{"data-scroll-to" => "ABATEMENT"}
-    ABATEMENT
+  .category{"data-scroll-to" => "INSPECTIONS"} INSPECTIONS
+  .category{"data-scroll-to" => "NOTIFICATIONS"} NOTIFICATIONS
+  .category{"data-scroll-to" => "HEARINGS"} HEARINGS
+  .category{"data-scroll-to" => "JUDGMENTS"} JUDGMENTS
+  .category{"data-scroll-to" => "ABATEMENT"} ABATEMENT
 
 .faq
-  %h3.category-label{:id => "INSPECTIONS"}
-    INSPECTIONS
+  %h3.category-label{:id => "INSPECTIONS"} INSPECTIONS
   =render :partial => "pages/help/questions/inspections"
 
-  %h3.category-label{:id => "NOTIFICATIONS"}
-    NOTIFICATIONS
+  %h3.category-label{:id => "NOTIFICATIONS"} NOTIFICATIONS
   =render :partial => "pages/help/questions/notifications"
 
-  %h3.category-label{:id => "HEARINGS"}
-    HEARINGS
+  %h3.category-label{:id => "HEARINGS"} HEARINGS
   =render :partial => "pages/help/questions/hearings"
 
-  %h3.category-label{:id => "JUDGMENTS"}
-    JUDGMENTS
+  %h3.category-label{:id => "JUDGMENTS"} JUDGMENTS
   =render :partial => "pages/help/questions/judgements"
 
-  %h3.category-label{:id => "ABATEMENT"}
-    ABATEMENT
+  %h3.category-label{:id => "ABATEMENT"} ABATEMENT
   =render :partial => "pages/help/questions/resolution"
 
 

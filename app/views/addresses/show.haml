@@ -39,7 +39,7 @@
                           %td
                           %td=r.class.to_s + ": " + r.date.strftime("%-m/%-d/%y")
 
-    .span4
+    .span4.sidebar
       .map.centered
         .map-address{"internal_address_id" => @address.id, "address_id" => @address.address_id, "map-id" => "map-#{@address.id}" , "data-x" => @address.point.x, "data-y" => @address.point.y }
           .leaflet-map{:style => "height: 200px;", :id => "map-#{@address.id}"}
@@ -75,5 +75,7 @@
             =render "pages/help/questions/judgements"
           - when 'Resolution'
             =render "pages/help/questions/abatement"
+          - when 'Reset'
+            =render "pages/help/questions/reset"
         .view-all-faq
           =link_to "View All FAQ >", "/pages/help"
