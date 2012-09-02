@@ -208,8 +208,8 @@ navbar
           float: left;
           display: inline-block;
 
-          .main-search-field{
-            width: 250px;
+          #main-search-field{
+            font-size: $smallFontSize;
 
           }
 
