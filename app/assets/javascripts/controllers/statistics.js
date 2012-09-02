@@ -10,22 +10,50 @@ OpenBlight.statistics = {
     //controller method
     maps: function(){
 
+
+
       $(":checkbox").attr("autocomplete", "off");
       OpenBlight.statistics.createStatsMap()
       OpenBlight.statistics.toggleCheckboxes();
 
 
       var date = new Date();
+      date.setMonth(date.getMonth() + 1);
+
       var year_to_date = [];
       var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
 
-      for(i = 12; i > 0; i--){
+      for(i = 11; i >= 0; i--){
         month = new Date(date.setMonth(date.getMonth() - 1));
         year_to_date[i] = monthNames[month.getMonth()];
       }
       
-      $('#timeline-range').val(date.getDOY() - date.getMonth() - 1 + ";" + date.getDOY())
-      $("#timeline-range").slider({ from: 1, to: 1020, step: 12, dimension: '', scale: year_to_date, limits: false });
+
+      $('#timeline-range').val( "335;365")
+
+      $("#timeline-range").slider({ from: 1, to: 365, step: 1, dimension: '', scale: year_to_date, limits: false,
+        calculate: function( value ){
+          var tl = OpenBlight.statistics.dayRangeToDate(value);
+          return  monthNames[tl.getMonth()] + ' '+ tl.getDate();
+        },
+        callback: function( value ){
+
+          //clear current layers
+          $('.filter-checkbox').each(function(){
+
+            if($(this).is(':checked')){
+              var this_layer = OpenBlight.statistics.layergroup[$(this).val()];
+              var timeline_date = OpenBlight.statistics.getTimelineDate();
+
+              OpenBlight.statistics.map.removeLayer(this_layer);
+              OpenBlight.statistics.populateMap( $(this).val(), 
+                                                  timeline_date.start_date, 
+                                                  timeline_date.end_date
+                                                );
+            }
+          });
+        }
+      });
 
 
     },
@@ -55,13 +83,42 @@ OpenBlight.statistics = {
     toggleCheckboxes: function(){
       $('.filter-checkbox').live('change', function(index){
         if($(this).prop('checked')){
-          OpenBlight.statistics.populateMap($(this).val());
+          var timeline_date = OpenBlight.statistics.getTimelineDate();
+
+          OpenBlight.statistics.populateMap($(this).val(), timeline_date.start_date, timeline_date.end_date);
         }
         else{
           var this_layer = OpenBlight.statistics.layergroup[$(this).val()];
           OpenBlight.statistics.map.removeLayer(this_layer);
         }
       });
+    },
+
+
+    getTimelineDate: function(){
+
+      var day_range = jQuery('#timeline-range').val().split(';');
+      var start_date = OpenBlight.statistics.dayRangeToDate(day_range[0]);
+      var end_date = OpenBlight.statistics.dayRangeToDate(day_range[1]);
+
+      return {start_date: start_date, end_date: end_date}
+
+    },
+
+
+
+    dayRangeToDate: function(value){
+      timeline_date = new Date();
+
+      timeline_date.setFullYear(timeline_date.getFullYear() - 1);   
+
+      //lets start at the begining of the month
+      timeline_date.setDate( timeline_date.getDate() - timeline_date.getDate()  );
+
+      //now shift by number of days in timeline
+      timeline_date.setDate(timeline_date.getDate() + parseInt(value));          
+
+      return timeline_date;
     },
 
     createStatsMap: function(){
@@ -82,25 +139,27 @@ OpenBlight.statistics = {
       });
     },
 
-    populateMap: function(type){
+    populateMap: function(type, start_date, end_date){
       var markers = [];
-      jQuery.getJSON('/cases.json?type=' + type, function(data) {
-        if(data.length){
-          jQuery.each(data, function(key, val) {
-            a = data[key].substr(7, 35).split(' ');
-
-            markers.push( L.circle([a[1], a[0]] , 100, 
-                                      { clickable: false,
-                                        stroke: false,
-                                        fillColor: '#f03',
-                                        fillOpacity: 0.5
-                                      }));
-            });
-        }
-
-        OpenBlight.statistics.layergroup[type] = new L.layerGroup(markers);
-        OpenBlight.statistics.layergroup[type].addTo(OpenBlight.statistics.map);
-
+      jQuery.getJSON('/cases.json?', {  
+          type: type, 
+          start_date: start_date.toDateString(), 
+          end_date: end_date.toDateString(), 
+        }, 
+        function(data) {
+          if(data.length){
+            jQuery.each(data, function(key, val) {
+              a = data[key].substr(7, 35).split(' ');
+                markers.push( L.circle([a[1], a[0]] , 100, { 
+                  clickable: false,
+                  stroke: false,
+                  fillColor: '#f03',
+                  fillOpacity: 0.5
+                }));
+              });
+          }
+          OpenBlight.statistics.layergroup[type] = new L.layerGroup(markers);
+          OpenBlight.statistics.layergroup[type].addTo(OpenBlight.statistics.map);
       });
 
 
