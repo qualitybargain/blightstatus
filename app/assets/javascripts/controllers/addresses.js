@@ -80,7 +80,6 @@ OpenBlight.addresses = {
 
         dotIcon = new CustomIcon();
 
-        console.log($(address).attr('map-id'));
         map = new L.Map($(address).attr('map-id'),{
             zoomControl: false,
             touchZoom: false,
