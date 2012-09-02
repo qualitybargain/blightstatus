@@ -5,11 +5,16 @@
 
 
   .notice{
-
     background-color: #EBE9E1;
-    border-radius: 40px;
-    padding: 40px;
+    border-radius: 20px 20px 20px 20px;
     margin: 20px;
+    padding: 20px 35px;
+
+    p{
+      font-size: 135%;
+      margin: 5px 0;
+      color: $orange;
+    }
   }
 
 	#subscriptions{
