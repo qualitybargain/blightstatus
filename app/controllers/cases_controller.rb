@@ -23,11 +23,6 @@ class CasesController < ApplicationController
         @cases = Case.page(params[:page])
     end
 
-
-    polygon = Subscription.last.thegeom
-    geojson = RGeo::GeoJSON::encode(polygon)
-
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @cases.to_json }

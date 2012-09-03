@@ -128,7 +128,6 @@ OpenBlight.statistics = {
         var zoom = 12;
 
         OpenBlight.statistics.map = new L.Map('stats-map', {
-          zoomControl: false,
           touchZoom: false,
           scrollWheelZoom: false,
           boxZoom: false
@@ -141,7 +140,7 @@ OpenBlight.statistics = {
 
     populateMap: function(type, start_date, end_date){
       var markers = [];
-      jQuery.getJSON('/cases.json?', {  
+      jQuery.getJSON('/cases.json', {  
           type: type, 
           start_date: start_date.toDateString(), 
           end_date: end_date.toDateString(), 
@@ -151,9 +150,8 @@ OpenBlight.statistics = {
             jQuery.each(data, function(key, val) {
               a = data[key].substr(7, 35).split(' ');
                 markers.push( L.circle([a[1], a[0]] , 100, { 
-                  clickable: false,
                   stroke: false,
-                  fillColor: '#f03',
+                  fillColor: $('#checkbox-' + type + ' + label').css('background-color'),
                   fillOpacity: 0.5
                 }));
               });

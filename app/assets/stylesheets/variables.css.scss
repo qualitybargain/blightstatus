@@ -1,6 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:400,300,200,100italic,100,200,300,700);
 @import url(http://fonts.googleapis.com/css?family=Kreon:700);
 
+
 $lighterTeal: #CCECEB;
 $lightTeal: #62CCCC;
 $darkTeal: #008E8A;
@@ -14,8 +15,20 @@ $darkGrey: #58595B;
 $darkerGrey: #4D4D4D;
 
 $orange: #F1601D;
+$lightOrange: #FCAD22;
+
+//font colors
 
 
+
+//stages in process
+$inspections: $darkTeal;
+$hearings: $lightTeal;
+$judgements: $lightOrange;
+$demolitions: $orange;
+
+
+//font sizes
 $smallerFontSize: 80%;
 $smallFontSize: 90%;
 $normalFontSize: 100%;
@@ -24,6 +37,7 @@ $largerFontSize: 150%;
 $largestFontSize: 200%;
 
 
+//borders
 $headerLineBreakColor: #CCCCCC;
 
 @import "mixins.css.scss";

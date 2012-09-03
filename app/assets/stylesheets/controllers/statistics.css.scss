@@ -23,6 +23,25 @@
 	  margin: 5px 0;
 	}
 
+
+	#checkbox-inspections + label.btn{
+		background-color: $inspections;
+	}
+
+
+	#checkbox-hearings + label.btn{
+		background-color: $hearings;
+
+	}
+	
+	#checkbox-judgements + label.btn{
+		background-color: $judgements;
+	}
+	
+	#checkbox-demolitions + label.btn{
+		background-color: $demolitions;
+	}
+
 	input:checked + label.btn {
 	  /* This is an actual copy/paste of the .btn:active style */
 	  background-color: #E6E6E6;
@@ -30,7 +49,11 @@
 	  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
 	  color: rgba(0, 0, 0, 0.5);
 	  outline: 0 none;
+	  opacity: 0.55;
+
 	}
+
+
 
 	input[disabled] + label.btn {
 	  /* This is an actual copy/paste of the .btn:disabled style */
@@ -38,8 +61,10 @@
 	  background-image: none;
 	  box-shadow: none;
 	  cursor: default;
-	  opacity: 0.65;
+	  opacity: 0.55;
 	}
+
+
 
 	#stats-map{
 		border: 1px solid $grey;
