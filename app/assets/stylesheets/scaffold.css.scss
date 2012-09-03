@@ -127,106 +127,101 @@ navbar
 */
 .navbar{
 
-  .navbar-inner{
+  font-size: $largeFontSize;
+  box-shadow: none;
+  font-weight: 400;
+  background: transparent;
 
-    font-size: $largeFontSize;
-    box-shadow: none;
-    font-weight: 400;
-    background: transparent;
+  .border{
+    position: absolute; width: 78%; 
+    left: 260px; 
+    top: 54px;
+    border-bottom: 1px solid $headerLineBreakColor;
+  }
 
-    .border{
-      position: absolute; width: 78%; 
-      left: 260px; 
-      top: 54px;
-      border-bottom: 1px solid $headerLineBreakColor;
+  li{
+    &.active{
+      background-color: transparent;
+      color: $orange;        
+    }
+  }
+
+
+  .dropdown-menu{
+
+    .logged-in, .logged-out{
+      padding: 10px 20px;
     }
 
-    li{
-      &.active{
-        background-color: transparent;
-        color: $orange;        
-      }
-    }
-
-
-    .dropdown-menu{
-
-      .logged-in, .logged-out{
-        padding: 10px 20px;
-      }
-
-      .span3{
-        margin-left:0;
-        margin: 5px;
-        a{
-          margin:0; 
-          padding: 0         
-        }
-      }
-
-    }
-
-    .top-account{
-
-      background: url('/assets/arrow-down-orange.png') no-repeat right 16px;
-      padding-right: 0px;
-
+    .span3{
+      margin-left:0;
+      margin: 5px;
       a{
-        color: $orange;        
-        text-shadow: none;
+        margin:0; 
+        padding: 0         
       }
-
-
     }
 
-    .top-links{
+  }
 
+  .top-account{
+
+    background: url('/assets/arrow-down-orange.png') no-repeat right 16px;
+    padding-right: 0px;
+
+    a{
+      color: $orange;        
+      text-shadow: none;
     }
 
-    .top-search {
-      display: block;
-      float: right;
-      left: 0;
-      margin: 0px 0 0 0;
-      position: relative;
-      width: 240px;
 
-      .search-form{
+  }
+
+  .top-links{
+
+  }
+
+  .top-search {
+    display: block;
+    float: right;
+    left: 0;
+    margin: 0px 0 0 0;
+    position: relative;
+    width: 240px;
+
+    .search-form{
 //        width: 325px;
-        margin: 0 auto;
+      margin: 0 auto;
 
-        form{
-          margin: 0 0 10px;
+      form{
+        margin: 0 0 0;
 
-          .btn-primary-search{
-            display: none;
-          }
+        .btn-primary-search{
+          display: none;
         }
-
-        .search-field{
-          font-size: 100%;
-          float: left;
-          display: inline-block;
-
-          #main-search-field{
-            font-size: $smallFontSize;
-
-          }
-
-        }
-
-        .search-button{
-  //        float: left;
-  //        display:inline-block;
-
-          .btn{
-            height: 30px;
-          }
-        }         
       }
+
+      .search-field{
+        font-size: 100%;
+        float: left;
+        display: inline-block;
+
+        #main-search-field{
+          font-size: $smallFontSize;
+
+        }
+
+      }
+
+      .search-button{
+//        float: left;
+//        display:inline-block;
+
+        .btn{
+          height: 30px;
+        }
+      }         
     }
-
-
   }
 }
 
