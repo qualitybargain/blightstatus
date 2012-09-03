@@ -36,14 +36,9 @@
   
 	.search-results{
 		
-    width: 100% !important;
-    clear: both;
     
 		.left-bar{
-			float:left;
-			padding: 0 20px;
       border: none;
-			min-height: 400px;
 
 
       .result {
@@ -487,10 +482,6 @@
   }
 }
 
-.container-addresses-search .container{
-  width: 100% !important;
-
-}
 
 .cases {
   margin-top: 40px;
