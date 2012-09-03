@@ -1,70 +1,70 @@
-.container-fluid
-  -unless @addresses.empty?
-    %section.search-results
-      .row-fluid
-        .span3.left-bar      
-          .well{:style => "padding: 8px 0;"}
-            .nav-header 
-              %h2
-                Search Results
-              %p
-                (only showing properties with cases history)
-            %ul.nav.list
-              -#-@addresses.each do |a|
-                %li.active.address.result
-                  %a{:href => "#"}
-                    %img{ :width => "10px", :src => "/assets/marker.png"  }
-                    %i.home
-                    =link_to a.address_long, address_path(a.id)
 
-                  %a{:href => address_path(a)}
-                    .maps-marker
-                    =a.address_long
-            #loading=image_tag('ajax-loader.gif')
-            .clearfix
-        .span9.right-bar
-          #map{:style => "height: 400px;"}
-          .toggle
-            =check_box_tag('map-search-mode')
-            Redo search when map is moved
-        .row
-        .btn-toolbar
-          .btn-group
-            =paginate @addresses
+-unless @addresses.empty?
+  %section.search-results.container.container-fluid
+    .row-fluid
+      .span3.left-bar      
+        .well{:style => "padding: 8px 0;"}
+          .nav-header 
+            %h2
+              Search Results
+            %p
+              (only showing properties with cases history)
+          %ul.nav.list
+            -#-@addresses.each do |a|
+              %li.active.address.result
+                %a{:href => "#"}
+                  %img{ :width => "10px", :src => "/assets/marker.png"  }
+                  %i.home
+                  =link_to a.address_long, address_path(a.id)
 
-  -else
-    %section.no-search-results
-      .row-fluid
-        .span2
-        .span7.main
-          .address-title
-            %h1 No Results
-          .status-update
-            .no-status
-              .no-record-notice
-                The address "#{@search_term}" was not found
-              .recommended-next-action
+                %a{:href => address_path(a)}
+                  .maps-marker
+                  =a.address_long
+          #loading=image_tag('ajax-loader.gif')
+          .clearfix
+      .span9.right-bar
+        #map{:style => "height: 400px;"}
+        .toggle
+          =check_box_tag('map-search-mode')
+          Redo search when map is moved
+      .row
+      .btn-toolbar
+        .btn-group
+          =paginate @addresses
 
-                %p{:style => "margin-top: 20px"} This could mean a few different things:
+-else
+  %section.no-search-results
+    .row-fluid
+      .span2
+      .span7.main
+        .address-title
+          %h1 No Results
+        .status-update
+          .no-status
+            .no-record-notice
+              The address "#{@search_term}" was not found
+            .recommended-next-action
 
-                %ul
-                  %li 
-                    Check to see if you typed the address correctly. 
-                  %li 
-                    If you believe you've run into a technical glitch, please report it to 
-                    =mail_to "support@blightstatus.org", "support@blightstatus.org"
+              %p{:style => "margin-top: 20px"} This could mean a few different things:
 
-
+              %ul
+                %li 
+                  Check to see if you typed the address correctly. 
+                %li 
+                  If you believe you've run into a technical glitch, please report it to 
+                  =mail_to "support@blightstatus.org", "support@blightstatus.org"
 
 
-        / .left-bar
-        / .right-bar
-        /   .suggestions
-        /     %h3 The address "#{@search_term}" was not found
 
-        /     %p{:style => "margin-top: 20px"} This could mean a few different things:
 
-        /     %p 1) Check to see if you typed the address correctly. 
-    	          
-        /     %p 2) If you believe you've run into a technical glitch, please report it to support@blightstatus.org
+      / .left-bar
+      / .right-bar
+      /   .suggestions
+      /     %h3 The address "#{@search_term}" was not found
+
+      /     %p{:style => "margin-top: 20px"} This could mean a few different things:
+
+      /     %p 1) Check to see if you typed the address correctly. 
+  	          
+      /     %p 2) If you believe you've run into a technical glitch, please report it to support@blightstatus.org
 
