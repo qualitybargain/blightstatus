@@ -96,13 +96,11 @@ OpenBlight.statistics = {
 
 
     getTimelineDate: function(){
-
       var day_range = jQuery('#timeline-range').val().split(';');
       var start_date = OpenBlight.statistics.dayRangeToDate(day_range[0]);
       var end_date = OpenBlight.statistics.dayRangeToDate(day_range[1]);
 
       return {start_date: start_date, end_date: end_date}
-
     },
 
 
@@ -159,8 +157,6 @@ OpenBlight.statistics = {
           OpenBlight.statistics.layergroup[type] = new L.layerGroup(markers);
           OpenBlight.statistics.layergroup[type].addTo(OpenBlight.statistics.map);
       });
-
-
     },
 
 
