@@ -75,4 +75,10 @@
       %p
         Feedback, suggestions, or bugs:
         %p{:style => "padding-left: 30px"}
-          =mail_to "neworleans@codeforamerica.org", "> neworleans@codeforamerica.org"
+          %a{:href => "javascript:UserVoice.showPopupWidget();"} 
+            > User Voice Feedback
+
+      %p
+        Twitter:
+        %p{:style => "padding-left: 30px"}
+          =link_to "> @blightSTATUS", "http://twitter.com/blightSTATUS"
