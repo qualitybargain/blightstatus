@@ -29,7 +29,10 @@ OpenBlight.statistics = {
       }
       
 
-      $('#timeline-range').val( "335;365")
+      // $('#timeline-range').val( "335;365")
+
+      $('#timeline-range').val( "80;109")
+      
 
       $("#timeline-range").slider({ from: 1, to: 365, step: 1, dimension: '', scale: year_to_date, limits: false,
         calculate: function( value ){
