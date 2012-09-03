@@ -77,5 +77,8 @@
             =render "pages/help/questions/abatement"
           - when 'Reset'
             =render "pages/help/questions/reset"
+          - else 
+            =render "pages/help/questions/general"
+
         .view-all-faq
           =link_to "View All FAQ >", "/pages/help"
