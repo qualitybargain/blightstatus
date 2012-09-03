@@ -1,1 +1,254 @@
-/ create a demo page
+.container
+  %section.row-fluid
+    .span8.main
+      .address-title
+        %h1 3120 Mistletoe St
+      .status-update
+        .recent
+          / .recent-update-notice
+          / Latest update:
+          / %span.recent-update  #{address.most_recent_status.class} on #{address.most_recent_status.date.strftime('%B %e, %Y')}.
+      .property-history
+        .progress-bar-wrapper
+          %table.table
+            %thead
+              %tr
+                %td
+                %td.property-status.property-status-inspection Inspection
+                %td.property-status.property-status-notification Notification
+                %td.property-status.property-status-hearing Hearing
+                %td.property-status.property-status-judgement Judgement
+                %td.property-status.property-status-resolution Resolution
+                %td{:style => "width: 20px"}
+            %tbody
+              %tr
+                %td
+                  .case-number{:style => "font-size: 90%"}
+                    CEHB-11-0821
+                %td
+                  .progress-arrow.inspection{:style => "z-index: 14"}
+                  .date 1/18/12
+                %td
+                  .progress-arrow.notification{:style => "z-index: 13"}
+                  .date 2/1/12
+                %td
+                  .progress-arrow.hearing{:style => "z-index: 12"}
+                  .date 12/1/11
+                  .progress-arrow.hearing{:style => "z-index: 12"}
+                  .date 1/31/12
+                %td
+                  .progress-arrow.judgement{:style => "z-index: 11"}
+                  .date 1/31/12
+                %td
+                  .progress-arrow.pending{:style => "z-index: 10"}
+                %td
+              %tr
+                %td
+                  .case-number{:style => "font-size: 90%"}
+                    CEHB-11-0823
+                %td
+                  .progress-arrow.inspection{:style => "z-index: 14"}
+                  .date 12/1/11
+                %td
+                  .progress-arrow.notification{:style => "z-index: 13"}
+                  .date 2/1/12
+                %td
+                  .progress-arrow.hearing{:style => "z-index: 12"}
+                  .date 12/1/11
+                  .progress-arrow.hearing{:style => "z-index: 12"}
+                  .date 1/31/12
+                %td
+                  .progress-arrow.judgement{:style => "z-index: 11"}
+                  .date 1/31/12
+                %td
+                  .progress-arrow.pending{:style => "z-index: 10"}
+                %td
+        .cases
+          .case
+            .case-history
+              .case-number
+                %h4 Case Details for CEHB-11-0821
+                .clearfix
+              %table.table.table-condensed.timeline
+                %tbody
+                  %tr.case-history-inspection
+                    %td
+                      %span.arrow
+                    / .progress-indic-wrapper
+                    / .date.inspection
+                    / .date.empty
+                    / .date.empty
+                    / .date.empty
+                    / .date.empty
+                    %td.status
+                      Inspected
+                    %td
+                      %table.table-nolines
+                        %tr
+                          %td.date 1/18/12
+                          %td Property was inspected, with a finding of Violation Posted No WIP
+                  %tr.case-history-notification
+                    / %td
+                    / .progress-indic-wrapper
+                    / .date.empty
+                    / .date.notification
+                    / .date.empty
+                    / .date.empty
+                    / .date.empty
+                    %td
+                      %span.arrow
+                    %td.status Owner Notified
+                    %td
+                      %table.table.table-nolines
+                        %tr
+                          %td.date 2/1/12
+                          %td The owner was notified that an administrative case was being brought against this property for violations of the New Orleans Building Code.
+                  %tr.case-history-hearing
+                    / %td
+                    / .progress-indic-wrapper
+                    / .date.empty
+                    / .date.empty
+                    / .date.hearing
+                    / .date.empty
+                    / .date.empty
+                    %td
+                      %span.arrow
+                    %td.status Hearing Scheduled
+                    %td
+                      %table.table-nolines
+                        %tr
+                          %td.date 12/1/11
+                          %td
+                            The case against this property was heard in a public hearing at
+                            %b 10:00am
+                            at New Orleans Courthouse, 1234 Perdido St. with an outcome of reset
+                        %tr
+                          %td.date 1/31/12
+                          %td
+                            The case against this property was heard in a public hearing at
+                            %b 10:00am
+                            at New Orleans Courthouse, 1234 Perdido St. with an outcome of guilty
+                  %tr.case-history-reset
+                    / %td
+                    / .progress-indic-wrapper
+                    / .date.empty
+                    / .date.empty
+                    / .date.empty
+                    / .date.empty
+                    / .date.reset
+                    %td
+                      %span.arrow
+                    %td.status Reset
+                    %td
+                      %table.table-nolines
+                        %tr
+                          %td.date 1/31/12
+                        %tr
+                          %td.date 1/31/12
+          .clearfix
+          .case
+            .case-history
+              .case-number
+                %h4 Case Details for CEHB-11-0823
+                .clearfix
+              %table.table.table-condensed.timeline
+                %tbody
+                  %tr.case-history-inspection
+                    %td
+                      %span.arrow
+                    / .progress-indic-wrapper
+                    / .date.inspection
+                    / .date.empty
+                    / .date.empty
+                    / .date.empty
+                    / .date.empty
+                    %td.status
+                      Inspected
+                    %td
+                      %table.table-nolines
+                        %tr
+                          %td.date 12/1/11
+                          %td Property was inspected, with a finding of Violation Posted No WIP
+                  %tr.case-history-notification
+                    / %td
+                    / .progress-indic-wrapper
+                    / .date.empty
+                    / .date.notification
+                    / .date.empty
+                    / .date.empty
+                    / .date.empty
+                    %td
+                      %span.arrow
+                    %td.status Owner Notified
+                    %td
+                      %table.table.table-nolines
+                        %tr
+                          %td.date 2/1/12
+                          %td The owner was notified that an administrative case was being brought against this property for violations of the New Orleans Building Code.
+                  %tr.case-history-hearing
+                    / %td
+                    / .progress-indic-wrapper
+                    / .date.empty
+                    / .date.empty
+                    / .date.hearing
+                    / .date.empty
+                    / .date.empty
+                    %td
+                      %span.arrow
+                    %td.status Hearing Scheduled
+                    %td
+                      %table.table-nolines
+                        %tr
+                          %td.date 12/1/11
+                          %td
+                            The case against this property was heard in a public hearing at
+                            %b 10:00am
+                            at New Orleans Courthouse, 1234 Perdido St. with an outcome of reset
+                        %tr
+                          %td.date 1/31/12
+                          %td
+                            The case against this property was heard in a public hearing at
+                            %b 10:00am
+                            at New Orleans Courthouse, 1234 Perdido St. with an outcome of guilty
+                  %tr.case-history-reset
+                    / %td
+                    / .progress-indic-wrapper
+                    / .date.empty
+                    / .date.empty
+                    / .date.empty
+                    / .date.empty
+                    / .date.reset
+                    %td
+                      %span.arrow
+                    %td.status Reset
+                    %td
+                      %table.table-nolines
+                        %tr
+                          %td.date 1/31/12
+                        %tr
+                          %td.date 1/31/12
+          .clearfix
+          .case
+    .span4.sidebar
+      .map.centered
+        .map-address{:address_id => "85115895", "data-x" => "-90.12396104710807", "data-y" => "29.96876124256193", :internal_address_id => "100996", "map-id" => "map-100996"}
+          #map-100996.leaflet-map{:style => "height: 200px;"}
+      .assessor.centered
+        .parcel-link
+          %a{:href => "http://qpublic4.qpublic.net/la_orleans_display.php?KEY=3120-MISTLETOEST"} parcel, tax, and ownership details
+        %p
+          via the Orleans Parish Assessor’s website
+      .subscribe.centered
+        %a#subscribe-button.btn.btn-primary.btn-large.subscribe-button{:href => "/accounts/sign_in"} Receive Alerts
+      .faq.centered
+        %h3
+          FAQ
+        / this is the same as inspections for now. but this will eventually be it's own set of questions
+        .questions
+          .question.collapsed{"data-target" => "#general-1", "data-toggle" => "collapse"}
+            How current is the data in blightSTATUS?
+          #general-1.answer.collapse
+            It depends on where the property is in the process. If there are no open cases against the property in question, please report it to the City by dialing 3-1-1.
+            If the property does have an open case against it, the best opportunity to provide information is by attending the public hearing. (link to “attend a hearing” answer)
+        .view-all-faq
+          %a{:href => "/pages/help"} View All FAQ >
