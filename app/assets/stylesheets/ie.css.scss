@@ -1,0 +1,29 @@
+@import "variables.css.scss";
+
+.lt-ie9{
+
+	footer{
+		background-color: $lightGrey;
+	}
+}
+
+
+.lt-ie8{
+
+	.container-addresses{
+
+		.main{
+
+			width:56% !important;
+		}
+	}
+
+	.about-page-content{
+		.left-bar{
+
+			.left{
+				width: 45%;
+			}
+		}
+	}
+}
