@@ -36,7 +36,7 @@ class Address < ActiveRecord::Base
   end
 
   def sorted_cases
-    self.cases.sort{ |a, b| a.most_recent_status.date <=> b.most_recent_status.date }
+    self.cases.sort{ |a, b| ( a.most_recent_status and b.most_recent_status ) ? a.most_recent_status.date <=> b.most_recent_status.date : ( a.most_recent_status ? -1 : 1 ) }
   end
 
   def cardinal
