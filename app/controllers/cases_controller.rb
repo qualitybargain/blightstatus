@@ -10,6 +10,9 @@ class CasesController < ApplicationController
     end_date = Date.parse(params[:end_date]).strftime('%Y-%m-%d')
 
 
+    # TODO: we should be returning GeoJSON instead. This is how:
+    # RGeo::ActiveRecord::GeometryMixin.set_json_generator(:geojson)
+
     case params[:type]
       when 'inspections'
         @cases = Address.joins(:inspections).where(" inspection_date > '#{start_date}' AND inspection_date < '#{end_date}' ").pluck(:point)

@@ -141,12 +141,21 @@ OpenBlight.statistics = {
 
     populateMap: function(type, start_date, end_date){
       var markers = [];
+
+
+      // # TODO: we should be returning GeoJSON instead. This is how:
+      // Check cases_controller for more info about how to do this
+
+  
+      $("input.filter-checkbox").attr("disabled", true);
+
       jQuery.getJSON('/cases.json', {  
           type: type, 
           start_date: start_date.toDateString(), 
           end_date: end_date.toDateString(), 
         }, 
         function(data) {
+
           if(data.length){
             jQuery.each(data, function(key, val) {
               a = data[key].substr(7, 35).split(' ');
@@ -159,6 +168,9 @@ OpenBlight.statistics = {
           }
           OpenBlight.statistics.layergroup[type] = new L.layerGroup(markers);
           OpenBlight.statistics.layergroup[type].addTo(OpenBlight.statistics.map);
+          $("input.filter-checkbox").removeAttr("disabled");
+
+
       });
     },
 
