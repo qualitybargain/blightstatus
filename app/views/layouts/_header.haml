@@ -5,43 +5,42 @@
         =image_tag "blightstatus-logo.png"
   .span8
     .navbar
-      .nav-collapse
-        / .border
-        %ul.nav.nav-pills.top-account.pull-right{"role" => "navigation"}
-          %li.dropdown
-            %a#drop1.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"}
-              Account
-              %b.caret
-            .dropdown-menu.container{"aria-labelledby" => "drop1", :role => "menu"}
-              -if account_signed_in?
-                .logged-in
-                  .span3
-                    You are logged in as 
-                    =current_account.email
-                  .span3
-                    =link_to "Manage Alerts", "/accounts"
-                  .span3
-                    =link_to('Logout', destroy_account_session_path, :method => :get)
-                  .clearfix
-              -else
-                .logged-out
-                  .span3              
-                    =link_to "Sign In", "/accounts"
-                  .span3
-                    =link_to "Register", "/accounts/sign_up"
-                  .clearfix
+      / .border
+      %ul.nav.nav-pills.top-account.pull-right{"role" => "navigation"}
+        %li.dropdown
+          %a#drop1.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"}
+            Account
+            %b.caret
+          .dropdown-menu.container{"aria-labelledby" => "drop1", :role => "menu"}
+            -if account_signed_in?
+              .logged-in
+                .span3
+                  You are logged in as 
+                  =current_account.email
+                .span3
+                  =link_to "Manage Alerts", "/accounts"
+                .span3
+                  =link_to('Logout', destroy_account_session_path, :method => :get)
+                .clearfix
+            -else
+              .logged-out
+                .span3              
+                  =link_to "Sign In", "/accounts"
+                .span3
+                  =link_to "Register", "/accounts/sign_up"
+                .clearfix
 
-        %ul.nav.top-links
+      %ul.nav.top-links
+        %li
+          =link_to "About", "/pages/about"
+        %li
+          =link_to "Overview", "/overview"
+        %li
+          =link_to "Help", "/pages/help"
+      - if(controller_name != 'home')
+        %ul.nav.top-search
           %li
-            =link_to "About", "/pages/about"
-          %li
-            =link_to "Overview", "/overview"
-          %li
-            =link_to "Help", "/pages/help"
-        - if(controller_name != 'home')
-          %ul.nav.top-search
-            %li
-              =render "layouts/search"
+            =render "layouts/search"
 
 
 
