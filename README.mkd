@@ -1,6 +1,18 @@
-# OpenBlight
-A dashboard for the city of New Orlean's Code Enforecement process
+# BlightSTATUS
 
+Built in partnership with the City of New Orleans, BlightSTATUS makes it simple for residents to find out what’s going on with blighted properties in their community – no long waits on the telephone or visits to City Hall required.
+
+## <a name="why"></a>Why does this matter?
+
+In New Orleans, countless organizations are working around the clock to improve local communities and reduce blight throughout the city -- from community groups and non-profits to City Hall and the local Redevelopment Authority (NORA).
+
+However, each of these organizations collect and manage data about blighted properties in entirely different ways, which results in duplicated efforts, inconsistent information, and precious energy wasted.
+
+We’ve partnered with New Orleans City Hall and NORA to create this site to provide accurate and up-to-date information about the City’s efforts to reduce blight that everybody can use. We hope that this simple and publicly-accessible resource will make the work of these great organizations just a little bit easier.
+
+If you'd just like to try out the site, you can do that [here.](http://blightstatus.com/)
+
+Or, if you'd like to contribute to this project, read on!
 
 ## <a name="build"></a>Build Status
 [![Build Status](https://secure.travis-ci.org/codeforamerica/cfa_template.png?branch=master)][travis]
