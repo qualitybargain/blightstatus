@@ -1,16 +1,15 @@
-%footer{:style => "font-weight: 300"}
+%footer
   .container
-    .span5
-      %p{:style=>"padding-top: 20px;font-size: 150%;  line-height: 155%; font-style: italic; font-weight: 500"}
+    .span5.learn-more
+      %p
         BlightSTATUS provides clear and concise information about what’s happening with properties in your area. 
-
-      %h4{:style => "text-align: left; font-size: 150%"}
         
+      %h4        
         =link_to "Learn More >", "/pages/help"
 
 
-    .span3
-      %h3{:style => "padding-bottom: 5px;"}
+    .span3.were-beta
+      %h3
         We're in Beta!
       %p
         The quality of our data may not be perfect, and will improve over time. Learn more about our data quality at our
@@ -20,20 +19,18 @@
       %p
         We want your feedback! Please feel free to ask a question, report a problem, or suggest a feature. 
             
-    .span1
 
-    .span3
-      %h3{:style => "padding-bottom: 5px;"}
+    .span3.partner-with-us
+      %h3
         Partner with us
       %p
         If you’d like to see blightSTATUS in your city, please let us know. We want to work with you.
-    
-      %h3{:style => "padding-bottom: 5px;"}
+
+      %h3
         Get in touch
       %p
 
         =mail_to "neworleans@codeforamerica.org", "> neworleans@codeforamerica.org"
+    .clearfix
 
 
-
-      

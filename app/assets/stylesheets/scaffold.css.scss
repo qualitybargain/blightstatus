@@ -29,16 +29,13 @@ html{
 
 
   footer{
-    border-top: 1px solid #EEEEEE;
-    clear: both;
-    width: 100%;
     text-align: center;
     bottom: 0;
     background: #e5e5e5;
     color: $darkGrey;
-    margin: 0px 0px 0px;
     padding: 20px 0;
-    
+    font-weight: 300;
+
     h3{
       text-align: left;
     }
@@ -46,18 +43,35 @@ html{
     p{
       text-align: left;
     }
-    .footer{
-      padding: 10px 0 20px;
-    }
-    
-    .demo{
-      width: 500px;
-      margin: 0 auto;
-      text-align: center;
-      bottom: 100px;
-      display: none;
+
+    .learn-more{
+
+      h4{
+        text-align: left; 
+        font-size: 150%
+      }
+
+      p{
+        padding-top: 20px;
+        font-size: 150%;  
+        line-height: 155%; 
+        font-style: italic; 
+        font-weight: 500
+      }
     }
 
+    .were-beta{
+      h3{
+        padding-bottom: 5px;
+      }
+    }
+
+    .partner-with-us{
+      h3{
+        padding-bottom: 5px
+      }
+
+    }
   }
 
 
