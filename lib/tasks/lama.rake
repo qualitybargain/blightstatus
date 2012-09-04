@@ -2,8 +2,6 @@ namespace :lama do
   desc "Import updates from LAMA"
   task :load_latest, [:start_date, :end_date] => :environment do |t, args|
 
-    #TODO: Make this work
-
     date = Time.now
     args.with_defaults(:start_date => date - 2.weeks, :end_date => date)
     l = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
