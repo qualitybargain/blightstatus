@@ -99,9 +99,10 @@ module LAMAHelpers
         addresses = AddressHelpers.find_address(incident.Location)
         unless addresses.empty?
           kase.address = addresses.first
-          kase.save
         end
       end
+
+      kase.save unless kase.accela_steps.nil?
     end
   end
 
