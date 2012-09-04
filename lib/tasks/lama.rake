@@ -3,7 +3,7 @@ namespace :lama do
   task :load_latest, [:start_date, :end_date] => :environment do |t, args|
 
     date = Time.now
-    args.with_defaults(:start_date => date - 2.weeks, :end_date => date)
+    args.with_defaults(:start_date => date - 12.weeks, :end_date => date)
     l = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
     incidents = l.incidents_by_date(args.start_date, args.end_date)
 

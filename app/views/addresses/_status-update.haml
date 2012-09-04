@@ -1,18 +1,16 @@
 .status-update
   -if address.workflow_steps.empty?
     .no-status
-      .no-record-notice No violations have been reported for this property.
+      .no-record-notice 
+        There is currently no case history for this property.
       .recommended-next-action 
-        %p This property is not currently in our system. If you believe it is in violation of New Orleans Building Code, please report it to <b>311</b>. 
-        
-        %p 
-          Before reporting the property please read the
-          %a{:href=>'http://www.nola.gov/RESIDENTS/Code-Enforcement/City-of-New-Orleans-Housing-Standards/'} City of New Orleans Housing Standards
-        
-        %p If you know that this property is already in our system and you believe you've run into a technical glitch, please report it to
-        %a{:href=>'mailto:support@blightstatus.org'}support@blightstatus.org
+        %ul.arrow-list 
+          %li
+            If you think this property is in violation of New Orleans Housing Standards, please call 311 to report it.
+          %li
+            If you know that this property is already in the system and you believe you've run into a technical glitch, please report it to support@blightstatus.org.
 
-        %p We work hard to ensure you're seeing high quality data, but we are working with multiple data sources, and mistakes do exist. You can learn more about our data quality at the stats page.
+        %p We work hard to ensure you're seeing high quality data, but we are working with multiple data sources, and mistakes do exist. You can learn more about our data quality on our Stats page.
         
         	  
   -else

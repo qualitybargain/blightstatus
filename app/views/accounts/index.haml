@@ -5,36 +5,55 @@
       /=@user.inspect
       /=@account_subcriptions.length
 
-      %table{ :class => "table table-striped table-bordered", :id => "subscriptions"}
-        %thead
-          %tr
-            %th Photo    
-            %th Address
-            %th Action
-            %th Date
-            %th 
-        %tbody
-          -@account_subcriptions.each do |n|
-            %tr
-              %td
-                / =n.inspect
-                =image_tag("http://maps.googleapis.com/maps/api/streetview?location="+n.point.y.to_s+","+n.point.x.to_s+"&size=200x100&sensor=true")
-              %td
-                =link_to n.address_long, address_path(n)
+      .row#subscriptions
+        -if @account_subcriptions.count > 0
+          .subscription.notice
+            %p
+              You are subscribe to the following properties. You will receive notifications when their statuses change.
 
-              -if n.most_recent_status_preview.count == 2
-                -n.most_recent_status_preview.each do |index, val|
-                  %td
-                    =val
-              -else
-                %td
-                  
-                %td
-              %td
-                %div{:data=>n.id, :class=>"btn btn-primary btn-large"}
-                  Unsubscribe
+          -@account_subcriptions.each do |address|
+            .subscription
+              =link_to address_path(address) do
+                %h3.address
+                  =address.address_long
 
 
+              .map
+                .map-address{"internal_address_id" => address.id, "address_id" => address.address_id, "map-id" => "map-#{address.id}" , "data-x" => address.point.x, "data-y" => address.point.y }
+                  .leaflet-map{:id => "map-#{address.id}"}
 
-              
+
+              .progress-bar
+                =render :partial => "addresses/progress-bar", :locals => {:kases => address.sorted_cases}
+      
+              / .cases
+              /   -@n.sorted_cases.each do |c|
+              /     .case
+              /       =render :partial => "addresses/property-history", :locals => {:kase => c}
+
+
+              / .clearfix
+              / .status{:style => "padding: 10px"}
+              /   -if address.most_recent_status_preview.count == 2
+              /     -address.most_recent_status_preview.each do |index, val|
+              /       %h3
+              /         =val
+              .clearfix
+
+              .subscribe
+                =link_to('Unsubscribe', "/subscriptions/#{address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-large subscribe-button' , :id => "subscribe-button")
+              .view-property
+                =link_to address do
+                  .btn.btn-primary.btn-large
+                    View Property
+            .clearfix
+        -else
+          .span12.notice
+            %p
+              No Alerts
+
+
+
+
+          
 

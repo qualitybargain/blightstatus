@@ -6,15 +6,19 @@
 .container-home{
 
 
+  #wrapper{
+    padding-bottom: 50px;
+  }
+
   .nav-collapse{
     .nav{
-      float: right;
       margin-top: 15px;
     }
   }
 
   .frontpage{
 
+    padding-top: 5%;
 
     h1{
       font-size: 39pt;

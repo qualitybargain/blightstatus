@@ -1,23 +1,19 @@
-.container.full-width
-  .left-bar
+.container.about-page-content
+  .left-bar.span6
     .row
       %h2 What does it do?
-      %p
-        BlightSTATUS makes it simple for residents to find out what’s going on with blighted properties in their community – no long waits on the telephone or visits to City Hall required. 
-      %p
-        A great example of government transparency at work, BlightSTATUS pulls up-to-date property information directly from the City’s official records, providing a single, comprehensive and authoritiative view to the public for the very first time.       
+      %p BlightSTATUS makes it simple for residents to find out what’s going on with blighted properties in their community – no long waits on the telephone or visits to City Hall required. 
+      %p A great example of government transparency at work, BlightSTATUS pulls up-to-date property information directly from the City’s official records, providing a single, comprehensive and authoritiative view to the public for the very first time.       
 
-      .left
-        %h4 The latest status, at a glance
+      .left{:style => "padding-top: 10px;"}
+        %h4{:style => " margin-bottom: 5px"} The latest status, at a glance
 
-        %p
-          Check out a property’s status bar to instantly see where that property stands in the blight process – and what’s coming next. Want to know more? Scroll down  to the detailed case history for a step-by-step description of what’s happened so far, and when. 
+        %p Check out a property’s status bar to instantly see where that property stands in the blight process – and what’s coming next. Want to know more? Scroll down  to the detailed case history for a step-by-step description of what’s happened so far, and when. 
 
-      .right
-        %h4 Receive alerts on the go
+      .right{:style => "padding-top: 10px;"}
+        %h4{:style => " margin-bottom: 5px"} Receive alerts on the go
         %p Subscribe to receive instant alerts via email or text message the moment the status changes on properties you care about. Subscribe to one property, a whole block, or your entire neighborhood, and you’ll always be in the know.      
-
-      .clear
+      .clearfix
 
     .row
       %h2 Why did we make it?
@@ -29,75 +25,59 @@
 
     .row
       %h2 BlightSTATUS in your city
-      %p We know this problem isn’t unique to New Orleans - there are many cities across the country tasked with managing a large number of vacant or blighted properties. We want to put blightSTATUS to work for you, too!
-      %p 
-        Let’s collaborate: partnerships@blightstat.us
+      %p We know this problem isn’t unique to New Orleans - there are numerous municipalities across the country tasked with managing a large number of vacant or blighted properties. We want to put blightSTATUS to work for you, too!
 
+      %p Get in touch: 
+        
 
 
     .row
       %h2 Help us help you!
-      %p 
-        We want blightSTATUS to make your work easier, not harder. If something is confusing or there is a feature missing that would make your work easier, please, let us know!
-      %p 
-        Get in touch: support@blightstat.us
+      %p We want blightSTATUS to make your work easier, not harder. If something is confusing or there is a feature missing that would make your work easier, please, let us know!
 
 
 
-  .right-bar
-    .meet-the-team.row
+  .right-bar.span4
+    .meet-the-team
       %h2
         MEET THE TEAM      
       .span4.img-block
         =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Amir.jpg'
         .image-name
-          Amir Revis-Bay
+          Amir Reavis-Bey
       .span4.img-block
         =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Serena.jpg'
         .image-name
           Serena Wales
       .span4.img-block
-        =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Alex.jpg'
+        =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Alex_Pandel.jpg'
         .image-name
           Alex Pandel
       .span4.img-block
         =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Eddie.jpg'
         .image-name
           Eddie A Tejeda
-
-
-      
-
-    .our-partners.row
+    .clearfix
+    .our-partners
       %h2
         OUR PARTNERS
-      %row
-        .code-for-america
-        .city-of-new-orleans
-        .nora
-
-    .get-in-touch.row
-      %h2
-        GET IN TOUCH          
+      .city-of-new-orleans
+      .code-for-america
+      .nora
+    .clearfix
+    .get-in-touch{:style => "font-size: 110%"}
+      %h2 GET IN TOUCH          
       %p
-        Questions, technical problems:
-        %br
-          =mail_to "support@blightstat.us", "support@blightstat.us"
+        Reuse & general info:
+        %p{:style => "padding-left: 30px"}
+          =mail_to "neworleans@codeforamerica.org", "> neworleans@codeforamerica.org"
       %p
-        Get blightSTATUS in your city:
-        %br
-          =mail_to "partnerships@blightstat.us", "partnerships@blightstat.us"
+        Feedback, suggestions, or bugs:
+        %p{:style => "padding-left: 30px"}
+          %a{:href => "javascript:UserVoice.showPopupWidget();"} 
+            > User Voice Feedback
+
       %p
-        General
-        %br
-          =link_to "info@blightstat.us", "info@blightstat.us"
-
-
-
-
-
-        
-        
-
-         
-          
+        Twitter:
+        %p{:style => "padding-left: 30px"}
+          =link_to "> @blightSTATUS", "http://twitter.com/blightSTATUS"

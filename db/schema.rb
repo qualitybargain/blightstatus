@@ -263,9 +263,10 @@ ActiveRecord::Schema.define(:version => 20120830231301) do
     t.integer  "address_id"
     t.integer  "account_id"
     t.string   "notes"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.text     "thegeom"
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
+    t.spatial  "thegeom",       :limit => {:srid=>-1, :type=>"geometry"}
+    t.datetime "date_notified"
   end
 
 end

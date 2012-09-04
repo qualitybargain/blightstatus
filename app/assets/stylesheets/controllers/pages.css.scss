@@ -11,15 +11,38 @@
   }
 
 
+
+  .about-page-content{
+
+    margin-top: 20px;
+
+    h2{
+      font-size: $largestFontSize;
+      padding: 10px 0;
+    }
+
+    h4{
+      font-size: $largeFontSize;
+    }
+    p, h4{
+      padding-left: 20px;
+    }
+  }
+
+
   .timeline{
     margin: 20px 0 30px;
     .category{
       display: inline;
-      padding: 20px 60px 20px 5px;
+      padding: 20px 35px 20px 30px;
       font-size: 120%;
       color: $orange;
       font-family: "Lato";
       font-weight: 400;
+
+      &:hover{
+        cursor: pointer;
+      }
     }
     clear: both;
   }
@@ -28,39 +51,23 @@
   h3.category-label{
     font-family: "Lato";
     font-weight: 200;
-    color: $Lightgrey;
+    color: $grey;
   }
 
-  .questions{
-
-    border-top: 1px solid $Lightgrey;
-    padding: 10px 0;
-
-    .question{
-      background: url("/assets/arrow-right.png") no-repeat scroll 0 8px transparent;
-      color: #F1601D;
-      font-size: 130%;
-      padding: 5px 25px;
-      &:hover{
-        cursor: pointer;
-      }
-    }
-    .answer{
-      padding-left: 25px;
-      padding-top: 10px;
-      font-size: 120%;
-    }
-
-
-  }
+  @include faq-mixin;
 
 
   .page-tabs{
     padding-bottom: 0;
     margin-bottom: 0;
+
+    &.nav-tabs{
+      border: 0px;
+    }
+
     li{
       
-      margin: 10px 0px -1px 0;
+      margin: 10px 0px -2px 0;
 
       a{
         border: 0;
@@ -71,7 +78,7 @@
         border-color:  #ccc;
         text-transform: uppercase;
         font-size: 140%;
-        padding: 15px 64.333px; 
+        padding: 15px 63.66px;
         color: $darkGrey;       
 
       }
@@ -92,19 +99,21 @@
   }
 
   #common-questions{
-    padding-top: 10px 40px;
     border-width: 0 1px 1px 1px;
   }
 
   .tab-content{
     width: 930px;
+    background: white;
   }
 
 
   .tab-pane-content{
     border: 1px solid #ddd;
     border-radius: 0 0 20px 20px;
-    padding: 10px 40px 50px;
+//    padding: 10px 40px 50px;
+    padding: 40px;
+
   }
 
 
@@ -113,21 +122,25 @@
 
     .code-for-america{
       background: url("/assets/partner-logos.png") no-repeat scroll 7px -60px transparent;
-      width: 155px;
+      width: 135px;
       height: 70px;
+      float: left;
+
       
     }
 
     .city-of-new-orleans{
-      background: url("/assets/partner-logos.png") no-repeat scroll -130px 0px transparent;
-      width: 155px;
+      background: url("/assets/partner-logos.png") no-repeat scroll -145px 0px transparent;
+      width: 130px;
       height: 130px;      
+      float: left;
     }
 
     .nora{
       background: url("/assets/partner-logos.png") no-repeat scroll 0px -10px transparent;
       width: 140px;
       height: 50px;
+      float: left;
     }
 
 
@@ -136,9 +149,9 @@
 
     margin-bottom: 40px;
     h2{
-      font-weight: 200;
+      font-weight: 300;
       font-family: "Lato";
-      border-bottom: 1px solid $Lightgrey;
+      border-bottom: 1px solid $lightGrey;
       margin-bottom: 10px;
 
     }
@@ -147,13 +160,30 @@
       width: 100px;
       float: left;
       padding: 8px 5px;
-
+      text-align: center;
+      padding-left: 0;
       img{
-        border: 1px solid #ccc;
+        border: 1px solid #eee;
+        padding: 1px;
       }
     }
   }
 
+
+  .about-page-content{
+
+    .left-bar{
+      border-left: medium none;
+      border-radius: 30px;
+      border-top: medium none;
+      min-height: 500px;
+      padding: 20px 45px 45px;
+      background: white;
+      border: 1px solid $borderColor;
+    }
+  }
+
+  
 }
 
 

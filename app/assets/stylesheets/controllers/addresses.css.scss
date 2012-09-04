@@ -6,7 +6,7 @@
 
 .container-addresses{
   #map{
-    /*padding-top: 50px;*/
+//    padding-top: 50px;
 //    box-shadow: 0 0 20px #AAAAAA;
     border: 1px solid #ccc;
   }
@@ -36,21 +36,19 @@
   
 	.search-results{
 		
-    width: 100% !important;
-    clear: both;
     
 		.left-bar{
-			float:left;
-			padding: 0 20px;
       border: none;
-			height: 700px;
-			min-height: 500px;
 
 
       .result {
         a{
           text-transform:capitalize;
         }
+      }
+
+      .well{
+        position: relative;
       }
 
       li.result a{
@@ -68,9 +66,8 @@
 
       #loading {
         display: none;
-        top: 200px;
-        left: 145px;
-        position: absolute;
+        left: 60px;
+        top: 100px;
       }
 
       .nav-header{
@@ -95,8 +92,42 @@
     padding: 40px;
   }
 
+  .sidebar{
+
+    .map{
+      margin-top: 10px;
+    }
+
+    .accessor{
+      
+    }
+
+    .faq{
+      margin-top: 50px;
+    }
+
+  }
+
   .toggle {
     padding: 10px 0;
+  }
+
+
+  .status-update{
+    display: inline-block;
+    padding: 2px;
+    margin-top: 10px;
+    font-size: 115%;
+
+    .no-record-notice{
+
+      padding: 15px;
+      background-color: $lighterTeal;
+      border-radius: 10px;
+      margin: 15px 0;
+      font-family: "Lato";
+      font-size: $normalFontSize;
+    }
   }
 
 
@@ -120,7 +151,8 @@
     }
 
     .case-number{
-      border-bottom: 1px solid #58595B;
+      border-bottom: 1px solid $lightGrey;
+      padding-bottom: 8px;
     }
 
 
@@ -166,6 +198,7 @@
 
     .date {
       min-width: 80px;
+      text-align: center;
     }
   }
 }
@@ -181,7 +214,6 @@
     font-weight: 200;
     font-style: italic;
     font-size: 90%;
-//    padding: 5px;
   }
 
 }
@@ -195,15 +227,35 @@
 }
 
 
+.leaflet-popup-content-wrapper{
+  border-radius: 10px;
+}
+
 .leaflet-popup-content {
 
   overflow: hidden;
-
-  h4 {
-    font-size: 14px;
+  text-align: center;
+  h3 {
+    font-size: $largerFontSize;
     line-height: 16px;
     padding-bottom: 10px;
+    a{
+      text-transform: capitalize;
+      color: $orange !important;
+    }
   }
+
+  img{
+    border: 1px solid $headerLineBreakColor;
+    text-align: center;
+  }
+  p{
+    font-family: "Lato";
+    margin: 5px;
+    font-size: $largeFontSize;
+  }
+
+
 }
 
 .dotmarker{
@@ -278,28 +330,40 @@
 }
 
 
-.faq{
 
+@include faq-mixin;
 
-  h3{
-    font-size: 24px;
-    font-weight: 300;
-    padding: 3px 8px;
-    font-family: "Lato"  ;
-    border-bottom: 1px solid #CCC;  
-  }
-
+.view-all-faq{
+  font-size: $largeFontSize;
+  text-align: left;
+  margin-left: 35px;
 }
 
 
 .progress-bar-wrapper {
   margin-top: 10px;
-  min-height: 200px;
+  min-height: 100px;
 
   .table{
-    td{
-      padding: 15px 0;
+
+
+    tr{
+
+      &:hover{
+        background: transparent !important;
+      }
+
+      td{
+        padding: 15px 0;
+
+        &:hover{
+          background: transparent !important;
+        }
+      }
+
     }
+
+
     thead{
       .property-status{
         padding: 10px;
@@ -309,10 +373,10 @@
 
     .case-number{
       padding: 5px;
-
       .table-condensed{
         td{
           padding: 10px;
+
         }
       }
     }
@@ -323,44 +387,49 @@
   .progress-arrow{
     height: 25px;
     position: relative;
-    width: 107px;
+    width: 102px;
+    margin-right: -25px;
+
+    &:hover{
+      cursor: pointer;
+    }
 
     &.inspection {
       background: url('/assets/progress-arrows.png') no-repeat 0 0;
-      margin-right: -15px;
-      z-index: 10;
     }
 
     &.notification {
-      background: url('/assets/progress-arrows.png') no-repeat 0 -25px;
-      margin-right: -15px;
-      z-index: 9;
+      background: url('/assets/progress-arrows.png') no-repeat 0 -25px transparent;
     }
 
     &.hearing{
-      background: url('/assets/progress-arrows.png') no-repeat 0 -50px;
-      margin-right: -15px;
-      z-index: 8;
+      background: url('/assets/progress-arrows.png') no-repeat -5px -49px transparent;
     }
 
     &.judgement {
-      background: url('/assets/progress-arrows.png') no-repeat 0 -75px;
-      margin-right: -15px;
-      z-index: 7;
+      background: url('/assets/progress-arrows.png') no-repeat 0 -73px transparent;
     }
 
     &.resolution {
-      background: url('/assets/progress-arrows.png') no-repeat 0 -100px;
-      margin-right: -15px;
-      z-index: 6;
+      background: url('/assets/progress-arrows.png') no-repeat 0 -100px transparent;
+    }
+
+    &.pending {
+      background: url("/assets/progress-arrows.png") no-repeat scroll 0 -97px transparent;
+
+      &.resolution {
+        background: url("/assets/progress-arrows.png") no-repeat scroll -228px -2px transparent;
+      }
 
     }
+
+
   }
 
 }
 
 .progress-bar-wrapper table{
-  width:100%;
+  width:inherit;
 }
 
 
@@ -423,10 +492,6 @@
   }
 }
 
-.container-addresses-search .container{
-  width: 100% !important;
-
-}
 
 .cases {
   margin-top: 40px;
@@ -463,10 +528,4 @@
   cursor:pointer
 }
 
-.status-update{
-  background-color:#ffffcc;
-  display: inline-block;
-  padding: 2px;
-  margin-top: 10px;
-}
 

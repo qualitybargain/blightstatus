@@ -133,6 +133,7 @@ module AddressHelpers
     end
     return nil
   end
+
   def strip_suffix(streetname)
     streetname.upcase!
     @address_suffix.each do |value|
@@ -143,6 +144,16 @@ module AddressHelpers
     return streetname
   end
 
+  def strip_cruft(streetname)
+    streetname.upcase!
+    return streetname.sub('ACCES BLD', '').sub('NEAR', '').sub(/\[.+\]/, '').sub(/\(.+\)/, '').single_space
+  end
+
+  def strip_special_char(streetname)
+    return streetname.gsub(/[\,\.]/, ' ')
+  end
+
+
   def get_neighborhood(lat,long)
     uri = URI.parse("http://maps.googleapis.com/maps/api/geocode/json?latlng=#{lat},#{long}&sensor=true")
     response = Net::HTTP.get(uri)
@@ -152,7 +163,7 @@ module AddressHelpers
 
   def find_address(orig_address)
     return [] if orig_address.nil?
-    address_string = orig_address.upcase.single_space.delete('.')
+    address_string = strip_special_char(orig_address.upcase.single_space)
 
     address = Address.where("address_long = ?", "#{address_string}")
     return address if !address.empty?
@@ -179,9 +190,8 @@ module AddressHelpers
     address = Address.where("address_long = ?", "#{address_string}")
     return address if !address.empty?
 
-    address_string = strip_direction(address_string)
-    address_street = get_street_name(address_string)
-    address = Address.where("house_num = ? and street_name = ?", "#{address_string.split(' ')[0]}", "#{address_street}")
+    address_string = strip_cruft(address_string)
+    address = Address.where("address_long = ?", "#{address_string}")
     return address if !address.empty?
 
     address_string = strip_suffix(address_string)
@@ -189,7 +199,13 @@ module AddressHelpers
     address = Address.where("house_num = ? and street_name = ?", "#{address_string.split(' ')[0]}", "#{address_street}")
     return address if !address.empty?
 
-    puts "Not matched by address: #{orig_address}"
+    address_string = strip_direction(address_string)
+    address_street = get_street_name(address_string)
+    address = Address.where("house_num = ? and street_name = ?", "#{address_string.split(' ')[0]}", "#{address_street}")
+    return address if !address.empty?
+
+
+    puts "Not matched. Original address: #{orig_address}            Processed address: #{address_string}"
     []
   end
 

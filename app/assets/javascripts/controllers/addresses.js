@@ -1,6 +1,6 @@
 OpenBlight.addresses = {
   init: function(){
-    OpenBlight.addresses.subscribeButton();
+    OpenBlight.addresses.highlightCaseHistory();
   },
 
   search: function(){
@@ -37,47 +37,63 @@ OpenBlight.addresses = {
         bounds = $(this).attr('data-bounds');
         OpenBlight.addresses.mapSearch(map, group, page, bounds);
     });
+
   },
 
   show: function(){
     $(".property-status").popover({placement: 'bottom'});
+    
+    OpenBlight.addresses.mapAddresses();
+    OpenBlight.accounts.subscriptionButton()
 
-    wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
-      var x, y, map, CustomIcon, dotIcon;
+  },
 
+
+  highlightCaseHistory: function(){
+
+    $(".progress-arrow").hover(function(){
+      // console.log('.case-history-' + $(this).attr('class').split(' ').last());
+      $('.case-history-' + $(this).attr('class').split(' ').last()).css('background-color', '#F5F5F5')
+    }, function(){
+      $('.case-history-' + $(this).attr('class').split(' ').last()).css('background-color', 'transparent')
+    })
+
+  },
+  mapAddresses: function(){
+    $(".map-address").each(function(index, address){
+      wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
+        var x, y, map, CustomIcon, dotIcon;
+
+        // console.log(address);
         // this should not be hard coded. do json request?
-      x = $("#address").attr("data-x");
-      y = $("#address").attr("data-y");
+        x = $(address).attr("data-x");
+        y = $(address).attr("data-y");
 
-      CustomIcon = L.DivIcon.extend({
-        options: {
-          iconSize: [ 22, 37 ],
-          iconAnchor: [ 0, 0 ],
-          popupAnchor: [ 11, 0 ],
-          className: "dotmarker"
-        }
+        CustomIcon = L.DivIcon.extend({
+          options: {
+            iconSize: [ 22, 37 ],
+            iconAnchor: [ 0, 0 ],
+            popupAnchor: [ 11, 0 ],
+            className: "dotmarker"
+          }
+        });
+
+        dotIcon = new CustomIcon();
+
+        map = new L.Map($(address).attr('map-id'),{
+            zoomControl: false,
+            touchZoom: false,
+            scrollWheelZoom: false,
+            boxZoom: false
+          })
+          .addLayer(new wax.leaf.connector(tilejson))
+          .addLayer(new L.Marker(new L.LatLng(y , x), {icon: dotIcon} ))
+          .setView(new L.LatLng(y , x), 17);
       });
-
-      dotIcon = new CustomIcon();
-
-      map = new L.Map('map')
-        .addLayer(new wax.leaf.connector(tilejson))
-        .addLayer(new L.Marker(new L.LatLng(y , x), {icon: dotIcon} ))
-        .setView(new L.LatLng(y , x), 17);
-
-
     });
   },
 
 
-  subscribeButton: function(){
-    jQuery(".subscribe-button").click(function(){
-      var that = this;
-        jQuery.post( '/subscriptions', { id: $('#address').attr('internal_address_id') }, function(data) {
-          jQuery(that).html('Unsubscribe');
-        }, 'json');
-    });   
-  },  
  
   associateMarkers: function(){
     for(var i = 0; i < OpenBlight.markers.length; i++){
@@ -174,7 +190,7 @@ OpenBlight.addresses = {
         }
         pagination = pagination + "<span class='page'><a data-bounds='"+ json_bounds + "' data-page='"+ (stats.page - 1) +"' href='" + query_string + "&page="+ (stats.page - 1 ) +"'>"+ (stats.page - 1) +"</a></span>";
       }
-      pagination = pagination + "<span class='page current'>"+ stats.page +"</span>";
+      pagination = pagination + "<span class='page current'><a href='#'> "+ stats.page +"</a></span>";
       if(stats.page !== stats.page_count) {
         pagination = pagination + "<span class='page'><a data-bounds='"+ json_bounds + "' data-page='"+ (stats.page + 1) +"' href='" + query_string + "&page="+ (stats.page + 1)+"'>"+ (stats.page + 1) +"</a></span>";
         if(stats.page_count - stats.page > 1){

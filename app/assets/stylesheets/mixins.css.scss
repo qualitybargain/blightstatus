@@ -1,0 +1,55 @@
+
+@mixin faq-mixin {
+  .question-list{
+//    margin-top: 10%;
+
+    h3{
+      font-size: 24px;
+      font-weight: 300;
+      padding: 3px 8px;
+      font-family: "Lato"  ;
+      border-bottom: 1px solid #CCC;  
+      text-align: left;
+      margin: 15px;
+    }
+
+    .questions{
+      text-align: left;
+      font-size: 110%;
+      line-height: 130%;
+      padding-bottom: 25px;
+
+
+      .question{
+        margin: 10px 0;
+
+
+        color: $orange;
+        font-family: "Lato";
+        font-size: 16px;
+        font-weight: 400;
+
+        margin: 0px 0;
+        padding-left: 30px;
+        background: url("/assets/arrow-down-orange.png") no-repeat scroll 10px 10px transparent;
+        border-radius: 5px;
+        padding: 5px 15px 5px 30px;
+
+        &:hover{
+          cursor: pointer;
+        }
+
+        &.collapsed{
+          background: url("/assets/arrow-right-orange.png") no-repeat scroll 10px 10px transparent;          
+        }
+      }
+
+      .answer{
+        padding: 0;
+        padding: 0 0 0 30px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+

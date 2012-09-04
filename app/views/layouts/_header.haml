@@ -1,22 +1,47 @@
-.navbar
-  .navbar-inner
-    .container
-      %button.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse", :type => "button"}
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      %a.brand{:href => "/"}
+%header.container.header
+  .span3
+    .logo
+      %a{:href => "/"}
         =image_tag "blightstatus-logo.png"
-      .nav-collapse.collapse
-        %ul.nav.top-account.pull-right
-          %li
-            =link_to "Account", "/pages/about"
+  .span8
+    .navbar
+      .nav-collapse
+        / .border
+        %ul.nav.nav-pills.top-account.pull-right{"role" => "navigation"}
+          %li.dropdown
+            %a#drop1.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"}
+              Account
+              %b.caret
+            .dropdown-menu.container{"aria-labelledby" => "drop1", :role => "menu"}
+              -if account_signed_in?
+                .logged-in
+                  .span3
+                    You are logged in as 
+                    =current_account.email
+                  .span3
+                    =link_to "Manage Alerts", "/accounts"
+                  .span3
+                    =link_to('Logout', destroy_account_session_path, :method => :get)
+                  .clearfix
+              -else
+                .logged-out
+                  .span3              
+                    =link_to "Sign In", "/accounts"
+                  .span3
+                    =link_to "Register", "/accounts/sign_up"
+                  .clearfix
+
         %ul.nav.top-links
           %li
             =link_to "About", "/pages/about"
           %li
-            =link_to "Help", "/pages/help"
-        %ul.nav.top-search
+            =link_to "Overview", "/overview"
           %li
-            - if(controller_name != 'home')
-              =render "layouts/search"        
+            =link_to "Help", "/pages/help"
+        - if(controller_name != 'home')
+          %ul.nav.top-search
+            %li
+              =render "layouts/search"
+
+
+

@@ -2,10 +2,40 @@ OpenBlight.accounts = {
   init: function(){
   },
 
-  map: function(){
-    console.log('accounts map');
-    
+  index: function(){
+    OpenBlight.addresses.mapAddresses();
+    OpenBlight.accounts.subscriptionButton()
+    OpenBlight.accounts.account_page = true;  
 
+  },
+
+
+  subscriptionButton: function(){
+    $(".subscribe-button").bind("ajax:success",
+       function(evt, data, status, xhr){
+        if($(this).data('method') == 'delete'){
+          
+          if(OpenBlight.accounts.account_page){
+            $(this).parentsUntil('.subscription').parent().fadeOut('slow');
+          }
+          else{
+            $(this).html('Receive Alerts');
+            $(this).data('method', 'put')           
+          }
+        }
+        else{
+          $(this).html('Unsubscribe');
+          $(this).data('method', 'delete')
+        }
+      }).bind("ajax:error", function(evt, data, status, xhr){
+        //do something with the error here
+        console.log(data);
+        // $("div#errors p").text(data);
+    });
+  },
+
+
+  map: function(){
     var savePolygon = function (e){
       console.log(e);
       var latlngs = new Array();
@@ -52,10 +82,7 @@ OpenBlight.accounts = {
           //popup.setContent(popupContent);
           savePolygon(e);
           //e.target.openPopup(popup);
-
         });
-  
-
     });
   },
 }

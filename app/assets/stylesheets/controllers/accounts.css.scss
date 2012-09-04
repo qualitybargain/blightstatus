@@ -1,0 +1,60 @@
+@import "variables.css.scss";
+
+.container-accounts{
+
+
+
+  .notice{
+    background-color: white;
+    margin: 20px;
+    padding: 20px 35px;
+    clear:both;
+    text-align: center;
+
+    p{
+      font-size: 135%;
+      margin: 5px 0;
+      color: $orange;
+    }
+  }
+
+	#subscriptions{
+
+    .subscription{
+      h3{
+        font-size: 220%;
+      }
+    }
+
+
+		.view-property, .subscribe{
+			display: inline;
+		}
+
+		.property-status{
+			padding: 0 10px;
+		}
+
+    .map{
+      padding: 10px;
+    }
+
+
+
+    .leaflet-map{
+      border: 1px solid #aaa; 
+      padding: 0 10px 0 0; 
+      width: 250px; 
+      height: 200px;
+    }
+
+    .progress-bar{
+      float: right; 
+      padding: 0;
+      width: 570px;
+    }    
+
+
+	}
+}
+
