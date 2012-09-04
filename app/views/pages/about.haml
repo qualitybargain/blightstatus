@@ -27,13 +27,17 @@
       %h2 BlightSTATUS in your city
       %p We know this problem isn’t unique to New Orleans - there are numerous municipalities across the country tasked with managing a large number of vacant or blighted properties. We want to put blightSTATUS to work for you, too!
 
-      %p Get in touch: 
-        
+      %p 
+        Get in touch: 
+        =mail_to "neworleans@codeforamerica.org", "neworleans@codeforamerica.org"
 
 
     .row
       %h2 Help us help you!
-      %p We want blightSTATUS to make your work easier, not harder. If something is confusing or there is a feature missing that would make your work easier, please, let us know!
+      %p 
+        We want blightSTATUS to make your work easier, not harder. If something is confusing or there is a feature missing that would make your work easier, please, 
+        %a{:href => "javascript:UserVoice.showPopupWidget();"} 
+          let us know!
 
 
 
@@ -77,7 +81,7 @@
           %a{:href => "javascript:UserVoice.showPopupWidget();"} 
             > User Voice Feedback
 
-      %p
-        Twitter:
-        %p{:style => "padding-left: 30px"}
-          =link_to "> @blightSTATUS", "http://twitter.com/blightSTATUS"
+      / %p
+      /   Twitter:
+      /   %p{:style => "padding-left: 30px"}
+      /     =link_to "> @blightSTATUS", "http://twitter.com/blightSTATUS"
