@@ -19,9 +19,6 @@
               .nav.nav-list
                 .nav-header
                   .btn-group
-                    %input#checkbox-demolitions{:type => "checkbox", :value => "demolitions", :class => "filter-checkbox"}/
-                    %label.btn{:for => "checkbox-demolitions"} Demolitions
-                    %br
                     %input#checkbox-inspections{:type => "checkbox", :value => "inspections", :class => "filter-checkbox"}/
                     %label.btn{:for => "checkbox-inspections"} Inspections
                     %br
@@ -30,6 +27,9 @@
                     %br
                     %input#checkbox-judgements{:type => "checkbox", :value => "judgements", :class => "filter-checkbox"}/
                     %label.btn{:for => "checkbox-judgements"} Judgements
+                    %br
+                    %input#checkbox-demolitions{:type => "checkbox", :value => "demolitions", :class => "filter-checkbox"}/
+                    %label.btn{:for => "checkbox-demolitions"} Demolitions
 
                   / %li.nav-stats.active 
                   /   =link_to "Demolitions", '/cases.json?table=demolitions', :method => :get,  :remote => true
