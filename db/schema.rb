@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120829172327) do
+ActiveRecord::Schema.define(:version => 20120830231301) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -132,9 +132,18 @@ ActiveRecord::Schema.define(:version => 20120829172327) do
     t.string   "case_number"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+    t.string   "hearing_type"
   end
 
   add_index "hearings", ["case_number"], :name => "index_hearings_on_case_number"
+
+  create_table "inspection_findings", :force => true do |t|
+    t.integer  "inspection_id"
+    t.text     "finding"
+    t.string   "label"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "inspections", :force => true do |t|
     t.string   "case_number"
@@ -145,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20120829172327) do
     t.integer  "inspector_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.text     "notes"
   end
 
   add_index "inspections", ["case_number"], :name => "index_inspections_on_case_number"
