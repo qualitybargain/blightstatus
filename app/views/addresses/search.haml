@@ -10,6 +10,7 @@
             %p
               (only showing properties with cases history)
           %ul.nav.list
+            / #loading=image_tag('ajax-loader.gif')
             -#-@addresses.each do |a|
               %li.active.address.result
                 %a{:href => "#"}
@@ -20,7 +21,6 @@
                 %a{:href => address_path(a)}
                   .maps-marker
                   =a.address_long
-          #loading=image_tag('ajax-loader.gif')
           .clearfix
       .span9.right-bar
         #map{:style => "height: 400px;"}
