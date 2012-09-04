@@ -123,7 +123,7 @@
       border-radius: 10px;
       margin: 15px 0;
       font-family: "Lato";
-      font-size: 120%;
+      font-size: $normalFontSize;
     }
   }
 
@@ -332,6 +332,8 @@
 
 .view-all-faq{
   font-size: $largeFontSize;
+  text-align: left;
+  margin-left: 35px;
 }
 
 
@@ -410,7 +412,12 @@
     }
 
     &.pending {
-      background: url("/assets/progress-arrows.png") no-repeat scroll -228px -2px transparent;
+      background: url("/assets/progress-arrows.png") no-repeat scroll 0 -97px transparent;
+
+      &.resolution {
+        background: url("/assets/progress-arrows.png") no-repeat scroll -228px -2px transparent;
+      }
+
     }
 
 
