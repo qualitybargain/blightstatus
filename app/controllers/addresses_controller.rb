@@ -20,7 +20,12 @@ class AddressesController < ApplicationController
       @account_subscribed = !@account.subscriptions.where(:address_id => params[:id]).empty? 
     end
     @address = Address.find(params[:id])
-    respond_with(@address, @account_subscribed)
+
+    # if APP_CONFIG['demo_page_id'] == @address.id
+    #   render :action => 'show-demo'  
+    # else
+      respond_with(@address, @account_subscribed)
+    # end
   end
 
 
