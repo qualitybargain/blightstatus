@@ -152,7 +152,7 @@ OpenBlight.statistics = {
       jQuery.getJSON('/cases.json', {  
           type: type, 
           start_date: start_date.toDateString(), 
-          end_date: end_date.toDateString(), 
+          end_date: end_date.toDateString()
         }, 
         function(data) {
 

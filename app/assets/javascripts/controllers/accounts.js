@@ -84,5 +84,5 @@ OpenBlight.accounts = {
           //e.target.openPopup(popup);
         });
     });
-  },
+  }
 }
