@@ -24,7 +24,9 @@
                 -kase.inspections.each do |i|
                   %tr
                     %td.date=i.inspection_date.strftime("%-m/%-d/%y")
-                    %td Property was inspected, with a finding of #{i.result}
+                    %td 
+                      Property was inspected, with a finding of 
+                      %b #{i.result}
         -unless kase.notifications.empty?
           %tr{:class => "case-history-notification"}
             / %td
@@ -62,8 +64,9 @@
                     %td.date=h.hearing_date.strftime("%-m/%-d/%y")
                     %td
                       The case against this property #{h.date > Time.now ? 'will be' : 'was'} heard in a public hearing at 
-                      %b 10:00am 
-                      at New Orleans Courthouse, 1234 Perdido St. with an outcome of #{h.hearing_status}
+                      at New Orleans Courthouse, with an outcome of 
+                      %b
+                        #{h.hearing_status}
 
         -unless kase.resets.empty?
           %tr{:class => "case-history-reset"}
