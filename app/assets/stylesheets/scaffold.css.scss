@@ -19,8 +19,11 @@ html{
 
 
   header {
-  //    border-bottom: 1px solid #F5F5F5;
     margin-bottom: 50px;
+
+    .logo{
+      padding: 8px 0;
+    }
   }
 
 
@@ -174,6 +177,16 @@ navbar
     margin: 0px 0 0 0;
     position: relative;
     width: 240px;
+
+    .transparent-submit{
+
+      width: 20px;
+      height: 30px;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+
+    }
 
     .search-form{
 //        width: 325px;
@@ -417,4 +430,8 @@ ul.arrow-list{
 .progress-bar-wrapper .table tbody tr:hover td,
 .progress-bar-wrapper .table tbody tr:hover th {
     background-color: inherit;
+}
+
+.jslider-value{
+  background: transparent;
 }

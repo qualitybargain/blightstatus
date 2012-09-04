@@ -6,6 +6,8 @@ OpenBlight = {
       OpenBlight.common.show_disclaimer();
       OpenBlight.common.handle_auto_complete_address();
       
+      OpenBlight.common.convertDivToSubmit();
+
 
 
       if(!Array.prototype.last) {
@@ -24,6 +26,12 @@ OpenBlight = {
     },
 
 
+
+    convertDivToSubmit: function(){
+      $('.transparent-submit').click(function(){
+        $(this).parentsUntil('form').parent().submit();
+      });
+    },
 
     goToByScroll: function(id){
       $('html,body').animate({scrollTop: $("#"+id).offset().top},'fast');
