@@ -149,7 +149,7 @@ OpenBlight.statistics = {
   
       $("input.filter-checkbox").attr("disabled", true);
 
-      jQuery.getJSON('/cases.json', {  
+      jQuery.getJSON('/addresses/addresses_with_case.json', {  
           type: type, 
           start_date: start_date.toDateString(), 
           end_date: end_date.toDateString()

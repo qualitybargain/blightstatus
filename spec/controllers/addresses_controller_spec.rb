@@ -13,6 +13,13 @@ describe AddressesController do
     end
   end
 
+  describe "GET addresses_with_case" do
+    it "returns a json of addresses with inspections in the last 2 weeks" do
+      get :addresses_with_case, :format => :json, :type => "inspections"
+      response.should be_success
+    end
+  end
+
   describe "GET show" do
     it "assigns the request address as @address" do
       get :show, :id => @address.id

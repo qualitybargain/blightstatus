@@ -71,4 +71,37 @@ class AddressesController < ApplicationController
 
     respond_with [@addresses.to_json(:methods => [:most_recent_status_preview]), :page_count => page_count, :page => page]
   end
+
+
+  def addresses_with_case
+
+    date = Time.now
+
+
+    params[:start_date] = params[:start_date].nil? ? (date - 2.weeks).to_s : params[:start_date]
+    params[:end_date] = params[:end_date].nil? ? (date).to_s : params[:end_date]
+
+    start_date = Date.parse(params[:start_date]).strftime('%Y-%m-%d')
+    end_date = Date.parse(params[:end_date]).strftime('%Y-%m-%d')
+
+    # TODO: we should be returning GeoJSON instead. This is how:
+    # RGeo::ActiveRecord::GeometryMixin.set_json_generator(:geojson)
+    # @cases = ''
+    case params[:type]
+      when 'inspections'
+        @cases = Address.joins(:inspections).where(" inspection_date > '#{start_date}' AND inspection_date < '#{end_date}' ").pluck(:point)
+      when 'hearings'
+        @cases = Address.joins(:hearings).where(" hearing_date > '#{start_date}' AND hearing_date < '#{end_date}' ").pluck(:point)
+      when 'judgements'
+        @cases = Address.joins(:judgements).where(" judgement_date > '#{start_date}' AND judgement_date < '#{end_date}' ").pluck(:point)
+      when 'demolitions'
+        @cases = Address.joins(:demolitions).where(" date_completed > '#{start_date}'  AND date_completed < '#{end_date}' ").pluck(:point)
+    end
+
+    respond_to do |format|
+      format.json { render :json => @cases.to_json }
+    end
+      
+  end
+
 end
