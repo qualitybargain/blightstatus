@@ -1,5 +1,5 @@
 .container.about-page-content
-  .left-bar
+  .left-bar.span6
     .row
       %h2 What does it do?
       %p BlightSTATUS makes it simple for residents to find out what’s going on with blighted properties in their community – no long waits on the telephone or visits to City Hall required. 
@@ -37,8 +37,8 @@
 
 
 
-  .right-bar
-    .meet-the-team.row
+  .right-bar.span4
+    .meet-the-team
       %h2
         MEET THE TEAM      
       .span4.img-block
@@ -57,16 +57,15 @@
         =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Eddie.jpg'
         .image-name
           Eddie A Tejeda
-
-    .our-partners.row
+    .clearfix
+    .our-partners
       %h2
         OUR PARTNERS
-      %row
-        .city-of-new-orleans
-        .code-for-america
-        .nora
-
-    .get-in-touch.row{:style => "font-size: 110%"}
+      .city-of-new-orleans
+      .code-for-america
+      .nora
+    .clearfix
+    .get-in-touch{:style => "font-size: 110%"}
       %h2 GET IN TOUCH          
       %p
         Reuse & general info:
