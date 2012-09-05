@@ -35,21 +35,21 @@
               .case-number{:style => "font-size: 90%"}
                 = k.case_number
             %td
-              -unless k.inspections.nil?
+              -unless k.inspections.nil? || k.inspections.empty?
                 -k.inspections.each do |i|
                   .progress-arrow.inspection{:style => "z-index: 14"}
                   .date=i.date.strftime("%-m/%-d/%y")
               -else
                 .progress-arrow.pending{:style => "z-index: 14"}
             %td
-              -unless k.notifications.nil?
+              -unless k.notifications.nil? || k.notifications.empty?
                 -k.notifications.each do |n|
                   .progress-arrow.notification{:style => "z-index: 13"}
                   .date=n.date.strftime("%-m/%-d/%y")
               -else
                 .progress-arrow.pending{:style => "z-index: 13"}
             %td
-              -unless k.hearings.nil?
+              -unless k.hearings.nil? || k.hearings.empty?
                 -k.hearings.each do |h|
                   .progress-arrow.hearing{:style => "z-index: 12"}
                   .date=h.date.strftime("%-m/%-d/%y")
