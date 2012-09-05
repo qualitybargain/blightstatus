@@ -74,9 +74,7 @@ class AddressesController < ApplicationController
 
 
   def addresses_with_case
-
     date = Time.now
-
 
     params[:start_date] = params[:start_date].nil? ? (date - 2.weeks).to_s : params[:start_date]
     params[:end_date] = params[:end_date].nil? ? (date).to_s : params[:end_date]
