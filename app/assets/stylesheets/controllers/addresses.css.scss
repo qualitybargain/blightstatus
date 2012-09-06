@@ -401,16 +401,15 @@
     }
 
     &.resolution {
-      background: url('/assets/progress-arrows.png') no-repeat 0 -100px transparent;
+      background: url('/assets/progress-arrows.png') no-repeat -225px -49px transparent;
+
+      &.pending {
+        background: url('/assets/progress-arrows.png') no-repeat 0px -100px transparent;
+      }
     }
 
     &.pending {
       background: url("/assets/progress-arrows.png") no-repeat scroll 0 -97px transparent;
-
-      &.resolution {
-        background: url("/assets/progress-arrows.png") no-repeat scroll -228px -2px transparent;
-      }
-
     }
 
 
