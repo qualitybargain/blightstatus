@@ -73,10 +73,11 @@
 	}
 
 	.layout-wrapper{
-
 		width: 100%;
 		position: relative;
 		margin: 25px;
+		font-size: 120%;
+
 		.layout-slider{
 			width: 500px;
 			margin: 0 auto;
@@ -84,6 +85,18 @@
 
 		.timeline-range{
 			display: none;
+		}
+
+		.current-year{
+			position: absolute;
+			top: 0px;
+			right: 160px;
+		}
+
+		.previous-year{
+			position: absolute;
+			top: 0px;
+			left: 170px;
 		}
 	}
 
