@@ -23,12 +23,16 @@ Openblight::Application.routes.draw do
   match "addresses/search" => "addresses#search"
   match "addresses/map_search" => "addresses#map_search"
   match "addresses/addresses_with_case" => "addresses#addresses_with_case"
+  match "addresses/redirect_latlong" => "addresses#redirect_latlong"
+
+  
 
 
 
-  match "overview" => "statistics#maps"
+  match "browse" => "statistics#maps"
   match "stats/maps" => "statistics#maps"
   match "stats/graphs" => "statistics#graphs"
+
   match "stats" => "statistics#graphs"
 
 

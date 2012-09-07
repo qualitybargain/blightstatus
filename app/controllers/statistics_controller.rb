@@ -6,6 +6,7 @@ class StatisticsController < ApplicationController
   end
 
   def maps
+	@date = Time.now()
   end
 
 end

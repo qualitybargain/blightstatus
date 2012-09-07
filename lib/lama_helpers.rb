@@ -4,10 +4,12 @@ module LAMAHelpers
 
     incidents.each do |incident|
       case_number = incident.Number
+      next unless case_number # need to find a better way to deal with this ... revisit post LAMA data cleanup
+      
       kase = Case.find_or_initialize_by_case_number(case_number)
 
       incident_full = l.incident(case_number)
-
+      
       #Go through all data points and pull out relevant things here
       #Inspections
       inspections = incident_full.Inspections
@@ -74,11 +76,52 @@ module LAMAHelpers
                end
              end
             end
-            if event.Name =~ /Hearing - Guilty:/
-              notes = event.Name.gsub('Hearing - Guilty:','').strip
-              Judgement.create(:case_number => case_number, :status => 'Guilty', :notes => notes, :judgement_date => event.DateEvent)
+
+            j_status = nil
+            if event.Name =~ /Guilty/ || (event.Name =~ /Hearing/ && event.Status =~ /Guilty/)
+              if event.Name =~ /Guilty/
+                notes = event.Name.strip
+              else
+                notes = event.Status.strip
+              end
+              if notes =~ /Not Guilty/
+                j_status = 'Not Guilty'
+              else
+                j_status = 'Guilty'
+              end
+            elsif event.Name =~ /Dismiss/ || (event.Name =~ /Hearing/ && (event.Status =~ /Dismiss/ || event.Status =~ /dismiss/))
+              if event.Name =~ /Dismiss/
+                notes = event.Name.strip
+              else
+                notes = event.Status.strip
+              end
+              j_status = 'Closed'
+            elsif event.Name =~ /Compliance/ || (event.Name =~ /Hearing/ && event.Status =~ /Compliance/)
+              if event.Name =~ /Compliance/
+                notes = event.Name.strip
+              else
+                notes = event.Status.strip
+              end
+              j_status = 'Closed'
+            elsif event.Name =~ /Closed New Owner/ || (event.Name =~ /Hearing/ && event.Status =~ /Closed/)
+              if event.Name =~ /Closed/
+                notes = event.Name.strip
+              else
+                notes = event.Status.strip
+              end
+              j_status = 'Closed'
+            elsif event.Name =~ /Judgment rescinded/ || (event.Name =~ /Hearing/ && event.Status =~ /Judgment rescinded/)
+              if event.Name =~ /rescinded/
+                notes = event.Name.strip
+              else
+                notes = event.Status.strip
+              end
+              j_status = 'Judgment Rescinded'
             end
-         end
+            if j_status
+              Judgement.create(:case_number => case_number, :status => j_status, :notes => notes, :judgement_date => event.DateEvent)  
+            end
+          end
         end
       end
 
@@ -86,14 +129,31 @@ module LAMAHelpers
       #TODO: add violations table and create front end for this 
       
       #Judgments - Closed
-      if incident_full.Description =~ /Status: Closed/
+      case_status = incident_full.Description
+      if (case_status =~ /Status:/ && case_status =~ /Status Date:/)
+        case_status = case_status[((case_status =~ /Status:/) + "Status:".length) ... case_status =~ /Status Date:/].strip
+
+        j_status = nil
+        
+        if case_status =~ /Closed/ || case_status =~ /In Compliance/ || case_status =~ /Dismiss/ || case_status =~ /dismiss/
+            j_status = 'Closed'
+        elsif case_status =~ /Not Guilty/
+            j_status = 'Not Guilty'
+        elsif case_status =~ /Guilty/
+            j_status = 'Guilty'
+        elsif case_status =~ /Judgment rescinded/
+            j_status = 'Judgment Rescinded' 
+        end
+
+        if j_status
           d = incident_full.Description
           d = d[d.index('Status Date:') .. -1].split(' ')
           d = d[2].split('/')
           d = DateTime.new(d[2].to_i,d[0].to_i,d[1].to_i)
-          Judgement.create(:case_number => case_number, :status => 'Closed', :judgement_date => d)
+          Judgement.create(:case_number => case_number, :status => j_status, :judgement_date => d, :notes => case_status)
+        end
       end
-
+      
       #Address if case isn't already associated
       if kase.address.nil?
         addresses = AddressHelpers.find_address(incident.Location)
