@@ -69,6 +69,6 @@ class Address < ActiveRecord::Base
     p1 = factory.point(ne["lng"].to_f, ne["lat"].to_f)
     p2 = factory.point(sw["lng"].to_f, sw["lat"].to_f)
     box.add(p1).add(p2)
-    @addresses = Address.find_by_sql("SELECT a.* FROM addresses a INNER JOIN cases c ON c.address_id = a.id WHERE ST_Within(point, ST_GeomFromText('#{box.to_geometry.as_text}')) GROUP BY a.id ORDER BY a.street_name ASC, a.house_num ASC;")
+    @addresses = Address.find_by_sql("SELECT a.id, a.geopin, a.house_num, a.street_name, a.street_type, a.address_long, a.point FROM addresses a INNER JOIN cases c ON c.address_id = a.id WHERE ST_Within(point, ST_GeomFromText('#{box.to_geometry.as_text}')) GROUP BY a.id, a.geopin, a.house_num, a.street_name, a.street_type, a.address_long, a.point ORDER BY a.street_name ASC, a.house_num ASC;")
   end
 end
