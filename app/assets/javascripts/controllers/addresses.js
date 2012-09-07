@@ -15,6 +15,7 @@ OpenBlight.addresses = {
         map.addLayer(new wax.leaf.connector(tilejson));
 
         jQuery.getJSON(json_path, function(data) {
+          // console.log
           if(data.length){
             var popup = new L.Popup();
 

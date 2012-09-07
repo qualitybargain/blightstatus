@@ -51,7 +51,7 @@
 	  box-shadow: 0 2px 4px rgba(0, 0, 0.5, 0.9) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
 	  color: rgba(255, 255, 255, 0.8);
 	  outline: 0 none;
-	  opacity: 0.85;
+	  opacity: 0.5;
 
 	}
 
@@ -73,10 +73,11 @@
 	}
 
 	.layout-wrapper{
-
 		width: 100%;
 		position: relative;
 		margin: 25px;
+		font-size: 120%;
+
 		.layout-slider{
 			width: 500px;
 			margin: 0 auto;
@@ -84,6 +85,18 @@
 
 		.timeline-range{
 			display: none;
+		}
+
+		.current-year{
+			position: absolute;
+			top: 0px;
+			right: 160px;
+		}
+
+		.previous-year{
+			position: absolute;
+			top: 0px;
+			left: 170px;
 		}
 	}
 

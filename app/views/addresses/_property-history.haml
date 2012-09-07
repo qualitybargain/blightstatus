@@ -10,13 +10,6 @@
           %tr{:class => "case-history-inspection"}
             %td 
               %span.arrow            
-            /   .progress-indic-wrapper
-            /     .date.inspection
-            /     .date.empty
-            /     .date.empty
-            /     .date.empty
-            /     .date.empty
-
             %td.status 
               Inspected
             %td
@@ -29,13 +22,6 @@
                       %b #{i.result}
         -unless kase.notifications.empty?
           %tr{:class => "case-history-notification"}
-            / %td
-            /   .progress-indic-wrapper
-            /     .date.empty
-            /     .date.notification
-            /     .date.empty
-            /     .date.empty
-            /     .date.empty
             %td
               %span.arrow                                    
             %td.status Owner Notified
@@ -47,13 +33,6 @@
                     %td The owner was notified that an administrative case was being brought against this property for violations of the New Orleans Building Code.
         -unless kase.hearings.empty?
           %tr{:class => "case-history-hearing"}
-            / %td
-            /   .progress-indic-wrapper
-            /     .date.empty
-            /     .date.empty
-            /     .date.hearing
-            /     .date.empty
-            /     .date.empty
             %td
               %span.arrow                                    
             %td.status Hearing Scheduled
@@ -70,13 +49,6 @@
 
         -unless kase.resets.empty?
           %tr{:class => "case-history-reset"}
-            / %td
-            /   .progress-indic-wrapper
-            /     .date.empty
-            /     .date.empty
-            /     .date.empty
-            /     .date.empty
-            /     .date.reset
             %td
               %span.arrow                                    
             %td.status Reset

@@ -1,20 +1,21 @@
 OpenBlight.statistics = {
     init: function(){
 
-      OpenBlight.statistics.layergroup = [];
 
-
+      OpenBlight.statistics.layergroup = {};
     },
 
 
-    //controller method
+    /**
+     * controller method
+     */
     maps: function(){
 
 
 
       $(":checkbox").attr("autocomplete", "off");
       OpenBlight.statistics.createStatsMap()
-      OpenBlight.statistics.toggleCheckboxes();
+      OpenBlight.statistics.selectRadioFilters();
 
 
       var date = new Date();
@@ -28,11 +29,7 @@ OpenBlight.statistics = {
         year_to_date[i] = monthNames[month.getMonth()];
       }
       
-
-      // $('#timeline-range').val( "335;365")
-
-      $('#timeline-range').val( "80;109")
-      
+      $('#timeline-range').val( "335;365")      
 
       $("#timeline-range").slider({ from: 1, to: 365, step: 1, dimension: '', scale: year_to_date, limits: false,
         calculate: function( value ){
@@ -45,10 +42,11 @@ OpenBlight.statistics = {
           $('.filter-checkbox').each(function(){
 
             if($(this).is(':checked')){
-              var this_layer = OpenBlight.statistics.layergroup[$(this).val()];
+              var removethis = OpenBlight.statistics.layergroup[$(this).val()];
+              OpenBlight.statistics.map.removeLayer(removethis);
+
               var timeline_date = OpenBlight.statistics.getTimelineDate();
 
-              OpenBlight.statistics.map.removeLayer(this_layer);
               OpenBlight.statistics.populateMap( $(this).val(), 
                                                   timeline_date.start_date, 
                                                   timeline_date.end_date
@@ -58,16 +56,21 @@ OpenBlight.statistics = {
         }
       });
 
+      $('#checkbox-inspections').trigger('click');
+      // $("#checkbox-inspections").prop("checked", true);
+
+
 
     },
 
-    //controller method
+    /**
+     * controller method
+     */
     graphs: function(){
 
       var i;
       var keys = []
       var values = [];
-      //var values = [];
 
       OpenBlight.statistics.createChart("inspection_types",BlightStats.data.inspections.types,"Inspection by Type");
       OpenBlight.statistics.createChart("inspection_results",BlightStats.data.inspections.results,"Inspection Results");
@@ -82,17 +85,24 @@ OpenBlight.statistics = {
 
 
 
-    //Local Methods
-    toggleCheckboxes: function(){
-      $('.filter-checkbox').live('change', function(index){
-        if($(this).prop('checked')){
-          var timeline_date = OpenBlight.statistics.getTimelineDate();
+    /**
+     * Local Methods
+     */
+    selectRadioFilters: function(){
 
+      $('.filter-checkbox').live('change', function(index){
+        var type = $(this).val() ;
+        if($(this).prop('checked')){
+
+          var timeline_date = OpenBlight.statistics.getTimelineDate();
           OpenBlight.statistics.populateMap($(this).val(), timeline_date.start_date, timeline_date.end_date);
+
         }
         else{
-          var this_layer = OpenBlight.statistics.layergroup[$(this).val()];
-          OpenBlight.statistics.map.removeLayer(this_layer);
+        //   var this_layer = OpenBlight.statistics.layergroup[$(this).val()];
+        //   OpenBlight.statistics.map.removeLayer(this_layer);
+          $('#checkbox-'+type+' + .btn').html( type )
+
         }
       });
     },
@@ -140,37 +150,52 @@ OpenBlight.statistics = {
     },
 
     populateMap: function(type, start_date, end_date){
-      var markers = [];
 
+      // console.log(OpenBlight.statistics.layergroup);
 
-      // # TODO: we should be returning GeoJSON instead. This is how:
-      // Check cases_controller for more info about how to do this
-
-  
       $("input.filter-checkbox").attr("disabled", true);
 
-      jQuery.getJSON('/addresses/addresses_with_case.json', {  
+        jQuery.getJSON('/addresses/addresses_with_case.json', {  
           type: type, 
           start_date: start_date.toDateString(), 
           end_date: end_date.toDateString()
         }, 
         function(data) {
 
-          if(data.length){
-            jQuery.each(data, function(key, val) {
-              a = data[key].substr(7, 35).split(' ');
-                markers.push( L.circle([a[1], a[0]] , 100, { 
-                  stroke: false,
-                  fillColor: $('#checkbox-' + type + ' + label').css('background-color'),
-                  fillOpacity: 0.5
-                }));
-              });
-          }
-          OpenBlight.statistics.layergroup[type] = new L.layerGroup(markers);
-          OpenBlight.statistics.layergroup[type].addTo(OpenBlight.statistics.map);
+          var geojsonMarkerOptions = {
+              radius: 3,
+              fillColor: $('#checkbox-' + type + ' + label').css('background-color'),
+              color: "#ccc",
+              weight: 1,
+              opacity: 1,
+              fillOpacity: 0.8
+          };
+
+
+          $.each(OpenBlight.statistics.layergroup, function(index, value) { 
+            OpenBlight.statistics.map.removeLayer(OpenBlight.statistics.layergroup[index]);
+          });
+
+
+
+          OpenBlight.statistics.layergroup[type] = L.geoJson(data, {
+            pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, geojsonMarkerOptions);
+            },
+
+            onEachFeature: function(feature, layer) {
+              layer.on('click', function() { window.location = '/addresses/redirect_latlong?x=' + feature.coordinates[0]  + '&y=' + feature.coordinates[1] })
+
+            }
+
+          }).addTo(OpenBlight.statistics.map);
+
+
+          $('.total').html( 'total ' + type + ':');
+          $('#total_number').html( Object.keys(data).length );
+
+
           $("input.filter-checkbox").removeAttr("disabled");
-
-
       });
     },
 
