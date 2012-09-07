@@ -30,6 +30,10 @@ class AddressesController < ApplicationController
 
 
   def search
+    # TODO: this should eventually return GeoJSON. But lots of javascript is dependent on
+    # WKT, so this will be rewritten laster
+    RGeo::ActiveRecord::GeometryMixin.set_json_generator(:wkt)
+
     @search_term = params[:address]
     Search.create(:term => @search_term, :ip => request.remote_ip)
     address_result = AddressHelpers.find_address(params[:address])
@@ -85,7 +89,7 @@ class AddressesController < ApplicationController
     end_date = Date.parse(params[:end_date]).strftime('%Y-%m-%d')
 
     # TODO: we should be returning GeoJSON instead. This is how:
-    # RGeo::ActiveRecord::GeometryMixin.set_json_generator(:geojson)
+    RGeo::ActiveRecord::GeometryMixin.set_json_generator(:geojson)
     # @cases = ''
     case params[:type]
       when 'inspections'

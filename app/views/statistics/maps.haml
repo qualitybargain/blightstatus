@@ -18,18 +18,23 @@
 
               .nav.nav-list
                 .nav-header
+                  Select Filters
                   .btn-group
-                    %input#checkbox-inspections{:type => "checkbox", :value => "inspections", :class => "filter-checkbox"}/
-                    %label.btn{:for => "checkbox-inspections"} Inspections
+                    %input#checkbox-inspections{:name => "filter-type" , :type => "radio", :value => "inspections", :class => "filter-checkbox"}/
+                    %label.btn{:for => "checkbox-inspections"} Inspections 
                     %br
-                    %input#checkbox-hearings{:type => "checkbox", :value => "hearings", :class => "filter-checkbox"}/
+                    %input#checkbox-hearings{:name => "filter-type" , :type => "radio", :value => "hearings", :class => "filter-checkbox"}/
                     %label.btn{:for => "checkbox-hearings"} Hearings
                     %br
-                    %input#checkbox-judgements{:type => "checkbox", :value => "judgements", :class => "filter-checkbox"}/
-                    %label.btn{:for => "checkbox-judgements"} Judgements
+                    %input#checkbox-judgements{:name => "filter-type" ,:type => "radio", :value => "judgements", :class => "filter-checkbox"}/
+                    %label.btn{:for => "checkbox-judgements"} Judgments
                     %br
-                    %input#checkbox-demolitions{:type => "checkbox", :value => "demolitions", :class => "filter-checkbox"}/
+                    %input#checkbox-demolitions{:name => "filter-type", :type => "radio", :value => "demolitions", :class => "filter-checkbox"}/
                     %label.btn{:for => "checkbox-demolitions"} Demolitions
+                  .stats
+                    .total Total:
+                    #total_number
+
 
                   / %li.nav-stats.active 
                   /   =link_to "Demolitions", '/cases.json?table=demolitions', :method => :get,  :remote => true
