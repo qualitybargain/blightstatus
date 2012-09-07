@@ -38,6 +38,7 @@ FactoryGirl.define do
   end
 
   factory :judgement do
+    judgement_date    { Time.now }
     status            {"guilty"}
   end
 
