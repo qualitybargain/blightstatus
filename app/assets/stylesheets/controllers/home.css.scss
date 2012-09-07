@@ -23,15 +23,20 @@
       font-family: "Kreon", sarif;
       line-height: 15px;
     }
-
   	input.btn[type="submit"] {
   		font-size: 150%;
   		height: 40px;
-  		margin: 0 5px;		
+  		margin: 0 5px;
   	}	
     
     form{
-      margin: 0;
+      margin: 5px 0px 8px;
+    }
+
+    .search-button{
+      .btn{
+        height: 30px;
+      }
     }
 
     .page-header{
@@ -121,7 +126,7 @@
             height: 32px;
             font-size: 140%;
             clear: both;
-            background: url("/assets/search-icon.png") no-repeat scroll 265px center white;            
+            background: white;
           }
 
         }

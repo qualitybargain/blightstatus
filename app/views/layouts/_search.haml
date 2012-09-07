@@ -1,11 +1,5 @@
 .search-form
   =form_tag("/addresses/search", :method => "get") do
     .search-field
-      .transparent-submit
-      -if(controller_name == 'home')
-        =text_field_tag 'address', '', :placeholder => "Example: 2326 Gravier St", :id => "main-search-field"
-      -else 
-        =text_field_tag 'address', '', :placeholder => "Search address or street name", :id => "main-search-field"    
-    .search-button
-      =submit_tag("Search", :disable_with => "Search", :class => 'btn btn-primary btn-primary-search')
-      
+      =text_field_tag 'address', '', :placeholder => "Search address or street name", :id => "main-search-field"    
+      =submit_tag("", :class => 'btn-secondary-search search-button')
