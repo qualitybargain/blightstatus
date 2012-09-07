@@ -8,8 +8,12 @@
           .recommended-next-action
             .clearfix
             .layout-wrapper
+              .previous-year
+                =@date.year - 1
               .layout-slider
                 %input#timeline-range{:type=>"slider", :name=>"area"}
+              .current-year
+                =@date.year
 
 
             .clearfix
