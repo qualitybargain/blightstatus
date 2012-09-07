@@ -33,12 +33,6 @@
       margin: 5px 0px 8px;
     }
 
-    .search-button{
-      .btn{
-        height: 30px;
-      }
-    }
-
     .page-header{
        border: 0px; 
        margin: 30px 0;
@@ -54,7 +48,6 @@
     }
     
   	.content{
-
   		margin: 0 auto;
   		position: relative;
   		width: 100%;
@@ -79,17 +72,11 @@
       width: 320px;
     }
 
-
-
-
-
     .tag-line{
       float: left;
-      font-family: "Lato";
-      font-size: 35px;
-      line-height: 40px;
-      padding-left: 35px;
-      padding-top: 55px;
+      font-size: 34px;
+      line-height: 38px;
+      padding: 54px 0 0 30px;
       text-align: left;
       width: 430px;
       font-weight: 300;

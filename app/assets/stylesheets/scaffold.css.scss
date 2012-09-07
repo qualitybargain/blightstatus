@@ -195,9 +195,6 @@ navbar
 
       form{
         margin: 0 0 0;
-        .btn-primary-search{
-          display: none;
-        }
       }
 
       .search-field{
@@ -252,6 +249,10 @@ navbar
   font-weight: 100;
   width: 225px;
   padding: 5px;
+}
+
+.btn-primary-search{
+  height: 30px;
 }
 
 .btn-secondary-search{
