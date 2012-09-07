@@ -77,6 +77,13 @@ class AddressesController < ApplicationController
   end
 
 
+  def redirect_latlong
+    # factory = RGeo::Cartesian.factory
+    # location = factory.point(params[:x].to_f, params[:y].to_f)
+    @address = Address.where(" point = ST_GeomFromText('POINT(#{params[:x].to_f} #{params[:y].to_f})') " ).first
+    redirect_to address_url(@address), :status => :found
+  end
+
   def addresses_with_case
     date = Time.now
 
