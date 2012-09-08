@@ -7,7 +7,7 @@
     %table.table.table-condensed.timeline
       %tbody
         -unless kase.inspections.empty?
-          %tr{:class => "case-history-inspection"}
+          %tr{:class => "case-history-inspection case-history-inspection-#{kase.case_number}"}
             %td 
               %span.arrow            
             %td.status 
@@ -21,7 +21,7 @@
                       Property was inspected, with a finding of 
                       %b #{i.result}
         -unless kase.notifications.empty?
-          %tr{:class => "case-history-notification"}
+          %tr{:class => "case-history-notification case-history-notification-#{kase.case_number}"}
             %td
               %span.arrow                                    
             %td.status Owner Notified
@@ -32,7 +32,7 @@
                     %td.date=n.date.strftime("%-m/%-d/%y")
                     %td The owner was notified that an administrative case was being brought against this property for violations of the New Orleans Building Code.
         -unless kase.hearings.empty?
-          %tr{:class => "case-history-hearing"}
+          %tr{:class => "case-history-hearing case-history-hearing-#{kase.case_number}"}
             %td
               %span.arrow                                    
             %td.status Hearing Scheduled
@@ -48,7 +48,7 @@
                         #{h.hearing_status}
 
         -unless kase.resets.empty?
-          %tr{:class => "case-history-reset"}
+          %tr{:class => "case-history-reset case-history-reset-#{kase.case_number}"}
             %td
               %span.arrow                                    
             %td.status Reset
