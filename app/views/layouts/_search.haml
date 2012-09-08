@@ -1,5 +1,5 @@
 .search-form
   =form_tag("/addresses/search", :method => "get") do
     .search-field
-      =text_field_tag 'address', '', :placeholder => "Search address or street name", :id => "main-search-field"    
+      =text_field_tag 'address', '', :placeholder => "Search by address or street name", :id => "main-search-field"    
       =submit_tag("", :class => 'btn-secondary-search search-button')

@@ -31,7 +31,7 @@ html{
     background: rgba(0,0,0,0.1);
     color: $darkGrey;
     padding: 20px 0;
-    font-weight: 300;
+    font-weight: 400;
     width: 100%;
 
     h3{
@@ -203,9 +203,10 @@ navbar
         display: inline-block;
 
         #main-search-field{
-          font-size: $smallFontSize;
+          font-size: 85%;
           width: 203px;
           padding: 5px 22px 5px 5px;
+          text-transform: none;
         }
       }
     }
