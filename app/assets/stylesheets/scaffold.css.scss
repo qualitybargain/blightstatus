@@ -5,20 +5,17 @@ html{
   min-width: 970px;
 
   body { 
-    background-image: url('/assets/ricepaper2.png'); 
+    background-image: url('/assets/ricepaper2.png');
     font-family: "Lato"; 
     font-weight: #58595B; 
     min-height: 100%; 
   }
-
-
 
   #wrapper{
     height: 100%;
     padding-bottom: 225px;
     width: 100%;
   }
-
 
   header {
     margin-bottom: 50px;
@@ -28,17 +25,14 @@ html{
     }
   }
 
-
-
   footer{
     text-align: center;
     bottom: 0;
     background: rgba(0,0,0,0.1);
     color: $darkGrey;
     padding: 20px 0;
-    font-weight: 300;
+    font-weight: 400;
     width: 100%;
-
 
     h3{
       text-align: left;
@@ -78,8 +72,6 @@ html{
     }
   }
 
-
-
   .full-width{
     width: 1000px;
     margin: 0 auto;
@@ -107,25 +99,17 @@ html{
 
 }
 
-
-
-
-
 h1{
   color: #F1601D;
   font-size: 30pt;  
 }
 
-h2, h3{
+h2, h3, h4{
   font-family: "Lato";
-  /* text-transform: uppercase; */ 
   color: $orange;
 }
 
-
 h4{
-  font-family: "Lato";
-  color: $orange;
   font-weight: 500;
 }
 
@@ -172,7 +156,6 @@ navbar
   }
 
   .top-account{
-
     background: url('/assets/arrow-down-orange.png') no-repeat right 16px;
     padding-right: 0px;
 
@@ -183,12 +166,6 @@ navbar
         color: $orange !important;
 
     }
-
-
-  }
-
-  .top-links{
-
   }
 
   .top-search {
@@ -211,19 +188,13 @@ navbar
       &:hover{
         cursor: pointer;
       }
-
     }
 
     .search-form{
-//        width: 325px;
       margin: 0 auto;
 
       form{
         margin: 0 0 0;
-
-        .btn-primary-search{
-          display: none;
-        }
       }
 
       .search-field{
@@ -232,20 +203,12 @@ navbar
         display: inline-block;
 
         #main-search-field{
-          font-size: $smallFontSize;
-
+          font-size: 85%;
+          width: 203px;
+          padding: 5px 22px 5px 5px;
+          text-transform: none;
         }
-
       }
-
-      .search-button{
-//        float: left;
-//        display:inline-block;
-
-        .btn{
-          height: 30px;
-        }
-      }         
     }
   }
 }
@@ -279,19 +242,27 @@ navbar
 
 
 #main-search-field{
-
   font-family: "Lato";
-  font-size: 100%;
-  margin: 5px;
-  padding: 5px;
-  background: url("/assets/search-icon.png") no-repeat scroll 210px 6px white;
+  font-size: 140%;
+  margin: 1px;
   text-transform: capitalize;
   float: left;
-  font-weight: 100;
-  width: 220px;
+  font-weight: 300;
+  width: 270px;
+  padding: 10px;
 }
 
 .btn-primary-search{
+  height: 30px;
+}
+
+.btn-secondary-search{
+  background: url("/assets/search-icon.png") no-repeat white;
+  height: 15px;
+  width: 16px;
+  margin: -26px 12px 0 0;
+  float: right;
+  border: none;
 }
 
 ::-webkit-input-placeholder {

@@ -18,20 +18,19 @@
 
     h1{
       font-size: 39pt;
-      padding-top: 22px;
+      padding: 22px 0 15px 0;
       color: #F1601D;
       font-family: "Kreon", sarif;
       line-height: 15px;
     }
-
   	input.btn[type="submit"] {
   		font-size: 150%;
   		height: 40px;
-  		margin: 0 5px;		
+  		margin: 0 10px;
   	}	
     
     form{
-      margin: 0;
+      margin: 5px 0px 8px;
     }
 
     .page-header{
@@ -44,12 +43,11 @@
     }
 
     .help-block{
-      margin-left: 6px;
+      margin-left: 13px;
       clear: both;
     }
     
   	.content{
-
   		margin: 0 auto;
   		position: relative;
   		width: 100%;
@@ -74,17 +72,11 @@
       width: 320px;
     }
 
-
-
-
-
     .tag-line{
       float: left;
-      font-family: "Lato";
-      font-size: 35px;
-      line-height: 40px;
-      padding-left: 35px;
-      padding-top: 55px;
+      font-size: 32px;
+      line-height: 38px;
+      padding: 37px 0 0 40px;
       text-align: left;
       width: 430px;
       font-weight: 300;
@@ -121,7 +113,7 @@
             height: 32px;
             font-size: 140%;
             clear: both;
-            background: url("/assets/search-icon.png") no-repeat scroll 265px center white;            
+            background: white;
           }
 
         }
