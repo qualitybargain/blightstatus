@@ -9,39 +9,45 @@ require 'rubyXL'
 
 namespace :foreclosures do
   desc "Downloading CDC case numbers from s3.amazon.com"  
-  task :load_sheriff, [:cdc_number] => :environment  do |t, args|
+  task :load_sheriff, [:downloaded_file_path] => :environment  do |t, args|
 
     downloaded_file_path = "#{Rails.root}/lib/assets/Sheriff/Writs Filed - Code Enforcement.xlsx"
 
 
-      workbook = RubyXL::Parser.parse(downloaded_file_path)
-      sheet = workbook.worksheets[0].extract_data
-      cdc_col = 3
-      addr_col = 0
-      client = Savon.client ENV['SHERIFF_WSDL']
-      sheet.each do |row|
+    workbook = RubyXL::Parser.parse(downloaded_file_path)
+    sheet = workbook.worksheets[0].extract_data
+    cdc_col = 3
+    addr_col = 0
+    client = Savon.client ENV['SHERIFF_WSDL']
+    sheet.each do |row|
 
-        if row[cdc_col]
-          cdc_number = row[cdc_col]
-          address_long = row[addr_col]
-          puts "address_long => " << row.to_s
-          if cdc_number && cdc_number != "CDC ID"
-            response = client.request 'm:GetForeclosure' do 
-              http.headers['SOAPAction'] = ENV['SHERIFF_ACTION']
-              soap.namespaces['xmlns:m'] = ENV['SHERIFF_NS']
-              soap.body = {'m:cdcCaseNumber' => cdc_number, 'm:key' => ENV['SHERIFF_PASSWORD'] }
-            end
-            
-            foreclosure = response.hash[:envelope][:body][:get_foreclosure_response][:get_foreclosure_result][:foreclosure]
-
-            sale_dt = nil
-            unless foreclosure[:sale_date] == "Null"
-              sale_dt = DateTime.strptime(foreclosure[:sale_date], '%m/%d/%Y %H:%M:%S %p')
-            end
-            Foreclosure.create(address_long: address_long, status: foreclosure[:sale_status], notes: "", sale_date: sale_dt, title: foreclosure[:case_title], cdc_case_number: foreclosure[:cdc_case_number], defendant: foreclosure[:defendant], plaintiff: foreclosure[:plaintiff], house_num: foreclosure[:property_address])#, street_name: addr[:street_name], street_type: addr[:street_type], 
+      if row[cdc_col]
+        cdc_number = row[cdc_col]
+        address_long = row[addr_col]
+        puts "address_long => " << row.to_s
+        if cdc_number && cdc_number != "CDC ID"
+          response = client.request 'm:GetForeclosure' do 
+            http.headers['SOAPAction'] = ENV['SHERIFF_ACTION']
+            soap.namespaces['xmlns:m'] = ENV['SHERIFF_NS']
+            soap.body = {'m:cdcCaseNumber' => cdc_number, 'm:key' => ENV['SHERIFF_PASSWORD'] }
           end
+          puts "Requesting cdcCaseNumber => #{cdc_number}"
+          foreclosure = response.hash[:envelope][:body][:get_foreclosure_response][:get_foreclosure_result][:foreclosure]
+
+          sale_dt = nil
+          unless foreclosure[:sale_date] == "Null"
+            sale_dt = DateTime.strptime(foreclosure[:sale_date], '%m/%d/%Y %H:%M:%S %p')
+          end
+
+          addr = {}
+          addr[:address_long] = foreclosure[:property_address]
+          addr[:house_num] = addr[:address_long].split(' ')[0]
+          addr[:street_type] = AddressHelpers.get_street_type addr[:address_long] 
+          addr[:street_name] = AddressHelpers.get_street_name addr[:address_long]
+          Foreclosure.create(address_long: address_long, status: foreclosure[:sale_status], notes: "", sale_date: sale_dt, title: foreclosure[:case_title], cdc_case_number: foreclosure[:cdc_case_number], defendant: foreclosure[:defendant], plaintiff: foreclosure[:plaintiff], address_long: foreclosure[:property_address], street_name: addr[:street_name], street_type: addr[:street_type], house_num: addr[:house_num])
         end
       end
+    end
     puts "foreclosures:load_sheriff"
   end
 
