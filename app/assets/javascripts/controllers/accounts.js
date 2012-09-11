@@ -2,14 +2,30 @@ OpenBlight.accounts = {
   init: function(){
   },
 
+  /**
+   * Controller method
+   */
   index: function(){
     OpenBlight.addresses.mapAddresses();
     OpenBlight.accounts.subscriptionButton()
     OpenBlight.accounts.account_page = true;  
-
   },
 
 
+  /**
+   * Controller method
+   */
+  map: function(){
+    OpenBlight.accounts.createSubscriptionMap();
+  },
+
+
+
+
+
+  /**
+   * Local methods
+   */
   subscriptionButton: function(){
     $(".subscribe-button").bind("ajax:success",
        function(evt, data, status, xhr){
@@ -35,28 +51,7 @@ OpenBlight.accounts = {
   },
 
 
-  map: function(){
-    var savePolygon = function (e){
-      console.log(e);
-      var latlngs = new Array();
-
-      $.each(e.poly._latlngs, function(i, item) {        
-          latlngs[i] = { lat : item.lat, lng : item.lng };
-      });
-
-      jQuery.post( '/subscriptions', { polygon: latlngs }, function(data) {
-        console.log(data);
-      }, 'json');
-    };
-    
-    var loadPolygon = function (map){
-      $.getJSON('/accounts/map.json', function(geojsonFeature) {
-        var geojsonLayer = new L.GeoJSON();
-        geojsonLayer.addGeoJSON(geojsonFeature);
-        map.addLayer(geojsonLayer);
-      });
-    };    
-
+  createSubscriptionMap: function(){
     wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
 	    var y = 29.95;
 	    var x = -90.08;
@@ -76,13 +71,39 @@ OpenBlight.accounts = {
 
         map.addControl(drawControl);
         
-        loadPolygon(map);
+
+        OpenBlight.accounts.loadPolygon(map);
+
+        
 
         map.on('drawend', function(e) {
           //popup.setContent(popupContent);
-          savePolygon(e);
+          OpenBlight.accounts.savePolygon(e);
           //e.target.openPopup(popup);
         });
+    });
+  },
+
+
+
+  savePolygon: function (e){
+    console.log(e);
+    var latlngs = new Array();
+
+    $.each(e.poly._latlngs, function(i, item) {        
+        latlngs[i] = { lat : item.lat, lng : item.lng };
+    });
+
+    jQuery.post( '/subscriptions', { polygon: latlngs }, function(data) {
+      console.log(data);
+    }, 'json');
+  },
+  
+  loadPolygon: function (map){
+    $.getJSON('/accounts/map.json', function(geojsonFeature) {
+      var geojsonLayer = new L.GeoJSON();
+      geojsonLayer.addGeoJSON(geojsonFeature);
+      map.addLayer(geojsonLayer);
     });
   }
 }
