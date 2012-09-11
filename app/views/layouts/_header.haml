@@ -9,16 +9,16 @@
       %ul.nav.nav-pills.top-account.pull-right{"role" => "navigation"}
         %li.dropdown
           %a#drop1.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"}
-            Account
+            -if current_account
+              My Account
+            -else
+              Sign In
             %b.caret
           .dropdown-menu.container{"aria-labelledby" => "drop1", :role => "menu"}
             -if account_signed_in?
               .logged-in
                 .span3
-                  You are logged in as 
-                  =current_account.email
-                .span3
-                  =link_to "Manage Alerts", "/accounts"
+                  =link_to "My Watchlist", "/accounts"
                 .span3
                   =link_to('Logout', destroy_account_session_path, :method => :get)
                 .clearfix
