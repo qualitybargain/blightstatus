@@ -77,6 +77,10 @@ module LAMAHelpers
              end
             end
 
+            if event.Type =~ /Complaint Received/
+             Complaint.create(:case_number => case_number, :hearing_date => event.DateEvent, :status => event.Status)
+            end
+
             j_status = nil
             if event.Name =~ /Guilty/ || (event.Name =~ /Hearing/ && event.Status =~ /Guilty/)
               if event.Name =~ /Guilty/
