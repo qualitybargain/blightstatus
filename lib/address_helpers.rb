@@ -7,7 +7,7 @@ end
 
 module AddressHelpers
 
-  @street_types = {'ST' => "STREET", 'AVE' => "AVENUE", 'DR'=> 'DRIVE', 'CT'=> "COURT", 'RD'=> 'ROAD', "LN" => 'LANE', 'PL' => 'PLACE', 'PARK' => 'PARK', 'BLVD' => 'BOULEVARD', 'ALY' => 'ALLEY'}
+  @street_types = {'ST' => "STREET", 'AVE' => "AVENUE", 'DR'=> 'DRIVE', 'CT'=> "COURT", 'RD'=> 'ROAD', "LN" => 'LANE', 'PL' => 'PLACE', 'PARK' => 'PARK', 'BLVD' => 'BOULEVARD', 'ALY' => 'ALLEY', 'PKWY' => 'PARKWAY'}
   @street_direction = {'S' => 'SOUTH', 'N' => 'NORTH', 'E' => 'EAST', 'W' => 'WEST'}
   @address_suffix = ['ACC','GARAGE', 'ACC BD','MAIN', 'ACC STR']
 
