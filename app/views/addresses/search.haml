@@ -23,14 +23,18 @@
                   =a.address_long
           .clearfix
       .span9.right-bar
-        #map{:style => "height: 400px;"}
         .toggle
-          =check_box_tag('map-search-mode')
+          =check_box_tag('map-search-mode', 'true', true)
           Redo search when map is moved
+
+        #map{:style => "height: 400px;"}
+        / .toggle
+        /   =check_box_tag('map-search-mode')
+        /   Redo search when map is moved
       .row
       .btn-toolbar
         .btn-group
-          =paginate @addresses
+          / =paginate @addresses
 
 -else
   %section.no-search-results

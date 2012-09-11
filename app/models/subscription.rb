@@ -7,8 +7,8 @@ class Subscription < ActiveRecord::Base
 
 	# TODO: need to make sure not to send duplicates
     accounts.each{ | account | 
-      subscriptions = Subscription.find_all_by_account_id(account)
 
+      subscriptions = Subscription.find_all_by_account_id(account)
       SubscriptionMailer.subscription_email(account, subscriptions).deliver
 
       subscriptions.each{ | subscription |
@@ -16,7 +16,6 @@ class Subscription < ActiveRecord::Base
       	subscription.save!
       }
     }
-
   end
 
 end

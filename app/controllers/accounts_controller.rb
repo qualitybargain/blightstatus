@@ -24,8 +24,6 @@ class AccountsController < ApplicationController
       format.html
       format.json { render :json => geojson.to_json }
     end
-
-
   end
 
   def show
