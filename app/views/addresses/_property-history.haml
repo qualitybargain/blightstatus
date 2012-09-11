@@ -58,3 +58,40 @@
                   %tr
                     %td.date=r.reset_date.strftime("%-m/%-d/%y")
 
+        -unless @address.resolutions.empty?
+          %tr{:class => "case-history-resolution case-history-resolution-#{kase.case_number}"}
+            %td
+              %span.arrow                                    
+            %td.status Reset
+            %td
+              %table.table-nolines
+              -@address.resolutions.each do |r|
+                %tr
+                  %td
+                    %span.arrow
+                  -if r.class == Demolition
+                    %td.status 
+                      Demolition
+                    %td
+                      %table.table-nolines
+                        %tr
+                          %td.date=r.date.strftime("%-m/%-d/%y")
+                          %td This property was demolished by #{r.program_name}
+                  - elsif r.class == Foreclosure
+                    %td.status Foreclosure
+                    %td
+                      %table.table-nolines
+                        %tr
+                          %td.date=r.date.strftime("%-m/%-d/%y")
+                          %td This property was sent to code lien foreclosure
+                  - elsif r.class == Maintenance
+                    %td.status Interim Nuisanace Abatement Program
+                    %td
+                      %table.table-nolines
+                        %tr
+                          %td.date=r.date.strftime("%-m/%-d/%y")
+                          %td This property was maintained by #{r.program_name}
+                  - else
+                    %td
+                      %td=r.class.to_s + ": " + r.date.strftime("%-m/%-d/%y")
+
