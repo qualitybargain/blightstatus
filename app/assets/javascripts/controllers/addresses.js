@@ -53,10 +53,10 @@ OpenBlight.addresses = {
   highlightCaseHistory: function(){
 
     $(".progress-arrow").hover(function(){
-      // console.log('.case-history-' + $(this).attr('class').split(' ').last());
-      $('.case-history-' + $(this).attr('class').split(' ').last()).css('background-color', '#F5F5F5')
+      console.log('.case-history-' + $(this).attr('class').split(' ')[1]);
+      $('.case-history-' + $(this).attr('class').split(' ')[1]).css('background-color', '#eee')
     }, function(){
-      $('.case-history-' + $(this).attr('class').split(' ').last()).css('background-color', 'transparent')
+      $('.case-history-' + $(this).attr('class').split(' ')[1]).css('background-color', 'transparent')
     })
 
   },
