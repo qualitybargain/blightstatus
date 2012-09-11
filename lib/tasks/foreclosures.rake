@@ -21,8 +21,8 @@ namespace :foreclosures do
 
 
     workbook = RubyXL::Parser.parse(downloaded_file_path)
-    sheet = workbook.worksheets[0].extract_data
-    cdc_col = 3
+    sheet = workbook.worksheets[1].extract_data
+    cdc_col = 2
     addr_col = 0
     client = Savon.client ENV['SHERIFF_WSDL']
     sheet.each do |row|
