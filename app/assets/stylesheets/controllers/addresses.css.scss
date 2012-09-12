@@ -49,6 +49,12 @@
 
       .well{
         position: relative;
+
+        .nav{
+          height: 500px;
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
       }
 
       li.result a{
@@ -56,7 +62,7 @@
       }
 
       li.result:hover{
-        background: url("/assets/marker-selected.png") no-repeat 10px 4px  $lighterTeal;
+//        background: url("/assets/marker-selected.png") no-repeat 10px 4px  $lighterTeal;
         border-radius: 5px;
       }
 
@@ -76,6 +82,7 @@
           font-family: "Lato";
           font-weight: 300;
           font-style: italic;
+          font-size: 95%;
         }
 
         border-bottom: #ccc 1px solid;
@@ -238,6 +245,9 @@
   img{
     border: 1px solid $headerLineBreakColor;
     text-align: center;
+    width: 200px;
+    height: 100px;
+
   }
   p{
     font-family: "Lato";
@@ -256,10 +266,26 @@
     color: white;
     font-weight: bold;
     height: 40px;
-    margin: 0px 13px 2px 8px;
+//    margin: 0px 13px 2px 0px;
     width: 22px;
-    position: absolute;
+    padding: 17px 7px;
+    position: relative;
 }
+
+.two-digits{
+
+  .maps-marker{
+    padding: 20px 3px 18px;
+  }
+}
+
+.three-digits{
+  .maps-marker{
+    padding: 3px 2px 25px;
+    font-size: 10px;
+  }
+}
+
 
 .marker, .address.result .maps-marker{
     text-align: center;
@@ -275,11 +301,9 @@
     color: white;
     font-weight: bold;
     margin: 7px 16px;
+//  margin: 0 !important;
 }
 
-.leaflet-clickable.two_digits{
-  /*padding: 4px 3px 16px;*/
-}
 
 .leaflet-marker-icon.marked{
   z-index: 1000 !important;
@@ -301,7 +325,7 @@
     color: $darkGrey;
     font-family: "Lato";
     font-weight: 300;
-    font-size: 45px;
+    font-size: 300%;
   }
 
   border-bottom: 1px solid $darkGrey;

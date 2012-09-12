@@ -38,34 +38,39 @@
               -unless k.inspections.nil? || k.inspections.empty?
                 -k.inspections.each do |i|
                   .progress-arrow.inspection{:class => "inspection-#{k.case_number}", :style => "z-index: 14"}
-                  .date=i.date.strftime("%-m/%-d/%y")
+                  -break
+                  / .date=i.date.strftime("%-m/%-d/%y")
               -else
                 .progress-arrow.pending{:style => "z-index: 14"}
             %td
               -unless k.notifications.nil? || k.notifications.empty?
                 -k.notifications.each do |n|
                   .progress-arrow.notification{:class => "notification-#{k.case_number}", :style => "z-index: 13"}
-                  .date=n.date.strftime("%-m/%-d/%y")
+                  -break
+                  / .date=n.date.strftime("%-m/%-d/%y")
               -else
                 .progress-arrow.pending{:style => "z-index: 13"}
             %td
               -unless k.hearings.nil? || k.hearings.empty?
                 -k.hearings.each do |h|
                   .progress-arrow.hearing{:class => "hearing-#{k.case_number}", :style => "z-index: 12"}
-                  .date=h.date.strftime("%-m/%-d/%y")
+                  -break
+                  / .date=h.date.strftime("%-m/%-d/%y")
               -else
                 .progress-arrow.pending{:style => "z-index: 12"}
             %td
               -unless k.judgement.nil?
                 .progress-arrow.judgement{:class => "judgement-#{k.case_number}", :style => "z-index: 11"}
-                .date=k.judgement.date.strftime("%-m/%-d/%y")
+                -break
+                / .date=k.judgement.date.strftime("%-m/%-d/%y")
               -else
                 .progress-arrow.pending{:style => "z-index: 11"}
 
             %td
               -unless k.address.resolutions.empty?
                 .progress-arrow.resolution{:class => "resolution-#{k.case_number}", :style => "z-index: 10"}
-                .date=k.address.resolutions.first.date.strftime("%-m/%-d/%y")
+                -break
+                / .date=k.address.resolutions.first.date.strftime("%-m/%-d/%y")
               -else
                 .progress-arrow.resolution.pending{:style => "z-index: 10"}
             %td

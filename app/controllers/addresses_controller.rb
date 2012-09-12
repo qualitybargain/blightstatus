@@ -30,9 +30,7 @@ class AddressesController < ApplicationController
 
 
   def search
-    # TODO: this should eventually return GeoJSON. But lots of javascript is dependent on
-    # WKT, so this will be rewritten laster
-    RGeo::ActiveRecord::GeometryMixin.set_json_generator(:wkt)
+    RGeo::ActiveRecord::GeometryMixin.set_json_generator(:geojson)
 
     @search_term = params[:address]
     Search.create(:term => @search_term, :ip => request.remote_ip)
@@ -45,10 +43,13 @@ class AddressesController < ApplicationController
       street_name = AddressHelpers.get_street_name(@search_term)
 
       if(dir = AddressHelpers.get_direction(@search_term))
-        @addresses = Address.find_addresses_with_cases_by_cardinal_street(dir,street_name).uniq.order(:house_num).page(params[:page]).per(10)
+        @addresses = Address.find_addresses_with_cases_by_cardinal_street(dir,street_name).uniq.order(:house_num) 
+        #.page(params[:page]).per(10)
       else
-        @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:street_name, :house_num).page(params[:page]).per(10)
+        @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:street_name, :house_num)
+        #.page(params[:page]).per(10)
       end
+
 
       @addresses.each {|addr|
         addr.address_long = AddressHelpers.unabbreviate_street_types(addr.address_long).capitalize
@@ -56,35 +57,17 @@ class AddressesController < ApplicationController
       @address_list = @addresses.sort{ |a, b| a.house_num.to_i <=> b.house_num.to_i }
       
       respond_to do |format|
-        format.html # show.html.erb
-        format.xml  { render :xml => @addresses_list }
+        format.html
         format.json { render :json => @address_list.to_json(:methods => [:most_recent_status_preview]) }
+        # format.json { render :json => @address_list.to_json }
+
       end
     end
   end
 
-  def map_search
-    ne = params["northEast"]
-    sw = params["southWest"]
-    @addresses = Address.find_addresses_with_cases_within_area(ne, sw)
-
-    page = (params[:page] || 1).to_i
-    offset = (page - 1) * 10
-    page_count = @addresses.count / 10
-    @addresses = @addresses.slice(offset, 10)
-
-    respond_with [@addresses.to_json(:methods => [:most_recent_status_preview]), :page_count => page_count, :page => page]
-  end
-
-
-  def redirect_latlong
-    # factory = RGeo::Cartesian.factory
-    # location = factory.point(params[:x].to_f, params[:y].to_f)
-    @address = Address.where(" point = ST_GeomFromText('POINT(#{params[:x].to_f} #{params[:y].to_f})') " ).first
-    redirect_to address_url(@address), :status => :found
-  end
 
   def addresses_with_case
+    RGeo::ActiveRecord::GeometryMixin.set_json_generator(:geojson)
     date = Time.now
 
     params[:start_date] = params[:start_date].nil? ? (date - 2.weeks).to_s : params[:start_date]
@@ -93,9 +76,6 @@ class AddressesController < ApplicationController
     start_date = Date.parse(params[:start_date]).strftime('%Y-%m-%d')
     end_date = Date.parse(params[:end_date]).strftime('%Y-%m-%d')
 
-    # TODO: we should be returning GeoJSON instead. This is how:
-    RGeo::ActiveRecord::GeometryMixin.set_json_generator(:geojson)
-    # @cases = ''
     case params[:type]
       when 'inspections'
         @cases = Address.joins(:inspections).where(" inspection_date > '#{start_date}' AND inspection_date < '#{end_date}' ").pluck(:point)
@@ -111,6 +91,28 @@ class AddressesController < ApplicationController
       format.json { render :json => @cases.to_json }
     end
       
+  end
+
+
+
+  def map_search
+    ne = params["northEast"]
+    sw = params["southWest"]
+    @addresses = Address.find_addresses_with_cases_within_area(ne, sw)
+
+    # respond_with [@addresses.to_json(:methods => [:most_recent_status_preview])]
+
+    respond_to do |format|
+        format.json { render :json => @addresses.to_json(:methods => [:most_recent_status_preview]) }
+    end    
+  end
+
+
+  def redirect_latlong
+    # factory = RGeo::Cartesian.factory
+    # location = factory.point(params[:x].to_f, params[:y].to_f)
+    @address = Address.where(" point = ST_GeomFromText('POINT(#{params[:x].to_f} #{params[:y].to_f})') " ).first
+    redirect_to address_url(@address), :status => :found
   end
 
 end
