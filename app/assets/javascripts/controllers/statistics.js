@@ -1,6 +1,4 @@
 OpenBlight.statistics = {
-<<<<<<< HEAD
-
     /**
      * Initilize Controller
      */
@@ -15,9 +13,9 @@ OpenBlight.statistics = {
     maps: function(){
       // don't cache the selection. otherwise on reload the trigger event below won't fire
       $(":radio").attr("autocomplete", "off");
-      OpenBlight.statistics.createStatsMap()
+      OpenBlight.statistics.createStatsMap();
       OpenBlight.statistics.bindRadioFilters();
-      OpenBlight.statistics.loadMapData()
+      OpenBlight.statistics.loadMapData();
 
       $('#checkbox-inspections').trigger('click');
     },
@@ -56,10 +54,7 @@ OpenBlight.statistics = {
           OpenBlight.statistics.populateMap($(this).val(), timeline_date.start_date, timeline_date.end_date);
         }
         else{
-        //   var this_layer = OpenBlight.statistics.layergroup[$(this).val()];
-        //   OpenBlight.statistics.map.removeLayer(this_layer);
           $('#checkbox-'+type+' + .btn').html( type )
-
         }
       });
     },
@@ -255,42 +250,42 @@ OpenBlight.statistics = {
           $("input.filter-checkbox").removeAttr("disabled");
         }
       );
-    },
+    });
+  },
 
 
-    createChart: function(id, data,title){
-      i = 0;
-      keys =[];
-      values = [];
 
-      $.each(data, function(key, value) {
-        if(key === "")
-          key = "undeclared";// : key;
-        keys[i] = key + " - " + value + " (%%.%%)";
-        values[i] = value;
-        i++;
-      });
+  createChart: function(id, data,title){
+    i = 0;
+    keys =[];
+    values = [];
 
-      var r = Raphael(id), pie = r.piechart(320, 240, 100, values, { legend: keys, legendpos: "east", href: [".", "."]});
-              r.text(320, 100, title).attr({ font: "20px sans-serif" });
-              pie.hover(function () {
-                this.sector.stop();
-                this.sector.scale(1.1, 1.1, this.cx, this.cy);
+    $.each(data, function(key, value) {
+      if(key === "")
+        key = "undeclared";// : key;
+      keys[i] = key + " - " + value + " (%%.%%)";
+      values[i] = value;
+      i++;
+    });
 
-                if (this.label) {
-                  this.label[0].stop();
-                  this.label[0].attr({ r: 7.5 });
-                  this.label[1].attr({ "font-weight": 800 });
-                }
-              }, function () {
-                this.sector.animate({ transform: 's1 1 ' + this.cx + ' ' + this.cy }, 500, "bounce");
+    var r = Raphael(id), pie = r.piechart(320, 240, 100, values, { legend: keys, legendpos: "east", href: [".", "."]});
+          r.text(320, 100, title).attr({ font: "20px sans-serif" });
+          pie.hover(function () {
+            this.sector.stop();
+            this.sector.scale(1.1, 1.1, this.cx, this.cy);
 
-                if (this.label) {
-                  this.label[0].animate({ r: 5 }, 500, "bounce");
-                  this.label[1].attr({ "font-weight": 400 });
-                }
-              });
+            if (this.label) {
+              this.label[0].stop();
+              this.label[0].attr({ r: 7.5 });
+              this.label[1].attr({ "font-weight": 800 });
+            }
+          }, function () {
+            this.sector.animate({ transform: 's1 1 ' + this.cx + ' ' + this.cy }, 500, "bounce");
 
-      }
-
+            if (this.label) {
+              this.label[0].animate({ r: 5 }, 500, "bounce");
+              this.label[1].attr({ "font-weight": 400 });
+            }
+          });
+    }
 }
