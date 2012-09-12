@@ -1,9 +1,13 @@
 FactoryGirl.define do
+  factory :account do
+    sequence(:email)        { |n| "user-#{n}@nola.com" }
+    password                "dummydata"
+    password_confirmation   "dummydata"
+  end
+
   factory :address do
-    # geopin            { 1 + rand(30000) }
     geopin            { 41125604 }
     address_id        { 1 + rand(20000) } #{ 85102061 }
-    # parcel_id         { 1 + rand(20000) }
     address_long      { "1019 CHARBONNET ST" }
     street_name       { "CHARBONNET" }
     street_type       { "ST" }
@@ -61,5 +65,10 @@ FactoryGirl.define do
 
   factory :street do
     #name       { "CHARBONNET" }
+  end
+
+  factory :subscription do
+    account
+    address
   end
 end
