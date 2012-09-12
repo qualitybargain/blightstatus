@@ -3,6 +3,7 @@ module LAMAHelpers
     l = client || LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
 
     incidents.each do |incident|
+      puts incident.to_s#inspect
       case_number = incident.Number
       next unless case_number # need to find a better way to deal with this ... revisit post LAMA data cleanup
       
@@ -76,9 +77,9 @@ module LAMAHelpers
                end
              end
             end
-
-            if event.Type =~ /Complaint Received/
-             Complaint.create(:case_number => case_number, :hearing_date => event.DateEvent, :status => event.Status)
+  
+            if event.Type =~ /Complaint Received/ || event.Name =~ /Complaint Received/
+             Complaint.create(:case_number => case_number, :date_received => event.DateEvent, :status => event.Status)
             end
 
             j_status = nil
@@ -131,13 +132,13 @@ module LAMAHelpers
 
       #Violations
       #TODO: add violations table and create front end for this 
-      
       #Judgments - Closed
       case_status = incident_full.Description
       if (case_status =~ /Status:/ && case_status =~ /Status Date:/)
         case_status = case_status[((case_status =~ /Status:/) + "Status:".length) ... case_status =~ /Status Date:/].strip
 
         j_status = nil
+        c_status = nil
         
         if case_status =~ /Closed/ || case_status =~ /In Compliance/ || case_status =~ /Dismiss/ || case_status =~ /dismiss/
             j_status = 'Closed'
@@ -147,14 +148,21 @@ module LAMAHelpers
             j_status = 'Guilty'
         elsif case_status =~ /Judgment rescinded/
             j_status = 'Judgment Rescinded' 
+        elsif case_status =~ /Complaint Received/
+            c_status = 'Received'
         end
 
-        if j_status
+        if j_status || c_status
           d = incident_full.Description
           d = d[d.index('Status Date:') .. -1].split(' ')
           d = d[2].split('/')
           d = DateTime.new(d[2].to_i,d[0].to_i,d[1].to_i)
-          Judgement.create(:case_number => case_number, :status => j_status, :judgement_date => d, :notes => case_status)
+          if j_status
+            Judgement.create(:case_number => case_number, :status => j_status, :judgement_date => d, :notes => case_status)
+          end
+          if c_status
+            Complaint.create(:case_number => case_number, :status => c_status, :date_received => d, :notes => case_status)
+          end
         end
       end
       

@@ -46,4 +46,25 @@ namespace :lama do
       start_date = call_end_date
     end
   end
+
+  desc "Import updates from LAMA by parameter pipe (|) delimited string of cases"
+  task :load_by_case, [:case_numbers] => :environment do |t, args|
+    
+    l = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
+    incidents = []
+    case_numbers = args[:case_numbers].split('|')
+    case_numbers.each do |case_number|
+      case_number = case_number.strip
+      incidents << l.incident(case_number)
+    end
+
+    incid_num = incidents.length
+    p "There are #{incid_num} incidents"
+    if incid_num >= 1000
+      p "LAMA can only return 1000 incidents at once- please try a smaller date range"
+      return
+    end
+
+    LAMAHelpers.import_to_database(incidents, l)
+  end
 end
