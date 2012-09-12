@@ -6,7 +6,7 @@
   .span8
     .navbar
       / .border
-      %ul.nav.nav-pills.top-account.pull-right{"role" => "navigation"}
+      %ul.nav.top-account.pull-right{"role" => "navigation"}
         %li.dropdown
           %a#drop1.dropdown-toggle{"data-toggle" => "dropdown", :href => "#", :role => "button"}
             -if current_account
@@ -14,22 +14,25 @@
             -else
               Sign In
             %b.caret
-          .dropdown-menu.container{"aria-labelledby" => "drop1", :role => "menu"}
+          %ul.dropdown-menu.row{"aria-labelledby" => "drop1", :role => "menu"}
             -if account_signed_in?
-              .logged-in
-                .span3
-                  =link_to "My Watchlist", "/accounts"
-                .span3
-                  =link_to('Logout', destroy_account_session_path, :method => :get)
-                .clearfix
+              .logged-in.span3
+                %li=link_to "My Watchlist", "/accounts"
+                %li=link_to('Logout', destroy_account_session_path, :method => :get)
             -else
               .logged-out
-                .span3              
-                  =link_to "Sign In", "/accounts"
-                .span3
-                  =link_to "Register", "/accounts/sign_up"
+                %li.span3
+                  =form_for :accounts, :url => session_path(:account) do |f|
+                    = f.email_field :email, :placeholder => 'Enter your email address'
+                    = f.password_field :password, :placeholder => 'Enter your password'
+                    = f.check_box :remember_me
+                    = f.label :remember_me
+                    %div= f.submit "Sign in"
+                    = link_to "Forgot your password?", new_password_path(:account)
+                %li.sign_up.span3
+                  Don't have an account yet?
+                  =link_to "Sign Up", "/accounts/sign_up"
                 .clearfix
-
       %ul.nav.top-links
         %li
           =link_to "About", "/pages/about"
@@ -41,6 +44,3 @@
         %ul.nav.top-search
           %li
             =render "layouts/search"
-
-
-

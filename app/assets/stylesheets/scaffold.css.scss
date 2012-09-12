@@ -155,40 +155,20 @@ navbar
 
 
   .dropdown-menu{
-
-    .logged-in, .logged-out{
-      padding: 10px 20px;
+    .span3 {
+      width: 235px;
     }
-
-    .span3{
-      margin-left:0;
-      margin: 5px;
-      a{
-        margin:0; 
-        padding: 0         
-      }
-    }
-
   }
 
   .top-account{
-
     background: url('/assets/arrow-down-orange.png') no-repeat right 16px;
     padding-right: 0px;
 
     a{
       color: $orange;        
       text-shadow: none;
-
-        color: $orange !important;
-
+      color: $orange !important;
     }
-
-
-  }
-
-  .top-links{
-
   }
 
   .top-search {
