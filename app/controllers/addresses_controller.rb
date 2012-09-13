@@ -85,6 +85,8 @@ class AddressesController < ApplicationController
         @cases = Address.joins(:judgements).where(" judgement_date > '#{start_date}' AND judgement_date < '#{end_date}' ").pluck(:point)
       when 'demolitions'
         @cases = Address.joins(:demolitions).where(" date_completed > '#{start_date}'  AND date_completed < '#{end_date}' ").pluck(:point)
+      when 'abatement'
+        @cases = Address.joins(:maintenances).where(" date_completed > '#{start_date}'  AND date_completed < '#{end_date}' ").pluck(:point)
     end
 
     respond_to do |format|
