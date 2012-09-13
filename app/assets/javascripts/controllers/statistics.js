@@ -47,7 +47,6 @@ OpenBlight.statistics = {
     bindRadioFilters: function(){
 
       $('.filter-checkbox').on('change', function(index){
-
         var type = $(this).val() ;
         if($(this).prop('checked')){
           var timeline_date = OpenBlight.statistics.getTimelineDate();
@@ -191,24 +190,6 @@ OpenBlight.statistics = {
     populateMap: function(type, start_date, end_date){
 
       $("input.filter-checkbox").attr("disabled", true);
-      jQuery.getJSON('/addresses/addresses_with_case.json', {  
-        type: type, 
-        start_date: start_date.toDateString(), 
-        end_date: end_date.toDateString()
-      }, 
-      function(data) {
-        var geojsonMarkerOptions = {
-            radius: 3,
-            fillColor: $('#checkbox-' + type + ' + label').css('background-color'),
-            color: "#ccc",
-            weight: 1,
-            opacity: 1,
-            fillOpacity: 0.8
-        };
-
-        $.each(OpenBlight.statistics.layergroup, function(index, value) { 
-          OpenBlight.statistics.map.removeLayer(OpenBlight.statistics.layergroup[index]);
-        });
 
       jQuery.getJSON('/addresses/addresses_with_case.json', {  
           type: type, 
@@ -250,7 +231,6 @@ OpenBlight.statistics = {
           $("input.filter-checkbox").removeAttr("disabled");
         }
       );
-    });
   },
 
 
