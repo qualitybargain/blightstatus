@@ -22,7 +22,7 @@ gem "httpclient", "~> 2.1.5"
 # GIS 
 gem 'rgeo'
 gem 'rgeo-geojson'
-# gem 'activerecord-postgis-adapter'
+gem 'activerecord-postgis-adapter'
 gem 'rgeo-shapefile'
 
 # Templates
