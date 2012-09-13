@@ -13,7 +13,7 @@ gem 'roo' #excel parser
 gem 'docsplit'
 gem 'rubyXL'
 gem 'devise'
-#gem "cancan"
+# gem "cancan"
 
 gem 'lama', :git => 'https://github.com/gangleton/lama.git'
 gem 'savon'
@@ -61,6 +61,8 @@ group :test, :development do
   gem "faker"
 
   gem "simplecov"
+  gem 'taps'
+
 end
 
 group :test do
