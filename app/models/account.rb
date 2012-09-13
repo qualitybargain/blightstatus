@@ -16,7 +16,7 @@ class Account < ActiveRecord::Base
     if subs.length > 0
       t = Time.now
       subs.each{ |s| s.update_attribute(:date_notified, t) }
-      AccountMailer.delay.update_digest(self, subs)
+      AccountMailer.delay.deliver_digest(self, subs)
     end
   end
 end
