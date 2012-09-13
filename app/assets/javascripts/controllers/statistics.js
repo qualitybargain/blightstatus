@@ -13,9 +13,15 @@ OpenBlight.statistics = {
     maps: function(){
       // don't cache the selection. otherwise on reload the trigger event below won't fire
       $(":radio").attr("autocomplete", "off");
-      OpenBlight.statistics.createStatsMap();
-      OpenBlight.statistics.bindRadioFilters();
-      OpenBlight.statistics.loadMapData();
+
+
+      $.when(
+        OpenBlight.statistics.createStatsMap()
+       ).then(function () {
+        OpenBlight.statistics.bindRadioFilters();
+        OpenBlight.statistics.loadMapData();
+       });
+
 
       $('#checkbox-inspections').trigger('click');
     },
@@ -171,7 +177,10 @@ OpenBlight.statistics = {
     },
 
     createStatsMap: function(){
-      wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
+      
+      var deferred = jQuery.Deferred();
+
+      var ready = wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
         var y = 29.96;
         var x = -90.08;
         var zoom = 13;
@@ -184,10 +193,16 @@ OpenBlight.statistics = {
 
         OpenBlight.statistics.map.addLayer(new wax.leaf.connector(tilejson))
         OpenBlight.statistics.map.setView(new L.LatLng(y , x), zoom);
+
+        deferred.resolve();
+
       });
+
+      return deferred;
     },
 
     populateMap: function(type, start_date, end_date){
+
 
       $("input.filter-checkbox").attr("disabled", true);
 
@@ -207,7 +222,6 @@ OpenBlight.statistics = {
               fillOpacity: 0.8
           };
 
-
           $.each(OpenBlight.statistics.layergroup, function(index, value) { 
             OpenBlight.statistics.map.removeLayer(OpenBlight.statistics.layergroup[index]);
           });
@@ -223,12 +237,11 @@ OpenBlight.statistics = {
             }
           }).addTo(OpenBlight.statistics.map);
 
-
+          console.log(type);
           $('.total').html( 'total ' + type + ':');
           $('#total_number').html( Object.keys(data).length );
-
-
           $("input.filter-checkbox").removeAttr("disabled");
+
         }
       );
   },
