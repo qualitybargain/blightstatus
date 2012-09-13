@@ -19,11 +19,12 @@ OpenBlight.statistics = {
         OpenBlight.statistics.createStatsMap()
        ).then(function () {
         OpenBlight.statistics.bindRadioFilters();
-        OpenBlight.statistics.loadMapData();
+        OpenBlight.statistics.initilizeTimeline();
+        $('#checkbox-inspections').trigger('click');
+
        });
 
 
-      $('#checkbox-inspections').trigger('click');
     },
 
     /**
@@ -75,7 +76,7 @@ OpenBlight.statistics = {
 
 
 
-    loadMapData: function(){
+    initilizeTimeline: function(){
 
       var date = new Date();
       date.setMonth(date.getMonth() + 1);
@@ -116,6 +117,7 @@ OpenBlight.statistics = {
           });
         }
       });
+
     },
 
     dayRangeToDate: function(value){
@@ -133,48 +135,6 @@ OpenBlight.statistics = {
       return timeline_date;
     },
 
-
-    initilizeTimeline: function(){
-
-
-      var date = new Date();
-      date.setMonth(date.getMonth() + 1);
-
-      var year_to_date = [];
-      var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
-
-      for(i = 11; i >= 0; i--){
-        month = new Date(date.setMonth(date.getMonth() - 1));
-        year_to_date[i] = monthNames[month.getMonth()];
-      }
-      
-      $('#timeline-range').val( "335;365")      
-
-      $("#timeline-range").slider({ from: 1, to: 365, step: 1, dimension: '', scale: year_to_date, limits: false,
-        calculate: function( value ){
-          var tl = OpenBlight.statistics.dayRangeToDate(value);
-          return  monthNames[tl.getMonth()] + ' '+ tl.getDate();
-        },
-        callback: function( value ){
-
-          //clear current layers
-          $('.filter-checkbox').each(function(){
-
-            if($(this).is(':checked')){
-              var removethis = OpenBlight.statistics.layergroup[$(this).val()];
-              OpenBlight.statistics.map.removeLayer(removethis);
-
-              var timeline_date = OpenBlight.statistics.getTimelineDate();
-
-              OpenBlight.statistics.populateMap( $(this).val(), 
-                                                  timeline_date.start_date, 
-                                                  timeline_date.end_date
-                                                );
-            }
-          });
-        }
-      });
-    },
 
     createStatsMap: function(){
       
@@ -237,7 +197,6 @@ OpenBlight.statistics = {
             }
           }).addTo(OpenBlight.statistics.map);
 
-          console.log(type);
           $('.total').html( 'total ' + type + ':');
           $('#total_number').html( Object.keys(data).length );
           $("input.filter-checkbox").removeAttr("disabled");
