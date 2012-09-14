@@ -15,10 +15,8 @@ OpenBlight.addresses = {
 
     OpenBlight.addresses.createSearchResultsMap();
     OpenBlight.addresses.populateMap(json_path, {},  function(){
-
-      OpenBlight.addresses.fitPointersOnMap();      
-
-    } );
+      OpenBlight.addresses.fitPointersOnMap();
+    });
 
 
   },

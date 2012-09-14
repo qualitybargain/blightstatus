@@ -5,7 +5,7 @@ html{
   min-width: 970px;
 
   body { 
-    background-image: url('/assets/ricepaper2.png');
+//    background-image: url('/assets/ricepaper2.png');
     font-family: "Lato"; 
     font-weight: #58595B; 
     min-height: 100%; 
@@ -15,13 +15,14 @@ html{
     height: 100%;
     padding-bottom: 225px;
     width: 100%;
+    background: url("http://www.textizen.com/assets/header-bg.png") repeat-x scroll 0 0 transparent;
   }
 
   header {
     margin-bottom: 50px;
 
     .logo{
-      padding: 8px 0;
+      padding: 5px 0;
     }
   }
 
@@ -130,13 +131,19 @@ navbar
     border-bottom: 1px solid $headerLineBreakColor;
   }
 
-  li{
-    &.active{
-      background-color: transparent;
-      color: $orange;        
+
+  .nav{
+    margin-top: 11px;
+    li{      
+      a{
+        text-shadow: none;
+        &.active{
+          background-color: transparent;
+          color: $orange;        
+        }
+      }
     }
   }
-
 
   .dropdown-menu{
 
@@ -149,7 +156,7 @@ navbar
       margin: 5px;
       a{
         margin:0; 
-        padding: 0         
+        padding: 0;
       }
     }
 
@@ -172,7 +179,7 @@ navbar
     display: block;
     float: right;
     left: 0;
-    margin: 0px 0 0 0;
+    margin: 15px 0 0 0;
     position: relative;
     width: 240px;
 
@@ -218,7 +225,7 @@ navbar
 .btn{
   background: none repeat scroll 0 0 #62C1CC;
   border: 0 none;
-  border-radius: 10px 10px 10px 10px;
+  border-radius: $borderRadius;
   font-family: "Lato";
   font-weight: 300;
   text-transform: uppercase;  
@@ -360,7 +367,7 @@ navbar
 
 .badge-yellow{
 	background-color: #F9CC5D;
-	border-radius: 10px 10px 10px 10px;
+	border-radius: $borderRadius;
 	color: #6A6867;
 	float: left;
 	font-size: 110%;
@@ -397,11 +404,7 @@ navbar
   text-transform: capitalize;
 }
 
-.navbar{
-  .nav{
-    margin-top: 15px;
-  }
-}
+
 
 
 ul.arrow-list{

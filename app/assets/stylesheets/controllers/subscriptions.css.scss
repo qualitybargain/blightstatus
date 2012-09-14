@@ -1,6 +1,7 @@
 // Place all the styles related to the subscriptions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "variables.css.scss";
 
 
 #subscriptions{
@@ -11,7 +12,7 @@
 
     border: 1px solid #EEE;
     background-color: white;
-    border-radius: 40px;
+    border-radius: $borderRadius;
     margin: 10px 0;
     padding: 20px;
 
