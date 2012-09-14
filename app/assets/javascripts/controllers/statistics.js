@@ -10,7 +10,7 @@ OpenBlight.statistics = {
     /**
      * Controller method
      */
-    maps: function(){
+    browse: function(){
       // don't cache the selection. otherwise on reload the trigger event below won't fire
       $(":radio").attr("autocomplete", "off");
 
@@ -22,6 +22,8 @@ OpenBlight.statistics = {
         OpenBlight.statistics.initilizeTimeline();
         $('#checkbox-inspections').trigger('click');
 
+
+        
        });
 
 
@@ -30,17 +32,17 @@ OpenBlight.statistics = {
     /**
      * Controller method
      */
-    graphs: function(){
-      var i;
-      var keys = []
-      var values = [];
+    // graphs: function(){
+    //   var i;
+    //   var keys = []
+    //   var values = [];
 
-      OpenBlight.statistics.createChart("inspection_types",BlightStats.data.inspections.types,"Inspection by Type");
-      OpenBlight.statistics.createChart("inspection_results",BlightStats.data.inspections.results,"Inspection Results");
-      OpenBlight.statistics.createChart("hearing_status",BlightStats.data.hearings.status,"Hearing Status");
-      OpenBlight.statistics.createChart("judgement_status",BlightStats.data.judgements.status,"Judgement Status");
-      //OpenBlight.statistics.graph("maintenance_programs",BlightStats.data.maintenances.program_names,"Maintenance by Program");
-    },
+    //   OpenBlight.statistics.createChart("inspection_types",BlightStats.data.inspections.types,"Inspection by Type");
+    //   OpenBlight.statistics.createChart("inspection_results",BlightStats.data.inspections.results,"Inspection Results");
+    //   OpenBlight.statistics.createChart("hearing_status",BlightStats.data.hearings.status,"Hearing Status");
+    //   OpenBlight.statistics.createChart("judgement_status",BlightStats.data.judgements.status,"Judgement Status");
+    //   //OpenBlight.statistics.graph("maintenance_programs",BlightStats.data.maintenances.program_names,"Maintenance by Program");
+    // },
 
 
 
@@ -58,6 +60,10 @@ OpenBlight.statistics = {
         if($(this).prop('checked')){
           var timeline_date = OpenBlight.statistics.getTimelineDate();
           OpenBlight.statistics.populateMap($(this).val(), timeline_date.start_date, timeline_date.end_date);
+          OpenBlight.statistics.regenerateCharts();
+
+
+
         }
         else{
           $('#checkbox-'+type+' + .btn').html( type )
@@ -99,25 +105,59 @@ OpenBlight.statistics = {
           var tl = OpenBlight.statistics.dayRangeToDate(value);
           return  monthNames[tl.getMonth()] + ' '+ tl.getDate();
         },
-        callback: function( value ){
+        callback: function( data ){
 
-          //clear current layers
-          $('.filter-checkbox').each(function(){
+          OpenBlight.statistics.regenerateMap();
+          OpenBlight.statistics.regenerateCharts();
 
-            if($(this).is(':checked')){
-              var removethis = OpenBlight.statistics.layergroup[$(this).val()];
-              OpenBlight.statistics.map.removeLayer(removethis);
-
-              var timeline_date = OpenBlight.statistics.getTimelineDate();
-              OpenBlight.statistics.populateMap( $(this).val(), 
-                                                  timeline_date.start_date, 
-                                                  timeline_date.end_date
-                                                );
-            }
-          });
         }
       });
 
+    },
+
+
+    regenerateCharts: function(){
+
+      $('.filter-checkbox').each(function(){
+
+        if($(this).is(':checked')){
+
+          var label = $(this).val();
+
+          var timeline_date = OpenBlight.statistics.getTimelineDate();
+          jQuery.getJSON('/stats/stats.json', {  
+              type: label, 
+              start_date: timeline_date.start_date.toDateString(), 
+              end_date: timeline_date.end_date.toDateString()
+            }, 
+            function(data) {
+              console.log(data);
+              $('#stats-chart').html(' ');
+
+              OpenBlight.statistics.createChart("stats-chart",data.result, label);
+            });          
+        }
+
+      });
+    },
+
+
+    regenerateMap: function(){
+
+      //clear current layers
+      $('.filter-checkbox').each(function(){
+
+        if($(this).is(':checked')){
+          var removethis = OpenBlight.statistics.layergroup[$(this).val()];
+          OpenBlight.statistics.map.removeLayer(removethis);
+
+          var timeline_date = OpenBlight.statistics.getTimelineDate();
+          OpenBlight.statistics.populateMap( $(this).val(), 
+                                              timeline_date.start_date, 
+                                              timeline_date.end_date
+                                            );
+        }
+      });
     },
 
     dayRangeToDate: function(value){
@@ -200,7 +240,6 @@ OpenBlight.statistics = {
           $('.total').html( 'total ' + type + ':');
           $('#total_number').html( Object.keys(data).length );
           $("input.filter-checkbox").removeAttr("disabled");
-
         }
       );
   },
