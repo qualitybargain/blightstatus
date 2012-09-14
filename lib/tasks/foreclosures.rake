@@ -9,7 +9,7 @@ require 'rubyXL'
 
 namespace :foreclosures do
   desc "Downloading CDC case numbers from s3.amazon.com"  
-  task :load_sheriff, [:file_name, :bucket_name] => :environment  do |t, args|
+  task :load_writfile, [:file_name, :bucket_name] => :environment  do |t, args|
     
     args.with_defaults(:bucket_name => "neworleansdata", :file_name => "Writs Filed - Code Enforcement.xlsx")  
     p args
