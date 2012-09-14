@@ -162,8 +162,24 @@ html{
       margin-right: 5px;
     }
 
+    input[type="submit"] {
+      margin-top: 14px;
+    }
+
     .rememberable {
-      padding: 7px 0;
+      padding: 7px 0 0;
+    }
+  }
+
+  .span3 {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 20px 10px 20px 20px;
+    margin-top: 10px;
+    margin-right: -40px;
+    float: right;
+
+    li {
+      padding: 5px 0;
     }
   }
 }
