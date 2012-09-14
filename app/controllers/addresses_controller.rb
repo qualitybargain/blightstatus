@@ -79,6 +79,8 @@ class AddressesController < ApplicationController
     case params[:type]
       when 'inspections'
         @cases = Address.joins(:inspections).where(" inspection_date > '#{start_date}' AND inspection_date < '#{end_date}' ").pluck(:point)
+      when 'notifications'
+        @cases = Address.joins(:notifications).where(" notification_date > '#{start_date}' AND notification_date < '#{end_date}' ").pluck(:point)
       when 'hearings'
         @cases = Address.joins(:hearings).where(" hearing_date > '#{start_date}' AND hearing_date < '#{end_date}' ").pluck(:point)
       when 'judgements'
