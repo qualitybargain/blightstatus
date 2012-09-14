@@ -10,8 +10,6 @@
     margin-bottom: 35px;
   }
 
-
-
   .about-page-content{
 
     margin-top: 20px;
@@ -47,7 +45,6 @@
     clear: both;
   }
 
-
   h3.category-label{
     font-family: "Lato";
     font-weight: 200;
@@ -56,77 +53,20 @@
 
   @include faq-mixin;
 
-
-  .page-tabs{
-    padding-bottom: 0;
-    margin-bottom: 0;
-
-    &.nav-tabs{
-      border: 0px;
-    }
-
-    li{
-      
-      margin: 10px 0px -2px 0;
-
-      a{
-        border: 0;
-        background-color: $lighterTeal;
-        border-radius: 20px 20px 0 0;
-        border-style: solid;
-        border-width: 1px 1px 0 1px;
-        border-color:  #ccc;
-        text-transform: uppercase;
-        font-size: 140%;
-        padding: 15px 63.66px;
-        color: $darkGrey;       
-
-      }
-
-      &.active{
-        a{
-          background-color: white;
-          border-radius: 20px 20px 0 0;
-          margin-bottom: -1px;          
-          color: $darkGrey;       
-
-        }
-
-      }
-
-    }
-
-  }
-
   #common-questions{
     border-width: 0 1px 1px 1px;
   }
 
-  .tab-content{
+  .tab-content {
     width: 930px;
-    background: white;
   }
-
-
-  .tab-pane-content{
-    border: 1px solid #ddd;
-    border-radius: 0 0 20px 20px;
-//    padding: 10px 40px 50px;
-    padding: 40px;
-
-  }
-
 
   .our-partners{
-
-
     .code-for-america{
       background: url("/assets/partner-logos.png") no-repeat scroll 7px -60px transparent;
       width: 135px;
       height: 70px;
       float: left;
-
-      
     }
 
     .city-of-new-orleans{
@@ -142,11 +82,9 @@
       height: 50px;
       float: left;
     }
-
-
   }
-  .meet-the-team, .our-partners, .get-in-touch{
 
+  .meet-the-team, .our-partners, .get-in-touch{
     margin-bottom: 40px;
     h2{
       font-weight: 300;
@@ -155,7 +93,6 @@
       margin-bottom: 15px;
       margin-top: 30px;
       padding: 10px 0px 5px 0px;
-
     }
 
     .img-block{
@@ -178,7 +115,6 @@
   }
 
   .about-page-content{
-
     .left-bar{
       border-left: medium none;
       border-radius: 30px;
@@ -189,8 +125,6 @@
       border: 1px solid $borderColor;
     }
   }
-
-  
 }
 
 

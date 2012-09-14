@@ -11,14 +11,29 @@ html{
     min-height: 100%; 
   }
 
+  h1{
+    color: #F1601D;
+    font-size: 30pt;  
+  }
 
+  h2, h3{
+    font-family: "Lato";
+    /* text-transform: uppercase; */ 
+    color: $orange;
+  }
+
+
+  h4{
+    font-family: "Lato";
+    color: $orange;
+    font-weight: 500;
+  }
 
   #wrapper{
     height: 100%;
     padding-bottom: 225px;
     width: 100%;
   }
-
 
   header {
     margin-bottom: 50px;
@@ -27,8 +42,6 @@ html{
       padding: 8px 0;
     }
   }
-
-
 
   footer{
     text-align: center;
@@ -49,7 +62,6 @@ html{
     }
 
     .learn-more{
-
       h4{
         text-align: left; 
         font-size: 150%
@@ -78,8 +90,6 @@ html{
     }
   }
 
-
-
   .full-width{
     width: 1000px;
     margin: 0 auto;
@@ -99,7 +109,6 @@ html{
     margin-right: 6%;
   }
 
-
   .right{
     float: left;
     width: 47%;
@@ -107,26 +116,63 @@ html{
 
 }
 
+.page-tabs{
+  padding-bottom: 0;
+  margin-bottom: 0;
 
+  &.nav-tabs{
+    border: 0px;
+  }
 
+  li{
+    margin: 10px 0px -2px 0;
 
+    a{
+      border: 0;
+      background-color: $lighterTeal;
+      border-radius: 20px 20px 0 0;
+      border-style: solid;
+      border-width: 1px 1px 0 1px;
+      border-color:  #ccc;
+      text-transform: uppercase;
+      font-size: 140%;
+      padding: 15px 63.66px;
+      color: $darkGrey;       
 
-h1{
-  color: #F1601D;
-  font-size: 30pt;  
+    }
+
+    &.active{
+      a{
+        background-color: white;
+        border-radius: 20px 20px 0 0;
+        margin-bottom: -1px;          
+        color: $darkGrey;       
+
+      }
+    }
+  }
 }
 
-h2, h3{
-  font-family: "Lato";
-  /* text-transform: uppercase; */ 
-  color: $orange;
+.tab-content{
+  background: white;
+
+  form {
+    padding: 20px 0 10px;
+    input[type="checkbox"] {
+      float: left;
+      margin-right: 5px;
+    }
+
+    .rememberable {
+      padding: 7px 0;
+    }
+  }
 }
 
-
-h4{
-  font-family: "Lato";
-  color: $orange;
-  font-weight: 500;
+.tab-pane-content{
+  border: 1px solid #ddd;
+  border-radius: 0 0 20px 20px;
+  padding: 40px;
 }
 
 /*
@@ -156,7 +202,36 @@ navbar
 
   .dropdown-menu{
     .span3 {
-      width: 235px;
+      padding: 4px 15px 10px 0;
+
+      &.login-form {
+        a {
+          font-size: 80%;
+          padding: 0px;
+        }
+      }
+
+      &.sign-up {
+        font-size: 90%;
+        a {
+          display: inline;
+          padding: 0;
+        }
+      }
+
+      input, label {
+        float: left;
+        margin: 11px 5px 2px 0;
+
+        &[type="submit"] {
+          float: right;
+          margin-top: 9px;
+        }
+
+        &[type="checkbox"] {
+          margin-top: 14px;
+        }
+      }
     }
   }
 
@@ -165,7 +240,6 @@ navbar
     padding-right: 0px;
 
     a{
-      color: $orange;        
       text-shadow: none;
       color: $orange !important;
     }
@@ -271,9 +345,6 @@ navbar
   width: 220px;
 }
 
-.btn-primary-search{
-}
-
 ::-webkit-input-placeholder {
     font-style: italic;
 }
@@ -282,7 +353,6 @@ navbar
 }
 
 .address{
-
 	&.result{
 		margin-top: -1px;
 		padding: 5px 3px;
