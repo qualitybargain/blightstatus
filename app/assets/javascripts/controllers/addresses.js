@@ -69,6 +69,7 @@ OpenBlight.addresses = {
   populateMap: function(json_path, params, callbacks){
 
     jQuery.getJSON(json_path, params, function(data) {
+      OpenBlight.addresses.markers = [];
 
       var features = [];
       for(i = 0; i < data.length -1; i++){
@@ -114,12 +115,14 @@ OpenBlight.addresses = {
 
       $('ul.nav').removeClass('loading');
       $('#loading').hide();
-
-      OpenBlight.addresses.associateMarkers();
       if (typeof callbacks  === 'function') {
         callbacks();
       }
+      OpenBlight.addresses.associateMarkers();
+
     });
+
+
   },
 
   highlightCaseHistory: function(){
@@ -159,11 +162,11 @@ OpenBlight.addresses = {
   associateMarkers: function(){
     for(var i = 0; i < OpenBlight.addresses.markers.length; i++){
       
-      // console.log(i);
+      console.log(i);
       var m = OpenBlight.addresses.markers[i];
 
       $(m['_icon']).attr("id", "marker-" + m.id);
-      $(m['_icon']).html(i+1);
+      $(m['_icon']).html(i + 1);
       if(i > 9){
         $(m['_icon']).addClass('two-digits');
       }
