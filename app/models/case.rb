@@ -10,6 +10,7 @@ class Case < ActiveRecord::Base
   has_one  :foreclosure, :foreign_key => :case_number, :primary_key => :case_number
   has_many :resets, :foreign_key => :case_number, :primary_key => :case_number
   has_many :notifications, :foreign_key => :case_number, :primary_key => :case_number
+  has_one  :complaint, :foreign_key => :case_number, :primary_key => :case_number
 
   validates_presence_of :case_number
   validates_uniqueness_of :case_number
@@ -86,5 +87,19 @@ class Case < ActiveRecord::Base
   def self.pct_matched
     Case.matched_count.to_f / Case.count.to_f * 100
   end
-  
+   
+  def to_hash
+    c = {}
+    c[:complaint] = self.complaint
+    c[:inspections] = self.inspections
+    c[:notifications] = self.notifications
+    c[:hearings] = self.hearings
+    c[:judgement] = self.judgement
+    c[:case_manager] = self.case_manager
+    c[:resets] = self.resets
+    c[:foreclosure] = self.foreclosure
+    c[:demolitions] = self.demolitions
+    c[:maintenances] = self.maintenances
+    c
+  end
 end
