@@ -1,11 +1,14 @@
 require "#{Rails.root}/lib/import_helpers.rb"
 require "#{Rails.root}/lib/spreadsheet_helpers.rb"
 require "#{Rails.root}/lib/address_helpers.rb"
+require "#{Rails.root}/lib/abatement_helpers.rb"
+require 'rubyXL'
 
 include ImportHelpers
 include SpreadsheetHelpers
 include AddressHelpers
-require 'rubyXL'
+include AbatementHelpers
+
 
 namespace :foreclosures do
   desc "Downloading CDC case numbers from s3.amazon.com"  
@@ -86,6 +89,13 @@ namespace :foreclosures do
       end
     end
     puts "There were #{success} successful matches and #{failure} failed matches"      
+  end
+
+  desc "Correlate foreclosure data with cases"  
+  task :match_case => :environment  do |t, args|
+    # go through each demolition
+    foreclosures = Foreclosure.where("address_id is not null and case_number is null")
+    AbatementHelpers.match_case(foreclosures)
   end
 
   desc "Delete all foreclosures from database"
