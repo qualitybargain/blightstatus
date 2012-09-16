@@ -3,7 +3,8 @@ class Case < ActiveRecord::Base
 	
   has_many :hearings, :foreign_key => :case_number, :primary_key => :case_number
   has_many :inspections, :foreign_key => :case_number, :primary_key => :case_number
-  has_many :demolitions, :foreign_key => :case_number, :primary_key => :case_number 
+  has_many :demolitions, :foreign_key => :case_number, :primary_key => :case_number
+  has_many :maintenances, :foreign_key => :case_number, :primary_key => :case_number 
   has_one  :judgement, :foreign_key => :case_number, :primary_key => :case_number
   has_one  :case_manager, :foreign_key => :case_number, :primary_key => :case_number
   has_one  :foreclosure, :foreign_key => :case_number, :primary_key => :case_number
@@ -15,7 +16,7 @@ class Case < ActiveRecord::Base
 
   def accela_steps
     steps_ary = []
-    steps_ary << self.hearings << self.inspections << self.demolitions << self.resets << self.foreclosure << self.notifications
+    steps_ary << self.hearings << self.inspections << self.demolitions << self.resets << self.foreclosure << self.notifications << self.maintenances << self.judgement
     steps_ary.flatten.compact
   end
 
@@ -27,6 +28,12 @@ class Case < ActiveRecord::Base
     self.accela_steps.sort{ |a, b| a.date <=> b.date }.last
   end
 
+  def most_recent_step_before_abatement
+    steps_ary = []
+    steps_ary << self.hearings << self.inspections << self.resets  << self.notifications  << self.judgement
+    steps_ary.flatten.compact.sort{ |a, b| a.date <=> b.date }.last
+  end
+  
   def elapsed_time
     most_recent_status.date.to_datetime.mjd - first_status.date.to_datetime.mjd
   end

@@ -6,10 +6,13 @@ namespace :db_data do
             Rake::Task["demolitions:load_nora"].invoke
             Rake::Task["demolitions:load_nosd"].invoke
             Rake::Task["demolitions:match"].invoke
+            Rake::Task["demolitions:match_case"].invoke
             Rake::Task["maintenances:load"].invoke
             Rake::Task["maintenances:match"].invoke
+            Rake::Task["maintenances:match_case"].invoke
             Rake::Task["foreclosures:load_writfile"].invoke
             Rake::Task["foreclosures:match"].invoke
+            Rake::Task["foreclosures:match_case"].invoke
       end
 
       desc "Load all abatement spreadsheet data"

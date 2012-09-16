@@ -1,10 +1,12 @@
 require "#{Rails.root}/lib/import_helpers.rb"
 require "#{Rails.root}/lib/spreadsheet_helpers.rb"
 require "#{Rails.root}/lib/address_helpers.rb"
+require "#{Rails.root}/lib/abatement_helpers.rb"
 
 include ImportHelpers
 include SpreadsheetHelpers
 include AddressHelpers
+include AbatementHelpers
 
 
 namespace :maintenances do
@@ -71,6 +73,13 @@ namespace :maintenances do
       end
     end
     puts "There were #{success} successful matches and #{failure} failed matches"
+  end
+
+  desc "Correlate maintenance data with cases"  
+  task :match_case => :environment  do |t, args|
+    # go through each demolition
+    maintenances = Maintenance.where("address_id is not null and case_number is null")
+    AbatementHelpers.match_case(maintenances)
   end
 
   desc "Delete all maintenances from database"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120911045314) do
+ActiveRecord::Schema.define(:version => 20120915001249) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -45,12 +45,12 @@ ActiveRecord::Schema.define(:version => 20120911045314) do
     t.string   "status"
     t.datetime "created_at",                                                 :null => false
     t.datetime "updated_at",                                                 :null => false
-    t.spatial  "point",            :limit => {:srid=>-1, :type=>"geometry"}
     t.string   "parcel_id"
     t.boolean  "official"
     t.string   "street_full_name"
     t.string   "assessor_url"
     t.integer  "neighborhood_id"
+    t.spatial  "point",            :limit => {:srid=>-1, :type=>"geometry"}
   end
 
   add_index "addresses", ["address_long"], :name => "index_addresses_on_address_long"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20120911045314) do
     t.datetime "date_started"
     t.datetime "date_completed"
     t.integer  "address_match_confidence"
+    t.boolean  "case_confidence"
   end
 
   add_index "demolitions", ["address_id"], :name => "index_demolitions_on_address_id"
@@ -118,6 +119,7 @@ ActiveRecord::Schema.define(:version => 20120911045314) do
     t.string   "title"
     t.string   "defendant"
     t.string   "plaintiff"
+    t.boolean  "case_confidence"
   end
 
   add_index "foreclosures", ["address_id"], :name => "index_foreclosures_on_address_id"
@@ -198,6 +200,8 @@ ActiveRecord::Schema.define(:version => 20120911045314) do
     t.datetime "updated_at",               :null => false
     t.integer  "address_id"
     t.integer  "address_match_confidence"
+    t.boolean  "case_confidence"
+    t.string   "case_number"
   end
 
   add_index "maintenances", ["address_id"], :name => "index_maintenances_on_address_id"
@@ -263,9 +267,9 @@ ActiveRecord::Schema.define(:version => 20120911045314) do
     t.integer  "shape_len"
     t.datetime "created_at",                                                 :null => false
     t.datetime "updated_at",                                                 :null => false
-    t.spatial  "the_geom",         :limit => {:srid=>-1, :type=>"geometry"}
     t.string   "prefix_direction"
     t.string   "suffix_direction"
+    t.spatial  "the_geom",         :limit => {:srid=>-1, :type=>"geometry"}
   end
 
   create_table "subscriptions", :force => true do |t|
@@ -274,8 +278,8 @@ ActiveRecord::Schema.define(:version => 20120911045314) do
     t.string   "notes"
     t.datetime "created_at",                                              :null => false
     t.datetime "updated_at",                                              :null => false
-    t.spatial  "thegeom",       :limit => {:srid=>-1, :type=>"geometry"}
     t.datetime "date_notified"
+    t.spatial  "thegeom",       :limit => {:srid=>-1, :type=>"geometry"}
   end
 
 end
