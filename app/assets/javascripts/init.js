@@ -1,7 +1,6 @@
 OpenBlight = {
   common: {
     init: function() {
-      // console.log('init');
       // application-wide code
       OpenBlight.common.show_disclaimer();
       OpenBlight.common.handle_auto_complete_address();
@@ -9,9 +8,9 @@ OpenBlight = {
       OpenBlight.common.dropdownLoginForm();
 
       if(!Array.prototype.last) {
-          Array.prototype.last = function() {
-              return this[this.length - 1];
-          }
+        Array.prototype.last = function() {
+            return this[this.length - 1];
+        }
       }
 
       if(!String.prototype.capitalize) {
@@ -19,6 +18,12 @@ OpenBlight = {
             return this.charAt(0).toUpperCase() + this.slice(1);
         }
       }
+    },
+
+    convertDivToSubmit: function(){
+      $('.transparent-submit').click(function(){
+        $(this).parentsUntil('form').parent().submit();
+      });
     },
 
     dropdownLoginForm: function(){
@@ -34,7 +39,6 @@ OpenBlight = {
           }
         });
       });
-
     },
 
     goToByScroll: function(id){
@@ -58,12 +62,6 @@ OpenBlight = {
       });
     },
 
-
-    show_accounts_popover: function(){
-
-      // $('.top-account').popover(options)
-
-    },
     show_disclaimer: function(){
       if($.cookie('agree_to_legal_disclaimer') != 'true' && $.cookie('agree_to_legal_disclaimer') != true){
         $('#legal-disclaimer').modal('show');
@@ -76,6 +74,7 @@ OpenBlight = {
     }
   }
 };
+
 
 UTIL = {
   exec: function( controller, action ) {
@@ -96,5 +95,6 @@ UTIL = {
     UTIL.exec( controller, action );
   }
 };
+
 
 $(document).ready( UTIL.init );
