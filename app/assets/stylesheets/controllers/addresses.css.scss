@@ -97,6 +97,7 @@
     border: 1px solid #efefef;
     border-radius: $borderRadius;
     padding: 40px;
+    position: relative;
   }
 
   .sidebar{
@@ -110,7 +111,6 @@
     }
 
     .faq{
-      margin-top: 50px;
     }
 
   }
@@ -175,6 +175,10 @@
   }
 
   .subscribe-button{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
     &:hover{
       cursor: pointer;
     }

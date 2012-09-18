@@ -8,36 +8,45 @@
           .recommended-next-action
             .clearfix
             .layout-wrapper
-              .previous-year
-                =@date.year - 1
-              .layout-slider
-                %input#timeline-range{:type=>"slider", :name=>"area"}
-              .current-year
-                =@date.year
+              / .previous-year
+              /   =@date.year - 1
+              / .layout-slider
+              /   %input#timeline-range{:type=>"slider", :name=>"area"}
+              / .current-year
+              /   =@date.year
 
 
             .clearfix
             %br
-            .span2
+            .span3
 
               .nav.nav-list
                 .nav-header
-                  Select Filters
-                  .btn-group
-                    %input#checkbox-inspections{:name => "filter-type" , :type => "radio", :value => "inspections", :class => "filter-checkbox"}/
-                    %label.btn{:for => "checkbox-inspections"} Inspections 
-                    %br
-                    %input#checkbox-hearings{:name => "filter-type" , :type => "radio", :value => "hearings", :class => "filter-checkbox"}/
-                    %label.btn{:for => "checkbox-hearings"} Hearings
-                    %br
-                    %input#checkbox-judgements{:name => "filter-type" ,:type => "radio", :value => "judgements", :class => "filter-checkbox"}/
-                    %label.btn{:for => "checkbox-judgements"} Judgments
-                    %br
-                    %input#checkbox-demolitions{:name => "filter-type", :type => "radio", :value => "demolitions", :class => "filter-checkbox"}/
-                    %label.btn{:for => "checkbox-demolitions"} Demolitions
-                  .stats
-                    .total Total:
-                    #total_number
+                  Month
+                  =select( "payment", "id", { "January" => "1", "Febuary" => "2", "March" => "2", "April" => "2", "May" => "2", "June" => "2", "July" => "2", "August" => "2", "September" => "2", "October" => "2", "November" => "2", "December" => "2"}) 
+
+
+                  Status
+                  =select( "payment", "id", { "Inspections" => "1", "Hearings" => "2"}) 
+
+
+                  Details
+                  =select( "payment", "id", { "Guilty" => "1", "Not Guilty" => "2"}) 
+
+
+
+                  / .btn-group
+                  /   %input#checkbox-inspections{:name => "filter-type" , :type => "radio", :value => "inspections", :class => "filter-checkbox"}/
+                  /   %label.btn{:for => "checkbox-inspections"} Inspections 
+                  /   %br
+                  /   %input#checkbox-hearings{:name => "filter-type" , :type => "radio", :value => "hearings", :class => "filter-checkbox"}/
+                  /   %label.btn{:for => "checkbox-hearings"} Hearings
+                  /   %br
+                  /   %input#checkbox-judgements{:name => "filter-type" ,:type => "radio", :value => "judgements", :class => "filter-checkbox"}/
+                  /   %label.btn{:for => "checkbox-judgements"} Judgments
+                  /   %br
+                  /   %input#checkbox-demolitions{:name => "filter-type", :type => "radio", :value => "demolitions", :class => "filter-checkbox"}/
+                  /   %label.btn{:for => "checkbox-demolitions"} Demolitions
 
 
                   / %li.nav-stats.active 
@@ -49,8 +58,10 @@
                   / %li.nav-stats 
                   /   =link_to "Judgements", '/cases.json?table=judgements', :method => :get,  :remote => true
 
-            .span9
-              #stats-map{:style => "width: 100%; height: 300px"}
-              #stats-chart{:style => "width: 100%; height: 400px"}
+            .span8
+              #stats-map{:style => "width: 100%; height: 400px"}
+              #stats-chart{:style => "width: 100%; height: 50px"}
                 / %div{:id => "maintenance_programs"}
-
+                .stats
+                  .total Total:
+                  #total_number

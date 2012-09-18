@@ -8,20 +8,14 @@
       .row#subscriptions
         -if @account_subcriptions.count > 0
           .subscription.notice
-            %p
-              You are subscribe to the following properties. You will receive notifications when their statuses change.
+            %h3
+              My Watchlist
 
           -@account_subcriptions.each do |address|
-            .subscription
+            .subscription.span8
               =link_to address_path(address) do
                 %h3.address
                   =address.address_long
-
-
-              .map
-                .map-address{"internal_address_id" => address.id, "address_id" => address.address_id, "map-id" => "map-#{address.id}" , "data-x" => address.point.x, "data-y" => address.point.y }
-                  .leaflet-map{:id => "map-#{address.id}"}
-
 
               .progress-bar
                 =render :partial => "addresses/progress-bar", :locals => {:kases => address.sorted_cases}
@@ -47,6 +41,12 @@
                   .btn.btn-primary.btn-large
                     View Property
             .clearfix
+            .map.span2
+              .map
+                .map-address{"internal_address_id" => address.id, "address_id" => address.address_id, "map-id" => "map-#{address.id}" , "data-x" => address.point.x, "data-y" => address.point.y }
+                  .leaflet-map{:id => "map-#{address.id}"}
+
+
         -else
           .subscription.no-subscription.notice
             %p
