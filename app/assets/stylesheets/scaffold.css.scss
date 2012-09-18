@@ -274,20 +274,6 @@ navbar
     position: relative;
     width: 240px;
 
-    .transparent-submit{
-
-      width: 20px;
-      height: 30px;
-      position: absolute;
-      right: 5px;
-      top: 5px;
-      z-index: 100;
-
-      &:hover{
-        cursor: pointer;
-      }
-    }
-
     .search-form{
       margin: 0 auto;
 

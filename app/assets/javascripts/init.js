@@ -4,7 +4,6 @@ OpenBlight = {
       // application-wide code
       OpenBlight.common.show_disclaimer();
       OpenBlight.common.handle_auto_complete_address();
-      OpenBlight.common.convertDivToSubmit();
       OpenBlight.common.dropdownLoginForm();
 
       if(!Array.prototype.last) {
@@ -18,12 +17,6 @@ OpenBlight = {
             return this.charAt(0).toUpperCase() + this.slice(1);
         }
       }
-    },
-
-    convertDivToSubmit: function(){
-      $('.transparent-submit').click(function(){
-        $(this).parentsUntil('form').parent().submit();
-      });
     },
 
     dropdownLoginForm: function(){
