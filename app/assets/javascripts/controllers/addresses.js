@@ -55,7 +55,7 @@ OpenBlight.addresses = {
       });
 
       OpenBlight.addresses.map.addLayer(new wax.leaf.connector(tilejson))
-      OpenBlight.addresses.map.setView(new L.LatLng(y , x), zoom);
+      OpenBlight.addresses.map.setView(new L.LatLng(y , x));
 
       OpenBlight.addresses.map.on('dragend', function(e){
         if($('#map-search-mode').attr('checked')){
