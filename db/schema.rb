@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20120912004817) do
   add_index "cases", ["address_id"], :name => "index_cases_on_address_id"
   add_index "cases", ["case_number"], :name => "index_cases_on_case_number"
 
+<<<<<<< HEAD
   create_table "complaints", :force => true do |t|
     t.string   "status"
     t.datetime "date_received"
@@ -83,6 +84,8 @@ ActiveRecord::Schema.define(:version => 20120912004817) do
     t.datetime "updated_at",    :null => false
   end
 
+=======
+>>>>>>> 858f0965398c8df1eba2e55edf9017279ba7db96
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
