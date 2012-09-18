@@ -23,6 +23,7 @@
               .logged-out
                 %li.login-form.span3
                   =form_for :account, :as => :account, :url => session_path(:account) do |f|
+                    .error
                     = f.email_field :email, :placeholder => 'Enter your email address'
                     = f.password_field :password, :placeholder => 'Enter your password'
                     = link_to "Forgot your password?", new_password_path(:account)
