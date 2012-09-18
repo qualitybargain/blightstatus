@@ -1,0 +1,7 @@
+<h3>Cases with No Address: <%= @cases.count %> found</h3>
+<table>
+	<tr><th>id</th><th>Case</th></tr>
+<% @cases.each do |c| %>
+	<tr><td><%= c.id %></td><td><%= link_to c.case_number, c %></td></tr>
+<% end %>
+</table>

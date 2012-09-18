@@ -102,4 +102,12 @@ class Case < ActiveRecord::Base
     c[:maintenances] = self.maintenances
     c
   end
+
+  def self.incomplete
+    Case.find_by_sql("select c.* from cases c where c.case_number in (select case_number from judgements j where not exists(select h.case_number from hearings h where h.case_number = j.case_number)) or c.case_number in (select h.case_number from hearings h where not exists (select * from notifications n where n.case_number = h.case_number)) or c.case_number in (select n.case_number from notifications n where not exists (select * from inspections i where i.case_number = n.case_number)) order by c.case_number").uniq
+  end
+
+  def self.orphans
+    Case.where(:address_id => nil)
+  end
 end
