@@ -94,8 +94,6 @@ OpenBlight.addresses = {
     });
   },
 
-
- 
   associateMarkers: function(){
     for(var i = 0; i < OpenBlight.markers.length; i++){
       var m = OpenBlight.markers[i];
