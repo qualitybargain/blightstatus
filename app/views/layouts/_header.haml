@@ -22,13 +22,13 @@
             -else
               .logged-out
                 %li.login-form.span3
-                  =form_for :accounts, :url => session_path(:account) do |f|
+                  =form_for :account, :as => :account, :url => session_path(:account) do |f|
                     = f.email_field :email, :placeholder => 'Enter your email address'
                     = f.password_field :password, :placeholder => 'Enter your password'
                     = link_to "Forgot your password?", new_password_path(:account)
                     = f.check_box :remember_me
                     = f.label :remember_me
-                    = f.submit "Sign in", :class => "btn btn-primary"
+                    = f.submit "Log in", :class => "btn btn-primary"
                 %li.sign-up.span3
                   Don't have an account yet?
                   =link_to "Sign Up", "/accounts/sign_up"

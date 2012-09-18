@@ -157,8 +157,6 @@ OpenBlight.addresses = {
     });
   },
 
-
- 
   associateMarkers: function(){
     for(var i = 0; i < OpenBlight.addresses.markers.length; i++){
       
