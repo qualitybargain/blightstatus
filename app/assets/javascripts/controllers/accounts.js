@@ -96,7 +96,8 @@ OpenBlight.accounts = {
 
   createAccountsMap: function(){
 
-    wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
+
+    var ready = wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
       var y = 29.96;
       var x = -90.08;
       var zoom = 13;
@@ -107,11 +108,14 @@ OpenBlight.accounts = {
         boxZoom: false
       });
 
+      OpenBlight.accounts.map.addLayer(new wax.leaf.connector(tilejson))
+      OpenBlight.accounts.map.setView(new L.LatLng(y , x), zoom);
+
       var json_path = '/accounts.json'
       OpenBlight.accounts.populateMap(json_path);
 
-
     });
+
   },
 
 
@@ -119,26 +123,31 @@ OpenBlight.accounts = {
   populateMap: function(json_path){
 
     jQuery.getJSON(json_path, {}, function(data) {
-      OpenBlight.addresses.markers = [];
+      OpenBlight.accounts.markers = [];
 
       var features = [];
-
+      var icon = OpenBlight.addresses.getCustomIcon();
 
       for(i = 0; i < data.length -1; i++){
         features.push(data[i].point);
       }
 
-      var icon = OpenBlight.addresses.getCustomIcon();
-
       L.geoJson(features, {
         pointToLayer: function (feature, latlng) {
+          OpenBlight.accounts.markers.push( latlng );          
           return L.marker(latlng, {icon: new icon() });
         }
       }).addTo(OpenBlight.accounts.map);
 
+
+      OpenBlight.accounts.map.fitBounds(OpenBlight.accounts.markers);
+
     });
 
   },
+
+
+
 
   savePolygon: function (e){
     console.log(e);
