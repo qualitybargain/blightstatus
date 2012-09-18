@@ -12,7 +12,7 @@
             Account
             %b.caret
           .dropdown-menu.container{"aria-labelledby" => "drop1", :role => "menu"}
-            -if account_signed_in?
+            -if account_signed_in? 
               .logged-in
                 .span3
                   You are logged in as 
@@ -21,6 +21,15 @@
                   =link_to "Manage Alerts", "/accounts"
                 .span3
                   =link_to('Logout', destroy_account_session_path, :method => :get)
+                .clearfix
+            -elsif admin_signed_in? 
+              .logged-in
+                .span3
+                  You are logged in as 
+                  =current_admin.email
+                .span3
+                .span3
+                  =link_to('Logout', destroy_admin_session_path, :method => :get)
                 .clearfix
             -else
               .logged-out
