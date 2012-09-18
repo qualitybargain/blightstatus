@@ -125,7 +125,7 @@ OpenBlight.statistics = {
               end_date: timeline_date.end_date.toDateString()
             }, 
             function(data) {
-              console.log(data);
+              // console.log(data);
               $('#stats-chart').html(' ');
 
               OpenBlight.statistics.createChart("stats-chart",data.result, label.toString().capitalize());

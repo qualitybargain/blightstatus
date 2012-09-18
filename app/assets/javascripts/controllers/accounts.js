@@ -54,7 +54,7 @@ OpenBlight.accounts = {
         }
       }).bind("ajax:error", function(evt, data, status, xhr){
         //do something with the error here
-        console.log(data);
+        // console.log(data);
         // $("div#errors p").text(data);
     });
   },
@@ -150,7 +150,7 @@ OpenBlight.accounts = {
 
 
   savePolygon: function (e){
-    console.log(e);
+    // console.log(e);
     var latlngs = new Array();
 
     $.each(e.poly._latlngs, function(i, item) {        
@@ -158,7 +158,7 @@ OpenBlight.accounts = {
     });
 
     jQuery.post( '/subscriptions', { polygon: latlngs }, function(data) {
-      console.log(data);
+      // console.log(data);
     }, 'json');
   },
   

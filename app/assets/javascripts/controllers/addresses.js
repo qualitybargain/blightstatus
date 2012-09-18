@@ -127,7 +127,7 @@ OpenBlight.addresses = {
 
   highlightCaseHistory: function(){
     $(".progress-arrow").hover(function(){
-      console.log('.case-history-' + $(this).attr('class').split(' ')[1]);
+      // console.log('.case-history-' + $(this).attr('class').split(' ')[1]);
       $('.case-history-' + $(this).attr('class').split(' ')[1]).css('background-color', '#eee')
     }, function(){
       $('.case-history-' + $(this).attr('class').split(' ')[1]).css('background-color', 'transparent')
@@ -162,7 +162,7 @@ OpenBlight.addresses = {
   associateMarkers: function(){
     for(var i = 0; i < OpenBlight.addresses.markers.length; i++){
       
-      console.log(i);
+      // console.log(i);
       var m = OpenBlight.addresses.markers[i];
 
       $(m['_icon']).attr("id", "marker-" + m.id);
