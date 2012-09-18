@@ -48,12 +48,12 @@ OpenBlight.addresses = {
     wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
       var y = 29.96;
       var x = -90.08;
-      var zoom = 13;
 
       OpenBlight.addresses.map = new L.Map('map', {
         touchZoom: false,
         scrollWheelZoom: false,
-        boxZoom: false
+        boxZoom: false,
+        minZoom: 13
       });
 
       OpenBlight.addresses.map.addLayer(new wax.leaf.connector(tilejson))
