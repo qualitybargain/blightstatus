@@ -57,10 +57,7 @@ OpenBlight.statistics = {
         if($(this).prop('checked')){
           var timeline_date = OpenBlight.statistics.getTimelineDate();
           OpenBlight.statistics.populateMap($(this).val(), timeline_date.start_date, timeline_date.end_date);
-          OpenBlight.statistics.regenerateCharts();
-
-
-
+          // OpenBlight.statistics.regenerateCharts();
         }
         else{
           $('#checkbox-'+type+' + .btn').html( type )
@@ -105,7 +102,7 @@ OpenBlight.statistics = {
         callback: function( data ){
 
           OpenBlight.statistics.regenerateMap();
-          OpenBlight.statistics.regenerateCharts();
+          // OpenBlight.statistics.regenerateCharts();
 
         }
       });
