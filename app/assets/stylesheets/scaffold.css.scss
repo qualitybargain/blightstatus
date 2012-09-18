@@ -264,12 +264,14 @@ navbar
 }
 
 .btn-secondary-search{
-  background: url("/assets/search-icon.png") no-repeat white;
-  height: 15px;
-  width: 16px;
-  margin: -26px 12px 0 0;
-  float: right;
-  border: none;
+  background: url("/assets/search-icon.png") no-repeat scroll 0 0 white;
+  border: medium none;
+  height: 20px;
+  padding: 0;
+  position: absolute;
+  right: 9px;
+  top: 8px;
+  width: 17px !important;
 }
 
 ::-webkit-input-placeholder {

@@ -134,7 +134,7 @@ OpenBlight.statistics = {
               console.log(data);
               $('#stats-chart').html(' ');
 
-              OpenBlight.statistics.createChart("stats-chart",data.result, label);
+              OpenBlight.statistics.createChart("stats-chart",data.result, label.toString().capitalize());
             });          
         }
 
