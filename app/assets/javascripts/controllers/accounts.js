@@ -1,14 +1,23 @@
 OpenBlight.accounts = {
   init: function(){
+    OpenBlight.accounts.layergroup = {};
+    OpenBlight.accounts.map = {};
+    OpenBlight.accounts.markers = [];
   },
 
   /**
    * Controller method
    */
   index: function(){
-    OpenBlight.addresses.mapAddresses();
-    OpenBlight.accounts.subscriptionButton()
     OpenBlight.accounts.account_page = true;  
+
+    
+    OpenBlight.accounts.subscriptionButton()
+    OpenBlight.accounts.createAccountsMap();
+
+
+
+
   },
 
 
@@ -35,12 +44,12 @@ OpenBlight.accounts = {
             $(this).parentsUntil('.subscription').parent().fadeOut('slow');
           }
           else{
-            $(this).html('Receive Alerts');
+            $(this).html('Add Watchlist');
             $(this).data('method', 'put')           
           }
         }
         else{
-          $(this).html('Unsubscribe');
+          $(this).html('Remove Watchlist');
           $(this).data('method', 'delete')
         }
       }).bind("ajax:error", function(evt, data, status, xhr){
@@ -85,6 +94,51 @@ OpenBlight.accounts = {
   },
 
 
+  createAccountsMap: function(){
+
+    wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
+      var y = 29.96;
+      var x = -90.08;
+      var zoom = 13;
+
+      OpenBlight.accounts.map = new L.Map('map', {
+        touchZoom: false,
+        scrollWheelZoom: false,
+        boxZoom: false
+      });
+
+      var json_path = '/accounts.json'
+      OpenBlight.accounts.populateMap(json_path);
+
+
+    });
+  },
+
+
+
+  populateMap: function(json_path){
+
+    jQuery.getJSON(json_path, {}, function(data) {
+      OpenBlight.addresses.markers = [];
+
+      var features = [];
+
+
+      for(i = 0; i < data.length -1; i++){
+        features.push(data[i].point);
+      }
+
+      var icon = OpenBlight.addresses.getCustomIcon();
+
+      L.geoJson(features, {
+        pointToLayer: function (feature, latlng) {
+          return L.marker(latlng, {icon: new icon() });
+        }
+      }).addTo(OpenBlight.accounts.map);
+
+    });
+
+  },
 
   savePolygon: function (e){
     console.log(e);

@@ -97,6 +97,19 @@
     border: 1px solid #efefef;
     border-radius: $borderRadius;
     padding: 40px;
+    position: relative;
+
+    .subscribe{
+      padding: 2px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      .subscribe-button{
+        &:hover{
+          cursor: pointer;
+        }
+      }
+    }
   }
 
   .sidebar{
@@ -174,11 +187,6 @@
     margin-bottom: 15px;
   }
 
-  .subscribe-button{
-    &:hover{
-      cursor: pointer;
-    }
-  }
 
 
   table {
@@ -533,9 +541,8 @@
   padding: 20px 0;
 }
 
-.subscribe{
-  padding: 2px;
-}
+
+
 
 .pager a{
   cursor:pointer

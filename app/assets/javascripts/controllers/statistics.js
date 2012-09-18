@@ -21,9 +21,6 @@ OpenBlight.statistics = {
         OpenBlight.statistics.bindRadioFilters();
         OpenBlight.statistics.initilizeTimeline();
         $('#checkbox-inspections').trigger('click');
-
-
-        
        });
 
 
