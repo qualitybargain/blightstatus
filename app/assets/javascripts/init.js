@@ -30,20 +30,6 @@ OpenBlight = {
             $this.children('.error').addClass('alert').html("Your email or password (or both) is incorrect.");
           }
         });
-    },
-
-    dropdownLoginForm: function(){
-      $('.dropdown-menu form').submit(function(e){
-        e.preventDefault();
-        var $this = $(this);
-        var req = $.post("/accounts/sign_in", $this.serialize(), function(data){
-          location.reload();
-        });
-        req.error(function(){
-          if(req.status == 401){
-            $this.children('.error').addClass('alert').html("Your email or password (or both) is incorrect.");
-          }
-        });
       });
     },
 
