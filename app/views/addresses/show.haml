@@ -15,13 +15,12 @@
         -else
           =link_to('Add Watchlist', new_account_session_path, :class => 'btn btn-primary btn-large subscribe-button' , :id => "subscribe-button")
 
-      =render :partial => "addresses/status-update", :locals => {:address => @address}
+      / =render :partial => "addresses/status-update", :locals => {:address => @address}
       -unless @address.workflow_steps.empty?
         .property-history
           .cases
-            =render :partial => "addresses/progress-bar", :locals => {:kases => @address.sorted_cases}
-
             -@address.sorted_cases.each do |c|
+              =render :partial => "addresses/progress-bar", :locals => {:kases => @address.sorted_cases}
               .case
                 =render :partial => "addresses/property-history", :locals => {:kase => c}
               .clearfix
