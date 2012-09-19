@@ -1,0 +1,16 @@
+#warning.row.full-width
+  %b Warning: 
+  the data on this site is currently incomplete! 
+  %a.learn-more{:href=>"#data-notice", :role=>"button" , "data-toggle"=>"modal"} Learn More &raquo;
+
+  #data-notice.modal.hide.fade.modal{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+    .modal-header
+      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+      %h3#myModalLabel Warning
+    .modal-body
+      %p Right now, only 10% of the existing data about blight in New Orleans is loaded into this site, which is enough to show you how the site works, but won't give you a complete view of the City's current data. We will be loading the rest of the City's official data into this site in the coming weeks, so stay tuned, but feel free to try it out  in the meantime. 
+
+    .modal-footer
+      %a.btn.btn-primary{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} I Understand
+
+      / %button.btn.btn-primary.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} I Understand
