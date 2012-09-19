@@ -2,7 +2,7 @@
   %table.table
     %thead
       %tr
-        %td
+        / %td
         %td{:class=> 'property-status property-status-inspection'} Inspection
         %td{:class=> 'property-status property-status-notification'} Notification
         %td{:class=> 'property-status property-status-hearing'} Hearing
@@ -31,9 +31,9 @@
       -else
         -kases.each do |k|
           %tr
-            %td
-              .case-number{:style => "font-size: 90%"}
-                = k.case_number
+            / %td
+            /   .case-number{:style => "font-size: 90%"}
+            /     = k.case_number
             %td
               -unless k.inspections.nil? || k.inspections.empty?
                 -k.inspections.each do |i|
