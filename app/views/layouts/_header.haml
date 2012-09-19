@@ -9,6 +9,9 @@
       %ul.nav.top-account.pull-right{"role" => "navigation"}
         -if admin_signed_in? 
           .logged-in.span3
+            %li=link_to('Incomplete Cases', "/health/cases/incomplete")
+            %li=link_to('Orphan Cases', "/health/cases/orphans")
+            %li=link_to('Missing Cases', "/health/cases/missing")
             %li=link_to('Logout', destroy_admin_session_path, :method => :get)
         -else
           %li.dropdown
