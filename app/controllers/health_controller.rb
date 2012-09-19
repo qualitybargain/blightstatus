@@ -8,21 +8,14 @@ class HealthController < ApplicationController
 		respond_with(@cases)
 	end
 
-	def judgements_no_hearing
-	end
-
-	def hearings_no_notification
-	end
-
-	def notifications_no_inspection
-	end
-
 	def cases_orphan
 		@cases = Case.orphans
 		respond_with(@cases)
 	end
 
-	def orphan_steps
+	def cases_missing
+		@cases = Case.missing
+		respond_with(@cases)
 	end
 
 end

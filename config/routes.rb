@@ -39,6 +39,7 @@ Openblight::Application.routes.draw do
 
   match "health/cases/incomplete" => "health#cases_incomplete"
   match "health/cases/orphans" => "health#cases_orphan"
+  match "health/cases/missing" => "health#cases_missing"
 
   resources :accounts, :except => [:destroy, :create, :edit] do
     collection do
