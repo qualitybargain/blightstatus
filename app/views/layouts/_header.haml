@@ -17,7 +17,8 @@
                 My Account
               -else
                 Sign In
-              %b.caret
+              %b
+                &nbsp;&nbsp;
             %ul.dropdown-menu.row{"aria-labelledby" => "drop1", :role => "menu"}
               -if account_signed_in?
                 .logged-in.span3

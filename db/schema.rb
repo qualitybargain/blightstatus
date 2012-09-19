@@ -101,25 +101,6 @@ ActiveRecord::Schema.define(:version => 20120918214411) do
     t.datetime "updated_at",    :null => false
   end
 
-<<<<<<< HEAD
-=======
-  create_table "delayed_jobs", :force => true do |t|
-    t.integer  "priority",   :default => 0
-    t.integer  "attempts",   :default => 0
-    t.text     "handler"
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-  end
-
-  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
-
->>>>>>> bf43e566a0f24d6448cb53aa7ea4de03c419f9df
   create_table "demolitions", :force => true do |t|
     t.string   "case_number"
     t.datetime "created_at",               :null => false
