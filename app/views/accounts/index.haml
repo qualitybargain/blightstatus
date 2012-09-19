@@ -28,39 +28,20 @@
                   =address.address_long
 
 
-
-
-
               .progress-bar
                 =render :partial => "addresses/progress-bar", :locals => {:kases => address.sorted_cases}
-      
-              / .cases
-              /   -@n.sorted_cases.each do |c|
-              /     .case
-              /       =render :partial => "addresses/property-history", :locals => {:kase => c}
 
-
-              / .clearfix
-              / .status{:style => "padding: 10px"}
-              /   -if address.most_recent_status_preview.count == 2
-              /     -address.most_recent_status_preview.each do |index, val|
-              /       %h3
-              /         =val
               .clearfix
 
               .subscribe
-                =link_to('Remove Watchlist', "/subscriptions/#{address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-large subscribe-button' , :id => "subscribe-button")
+                =link_to('Remove Watchlist', "/subscriptions/#{address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-large btn-tight subscribe-button' , :id => "subscribe-button")
               .view-property
                 =link_to address do
-                  .btn.btn-primary.btn-large
+                  .btn.btn-primary.btn-large.btn-tight
                     View Property
             .clearfix
 
   .left-bar.span3
     .map#map{:style => "width: 300px; height: 200px"}
-      / .map-address{"internal_address_id" => address.id, "address_id" => address.address_id, "map-id" => "map-#{address.id}" , "data-x" => address.point.x, "data-y" => address.point.y }
-      / .leaflet-map{:id => "map-#{address.id}"}
-
-
           
 
