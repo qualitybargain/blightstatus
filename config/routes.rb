@@ -31,9 +31,9 @@ Openblight::Application.routes.draw do
 
 
 
-  match "browse" => "statistics#maps"
-  match "stats/maps" => "statistics#maps"
-  match "stats/graphs" => "statistics#graphs"
+  match "browse" => "statistics#browse"
+  match "stats/browse" => "statistics#browse"
+  match "stats/stats" => "statistics#stats"
 
   match "stats" => "statistics#graphs"
 

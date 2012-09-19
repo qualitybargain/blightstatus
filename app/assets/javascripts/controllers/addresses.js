@@ -5,59 +5,41 @@ OpenBlight.addresses = {
     OpenBlight.addresses.markers = [];
   },
 
-
-  /**
-   * Controller method
-   */
   search: function(){
-
     var json_path = window.location.toString().replace(/search\?/i, 'search.json\?');
 
     OpenBlight.addresses.createSearchResultsMap();
     OpenBlight.addresses.populateMap(json_path, {},  function(){
-
-      OpenBlight.addresses.fitPointersOnMap();      
-
-    } );
-
-
+      OpenBlight.addresses.fitPointersOnMap();
+    });
   },
 
-
-  /**
-   * Controller method
-   */
   show: function(){
     $(".property-status").popover({placement: 'bottom'});
-    
+
     OpenBlight.addresses.highlightCaseHistory();
     OpenBlight.addresses.mapAddresses();
     OpenBlight.accounts.subscriptionButton();
   },
 
 
-
-
-
-
   /**
    * Local methods
    */
   createSearchResultsMap: function(){
-
     wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
       var y = 29.96;
       var x = -90.08;
-      var zoom = 13;
 
       OpenBlight.addresses.map = new L.Map('map', {
         touchZoom: false,
         scrollWheelZoom: false,
-        boxZoom: false
+        boxZoom: false,
+        minZoom: 13
       });
 
       OpenBlight.addresses.map.addLayer(new wax.leaf.connector(tilejson))
-      OpenBlight.addresses.map.setView(new L.LatLng(y , x), zoom);
+      OpenBlight.addresses.map.setView(new L.LatLng(y , x));
 
       OpenBlight.addresses.map.on('dragend', function(e){
         if($('#map-search-mode').attr('checked')){
@@ -69,8 +51,8 @@ OpenBlight.addresses = {
 
 
   populateMap: function(json_path, params, callbacks){
-
     jQuery.getJSON(json_path, params, function(data) {
+      OpenBlight.addresses.markers = [];
 
       var features = [];
       for(i = 0; i < data.length -1; i++){
@@ -89,7 +71,6 @@ OpenBlight.addresses = {
         },
 
         onEachFeature: function(feature, layer) {
-          
           var point = feature.coordinates;
           var y = point[1], x= point[0];
           var link = '/addresses/'+ data[current_feature].id;
@@ -112,21 +93,18 @@ OpenBlight.addresses = {
         }
       }).addTo(OpenBlight.addresses.map);
 
-
-
       $('ul.nav').removeClass('loading');
       $('#loading').hide();
-
-      OpenBlight.addresses.associateMarkers();
       if (typeof callbacks  === 'function') {
         callbacks();
       }
+      OpenBlight.addresses.associateMarkers();
     });
   },
 
   highlightCaseHistory: function(){
     $(".progress-arrow").hover(function(){
-      console.log('.case-history-' + $(this).attr('class').split(' ')[1]);
+      // console.log('.case-history-' + $(this).attr('class').split(' ')[1]);
       $('.case-history-' + $(this).attr('class').split(' ')[1]).css('background-color', '#eee')
     }, function(){
       $('.case-history-' + $(this).attr('class').split(' ')[1]).css('background-color', 'transparent')
@@ -137,11 +115,10 @@ OpenBlight.addresses = {
     $(".map-address").each(function(index, address){
       wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
         var x, y, map;
+        var icon = OpenBlight.addresses.getCustomIcon();
 
         x = $(address).attr("data-x");
         y = $(address).attr("data-y");
-
-        var icon = OpenBlight.addresses.getCustomIcon();
 
         map = new L.Map($(address).attr('map-id'),{
             zoomControl: false,
@@ -156,16 +133,13 @@ OpenBlight.addresses = {
     });
   },
 
-
- 
   associateMarkers: function(){
     for(var i = 0; i < OpenBlight.addresses.markers.length; i++){
-      
-      // console.log(i);
+
       var m = OpenBlight.addresses.markers[i];
 
       $(m['_icon']).attr("id", "marker-" + m.id);
-      $(m['_icon']).html(i+1);
+      $(m['_icon']).html(i + 1);
       if(i > 9){
         $(m['_icon']).addClass('two-digits');
       }
@@ -218,7 +192,6 @@ OpenBlight.addresses = {
     OpenBlight.addresses.populateMap('/addresses/map_search', bounds);
   },
 
-
   getCustomIcon: function(){
     return L.DivIcon.extend({
       options: {
@@ -230,45 +203,11 @@ OpenBlight.addresses = {
     });
   },
 
-
   fitPointersOnMap: function(){
     var markers = [];
     for(i = 0; i < OpenBlight.addresses.markers.length; i++){
       markers[i] = OpenBlight.addresses.markers[i].getLatLng();
     }
     OpenBlight.addresses.map.fitBounds(markers);
-  },  
-
-  paginate: function(data, stats, bounds){
-    var $pag = $('.pagination');
-    if($pag.length == 0){
-      $('.btn-group').append('<nav class="pagination"></nav>');
-      $pag = $('.pagination');
-    } 
-    else {
-      $pag.html('');
-    }
-    $pag.addClass('dynamic');
-    if(stats.page_count > 1){
-      var pagination = "";
-      var query_string = "northEast%5Blat%5D=" + bounds.northEast.lat + "&northEast%5Blng%5D=" + bounds.northEast.lng + "&southWest%5Blat%5D=" + bounds.southWest.lat + "&southWest%5Blng%5D=" + bounds.southWest.lng;
-      var json_bounds = JSON.stringify(bounds);
-      if(stats.page !== 1){
-        pagination = pagination + "<span class='first'><a data-bounds='"+ json_bounds + "' data-page='1' href='" + query_string + "&page=1'>« First</a></span> <span class='prev'><a href='"+ query_string + "&page=" + (stats.page - 1) + "'> ‹ Prev </a></span>";
-        if(stats.page > 2){
-          pagination = pagination + "<span class='page'><a data-bounds='"+ json_bounds + "' data-page='"+ (stats.page - 2) +"' href='" + query_string + "&page="+ (stats.page - 2) +"'>"+ (stats.page - 2) +"</a></span>";
-        }
-        pagination = pagination + "<span class='page'><a data-bounds='"+ json_bounds + "' data-page='"+ (stats.page - 1) +"' href='" + query_string + "&page="+ (stats.page - 1 ) +"'>"+ (stats.page - 1) +"</a></span>";
-      }
-      pagination = pagination + "<span class='page current'><a href='#'> "+ stats.page +"</a></span>";
-      if(stats.page !== stats.page_count) {
-        pagination = pagination + "<span class='page'><a data-bounds='"+ json_bounds + "' data-page='"+ (stats.page + 1) +"' href='" + query_string + "&page="+ (stats.page + 1)+"'>"+ (stats.page + 1) +"</a></span>";
-        if(stats.page_count - stats.page > 1){
-          pagination = pagination + "<span class='page'><a data-bounds='"+ json_bounds + "' data-page='"+ (stats.page + 2) +"' href='" + query_string + "&page="+ (stats.page + 2)+"'>"+ (stats.page + 2) +"</a></span>";
-        }
-        pagination = pagination + "<span class='next'><a data-bounds='"+ json_bounds + "' data-page='"+ (stats.page + 1) +"' href='" + query_string + "&page="+ (stats.page + 1)+"'>Next ›</a></span><span class='last'><a data-bounds='"+ json_bounds + "' data-page='"+ (stats.page_count) +"' href='"+ query_string + "&page="+ stats.page_count +"'>Last »</a></span>";
-      }
-      $pag.append(pagination);
-    }
-  }
+  },
 }

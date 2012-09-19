@@ -8,7 +8,7 @@
   .notice{
     background-color: white;
     margin: 20px;
-    padding: 20px 35px;
+    //    padding: 20px 35px;
     clear:both;
     text-align: center;
 
@@ -19,7 +19,7 @@
     }
   }
 
-	#subscriptions{
+//	#subscriptions{
 
     .subscription{
       h3{
@@ -40,6 +40,12 @@
       padding: 10px;
     }
 
+    #map{
+      position: relative;
+      position: fixed;
+
+    }
+
 
 
     .leaflet-map{
@@ -56,6 +62,6 @@
     }    
 
 
-	}
+//	}
 }
 

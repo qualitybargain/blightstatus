@@ -1,15 +1,25 @@
-.container
-  .container-fluid
-    .row-fluid
-      / Body content
-      /=@user.inspect
-      /=@account_subcriptions.length
+.container.about-page-content
+  
+  .span12
+    .span8
+      -if @account_subcriptions.count > 0
+        .subscription.notice
+          %h3
+            My Watchlist
+      -else
+        .subscription.no-subscription.notice
+          %p
+            Stay current and don't miss a hearing again.
+          %br
 
+          %p
+            To receive alerts, search for an address and click "Recieve Alerts". You will get email notifications as the status of the property updates.
+    .span4
+
+  .left-bar.span8
+    .block
       .row#subscriptions
         -if @account_subcriptions.count > 0
-          .subscription.notice
-            %p
-              You are subscribe to the following properties. You will receive notifications when their statuses change.
 
           -@account_subcriptions.each do |address|
             .subscription
@@ -18,9 +28,7 @@
                   =address.address_long
 
 
-              .map
-                .map-address{"internal_address_id" => address.id, "address_id" => address.address_id, "map-id" => "map-#{address.id}" , "data-x" => address.point.x, "data-y" => address.point.y }
-                  .leaflet-map{:id => "map-#{address.id}"}
+
 
 
               .progress-bar
@@ -41,22 +49,17 @@
               .clearfix
 
               .subscribe
-                =link_to('Unsubscribe', "/subscriptions/#{address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-large subscribe-button' , :id => "subscribe-button")
+                =link_to('Remove Watchlist', "/subscriptions/#{address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-large subscribe-button' , :id => "subscribe-button")
               .view-property
                 =link_to address do
                   .btn.btn-primary.btn-large
                     View Property
             .clearfix
-        -else
-          .subscription.no-subscription.notice
-            %p
-              Stay current and don't miss a hearing again.
-            %br
-  
-            %p
-              To receive alerts, search for an address and click "Recieve Alerts". You will get email notifications as the status of the property updates.
 
-
+  .left-bar.span3
+    .map#map{:style => "width: 300px; height: 200px"}
+      / .map-address{"internal_address_id" => address.id, "address_id" => address.address_id, "map-id" => "map-#{address.id}" , "data-x" => address.point.x, "data-y" => address.point.y }
+      / .leaflet-map{:id => "map-#{address.id}"}
 
 
           

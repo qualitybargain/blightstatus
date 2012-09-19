@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
   before_filter :authenticate_account!
-  respond_to :html, :json, :xml
+  respond_to :html, :json
 
   def index    
     @account = current_account
@@ -8,7 +8,12 @@ class AccountsController < ApplicationController
 
 
     @account_subcriptions = @account.addresses
-    # @account_subcriptions
+    
+    respond_to do |format|
+      format.html
+      format.json { render :json => @account_subcriptions.to_json }
+    end
+
   end
 
   def map

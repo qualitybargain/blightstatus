@@ -1,14 +1,23 @@
 OpenBlight.accounts = {
   init: function(){
+    OpenBlight.accounts.layergroup = {};
+    OpenBlight.accounts.map = {};
+    OpenBlight.accounts.markers = [];
   },
 
   /**
    * Controller method
    */
   index: function(){
-    OpenBlight.addresses.mapAddresses();
-    OpenBlight.accounts.subscriptionButton()
     OpenBlight.accounts.account_page = true;  
+
+    
+    OpenBlight.accounts.subscriptionButton()
+    OpenBlight.accounts.createAccountsMap();
+
+
+
+
   },
 
 
@@ -35,17 +44,17 @@ OpenBlight.accounts = {
             $(this).parentsUntil('.subscription').parent().fadeOut('slow');
           }
           else{
-            $(this).html('Receive Alerts');
+            $(this).html('Add Watchlist');
             $(this).data('method', 'put')           
           }
         }
         else{
-          $(this).html('Unsubscribe');
+          $(this).html('Remove Watchlist');
           $(this).data('method', 'delete')
         }
       }).bind("ajax:error", function(evt, data, status, xhr){
         //do something with the error here
-        console.log(data);
+        // console.log(data);
         // $("div#errors p").text(data);
     });
   },
@@ -85,9 +94,63 @@ OpenBlight.accounts = {
   },
 
 
+  createAccountsMap: function(){
+
+
+    var ready = wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
+      var y = 29.96;
+      var x = -90.08;
+      var zoom = 13;
+
+      OpenBlight.accounts.map = new L.Map('map', {
+        touchZoom: false,
+        scrollWheelZoom: false,
+        boxZoom: false
+      });
+
+      OpenBlight.accounts.map.addLayer(new wax.leaf.connector(tilejson))
+      OpenBlight.accounts.map.setView(new L.LatLng(y , x), zoom);
+
+      var json_path = '/accounts.json'
+      OpenBlight.accounts.populateMap(json_path);
+
+    });
+
+  },
+
+
+
+  populateMap: function(json_path){
+
+    jQuery.getJSON(json_path, {}, function(data) {
+      OpenBlight.accounts.markers = [];
+
+      var features = [];
+      var icon = OpenBlight.addresses.getCustomIcon();
+
+      for(i = 0; i < data.length -1; i++){
+        features.push(data[i].point);
+      }
+
+      L.geoJson(features, {
+        pointToLayer: function (feature, latlng) {
+          OpenBlight.accounts.markers.push( latlng );          
+          return L.marker(latlng, {icon: new icon() });
+        }
+      }).addTo(OpenBlight.accounts.map);
+
+
+      OpenBlight.accounts.map.fitBounds(OpenBlight.accounts.markers);
+
+    });
+
+  },
+
+
+
 
   savePolygon: function (e){
-    console.log(e);
+    // console.log(e);
     var latlngs = new Array();
 
     $.each(e.poly._latlngs, function(i, item) {        
@@ -95,7 +158,7 @@ OpenBlight.accounts = {
     });
 
     jQuery.post( '/subscriptions', { polygon: latlngs }, function(data) {
-      console.log(data);
+      // console.log(data);
     }, 'json');
   },
   
