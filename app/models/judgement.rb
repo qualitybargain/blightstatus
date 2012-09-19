@@ -21,4 +21,7 @@ class Judgement < ActiveRecord::Base
 		Judgement.count(group: :status)
 	end
 
+	def self.without_hearings
+		Judgement.find_by_sql("select j.* from judgements j where not exists (select * from hearings h where h.case_number = j.case_number)")
+	end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120915001249) do
+ActiveRecord::Schema.define(:version => 20120918214411) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -56,6 +56,24 @@ ActiveRecord::Schema.define(:version => 20120915001249) do
   add_index "addresses", ["address_long"], :name => "index_addresses_on_address_long"
   add_index "addresses", ["house_num", "street_name"], :name => "index_addresses_on_house_num_and_street_name"
 
+  create_table "admins", :force => true do |t|
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+  end
+
+  add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
+  add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
+
   create_table "case_managers", :force => true do |t|
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
@@ -83,6 +101,25 @@ ActiveRecord::Schema.define(:version => 20120915001249) do
     t.datetime "updated_at",    :null => false
   end
 
+<<<<<<< HEAD
+=======
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+>>>>>>> bf43e566a0f24d6448cb53aa7ea4de03c419f9df
   create_table "demolitions", :force => true do |t|
     t.string   "case_number"
     t.datetime "created_at",               :null => false
