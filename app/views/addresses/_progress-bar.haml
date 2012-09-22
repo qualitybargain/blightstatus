@@ -10,8 +10,9 @@
         %td{:class=> 'property-status property-status-resolution'}  Resolution
         %td{:style => "width: 20px"}
 
+    / =kase.case_steps
     %tbody
-      -if kases.length == 0
+      -if kase.case_steps == 0
         %tr
           %td
             .case-number
@@ -29,49 +30,52 @@
           %td
 
       -else
-        -kases.each do |k|
-          %tr
-            / %td
-            /   .case-number{:style => "font-size: 90%"}
-            /     = k.case_number
-            %td
-              -unless k.inspections.nil? || k.inspections.empty?
-                -k.inspections.each do |i|
-                  .progress-arrow.inspection{:class => "inspection-#{k.case_number}", :style => "z-index: 14"}
-                  / -break
-                  / .date=i.date.strftime("%-m/%-d/%y")
+        %tr
+          %td
+            -unless kase.inspections.nil? || kase.inspections.empty?
+              -kase.inspections.each do |i|
+                .progress-arrow.inspection{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
+            -else
+              -if kase.case_data_error?
+                .progress-arrow.error{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
               -else
-                .progress-arrow.pending{:style => "z-index: 14"}
-            %td
-              -unless k.notifications.nil? || k.notifications.empty?
-                -k.notifications.each do |n|
-                  .progress-arrow.notification{:class => "notification-#{k.case_number}", :style => "z-index: 13"}
-                  / -break
-                  / .date=n.date.strftime("%-m/%-d/%y")
-              -else
-                .progress-arrow.pending{:style => "z-index: 13"}
-            %td
-              -unless k.hearings.nil? || k.hearings.empty?
-                -k.hearings.each do |h|
-                  .progress-arrow.hearing{:class => "hearing-#{k.case_number}", :style => "z-index: 12"}
-                  / -break
-                  / .date=h.date.strftime("%-m/%-d/%y")
-              -else
-                .progress-arrow.pending{:style => "z-index: 12"}
-            %td
-              -unless k.judgement.nil?
-                .progress-arrow.judgement{:class => "judgement-#{k.case_number}", :style => "z-index: 11"}
-                / -break
-                / .date=k.judgement.date.strftime("%-m/%-d/%y")
-              -else
-                .progress-arrow.pending{:style => "z-index: 11"}
+                .progress-arrow.pending{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
 
-            %td
-              -unless k.address.resolutions.empty?
-                .progress-arrow.resolution{:class => "resolution-#{k.case_number}", :style => "z-index: 10"}
-                / -break
-                / .date=k.address.resolutions.first.date.strftime("%-m/%-d/%y")
+          %td
+            -unless kase.notifications.nil? || kase.notifications.empty?
+              -kase.notifications.each do |n|
+                .progress-arrow.notification{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
+            -else
+              -if kase.case_data_error? && kase.case_steps < 0
+                .progress-arrow.error{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
               -else
-                .progress-arrow.resolution.pending{:style => "z-index: 10"}
-            %td
-            -break
+                .progress-arrow.pending{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
+
+          %td
+            -unless kase.hearings.nil? || kase.hearings.empty?
+              -kase.hearings.each do |h|
+                .progress-arrow.hearing{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
+            -else
+              -if kase.case_data_error? && kase.case_steps < 1
+                .progress-arrow.error{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
+              -else
+                .progress-arrow.pending{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
+
+          %td
+            -unless kase.judgement.nil?
+              .progress-arrow.judgement{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
+            -else
+              -if kase.case_data_error? && kase.case_steps < 2
+                .progress-arrow.error{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
+              -else
+                .progress-arrow.pending{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
+
+          %td
+            -unless kase.resolutions.empty?
+              .progress-arrow.resolution{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
+            -else
+              -if kase.case_data_error? && kase.case_steps < 3
+                .progress-arrow.error{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
+              -else
+                .progress-arrow.pending{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
+          %td
