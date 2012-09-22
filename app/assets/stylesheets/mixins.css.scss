@@ -37,10 +37,12 @@
 
         &:hover{
           cursor: pointer;
+          color: $lightTeal;
         }
 
         &.collapsed{
-          background: url("/assets/arrow-right-orange.png") no-repeat scroll 10px 10px transparent;          
+          background: url("/assets/arrow-right-orange.png") no-repeat scroll 10px 10px transparent;
+              
         }
       }
 
