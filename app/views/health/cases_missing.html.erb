@@ -1,0 +1,8 @@
+<h3>Missing Cases with Steps</h3>
+<table>
+	<tr><th>Case Number</th><th>Complaint</th><th>Inspection</th><th>Notifications</th><th>Hearings</th><th>Judgment</th></tr>
+	<% @cases.each do |c| %>
+		<% hash = c.to_hash() %>
+		<tr><td><%= c.case_number %></td><td><%= "x" if hash[:compalaint] %></td><td><%= "x" if hash[:inspections].count > 0 %></td><td><%= "x" if hash[:notifications].count > 0 %></td><td><%= "x" if hash[:hearings].count > 0 %></td><td><%= "x" if hash[:judgement] %></td></tr>
+	<% end %>
+</table>

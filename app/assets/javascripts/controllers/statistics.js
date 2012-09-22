@@ -21,9 +21,6 @@ OpenBlight.statistics = {
         OpenBlight.statistics.bindRadioFilters();
         // OpenBlight.statistics.initilizeTimeline();
         $('#checkbox-inspections').trigger('click');
-
-
-        
        });
 
 
@@ -55,22 +52,16 @@ OpenBlight.statistics = {
      */
     bindRadioFilters: function(){
 
-      $('.nav-header select').on('change', function(index){
-
-        console.log($(this).val());
-        // var type = $(this).val() ;
-        // if($(this).prop('checked')){
-        //   var timeline_date = OpenBlight.statistics.getTimelineDate();
-        //   OpenBlight.statistics.populateMap($(this).val(), timeline_date.start_date, timeline_date.end_date);
-        //   OpenBlight.statistics.regenerateCharts();
-
-
-
-        // }
-        // else{
-        //   $('#checkbox-'+type+' + .btn').html( type )
-        // }
-
+      $('.filter-checkbox').on('change', function(index){
+        var type = $(this).val() ;
+        if($(this).prop('checked')){
+          var timeline_date = OpenBlight.statistics.getTimelineDate();
+          OpenBlight.statistics.populateMap($(this).val(), timeline_date.start_date, timeline_date.end_date);
+          // OpenBlight.statistics.regenerateCharts();
+        }
+        else{
+          $('#checkbox-'+type+' + .btn').html( type )
+        }
       });
     },
 
@@ -111,7 +102,7 @@ OpenBlight.statistics = {
         callback: function( data ){
 
           OpenBlight.statistics.regenerateMap();
-          OpenBlight.statistics.regenerateCharts();
+          // OpenBlight.statistics.regenerateCharts();
 
         }
       });
@@ -137,7 +128,7 @@ OpenBlight.statistics = {
               // console.log(data);
               $('#stats-chart').html(' ');
 
-              OpenBlight.statistics.createChart("stats-chart",data.result, label);
+              OpenBlight.statistics.createChart("stats-chart",data.result, label.toString().capitalize());
             });          
         }
 

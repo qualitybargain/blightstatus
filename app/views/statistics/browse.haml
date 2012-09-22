@@ -58,10 +58,8 @@
                   / %li.nav-stats 
                   /   =link_to "Judgements", '/cases.json?table=judgements', :method => :get,  :remote => true
 
-            .span8
-              #stats-map{:style => "width: 100%; height: 400px"}
-              #stats-chart{:style => "width: 100%; height: 50px"}
-                / %div{:id => "maintenance_programs"}
-                .stats
-                  .total Total:
-                  #total_number
+
+            .span9
+              #stats-map{:style => "width: 100%; height: 300px"}
+              / #stats-chart{:style => "width: 100%; height: 400px"}
+              / %div{:id => "maintenance_programs"}

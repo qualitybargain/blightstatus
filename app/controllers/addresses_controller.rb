@@ -24,8 +24,12 @@ class AddressesController < ApplicationController
     # if APP_CONFIG['demo_page_id'] == @address.id
     #   render :action => 'show-demo'  
     # else
-      respond_with(@address, @account_subscribed)
+      #respond_with(@address, @account_subscribed)
     # end
+    respond_to do |format|
+        format.html
+        format.json { render :json => {:address => @address, :account => @account}}
+      end
   end
 
 

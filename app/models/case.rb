@@ -102,4 +102,27 @@ class Case < ActiveRecord::Base
     c[:maintenances] = self.maintenances
     c
   end
+
+  def self.incomplete
+    Case.find_by_sql("select c.* from cases c where c.case_number in (select case_number from judgements j where not exists(select h.case_number from hearings h where h.case_number = j.case_number)) or c.case_number in (select h.case_number from hearings h where not exists (select * from notifications n where n.case_number = h.case_number)) or c.case_number in (select n.case_number from notifications n where not exists (select * from inspections i where i.case_number = n.case_number)) order by c.case_number").uniq
+  end
+
+  def self.orphans
+    Case.where(:address_id => nil)
+  end
+  def self.missing
+    #ratings = Complaint.where(:case_number not inselect(:case_number).uniq
+      case_numbers = []
+      case_numbers << Judgement.find_by_sql('select j.case_number from judgements j where j.case_number not in (select c.case_number from cases c where c.case_number = j.case_number)')#.select(:case_number)
+      case_numbers << Hearing.find_by_sql('select h.case_number from hearings h where h.case_number not in (select c.case_number from cases c where c.case_number = h.case_number)')#.select(:case_number)
+      case_numbers << Inspection.find_by_sql('select i.case_number from inspections i where i.case_number not in (select c.case_number from cases c where c.case_number = i.case_number)')#.select(:case_number)
+      case_numbers << Notification.find_by_sql('select n.case_number from notifications n where n.case_number not in (select c.case_number from cases c where c.case_number = n.case_number)')
+      case_numbers << Complaint.find_by_sql('select k.case_number from complaints k where k.case_number not in (select c.case_number from cases c where k.case_number = k.case_number)')
+      case_numbers.flatten!  
+
+      case_numbers.map! {|x| x.case_number}
+      case_numbers.uniq!
+      cases = case_numbers.map {|case_number| Case.new(:case_number => case_number)}
+      cases
+  end
 end

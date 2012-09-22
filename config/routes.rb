@@ -1,5 +1,7 @@
 Openblight::Application.routes.draw do
 
+  devise_for :admins
+
 #  devise_for :accounts
   devise_for :accounts
   resources :subscriptions
@@ -35,6 +37,9 @@ Openblight::Application.routes.draw do
 
   match "stats" => "statistics#graphs"
 
+  match "health/cases/incomplete" => "health#cases_incomplete"
+  match "health/cases/orphans" => "health#cases_orphan"
+  match "health/cases/missing" => "health#cases_missing"
 
   resources :accounts, :except => [:destroy, :create, :edit] do
     collection do

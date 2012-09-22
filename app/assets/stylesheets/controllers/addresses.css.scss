@@ -98,6 +98,18 @@
     border-radius: $borderRadius;
     padding: 40px;
     position: relative;
+
+    .subscribe{
+      padding: 2px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      .subscribe-button{
+        &:hover{
+          cursor: pointer;
+        }
+      }
+    }
   }
 
   .sidebar{
@@ -130,7 +142,7 @@
 
       padding: 15px;
       background-color: $lighterTeal;
-      border-radius: 10px;
+      border-radius: $borderRadius;
       margin: 15px 0;
       font-family: "Lato";
       font-size: $normalFontSize;
@@ -537,9 +549,8 @@
   padding: 20px 0;
 }
 
-.subscribe{
-  padding: 2px;
-}
+
+
 
 .pager a{
   cursor:pointer
