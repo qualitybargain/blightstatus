@@ -32,8 +32,21 @@
     text-align: left;
   }
 
+  .btn-group > .btn{
+    color: white;
+    border-radius: 5px;
+    text-transform: uppercase;    
+  }
 
+  .email-notification{
 
+    position: fixed;
+    top: 400px;
+    #email-notification-toggle{
+      display: none;
+    }
+
+  }
 
   .subscription{
     margin: 0 0 40px;

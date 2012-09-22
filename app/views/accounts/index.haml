@@ -35,11 +35,15 @@
                 =link_to('Remove Watchlist', "/subscriptions/#{address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-large btn-tight subscribe-button' , :id => "subscribe-button")
               .view-property
                 =link_to address do
-                  .btn.btn-primary.btn-large.btn-tight
+                  .btn.btn-primary.btn-tight
                     View Property
             .clearfix
 
   .right-bar.span3
     .map#map{:style => "width: 300px; height: 200px"}
-          
+    .email-notification
+      .btn-group
+        %input#email-notification-toggle{:name => "email-notification-toggle" , :type => "checkbox", :value => "true"}
+        %label.btn{:for => "email-notification-toggle"} Receive Emails
+
 
