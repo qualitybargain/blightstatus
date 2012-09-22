@@ -102,4 +102,34 @@ class Case < ActiveRecord::Base
     c[:maintenances] = self.maintenances
     c
   end
+
+
+  def case_steps    
+    case_steps = []
+    case_steps << self.inspections << self.hearings   << self.notifications << self.judgement << (self.demolitions || self.foreclosure || self.maintenances )
+    case_steps.flatten.compact.count
+  end
+
+
+  def case_data_error?
+
+    data_error = false;
+
+    data_error = self.inspections.empty? && !self.hearings.nil?
+    data_error = self.hearings.nil? && !self.notifications.nil? || data_error
+    data_error = self.notifications.nil? && !self.judgement.nil? || data_error
+    data_error = self.judgement.nil? && !(self.demolitions.nil? || self.foreclosure.nil? || self.maintenances.nil? ) || data_error
+
+    data_error
+
+  end
+
+
+  def resolutions
+    res_ary = []
+    res_ary << self.demolitions << self.maintenances #self.foreclosures << 
+    res_ary.flatten.compact
+  end
+
+
 end
