@@ -26,8 +26,8 @@
         .toggle
 
           .btn-group
-            %input#checkbox-inspections{:id => "map-search-mode" ,:name => "map-search-mode" , :type => "checkbox", :value => "true", :class => "filter-checkbox"}/
-            %label.btn{:for => "checkbox-inspections"} Reload map when map is moved 
+            %input#map-search-mode{:name => "map-search-mode" , :type => "checkbox", :value => "true", :class => "filter-checkbox"}/
+            %label.btn{:for => "map-search-mode"} Reload map when map is moved 
 
           / =check_box_tag('map-search-mode', 'true', true)
           / Redo search when map is moved
