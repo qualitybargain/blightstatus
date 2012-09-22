@@ -126,9 +126,11 @@ OpenBlight.accounts = {
       OpenBlight.accounts.markers = [];
 
       var features = [];
-      var icon = OpenBlight.addresses.getCustomIcon();
+      var icon = OpenBlight.addresses.getCustomIcon('dotmarker');
 
-      for(i = 0; i < data.length -1; i++){
+
+
+      for(i = 0; i < data.length; i++){
         features.push(data[i].point);
       }
 
@@ -136,7 +138,12 @@ OpenBlight.accounts = {
         pointToLayer: function (feature, latlng) {
           OpenBlight.accounts.markers.push( latlng );          
           return L.marker(latlng, {icon: new icon() });
+        },
+
+        onEachFeature: function(feature, layer) {
+          console.log(layer);
         }
+
       }).addTo(OpenBlight.accounts.map);
 
 
