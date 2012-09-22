@@ -14,16 +14,36 @@
             =link_to('Add Watchlist', "/subscriptions/#{@address.id}", :remote => true, :method => :put,  'data-type' => 'json', :class => 'btn btn-primary btn-large btn-tight subscribe-button' , :id => "subscribe-button")
         -else
           =link_to('Add Watchlist', new_account_session_path, :class => 'btn btn-primary btn-large subscribe-button' , :id => "subscribe-button")
+        %a{ "data-placement"=>"bottom", :rel=>"tooltip", "data-original-title"=>"Tooltip on bottom"}
+          [?]
+
 
       / =render :partial => "addresses/status-update", :locals => {:address => @address}
       -unless @address.workflow_steps.empty?
         .property-history
           .cases
             -@address.sorted_cases.each do |c|
-              =render :partial => "addresses/progress-bar", :locals => {:kases => @address.sorted_cases}
               .case
-                =render :partial => "addresses/property-history", :locals => {:kase => c}
-              .clearfix
+                %h2
+                  Case:
+                  =c.case_number
+                =render :partial => "addresses/progress-bar", :locals => {:kase => c}
+
+                -if c.case_data_error?
+                  .block{:style => "text-align: center; padding: 0 0 10px; margin:0 auto;"}
+                    %b{:style => "color: red"}
+                      Warning:
+                    This case is missing data.
+
+
+
+                .case-details
+                  =render :partial => "addresses/property-history", :locals => {:kase => c}
+                .clearfix
+                %br
+                %br                
+            %a#show-history{:style => "text-align: center"}
+              Show Historical Cases
 
 
 
@@ -32,9 +52,9 @@
     .span4.sidebar
       .map.centered
         .map-address{"internal_address_id" => @address.id, "address_id" => @address.address_id, "map-id" => "map-#{@address.id}" , "data-x" => @address.point.x, "data-y" => @address.point.y }
-          .leaflet-map{:style => "border: 1px solid #aaa; height: 100px;", :id => "map-#{@address.id}"}
-      .map.centered      
-        %img{:style => "width: 300px;border: 1px solid #aaa;", :src => "http://maps.googleapis.com/maps/api/streetview?location=#{@address.point.y},#{@address.point.x}&size=300x150&sensor=true"}
+          .leaflet-map{:style => "border: 1px solid #aaa; height: 150px;", :id => "map-#{@address.id}"}
+      / .map.centered      
+      /   %img{:style => "width: 300px;border: 1px solid #aaa;", :src => "http://maps.googleapis.com/maps/api/streetview?location=#{@address.point.y},#{@address.point.x}&size=300x150&sensor=true"}
 
       .assessor.centered
         -if @address.assessor_url
