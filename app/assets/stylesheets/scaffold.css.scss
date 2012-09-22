@@ -128,7 +128,7 @@ html{
     a{
       border: 0;
       background-color: $lighterTeal;
-      border-radius: 20px 20px 0 0;
+      border-radius: 10px 10px 0 0;
       border-style: solid;
       border-width: 1px 1px 0 1px;
       border-color:  #ccc;
@@ -142,7 +142,7 @@ html{
     &.active{
       a{
         background-color: white;
-        border-radius: 20px 20px 0 0;
+        border-radius: 10px 10px 0 0;
         margin-bottom: -1px;          
         color: $darkGrey;       
 
@@ -150,6 +150,43 @@ html{
     }
   }
 }
+
+.account-tabs{
+  padding-bottom: 0;
+  margin-bottom: 0;
+
+  &.nav-tabs{
+    border: 0px;
+  }
+
+  li{
+    margin: 10px 0px -2px 0;
+
+    a{
+      border: 0;
+      background-color: $lighterTeal;
+      border-radius: 10px 10px 0 0;
+      border-style: solid;
+      border-width: 1px 1px 0 1px;
+      border-color:  #ccc;
+      font-size: 125%;
+      padding: 10px 20px;
+      color: $darkGrey;       
+
+    }
+
+    &.active{
+      a{
+        background-color: white;
+        border-radius: 10px 10px 0 0;
+        margin-bottom: -1px;          
+        color: $darkGrey;       
+
+      }
+    }
+  }
+}
+
 
 .tab-content{
   background: white;
@@ -172,10 +209,10 @@ html{
 
   .span3 {
     background: rgba(0, 0, 0, 0.1);
-    padding: 20px 10px 20px 20px;
+    padding: 30px 25px 30px 30px;
     margin-top: 10px;
     margin-right: -40px;
-    float: right;
+//    float: right;
 
     li {
       padding: 5px 0;
@@ -185,7 +222,7 @@ html{
 
 .tab-pane-content{
   border: 1px solid #ddd;
-  border-radius: 0 0 20px 20px;
+  border-radius: 0 10px 10px 10px;
   padding: 40px;
 }
 
@@ -228,14 +265,23 @@ navbar
         a {
           font-size: 80%;
           padding: 0px;
+          
+          &:hover{
+            color: $lightTeal;
+          }
         }
       }
 
       &.sign-up {
-        font-size: 90%;
+        font-size: 85%;
         a {
           display: inline;
-          padding: 0;
+          padding: 0 2px;
+
+          &:hover{
+            color: $lightTeal;
+            background-color: transparent;
+          }
         }
       }
 
@@ -261,7 +307,7 @@ navbar
 
     a{
       text-shadow: none;
-      color: $orange !important;
+      color: $orange;
     }
   }
 
