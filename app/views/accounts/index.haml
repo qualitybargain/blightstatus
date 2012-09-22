@@ -1,19 +1,10 @@
 .container.about-page-content
   
   .span12
-    .span8
-      -if @account_subcriptions.count > 0
-        .subscription.notice
-          %h3
-            My Watchlist
-      -else
-        .subscription.no-subscription.notice
-          %p
-            Stay current and don't miss a hearing again.
-          %br
-
-          %p
-            To receive alerts, search for an address and click "Recieve Alerts". You will get email notifications as the status of the property updates.
+    .span8{:style => "margin-left: 0"}
+      .notice
+        %h1
+          My Watchlist
     .span4
 
   .left-bar.span8
@@ -22,17 +13,24 @@
         -if @account_subcriptions.count > 0
 
           -@account_subcriptions.each do |address|
-            .subscription
-              =link_to address_path(address) do
-                %h3.address
-                  =address.address_long
+            .subscription{:id => "subscription-#{address.id}" }
+              %h2.address-title
+                =address.address_long
 
 
-              .progress-bar
-                =render :partial => "addresses/progress-bar", :locals => {:kases => address.sorted_cases}
-
+              -address.sorted_cases.each do |c|
+                .progress-bar
+                  %h3
+                    Case:
+                    =c.case_number
+                  =render :partial => "addresses/progress-bar", :locals => {:kase => c}
+                  -if c.case_data_error?
+                    .block{:style => "text-align: center; padding: 0 0 10px; margin:0 auto;"}
+                      %b{:style => "color: red"}
+                        Warning:
+                      This case is missing data.
               .clearfix
-
+              %br
               .subscribe
                 =link_to('Remove Watchlist', "/subscriptions/#{address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-large btn-tight subscribe-button' , :id => "subscribe-button")
               .view-property

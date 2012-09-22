@@ -120,6 +120,8 @@ class Case < ActiveRecord::Base
     data_error = self.notifications.nil? && !self.judgement.nil? || data_error
     data_error = self.judgement.nil? && !(self.demolitions.nil? || self.foreclosure.nil? || self.maintenances.nil? ) || data_error
 
+
+
     data_error
 
   end
