@@ -61,6 +61,7 @@ OpenBlight.addresses = {
       });
     });
   },
+  
   createSearchResultsMap: function(){
     wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
       var y = 29.96;

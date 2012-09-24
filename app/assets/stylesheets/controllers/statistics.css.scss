@@ -6,6 +6,9 @@
 
 .container-statistics{
 	
+  select{
+    width: 185px;
+  }
 	.inner{
 		width: 70%;
 		margin: 0 auto;
@@ -25,6 +28,29 @@
 
 	}
 
+
+	#stats-row{
+
+		table{
+			margin: 20px auto;
+			padding: 10px;
+			font-size: 130%;
+
+			td{
+				border: 1px solid #aaa;
+				padding: 10px;
+			}
+
+			thead{
+				font-weight: bold;
+			}
+			tbody{
+			}
+
+		}
+
+
+	}
 
 	#checkbox-inspections + label.btn{
 		background-color: $inspections;
