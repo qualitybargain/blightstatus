@@ -18,7 +18,10 @@ OpenBlight.statistics = {
     $.when(
       OpenBlight.statistics.createStatsMap()
      ).then(function () {
+
+      var selectBox = $("select").selectBoxIt();
       OpenBlight.statistics.initilizeSelectBoxes();
+      OpenBlight.statistics.limitMonthSelectBoxes();
       $('#start_date_start_date_2i').val('3');
       $('#start_date_start_date_2i').trigger('change');
      });
@@ -60,6 +63,20 @@ OpenBlight.statistics = {
     return deferred;
   },
 
+
+  limitMonthSelectBoxes: function(){
+
+    var d = new Date();
+    $('#start_date_start_date_1i').on('change', function(index){
+
+      if($('#start_date_start_date_1i').val() == d.getFullYear()){
+        console.log('year');
+        // $('#start_date_start_date_2i').val() +  "-1" ;
+
+      }
+    });
+
+  },
 
   initilizeSelectBoxes: function(){
     $('select').on('change', function(index){
@@ -126,7 +143,7 @@ OpenBlight.statistics = {
     $('#stats-row').html('<table id="stats-table"><thead></thead><tbody></tbody></table>');
 
     $.each(data, function(a, b){
-      $('#stats-table thead').append('<td>'+a+'</td>')
+      $('#stats-table thead').append('<td><span>'+a+'</span></td>')
     })
 
     $.each(data, function(a, b){

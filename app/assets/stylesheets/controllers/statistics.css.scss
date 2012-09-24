@@ -35,14 +35,20 @@
 			margin: 20px auto;
 			padding: 10px;
 			font-size: 130%;
+      text-align: center;
 
 			td{
-				border: 1px solid #aaa;
-				padding: 10px;
+				padding: 5px 10px 10px;
 			}
 
 			thead{
-				font-weight: bold;
+        font-size: 85%;
+        font-weight: bold;
+
+        span{
+          border-bottom: 1px solid;
+          padding: 1px 3px;
+        }
 			}
 			tbody{
 			}
@@ -125,6 +131,20 @@
 			left: 170px;
 		}
 	}
+
+  .selectboxit, .selectboxit-options{
+    width: auto;
+    min-width: 170px;
+    margin: 0 5px;
+  }
+  .selectboxit{
+    border: 1px solid #ccc;
+    font-family: "Lato";
+    font-weight: 300;
+    text-transform: capitalize;
+    background: inherit;
+    background: #F0F0F0;
+  }
 
 }
 
