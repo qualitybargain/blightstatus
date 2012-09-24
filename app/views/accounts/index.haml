@@ -32,7 +32,7 @@
               .clearfix
               %br
               .subscribe
-                =link_to('Remove Watchlist', "/subscriptions/#{address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-large btn-tight subscribe-button' , :id => "subscribe-button")
+                =link_to('Remove Watchlist', "/subscriptions/#{address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button' , :id => "subscribe-button")
               .view-property
                 =link_to address do
                   .btn.btn-primary.btn-tight
