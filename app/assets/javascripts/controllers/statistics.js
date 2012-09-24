@@ -18,12 +18,9 @@ OpenBlight.statistics = {
     $.when(
       OpenBlight.statistics.createStatsMap()
      ).then(function () {
-
       OpenBlight.statistics.initilizeSelectBoxes();
       $('#start_date_start_date_2i').val('3');
       $('#start_date_start_date_2i').trigger('change');
-
-
      });
 
 
@@ -45,8 +42,8 @@ OpenBlight.statistics = {
 
     var ready = wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
       var y = 29.96;
-      var x = -90.08;
-      var zoom = 13;
+      var x = -90.02;
+      var zoom = 12;
 
       OpenBlight.statistics.map = new L.Map('stats-map', {
         touchZoom: false,
@@ -58,7 +55,6 @@ OpenBlight.statistics = {
       OpenBlight.statistics.map.setView(new L.LatLng(y , x), zoom);
 
       deferred.resolve();
-
     });
 
     return deferred;
@@ -136,7 +132,6 @@ OpenBlight.statistics = {
     $.each(data, function(a, b){
       $('#stats-table tbody').append('<td>'+b+'</td>')
     })
-
 
   },
 
@@ -336,23 +331,23 @@ OpenBlight.statistics = {
     });
 
     var r = Raphael(id), pie = r.piechart(320, 240, 100, values, { legend: keys, legendpos: "east", href: [".", "."]});
-          r.text(320, 100, title).attr({ font: "20px sans-serif" });
-          pie.hover(function () {
-            this.sector.stop();
-            this.sector.scale(1.1, 1.1, this.cx, this.cy);
+      r.text(320, 100, title).attr({ font: "20px sans-serif" });
+      pie.hover(function () {
+        this.sector.stop();
+        this.sector.scale(1.1, 1.1, this.cx, this.cy);
 
-            if (this.label) {
-              this.label[0].stop();
-              this.label[0].attr({ r: 7.5 });
-              this.label[1].attr({ "font-weight": 800 });
-            }
-          }, function () {
-            this.sector.animate({ transform: 's1 1 ' + this.cx + ' ' + this.cy }, 500, "bounce");
+        if (this.label) {
+          this.label[0].stop();
+          this.label[0].attr({ r: 7.5 });
+          this.label[1].attr({ "font-weight": 800 });
+        }
+      }, function () {
+        this.sector.animate({ transform: 's1 1 ' + this.cx + ' ' + this.cy }, 500, "bounce");
 
-            if (this.label) {
-              this.label[0].animate({ r: 5 }, 500, "bounce");
-              this.label[1].attr({ "font-weight": 400 });
-            }
-          });
+        if (this.label) {
+          this.label[0].animate({ r: 5 }, 500, "bounce");
+          this.label[1].attr({ "font-weight": 400 });
+        }
+      });
     }
 }
