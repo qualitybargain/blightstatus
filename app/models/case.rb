@@ -29,6 +29,12 @@ class Case < ActiveRecord::Base
     self.accela_steps.sort{ |a, b| a.date <=> b.date }.last
   end
 
+  def name_of_most_recent_status
+    self.most_recent_status.class.to_s
+  end
+
+  
+
   def most_recent_step_before_abatement
     steps_ary = []
     steps_ary << self.hearings << self.inspections << self.resets  << self.notifications  << self.judgement

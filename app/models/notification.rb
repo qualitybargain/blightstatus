@@ -28,4 +28,9 @@ class Notification < ActiveRecord::Base
   def self.types
   	Notification.count(group: :notification_type)
   end
+
+  def self.results
+    Notification.count(group: :notification_type)
+  end
+
 end
