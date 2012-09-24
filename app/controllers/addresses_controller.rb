@@ -70,29 +70,67 @@ class AddressesController < ApplicationController
     RGeo::ActiveRecord::GeometryMixin.set_json_generator(:geojson)
     date = Time.now
 
-    params[:start_date] = params[:start_date].nil? ? (date - 2.weeks).to_s : params[:start_date]
-    params[:end_date] = params[:end_date].nil? ? (date).to_s : params[:end_date]
+    params[:start_date] = params[:start_date].nil? ? (date - 1.month).to_s : params[:start_date]
 
-    start_date = Date.parse(params[:start_date]).strftime('%Y-%m-%d')
-    end_date = Date.parse(params[:end_date]).strftime('%Y-%m-%d')
+    start = Date.parse(params[:start_date])
 
-    case params[:type]
+    start_date = start.strftime('%Y-%m-%d')
+    end_date = start + 1.month - 1.day
+    class_name = ''
+
+    case params[:status]
       when 'inspections'
-        @cases = Address.joins(:inspections).where(" inspection_date > '#{start_date}' AND inspection_date < '#{end_date}' ").pluck(:point)
+        cases = Case.includes(:address, :inspections).where(" cases.address_id = addresses.id  AND inspections.inspection_date > '#{start_date}' AND inspections.inspection_date < '#{end_date}' ")
+        class_name = 'Inspection'
       when 'notifications'
-        @cases = Address.joins(:notifications).where(" notification_date > '#{start_date}' AND notification_date < '#{end_date}' ").pluck(:point)
+        cases = Case.includes(:address, :notifications).where(" cases.address_id = addresses.id  AND notified > '#{start_date}' AND notified < '#{end_date}' ")
+        class_name = 'Notification'
       when 'hearings'
-        @cases = Address.joins(:hearings).where(" hearing_date > '#{start_date}' AND hearing_date < '#{end_date}' ").pluck(:point)
+        cases = Case.includes(:address, :hearings).where(" cases.address_id = addresses.id  AND  hearing_date > '#{start_date}' AND hearing_date < '#{end_date}' ")
+        class_name = 'Hearing'
       when 'judgements'
-        @cases = Address.joins(:judgements).where(" judgement_date > '#{start_date}' AND judgement_date < '#{end_date}' ").pluck(:point)
+        cases = Case.includes(:address, :judgements).where(" cases.address_id = addresses.id  AND  judgement_date > '#{start_date}' AND judgement_date < '#{end_date}' ")
+        class_name = 'Judgement'
+      when 'foreclosures'
+        cases = Case.includes(:address, :foreclosures).where(" cases.address_id = addresses.id  AND  date_completed > '#{start_date}'  AND date_completed < '#{end_date}' ")
+        class_name = 'Demolition'
       when 'demolitions'
-        @cases = Address.joins(:demolitions).where(" date_completed > '#{start_date}'  AND date_completed < '#{end_date}' ").pluck(:point)
+        cases = Case.includes(:address, :demolitions).where(" cases.address_id = addresses.id  AND  date_completed > '#{start_date}'  AND date_completed < '#{end_date}' ")
+        class_name = 'Demolition'
       when 'abatement'
-        @cases = Address.joins(:maintenances).where(" date_completed > '#{start_date}'  AND date_completed < '#{end_date}' ").pluck(:point)
+        cases = Case.includes(:address, :maintenances).where(" cases.address_id = addresses.id  AND  date_completed > '#{start_date}'  AND date_completed < '#{end_date}' ")
+        class_name = 'Maintenance'
     end
 
+
+    # TODO: performance needs to be evaluated! compact!, compact, delete, reject etc
+    if cases.nil?
+      cases = Hash.new
+    end
+    if params[:only_recent_status].to_i == 1
+      case_addresses = cases.map{| single_case |
+        
+        if single_case.most_recent_status.class.to_s == class_name
+          single_case.address
+        end
+
+      }.compact
+    else
+      case_addresses = cases.map{| single_case |
+        single_case.address
+      }
+    end
+
+
+    # TODO: this is temporary. stats method should be in each model 
+    stats = []
+    if params[:show_stats].to_i == 1
+      stats = get_stats(params[:status], start_date, end_date)
+    end
+
+
     respond_to do |format|
-      format.json { render :json => @cases.to_json }
+      format.json { render :json =>  {:cases => case_addresses, :stats => stats}.to_json }
     end
       
   end
@@ -117,6 +155,31 @@ class AddressesController < ApplicationController
     # location = factory.point(params[:x].to_f, params[:y].to_f)
     @address = Address.where(" point = ST_GeomFromText('POINT(#{params[:x].to_f} #{params[:y].to_f})') " ).first
     redirect_to address_url(@address), :status => :found
+  end
+
+
+  private
+
+
+  def get_stats(status, start_date, end_date)
+    case status
+      when "inspections"
+        Inspection.where(" inspection_date > '#{start_date}' AND inspection_date < '#{end_date}' ").results
+      when "notifications"
+        Notification.where(" notified > '#{start_date}' AND notified < '#{end_date}' ").types
+      when "hearings"
+        Hearing.where(" hearing_date > '#{start_date}' AND hearing_date < '#{end_date}' ").status
+      when "resets"
+        Reset.where(" reset_date > '#{start_date}' AND reset_date < '#{end_date}' ").status
+      when "judgements"
+        Judgement.where(" judgement_date > '#{start_date}' AND judgement_date < '#{end_date}' ").status
+      when "maintenances"
+        Maintenance.where(" maintenance_date > '#{start_date}' AND maintenance_date < '#{end_date}' ").status
+      when "foreclosures"
+        Foreclosure.where(" foreclosure_date > '#{start_date}' AND foreclosure_date < '#{end_date}' ").status
+      when "demolitions"
+        Demolition.where(" demolition_date > '#{start_date}' AND demolition_date < '#{end_date}' ").status
+    end
   end
 
 end
