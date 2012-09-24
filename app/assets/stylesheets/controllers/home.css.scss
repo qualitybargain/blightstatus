@@ -4,125 +4,59 @@
 @import "variables.css.scss";
 
 .container-home{
-
-
-  #wrapper{
-    padding-bottom: 50px;
-  }
-
-
-
   .frontpage{
+    text-align:center;
 
-    padding-top: 5%;
-
-    h1{
-      font-size: 39pt;
-      padding: 22px 0 15px 0;
-      color: #F1601D;
-      font-family: "Kreon", sarif;
-      line-height: 15px;
-    }
-  	input.btn[type="submit"] {
-  		font-size: 150%;
-  		height: 40px;
-  		margin: 0 10px;
-  	}	
-    
-    form{
-      margin: 5px 0px 8px;
-    }
-
-    .page-header{
-       border: 0px; 
-       margin: 30px 0;
-       h1 {
-        line-height: 1;
-        padding: 60px 0 8px;
-       }
-    }
-
-    .help-block{
-      margin-left: 13px;
-      clear: both;
+    h1 {
+      margin: 0 0 20px;
+      color: $darkTeal;
     }
     
-  	.content{
-  		margin: 0 auto;
-  		position: relative;
-  		width: 100%;
-  		form {
-  			text-align: center;
-  		}	
-  	
-  	}
-  	
-    .home-search{
-      text-align:right;
-      width: 820px;
-      margin: 0 auto;
-
+    h2 {
+      margin-bottom: 25px;
+      color: $grey;
     }
 
-    .home-illustration{
-      background: url("/assets/dude_house.png") no-repeat scroll 0 bottom transparent;
-      border: 0px solid;
-      float: right;
-      height: 299px;
-      width: 320px;
+    h3.lighten {
+      opacity: 0.9;
     }
 
-    .tag-line{
-      float: left;
-      font-size: 32px;
-      line-height: 38px;
-      padding: 37px 0 0 40px;
-      text-align: left;
-      width: 430px;
-      font-weight: 300;
-      color: $darkGrey;
+    hr.soften {
+      height: 1px;
+      margin: 30px 0;
+      background-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+      background-image: -moz-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+      background-image: -ms-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+      background-image: -o-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+      border: 0;
     }
 
-    .search-bubble{
-      width: 420px;
+   .search-bubble{
       border-radius: $borderRadius;
-      padding: 20px 25px 20px 40px;
+      // padding: 20px 25px 20px 40px;
       background-color: #ebe9e1;
       text-align:left;
-      position: relative;
-      margin: 0 0; 
-      float: left;
-
-      .speak-bubble{
-        background: url("/assets/speak_bubble.png") no-repeat scroll 0 0 transparent;
-        bottom: -23px;
-        height: 45px;
-        position: absolute;
-        right: -15px;
-        width: 65px;
-      }
+      padding: 25px 35px 10px;
+      margin: 0 0 20px;
 
       .search-form{
-        margin: 0 auto;
-
+        margin: 5px 0px 8px;
         .search-field{
-          display:inline;
-
           #main-search-field{
-            width: 275px;
+            width: 615px;
             height: 32px;
             font-size: 140%;
             clear: both;
             background: white;
           }
-
         }
+
         .search-button{
           display:inline;
           .btn{
-            margin-top: 0px;
-            height: 38px;
-            margin: 8px;
+            font-size: 190%;
+            height: 50px;
+            margin: 3px 12px;
           }
         }
       }

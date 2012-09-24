@@ -1,19 +1,46 @@
 %section.frontpage
   .container
     .row
-      .home-search
-        .search-bubble
-          %h1 What's the status?
-          %br.search-form
-          =form_tag("/addresses/search", :method => "get") do
+      %h1.tag-line Find out what’s going on with properties in <br> New Orleans.
+    .row
+      %h3.lighten There are two ways to use Blightstatus:
+    %hr.soften
+    .row
+      %h2 Have a specific address or street name in mind?
+    .row
+      .search-bubble
+        .span10
+          =form_tag("/addresses/search", :method => "get", :class => "search-form") do
             .search-field
               =text_field_tag 'address', '', :placeholder => "Example: 2326 Gravier St", :id => "main-search-field"
             .search-button
               =submit_tag("Search", :class => 'btn btn-primary btn-primary-search')
           %span.help-block Enter any street name or address within Orleans Parish, Louisiana
-          .speak-bubble
-        .home-illustration
-        %h3.tag-line Find out what’s going on with properties in New Orleans.
-
+          %span.help-block
+            Need Ideas? Try
+            =link_to "1234 Sample St", "#"
+        .clearfix
+    .row
+      .samples
+        %h3 Or, 
+          =link_to "browse by map", "/browse"
+    %hr.soften
+    .row
+      %h2 Want to browse, or get a big-picture view?
+      %a{ :href => "/browse" }
+        =image_tag "map-background.png", :width => 890
+      %a{ :href => "/browse" }
+        %h3 Browse the map
+    %hr.soften
+    .row
+      %h2 What else can I do with Blightstatus?
+      .span3 
+        Subscribe
+      .span3 
+        Receive alerts
+      .span3 
+        Get context
+      .span3 
+        Watch our video to learn more
 
     .clear
