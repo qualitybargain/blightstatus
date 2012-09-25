@@ -33,4 +33,7 @@ class Notification < ActiveRecord::Base
     Notification.count(group: :notification_type)
   end
 
+  def self.without_inspection
+    Hearing.find_by_sql("select n.* from notifications n where not exists (select * from inspections i where i.case_number = n.case_number)")
+  end
 end

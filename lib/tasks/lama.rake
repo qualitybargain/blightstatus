@@ -1,3 +1,5 @@
+require 'open-uri'
+require 'json'
 require "#{Rails.root}/lib/lama_helpers.rb"
 include LAMAHelpers
 
@@ -66,5 +68,30 @@ namespace :lama do
     end
 
     LAMAHelpers.import_to_database(incidents, l)
+  end
+
+
+  desc "Import updates from LAMA by parameter pipe (|) delimited string of cases"
+  task :compare_to_accela, [:filename] => :environment do |t, args|
+    
+    args.with_defaults(:filename => "#{Rails.root}/tmp/db_accela_compare_#{DateTime.now.strftime("%Y%m%d%H%M%s")}.csv")
+    puts "fileneme => #{args[:filename]}"
+    File.open(args[:filename], "w+") do |f|
+
+      page = 1
+      url = "https://blightstatus-dev.herokuapp.com/cases.json?page=#{page}"
+      result = JSON.parse(open(url).read)
+      while result.count > 0
+        result.each do |c|
+          unless Case.exists?(:case_number => c["case_number"])
+            puts c["case_number"]
+            f.write(c["case_number"] << "\r")
+          end
+        end
+        page += 1
+        url = "https://blightstatus-dev.herokuapp.com/cases.json?page=#{page}"
+        result = JSON.parse(open(url).read)
+      end
+    end
   end
 end

@@ -22,4 +22,8 @@ class Hearing < ActiveRecord::Base
   def self.status
   	Hearing.count(group: :hearing_status)
   end
+
+  def self.without_notification
+    Hearing.find_by_sql("select h.* from hearings h where not exists (select * from notifications n where n.case_number = h.case_number)")
+  end
 end
