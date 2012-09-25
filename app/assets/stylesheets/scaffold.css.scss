@@ -12,14 +12,14 @@ html{
   }
 
   h1{
-    color: #F1601D;
-    font-size: 30pt;  
-    line-height: 34pt;
+//    color: #F1601D;
+    font-size: 30pt;
+    font-weight: 100;
   }
 
   h2, h3{
     font-family: "Lato";
-    color: $orange;
+//    color: $orange;
   }
 
   h4{
@@ -118,6 +118,7 @@ html{
 .page-tabs{
   padding-bottom: 0;
   margin-bottom: 0;
+  margin-left: 20px;
 
   &.nav-tabs{
     border: 0px;
@@ -135,7 +136,7 @@ html{
       border-color:  #ccc;
       text-transform: uppercase;
       font-size: 140%;
-      padding: 15px 63.66px;
+      padding: 15px 52px;
       color: $darkGrey;       
 
     }
@@ -185,7 +186,8 @@ html{
 }
 
 .tab-pane-content{
-  border: 1px solid #ddd;
+  border: solid #ddd;
+  border-width: 1px 1px 1px 1px;
   border-radius: 0 0 20px 20px;
   padding: 40px;
 }
@@ -223,7 +225,8 @@ navbar
 
   .dropdown-menu{
     .span3 {
-      padding: 4px 15px 10px 0;
+      padding: 5px 0;
+      margin: 0;
 
       &.login-form {
         a {
@@ -236,7 +239,8 @@ navbar
         font-size: 90%;
         a {
           display: inline;
-          padding: 0;
+          padding: 3px 20px;
+
         }
       }
 
@@ -298,19 +302,30 @@ navbar
 }
 
 
-.dropdown-menu {
-  li {
-    a{
-      &:hover{
-        background: none;
-        color: $lightTeal;
-      }
-    }
-  }
+.dropdown-menu li{
+
+  a{
+    &:hover{
+      background: $orange;
+      color: white;
+    } 
+  }  
+
 }
 
+//.dropdown-menu {
+//  li {
+//    a{
+//      &:hover{
+//        background: none;
+//        color: $lightTeal;
+//      }
+//    }
+//  }
+//}
+
 .btn{
-  background: none repeat scroll 0 0 #62C1CC;
+  background: $orange;
 //  border: 0 none;
 //  border-radius: $borderRadius;
   font-family: "Lato";

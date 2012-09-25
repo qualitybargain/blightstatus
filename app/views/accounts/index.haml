@@ -1,4 +1,4 @@
-.container.about-page-content
+.container.about-page-content.no-search-results
   
   .span12
     .span8{:style => "margin-left: 0"}
@@ -7,9 +7,9 @@
           My Watchlist
     .span4
 
-  .left-bar.span8
+  .row.span8
     .block
-      .row#subscriptions
+      #subscriptions
         -if @account_subcriptions.count > 0
           -@account_subcriptions.each do |address|
             .subscription{:id => "subscription-#{address.id}" }
@@ -39,7 +39,7 @@
                     View Property
             .clearfix
 
-  .right-bar.span3
+  .row.span3
     .map#map{:style => "width: 300px; height: 200px"}
     .email-notification
       .btn-group

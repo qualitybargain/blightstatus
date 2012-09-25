@@ -22,14 +22,14 @@
                 Sign In
               %b
                 &nbsp;&nbsp;
-            %ul.dropdown-menu.row{"aria-labelledby" => "drop1", :role => "menu"}
+            %ul.dropdown-menu.span2.row{"aria-labelledby" => "drop1", :role => "menu"}
               -if account_signed_in?
-                .logged-in.span3
+                .logged-in
                   %li=link_to "My Watchlist", "/accounts"
                   %li=link_to('Logout', destroy_account_session_path, :method => :get)
               -else
                 .logged-out
-                  %li.login-form.span3
+                  %li.login-form
                     =form_for :account, :as => :account, :url => session_path(:account) do |f|
                       .error
                       = f.email_field :email, :placeholder => 'Enter your email address'
@@ -38,7 +38,7 @@
                       = f.check_box :remember_me
                       = f.label :remember_me
                       = f.submit "Log in", :class => "btn btn-primary"
-                  %li.sign-up.span3
+                  %li.sign-up
                     Don't have an account yet?
                     =link_to "Sign Up", "/accounts/sign_up"
                   .clearfix

@@ -28,6 +28,7 @@
   }
 
 
+
   .timeline{
     margin: 20px 0 30px;
     .category{
@@ -57,9 +58,6 @@
     border-width: 0 1px 1px 1px;
   }
 
-  .tab-content {
-    width: 930px;
-  }
 
   .our-partners{
     .code-for-america{
@@ -91,7 +89,7 @@
       font-family: "Lato";
       border-bottom: 1px solid $darkerBeige;
       margin-bottom: 15px;
-      margin-top: 30px;
+//      margin-top: 30px;
       padding: 10px 0px 5px 0px;
     }
 
@@ -117,7 +115,7 @@
   .about-page-content{
     .left-bar{
       border-left: medium none;
-      border-radius: 30px;
+      border-radius: $borderRadius;
       border-top: medium none;
       min-height: 500px;
       padding: 20px 45px 45px;
