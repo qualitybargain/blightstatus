@@ -1,20 +1,22 @@
 .container.about-page-content
-  .row.helpcenter-logo
+  .helpcenter-logo.span11
     =image_tag "/assets/HelpCenter-Logo.png"
 
-  %ul.nav.nav-tabs.page-tabs
-    %li.active
-      =link_to "Common Questions", "#common-questions", {"data-toggle" => "tab"}
-    %li
-      =link_to "About the Blight Process", "#about-the-blight-process", {"data-toggle" => "tab"}
-    %li
-      =link_to "Glossary", "#glossary", {"data-toggle" => "tab"}
+  .span12
+    %ul.nav.nav-tabs.page-tabs
+      %li.active
+        =link_to "Common Questions", "#common-questions", {"data-toggle" => "tab"}
+      %li
+        =link_to "About the Blight Process", "#about-the-blight-process", {"data-toggle" => "tab"}
+      %li
+        =link_to "Glossary", "#glossary", {"data-toggle" => "tab"}
 
-  .tab-content
-    #common-questions.tab-pane.tab-pane-content.active
-      =render :partial => "pages/help/common-questions"
-    #about-the-blight-process.tab-pane.tab-pane-content
-      =render :partial => "pages/help/about-the-blight-process"    
-    #glossary.tab-pane.tab-pane-content
-      =render :partial => "pages/help/glossary"
+  .span12
+    .span11.tab-content
+      #common-questions.tab-pane.tab-pane-content.active
+        =render :partial => "pages/help/common-questions"
+      #about-the-blight-process.tab-pane.tab-pane-content
+        =render :partial => "pages/help/about-the-blight-process"    
+      #glossary.tab-pane.tab-pane-content
+        =render :partial => "pages/help/glossary"
     
