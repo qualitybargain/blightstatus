@@ -33,8 +33,12 @@ OpenBlight = {
       });
     },
 
-    goToByScroll: function(id){
-      $('html,body').animate({scrollTop: $("#"+id).offset().top},'fast');
+    goToByScroll: function(id, speed, offset_){
+
+      speed = (typeof speed == 'string') ? speed : 'slow';
+      offset_ = (typeof offset_ != 'undefined') ? offset_ : 0;
+
+      $('html,body').animate({scrollTop: $("#"+id).offset().top - parseInt(offset_) }, speed);
     },
 
     handle_auto_complete_address: function(){

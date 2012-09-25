@@ -261,7 +261,7 @@ navbar
 
     a{
       text-shadow: none;
-      color: $orange !important;
+      color: $orange;
     }
   }
 
@@ -297,14 +297,28 @@ navbar
 }
 
 
+.dropdown-menu {
+  li {
+    a{
+      &:hover{
+        background: none;
+        color: $lightTeal;
+      }
+    }
+  }
+}
 
 .btn{
   background: none repeat scroll 0 0 #62C1CC;
-  border: 0 none;
+//  border: 0 none;
 //  border-radius: $borderRadius;
   font-family: "Lato";
   font-weight: 300;
   text-transform: uppercase;  
+
+  &:hover{
+//    background-color: $lightOrange;
+  }
 }
 
 .btn-tight{

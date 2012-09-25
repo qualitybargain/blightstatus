@@ -102,11 +102,13 @@ OpenBlight.accounts = {
       var x = -90.08;
       var zoom = 13;
 
+
       OpenBlight.accounts.map = new L.Map('map', {
         touchZoom: false,
         scrollWheelZoom: false,
         boxZoom: false
       });
+
 
       OpenBlight.accounts.map.addLayer(new wax.leaf.connector(tilejson))
       OpenBlight.accounts.map.setView(new L.LatLng(y , x), zoom);
@@ -126,17 +128,38 @@ OpenBlight.accounts = {
       OpenBlight.accounts.markers = [];
 
       var features = [];
-      var icon = OpenBlight.addresses.getCustomIcon();
+      var icon = OpenBlight.addresses.getCustomIcon('dotmarker');
 
-      for(i = 0; i < data.length -1; i++){
+
+
+      for(i = 0; i < data.length; i++){
         features.push(data[i].point);
       }
 
+      var current_feature_id = 0;
       L.geoJson(features, {
         pointToLayer: function (feature, latlng) {
           OpenBlight.accounts.markers.push( latlng );          
           return L.marker(latlng, {icon: new icon() });
+        },
+
+        onEachFeature: function(feature, layer) {
+
+ 
+           $(layer).on('click', function(){
+
+            var select_subcription = "subscription-" + data[current_feature_id].id;
+            OpenBlight.common.goToByScroll(select_subcription, 'slow', '150');
+            current_feature_id = current_feature_id +1;
+
+            $('#' + select_subcription).animate({ backgroundColor: "#FFFFE0" }, 'slow').animate({ backgroundColor: "white" }, 'fast');
+
+
+          });
+
+
         }
+
       }).addTo(OpenBlight.accounts.map);
 
 

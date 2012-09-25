@@ -29,6 +29,12 @@ class Case < ActiveRecord::Base
     self.accela_steps.sort{ |a, b| a.date <=> b.date }.last
   end
 
+  def name_of_most_recent_status
+    self.most_recent_status.class.to_s
+  end
+
+  
+
   def most_recent_step_before_abatement
     steps_ary = []
     steps_ary << self.hearings << self.inspections << self.resets  << self.notifications  << self.judgement
@@ -103,6 +109,37 @@ class Case < ActiveRecord::Base
     c
   end
 
+
+  def case_steps    
+    case_steps = []
+    case_steps << self.inspections << self.hearings   << self.notifications << self.judgement << (self.demolitions || self.foreclosure || self.maintenances )
+    case_steps.flatten.compact.count
+  end
+
+
+  def case_data_error?
+
+    data_error = false;
+
+    data_error = self.inspections.empty? && !self.hearings.nil?
+    data_error = self.hearings.nil? && !self.notifications.nil? || data_error
+    data_error = self.notifications.nil? && !self.judgement.nil? || data_error
+    data_error = self.judgement.nil? && !(self.demolitions.nil? || self.foreclosure.nil? || self.maintenances.nil? ) || data_error
+
+
+
+    data_error
+
+  end
+
+
+  def resolutions
+    res_ary = []
+    res_ary << self.demolitions << self.maintenances #self.foreclosures << 
+    res_ary.flatten.compact
+  end
+
+
   def self.incomplete
     Case.find_by_sql("select c.* from cases c where c.case_number in (select case_number from judgements j where not exists(select h.case_number from hearings h where h.case_number = j.case_number)) or c.case_number in (select h.case_number from hearings h where not exists (select * from notifications n where n.case_number = h.case_number)) or c.case_number in (select n.case_number from notifications n where not exists (select * from inspections i where i.case_number = n.case_number)) order by c.case_number").uniq
   end
@@ -125,4 +162,5 @@ class Case < ActiveRecord::Base
       cases = case_numbers.map {|case_number| Case.new(:case_number => case_number)}
       cases
   end
+
 end

@@ -11,7 +11,14 @@ OpenBlight.addresses = {
     OpenBlight.addresses.createSearchResultsMap();
     OpenBlight.addresses.populateMap(json_path, {},  function(){
       OpenBlight.addresses.fitPointersOnMap();
+
+      $('.address').on('click', function(index){
+        window.location = '/addresses/' + $(this).attr('data-id');
+      });
     });
+
+
+
   },
 
   show: function(){
@@ -20,12 +27,41 @@ OpenBlight.addresses = {
     OpenBlight.addresses.highlightCaseHistory();
     OpenBlight.addresses.mapAddresses();
     OpenBlight.accounts.subscriptionButton();
+    OpenBlight.addresses.showHistory();
+
+    $('.property-history .case').hide();
+    $('.property-history .case').first().show();
+
+
+
   },
 
 
   /**
    * Local methods
    */
+
+
+  showHistory: function(){
+
+    if($('.property-history .case').length > 1){
+      $('#show-history').show();
+    }
+
+    $("#show-history").toggle(function() {
+      
+      $("#show-history").html('Hide Historical Cases ');
+      $('.property-history .case').show();
+    }, function(){
+      $('.property-history .case').each(function(index){
+        if( index > 0){
+          $("#show-history").html('Show Historical Cases ');
+          $(this).hide();          
+        }
+      });
+    });
+  },
+  
   createSearchResultsMap: function(){
     wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
       var y = 29.96;
@@ -115,7 +151,7 @@ OpenBlight.addresses = {
     $(".map-address").each(function(index, address){
       wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
         var x, y, map;
-        var icon = OpenBlight.addresses.getCustomIcon();
+        var icon = OpenBlight.addresses.getCustomIcon('dotmarker');
 
         x = $(address).attr("data-x");
         y = $(address).attr("data-y");
@@ -192,13 +228,35 @@ OpenBlight.addresses = {
     OpenBlight.addresses.populateMap('/addresses/map_search', bounds);
   },
 
-  getCustomIcon: function(){
+
+
+  /**
+   * Local Methods
+   */
+  bindMapCheckbox: function(){
+
+    $('#map-search-mode').on('change', function(index){
+      if($(this).prop('checked')){
+        $(this).addClass('disabled');
+      }
+      else{
+        $(this).removeClass('disabled');
+      }
+    });
+
+
+  },
+
+  getCustomIcon: function(classname){
+
+    classname = (typeof classname == 'string') ? classname : 'marker';
+
     return L.DivIcon.extend({
       options: {
         iconSize: [ 22, 37 ],
         iconAnchor: [ 0, 0 ],
         popupAnchor: [ 11, 0 ],
-        className: "marker"
+        className: classname
       }
     });
   },
