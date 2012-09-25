@@ -44,12 +44,12 @@ OpenBlight.accounts = {
             $(this).parentsUntil('.subscription').parent().fadeOut('slow');
           }
           else{
-            $(this).html('Add Watchlist');
+            $(this).html('Add to Watchlist');
             $(this).data('method', 'put')           
           }
         }
         else{
-          $(this).html('Remove Watchlist');
+          $(this).html('Watching');
           $(this).data('method', 'delete')
         }
       }).bind("ajax:error", function(evt, data, status, xhr){
