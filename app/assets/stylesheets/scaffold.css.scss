@@ -261,7 +261,7 @@ navbar
 
     a{
       text-shadow: none;
-      color: $orange !important;
+      color: $orange;
     }
   }
 
@@ -297,6 +297,16 @@ navbar
 }
 
 
+.dropdown-menu {
+  li {
+    a{
+      &:hover{
+        background: none;
+        color: $lightTeal;
+      }
+    }
+  }
+}
 
 .btn{
   background: none repeat scroll 0 0 #62C1CC;
