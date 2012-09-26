@@ -31,6 +31,11 @@ class Address < ActiveRecord::Base
     res_ary.flatten.compact
   end
 
+  def latest_status
+    klass = Kernel.const_get(latest_type)
+    klass.find(latest_id)
+  end
+
   def most_recent_status
     !self.workflow_steps.empty? ? self.workflow_steps.sort{ |a, b| a.date <=> b.date }.last : nil
   end

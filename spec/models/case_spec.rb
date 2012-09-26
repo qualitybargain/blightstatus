@@ -218,4 +218,6 @@ describe Case do
       result.should == 75.0
     end
   end
+  describe "#update_address_status" do
+  end
 end
