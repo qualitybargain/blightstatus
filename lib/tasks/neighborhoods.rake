@@ -21,4 +21,11 @@ namespace :neighborhoods do
   task :drop => :environment  do |t, args|
     Neighborhood.destroy_all
   end
+
+  desc "Empty neighborhood table"  
+  task :match_addresses => :environment  do |t, args|
+    sql = "update addresses a set neighborhood_id = n.id from neighborhoods n where ST_Within(a.point, n.the_geom)"
+    ActiveRecord::Base.establish_connection
+    ActiveRecord::Base.connection.execute(sql)
+  end
 end
