@@ -1,14 +1,15 @@
 .container
-  .row
+  .span2
+  .span10
     %ul.nav.nav-tabs.page-tabs
       %li.active
         =link_to "Need an account? Sign Up", "#"
       %li
         =link_to "Have an account? Log In", new_account_session_path
     .tab-content.tab-pane-content
-      .span11
+      .span8
         %h2 Keep track of the properties you care about the most
-      .span7
+      .span5
         = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
           = devise_error_messages!
           %div
