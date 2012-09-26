@@ -6,7 +6,7 @@ namespace :neighborhoods do
   task :load => :environment do
 
     Neighborhood.destroy_all
-    shpfile = "#{Rails.root}/lib/assets/NOLA_Neighborhoods/Neighborhoods.shp"
+    shpfile = "#{Rails.root}/lib/assets/NOLA_Neighborhoods/Neighborhoods_wgs_84.shp"
     
     RGeo::Shapefile::Reader.open(shpfile, {:srid => -1}) do |file|
       puts "File contains #{file.num_records} records"
