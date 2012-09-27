@@ -37,13 +37,16 @@ module LAMAHelpers
       if actions
         actions.each do |action|
           if action.class == Hashie::Mash
-            if action.Type =~ /Notice of Hearing/
-              Notification.create(:case_number => case_number, :notified => action.DateComplete, :notification_type => action.Type)
+            if action.Type =~ /Notice/ && action.Type =~ /Hearing/
+              Notification.create(:case_number => case_number, :notified => action.Date, :notification_type => action.Type)
+            end
+            if action.Type =~ /Notice/ && action.Type =~ /Reset/
+              Reset.create(:case_number => case_number, :reset_date => action.Date)
             end
             
             if action.Type =~ /Administrative Hearing/
               unless action.Type =~ /Notice/
-               Hearing.create(:case_number => case_number, :hearing_date => action.DateComplete, :hearing_type => action.Type)
+               Hearing.create(:case_number => case_number, :hearing_date => action.Date, :hearing_type => action.Type)
               end
             end
           end
@@ -57,8 +60,9 @@ module LAMAHelpers
       end
       if events
         events.each do |event|
-          if event.class == Hashie::Mash
-            if event.Type =~ /Notice of Hearing/
+          if event.class == Hashie::Mash && event.IsComplete =~ /true/
+            
+            if event.Type =~ /Notice/ && event.Type =~ /Hearing/
               Notification.create(:case_number => case_number, :notified => event.DateEvent, :notification_type => event.Type)
             end
 
@@ -70,7 +74,7 @@ module LAMAHelpers
              if event.Items != nil and event.IncidEventItem != nil
                event.IncidEventItem.each do |item|
                  if item.class == Hashie::Mash
-                   if item.Title =~ /Reset Hearing/ && item.IsComplete == "true"
+                   if (item.Title =~ /Reset Notice/ || item.Title =~ /Reset Hearing/) && item.IsComplete == "true"
                       Reset.create(:case_number => case_number, :reset_date => item.DateCompleted)
                    end
                  end
@@ -78,6 +82,10 @@ module LAMAHelpers
              end
             end
   
+            if event.Type =~ /Inspection/ || event.Name =~ /Inspection/ || event.Type =~ /Reinspection/ || event.Name =~ /Reinspection/
+              Inspection.create(:case_number => case_number, :inspection_date => event.DateEvent, :notes => event.Status, :inspection_type => event.Type)
+            end
+
             if event.Type =~ /Complaint Received/ || event.Name =~ /Complaint Received/
              Complaint.create(:case_number => case_number, :date_received => event.DateEvent, :status => event.Status)
             end
@@ -124,6 +132,7 @@ module LAMAHelpers
               j_status = 'Judgment Rescinded'
             end
             if j_status
+              Hearing.create(:case_number => case_number, :hearing_date => event.DateEvent, :hearing_status => j_status)
               Judgement.create(:case_number => case_number, :status => j_status, :notes => notes, :judgement_date => event.DateEvent)  
             end
           end
@@ -158,6 +167,7 @@ module LAMAHelpers
           d = d[2].split('/')
           d = DateTime.new(d[2].to_i,d[0].to_i,d[1].to_i)
           if j_status
+            Hearing.create(:case_number => case_number, :hearing_date => d, :hearing_status => j_status, :hearing_type => "status update")
             Judgement.create(:case_number => case_number, :status => j_status, :judgement_date => d, :notes => case_status)
           end
           if c_status
