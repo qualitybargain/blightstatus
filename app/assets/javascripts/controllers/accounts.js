@@ -43,7 +43,7 @@ OpenBlight.accounts = {
           }
           else{
             $(this).html('Add to Watchlist');
-            $(this).data('method', 'put')           
+            $(this).data('method', 'put');
           }
         }
         else{

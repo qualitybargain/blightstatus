@@ -12,11 +12,13 @@ class Account < ActiveRecord::Base
   validates_presence_of :email
 
   def send_digest
-    subs = subscriptions.select{ |s| s.updated_since_last_notification? }
-    if subs.length > 0
-      t = Time.now
-      subs.each{ |s| s.update_attribute(:date_notified, t) }
-      AccountMailer.delay.deliver_digest(self, subs)
+    if send_notifications
+      subs = subscriptions.select{ |s| s.updated_since_last_notification? }
+      if subs.length > 0
+        t = Time.now
+        subs.each{ |s| s.update_attribute(:date_notified, t) }
+        AccountMailer.delay.deliver_digest(self, subs)
+      end
     end
   end
 end
