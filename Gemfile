@@ -7,7 +7,6 @@ gem 'rails', '3.2.2'
 
 # Storage
 gem 'pg'
-gem 'foreigner'
 gem 'aws-s3'
 gem 'roo' #excel parser
 gem 'docsplit'

@@ -1,5 +1,5 @@
 class Account < ActiveRecord::Base
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :send_notifications
 
   has_many :subscriptions
   has_many :addresses, :through => :subscriptions

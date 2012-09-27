@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120927011119) do
+ActiveRecord::Schema.define(:version => 20120927204116) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.boolean  "send_notifications"
   end
 
   add_index "accounts", ["email"], :name => "index_accounts_on_email", :unique => true
@@ -51,6 +52,8 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
     t.string   "street_full_name"
     t.string   "assessor_url"
     t.integer  "neighborhood_id"
+    t.string   "latest_type"
+    t.integer  "latest_id"
   end
 
   add_index "addresses", ["address_long"], :name => "index_addresses_on_address_long"
@@ -93,6 +96,15 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
   add_index "cases", ["address_id"], :name => "index_cases_on_address_id"
   add_index "cases", ["case_number"], :name => "index_cases_on_case_number"
 
+  create_table "complaints", :force => true do |t|
+    t.string   "status"
+    t.datetime "date_received"
+    t.string   "case_number"
+    t.string   "notes"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
@@ -108,15 +120,6 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
-
-  create_table "complaints", :force => true do |t|
-    t.string   "status"
-    t.datetime "date_received"
-    t.string   "case_number"
-    t.string   "notes"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
 
   create_table "demolitions", :force => true do |t|
     t.string   "case_number"
@@ -313,8 +316,8 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
     t.string   "notes"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.text     "thegeom"
     t.datetime "date_notified"
-    t.spatial  "thegeom",       :limit => {:srid=>-1, :type=>"geometry"}
   end
 
 end
