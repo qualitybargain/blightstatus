@@ -3,7 +3,7 @@
     .row
       .home-search
         .search-bubble
-          %h1 What's the status?
+          %h1 Find out what’s going on with properties in New Orleans.
           %br.search-form
           =form_tag("/addresses/search", :method => "get") do
             .search-field
@@ -13,7 +13,50 @@
           %span.help-block Enter any street name or address within Orleans Parish, Louisiana
           .speak-bubble
         .home-illustration
-        %h3.tag-line Find out what’s going on with properties in New Orleans.
+        / %h3.tag-line Find out what’s going on with properties in New Orleans.
+
+    %br
+    %br
+    %br
+    / %br
+    / %br
+    / %hr.soften
+    .row
+      %h3.tag-line{:style => "text-transform: uppercase; font-size: 200%; padding-bottom: 20px; width: 50%; margin-left: 260px"}
+        Try some example searches:
+
+    .row.frontpage-screenshot
+      .span3
+        =link_to(image_tag("specific-address.png", :style => "border: 1px solid #aaa", :alt => "View single address"), "/addresses/100996")
+        %h3
+          %b
+            Specific address:
+          %br
+          3120 Mistletoe St
+
+      .span3
+        =link_to(image_tag("streetname.png", :style => "border: 1px solid #aaa", :alt => "View single address"), "/addresses/search?utf8=%E2%9C%93&address=n+roman+st&commit=")
+        %h3
+          %b
+            Street name:
+          %br
+          N Roman St
+
+
+      .span3
+        =link_to(image_tag("neighborhood.png", :style => "border: 1px solid #aaa", :alt => "View single address"), "/addresses/search?utf8=✓&address=mid-city&commit=Search")
+        %h3
+          %b
+            Neighborhood name:
+          %br
+          Mid-City
+      .span3
+        =link_to(image_tag("citywide.png", :style => "border: 1px solid #aaa", :alt => "View single address"), "/browse")
+        %h3
+          %b
+            Or Browse Map
 
 
     .clear
+
+
