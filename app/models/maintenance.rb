@@ -2,6 +2,17 @@ class Maintenance < ActiveRecord::Base
   #this is for abatement programs like INAP
   belongs_to :address
 
+  after_save do
+    kase = self.case
+    if kase
+      step = kase.most_recent_status
+      if self.date >= step.date
+        kase.status = self.class.to_s
+        kase.save
+      end
+    end
+  end
+  
   def date
     self.date_completed || DateTime.new(0)
   end
