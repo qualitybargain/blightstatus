@@ -1,3 +1,6 @@
+require "#{Rails.root}/app/helpers/cases_helper.rb"
+include CasesHelper
+
 class Inspection < ActiveRecord::Base
   belongs_to :case, :foreign_key => :case_number, :primary_key => :case_number
   belongs_to :inspector
@@ -6,16 +9,9 @@ class Inspection < ActiveRecord::Base
   validates_uniqueness_of :inspection_date, :scope => :case_number
 
   after_save do
-    kase = self.case
-    if kase
-      step = kase.most_recent_status
-      if self.date >= step.date
-        kase.status = self.class.to_s
-        kase.save
-      end
-    end
+    CasesHelper.update_status(self)
   end
-  
+
   def date
     self.inspection_date || self.scheduled_date || DateTime.new(0)
   end
