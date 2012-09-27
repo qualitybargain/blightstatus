@@ -1,6 +1,13 @@
+require "#{Rails.root}/app/helpers/cases_helper.rb"
+include CasesHelper
+
 class Maintenance < ActiveRecord::Base
   #this is for abatement programs like INAP
   belongs_to :address
+
+  after_save do
+    CasesHelper.update_status(self)
+  end
 
   def date
     self.date_completed || DateTime.new(0)

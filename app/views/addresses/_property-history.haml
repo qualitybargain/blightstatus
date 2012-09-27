@@ -1,97 +1,120 @@
 .case-history
-  -unless kase.nil?
-    .case-number
-      -unless kase.case_number.nil?
-        %h4 Case Details for #{kase.case_number}
-        .clearfix
-    %table.table.table-condensed.timeline
-      %tbody
-        -unless kase.inspections.empty?
-          %tr{:class => "case-history-inspection case-history-inspection-#{kase.case_number}"}
-            %td 
-              %span.arrow            
-            %td.status 
-              Inspected
-            %td
-              %table.table-nolines
-                -kase.inspections.each do |i|
-                  %tr
-                    %td.date=i.inspection_date.strftime("%-m/%-d/%y")
-                    %td 
-                      Property was inspected, with a finding of 
-                      %b #{i.result}
-        -unless kase.notifications.empty?
-          %tr{:class => "case-history-notification case-history-notification-#{kase.case_number}"}
-            %td
-              %span.arrow                                    
-            %td.status Owner Notified
-            %td
-              %table.table.table-nolines
-                -kase.notifications.each do |n|
-                  %tr
-                    %td.date=n.date.strftime("%-m/%-d/%y")
-                    %td The owner was notified that an administrative case was being brought against this property for violations of the New Orleans Building Code.
-        -unless kase.hearings.empty?
-          %tr{:class => "case-history-hearing case-history-hearing-#{kase.case_number}"}
-            %td
-              %span.arrow                                    
-            %td.status Hearing Scheduled
-            %td
-              %table.table-nolines
-                -kase.hearings.each do |h|
-                  %tr
-                    %td.date=h.hearing_date.strftime("%-m/%-d/%y")
-                    %td
-                      The case against this property #{h.date > Time.now ? 'will be' : 'was'} heard in a public hearing at 
-                      at New Orleans Courthouse, with an outcome of 
-                      %b
-                        #{h.hearing_status}
+  %table.table.table-condensed.timeline
+    %tbody
+      %tr{:class => "case-history-inspection case-history-inspection-#{kase.case_number}"}
+        %td 
+          %span.arrow            
+        %td.status 
+          Inspected
+        %td
+          %table.table-nolines
+            %tr
+              -if kase.case_data_error? 
+                %td.date
+                %td Data Missing
 
-        -unless kase.resets.empty?
-          %tr{:class => "case-history-reset case-history-reset-#{kase.case_number}"}
-            %td
-              %span.arrow                                    
-            %td.status Reset
-            %td
-              %table.table-nolines
-                -kase.resets.each do |r|
-                  %tr
-                    %td.date=r.reset_date.strftime("%-m/%-d/%y")
+              -kase.inspections.each do |i|
+                -unless kase.inspections.empty?
+                  %td.date=i.inspection_date.strftime("%-m/%-d/%y")
+                  %td 
+                    Property was inspected, with a finding of 
+                    %b #{i.result}
 
-        -unless @address.resolutions.empty?
-          %tr{:class => "case-history-resolution case-history-resolution-#{kase.case_number}"}
-            %td
-              %span.arrow                                    
-            %td.status Reset
-            %td
-              %table.table-nolines
-              -@address.resolutions.each do |r|
+      -unless kase.notifications.empty?
+        %tr{:class => "case-history-notification case-history-notification-#{kase.case_number}"}
+          %td
+            %span.arrow                                    
+          %td.status Owner Notified
+          %td
+            %table.table.table-nolines
+              -kase.notifications.each do |n|
                 %tr
+                  %td.date=n.date.strftime("%-m/%-d/%y")
+                  %td The owner was notified that an administrative case was being brought against this property for violations of the New Orleans Building Code.
+
+
+
+      -unless kase.hearings.empty?
+        %tr{:class => "case-history-hearing case-history-hearing-#{kase.case_number}"}
+          %td
+            %span.arrow                                    
+          %td.status Hearing Scheduled
+          %td
+            %table.table-nolines
+              -kase.hearings.each do |h|
+                %tr
+                  %td.date=h.hearing_date.strftime("%-m/%-d/%y")
                   %td
-                    %span.arrow
-                  -if r.class == Demolition
-                    %td.status 
-                      Demolition
-                    %td
-                      %table.table-nolines
-                        %tr
-                          %td.date=r.date.strftime("%-m/%-d/%y")
-                          %td This property was demolished by #{r.program_name}
-                  - elsif r.class == Foreclosure
-                    %td.status Foreclosure
-                    %td
-                      %table.table-nolines
-                        %tr
-                          %td.date=r.date.strftime("%-m/%-d/%y")
-                          %td This property was sent to code lien foreclosure
-                  - elsif r.class == Maintenance
-                    %td.status Interim Nuisanace Abatement Program
-                    %td
-                      %table.table-nolines
-                        %tr
-                          %td.date=r.date.strftime("%-m/%-d/%y")
-                          %td This property was maintained by #{r.program_name}
-                  - else
-                    %td
-                      %td=r.class.to_s + ": " + r.date.strftime("%-m/%-d/%y")
+                    The case against this property #{h.date > Time.now ? 'will be' : 'was'} heard in a public hearing at 
+                    at New Orleans Courthouse
+
+
+
+      -unless kase.resets.empty?
+        %tr{:class => "case-history-reset case-history-reset-#{kase.case_number}"}
+          %td
+            %span.arrow                                    
+          %td.status Reset
+          %td
+            %table.table-nolines
+              -kase.resets.each do |r|
+                %tr
+                  %td.date=r.reset_date.strftime("%-m/%-d/%y")
+
+
+
+      -unless kase.judgement.nil?
+        %tr{:class => "case-history-judgement case-history-judgement-#{kase.case_number}"}
+          %td
+            %span.arrow                                    
+          %td.status Judgement Reach
+          %td
+            %table.table-nolines
+              -kase.hearings.each do |h|
+                %tr
+                  %td.date=h.hearing_date.strftime("%-m/%-d/%y")
+                  %td
+                    A judgement of 
+                    %b
+                      #{h.hearing_status}
+                    was reached
+
+
+
+      -unless kase.resolutions.empty?
+        %tr{:class => "case-history-resolution case-history-resolution-#{kase.case_number}"}
+          %td
+            %span.arrow                                    
+          %td.status Reset
+          %td
+            %table.table-nolines
+            -@address.resolutions.each do |r|
+              %tr
+                %td
+                  %span.arrow
+                -if r.class == Demolition
+                  %td.status 
+                    Demolition
+                  %td
+                    %table.table-nolines
+                      %tr
+                        %td.date=r.date.strftime("%-m/%-d/%y")
+                        %td This property was demolished by #{r.program_name}
+                - elsif r.class == Foreclosure
+                  %td.status Foreclosure
+                  %td
+                    %table.table-nolines
+                      %tr
+                        %td.date=r.date.strftime("%-m/%-d/%y")
+                        %td This property was sent to code lien foreclosure
+                - elsif r.class == Maintenance
+                  %td.status Interim Nuisanace Abatement Program
+                  %td
+                    %table.table-nolines
+                      %tr
+                        %td.date=r.date.strftime("%-m/%-d/%y")
+                        %td This property was maintained by #{r.program_name}
+                - else
+                  %td
+                    %td=r.class.to_s + ": " + r.date.strftime("%-m/%-d/%y")
 

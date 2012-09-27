@@ -2,11 +2,11 @@ class StatisticsController < ApplicationController
 
   respond_to :html, :json
 
-  def graphs
+  def browse
+    @date = Time.now()
   end
 
-  def maps
-	@date = Time.now()
+  def stats
   end
 
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120912004817) do
+ActiveRecord::Schema.define(:version => 20120927011119) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -56,6 +56,24 @@ ActiveRecord::Schema.define(:version => 20120912004817) do
   add_index "addresses", ["address_long"], :name => "index_addresses_on_address_long"
   add_index "addresses", ["house_num", "street_name"], :name => "index_addresses_on_house_num_and_street_name"
 
+  create_table "admins", :force => true do |t|
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+  end
+
+  add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
+  add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
+
   create_table "case_managers", :force => true do |t|
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
@@ -69,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20120912004817) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "address_id"
+    t.string   "status"
   end
 
   add_index "cases", ["address_id"], :name => "index_cases_on_address_id"
@@ -90,6 +109,15 @@ ActiveRecord::Schema.define(:version => 20120912004817) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "complaints", :force => true do |t|
+    t.string   "status"
+    t.datetime "date_received"
+    t.string   "case_number"
+    t.string   "notes"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "demolitions", :force => true do |t|
     t.string   "case_number"
     t.datetime "created_at",               :null => false
@@ -104,6 +132,7 @@ ActiveRecord::Schema.define(:version => 20120912004817) do
     t.datetime "date_started"
     t.datetime "date_completed"
     t.integer  "address_match_confidence"
+    t.boolean  "case_confidence"
   end
 
   add_index "demolitions", ["address_id"], :name => "index_demolitions_on_address_id"
@@ -125,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20120912004817) do
     t.string   "title"
     t.string   "defendant"
     t.string   "plaintiff"
+    t.boolean  "case_confidence"
   end
 
   add_index "foreclosures", ["address_id"], :name => "index_foreclosures_on_address_id"
@@ -205,6 +235,8 @@ ActiveRecord::Schema.define(:version => 20120912004817) do
     t.datetime "updated_at",               :null => false
     t.integer  "address_id"
     t.integer  "address_match_confidence"
+    t.boolean  "case_confidence"
+    t.string   "case_number"
   end
 
   add_index "maintenances", ["address_id"], :name => "index_maintenances_on_address_id"
@@ -281,8 +313,8 @@ ActiveRecord::Schema.define(:version => 20120912004817) do
     t.string   "notes"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
-    t.text     "thegeom"
     t.datetime "date_notified"
+    t.spatial  "thegeom",       :limit => {:srid=>-1, :type=>"geometry"}
   end
 
 end

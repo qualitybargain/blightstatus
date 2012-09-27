@@ -1,4 +1,5 @@
 class Address < ActiveRecord::Base
+  belongs_to :neighborhood
   belongs_to :street
   has_many :cases
   has_many :demolitions
@@ -72,5 +73,9 @@ class Address < ActiveRecord::Base
     p2 = factory.point(sw["lng"].to_f, sw["lat"].to_f)
     box.add(p1).add(p2)
     @addresses = Address.find_by_sql("SELECT a.id, a.geopin, a.house_num, a.street_name, a.street_type, a.address_long, a.point FROM addresses a INNER JOIN cases c ON c.address_id = a.id WHERE ST_Within(point, ST_GeomFromText('#{box.to_geometry.as_text}')) GROUP BY a.id, a.geopin, a.house_num, a.street_name, a.street_type, a.address_long, a.point ORDER BY a.street_name ASC, a.house_num ASC;")
+  end
+
+  def self.find_addresses_with_cases_by_neighborhood(neighborhood_name)
+    Address.joins(:cases,:neighborhood).where(:neighborhoods => {:name => neighborhood_name})
   end
 end

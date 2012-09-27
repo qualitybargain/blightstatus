@@ -6,6 +6,9 @@
 
 .container-statistics{
 	
+  select{
+    width: 185px;
+  }
 	.inner{
 		width: 70%;
 		margin: 0 auto;
@@ -26,6 +29,35 @@
 	}
 
 
+	#stats-row{
+
+		table{
+			margin: 20px auto;
+			padding: 10px;
+			font-size: 130%;
+      text-align: center;
+
+			td{
+				padding: 5px 10px 10px;
+			}
+
+			thead{
+        font-size: 85%;
+        font-weight: bold;
+
+        span{
+          border-bottom: 1px solid;
+          padding: 1px 3px;
+        }
+			}
+			tbody{
+			}
+
+		}
+
+
+	}
+
 	#checkbox-inspections + label.btn{
 		background-color: $inspections;
 	}
@@ -40,7 +72,7 @@
 		background-color: $judgements;
 	}
 	
-	#checkbox-demolitions + label.btn{
+	#checkbox-demolitions + label.btn, #checkbox-abatement + label.btn{
 		background-color: $demolitions;
 	}
 
@@ -69,7 +101,7 @@
 
 
 	#stats-map{
-		border: 1px solid $grey;
+		border: 1px solid #ccc;
 	}
 
 	.layout-wrapper{
@@ -99,6 +131,25 @@
 			left: 170px;
 		}
 	}
+
+  .selectboxit, .selectboxit-options{
+    width: auto;
+    min-width: 170px;
+    margin: 0 5px;
+  }
+  .selectboxit{
+    border: 1px solid #ccc;
+    font-family: "Lato";
+    font-weight: 300;
+    text-transform: capitalize;
+    background: inherit;
+    background: #FDFDFD;
+  }
+  .selectboxit-text{
+    text-indent: 15px;  	
+    line-height: 32px !important;
+  }
+
 
 }
 

@@ -11,6 +11,28 @@
     border: 1px solid #ccc;
   }
 
+  #map-search-mode{
+    display: none;
+  }
+
+  label.btn{
+    border-radius: 5px;
+    color: white;
+    font-size: 12px;
+    font-weight: 100;
+    &:hover{
+      background: none repeat scroll 0 0 #62C1CC !important;
+    }
+  }
+  input:checked + label.btn {
+    background-color: #E6E6E6;
+    background-image: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0.5, 0.9) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+    color: rgba(255, 255, 255, 0.8);
+    outline: 0 none;
+    color: black;
+  }
+
 	header{
 		height: 40px;
     
@@ -95,14 +117,27 @@
   .main{
     background-color: white;
     border: 1px solid #efefef;
-    border-radius: 30px 30px 30px 30px;
-    padding: 40px;
+    border-radius: $borderRadius;
+    padding: 20px;
+    position: relative;
+
+    .subscribe{
+      padding: 2px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      .subscribe-button{
+        &:hover{
+          cursor: pointer;
+        }
+      }
+    }
   }
 
   .sidebar{
 
     .map{
-      margin-top: 10px;
+      margin-top: 0px;
     }
 
     .accessor{
@@ -130,13 +165,29 @@
 
       padding: 15px;
       background-color: $lighterTeal;
-      border-radius: 10px;
+      border-radius: $borderRadius;
       margin: 15px 0;
       font-family: "Lato";
       font-size: $normalFontSize;
     }
   }
 
+  .property-history{
+
+    .case{
+
+      h2{
+        border-bottom: 1px solid #CCCCCC;
+        font-family: "Lato";
+        font-size: 24px;
+        font-weight: 300;
+        text-align: left;  
+        margin: 0 15px;
+        color: inherit;      
+      }
+    }
+
+  }
 
   .case-history{
 
@@ -149,8 +200,8 @@
       font-size: 120%;
       color: #58595B;
       font-family: "Lato";   
-      margin-top: 10px; 
       font-weight: 300;  
+      margin-top: 40px;
     }
 
     .status{
@@ -174,11 +225,6 @@
     margin-bottom: 15px;
   }
 
-  .subscribe-button{
-    &:hover{
-      cursor: pointer;
-    }
-  }
 
 
   table {
@@ -199,6 +245,8 @@
     }
   }
 }
+
+
 
 
 .assessor{
@@ -262,6 +310,13 @@
   background: url("/assets/dotmarker.png") no-repeat scroll 0px 0px transparent;  
 }
 
+#show-history{
+  display:none;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
 .maps-marker{
     color: white;
     font-weight: bold;
@@ -314,6 +369,11 @@
   z-index: 200;
 }
 
+.address{
+  &:hover{
+    cursor: pointer;
+  }
+}
 .address.result.marked {
   background-color: $lighterTeal;
   z-index: 200;
@@ -324,7 +384,7 @@
     padding: 5px 10px;
     color: $darkGrey;
     font-family: "Lato";
-    font-weight: 300;
+    font-weight: 200;
     font-size: 300%;
   }
 
@@ -354,11 +414,23 @@
 }
 
 
+
+.container-addresses-show{
+  thead{
+//    display: none;
+  }
+}
+
+
 .progress-bar-wrapper {
-  margin-top: 10px;
-  min-height: 100px;
+  margin-top: 20px;
+  min-height: 10px;
 
   .table{
+
+
+    width:inherit;
+    margin: 0 20px;
 
 
     tr{
@@ -368,7 +440,8 @@
       }
 
       td{
-        padding: 15px 0;
+        padding: 0px 0;
+        border: 0;
 
         &:hover{
           background: transparent !important;
@@ -380,8 +453,10 @@
 
     thead{
       .property-status{
+        font-size: 80%;
+        padding: 0;
         padding: 10px;
-        font-size: 80%
+        text-align: center;
       }
     }
 
@@ -401,39 +476,57 @@
   .progress-arrow{
     height: 25px;
     position: relative;
-    width: 102px;
+    width: 130px;
     margin-right: -25px;
 
     &:hover{
       cursor: pointer;
     }
 
+
+    &.error {
+//      background: url('/assets/progress-arrows.png') no-repeat 0 0;
+//      background: url('/assets/progress-arrows.png') no-repeat 0 -25px transparent;
+      background: url("/assets/single-progress-arrows.png") no-repeat scroll 0 -79px transparent;
+    }
+
     &.inspection {
-      background: url('/assets/progress-arrows.png') no-repeat 0 0;
+//      background: url('/assets/progress-arrows.png') no-repeat 0 0;
+//      background: url('/assets/progress-arrows.png') no-repeat 0 -25px transparent;
+      background: url("/assets/single-progress-arrows.png") no-repeat scroll 0 -26px transparent;
     }
 
     &.notification {
-      background: url('/assets/progress-arrows.png') no-repeat 0 -25px transparent;
+//      background: url('/assets/progress-arrows.png') no-repeat 0 0;
+//      background: url('/assets/progress-arrows.png') no-repeat 0 -25px transparent;
+      background: url("/assets/single-progress-arrows.png") no-repeat scroll 0 -26px transparent;
     }
 
     &.hearing{
-      background: url('/assets/progress-arrows.png') no-repeat -5px -49px transparent;
+//      background: url('/assets/progress-arrows.png') no-repeat 0 -25px transparent;
+//      background: url('/assets/progress-arrows.png') no-repeat -5px -49px transparent;
+      background: url("/assets/single-progress-arrows.png") no-repeat scroll 0 -26px transparent;
     }
 
     &.judgement {
-      background: url('/assets/progress-arrows.png') no-repeat 0 -73px transparent;
+//      background: url('/assets/progress-arrows.png') no-repeat 0 -25px transparent;
+//      background: url('/assets/progress-arrows.png') no-repeat 0 -73px transparent;
+      background: url("/assets/single-progress-arrows.png") no-repeat scroll 0 -26px transparent;
+
     }
 
     &.resolution {
-      background: url('/assets/progress-arrows.png') no-repeat -225px -49px transparent;
+//      background: url('/assets/progress-arrows.png') no-repeat 0 -25px transparent;
+//      background: url('/assets/progress-arrows.png') no-repeat -225px -50px transparent;
+      background: url("/assets/single-progress-arrows.png") no-repeat scroll 0 -26px transparent;
 
       &.pending {
-        background: url('/assets/progress-arrows.png') no-repeat -225px -2px transparent;
+        background: url("/assets/single-progress-arrows.png") no-repeat scroll -5px -55px transparent;
       }
     }
 
     &.pending {
-      background: url("/assets/progress-arrows.png") no-repeat scroll 0 -97px transparent;
+      background: url("/assets/single-progress-arrows.png") no-repeat -5px -1px transparent;
     }
 
 
@@ -441,9 +534,6 @@
 
 }
 
-.progress-bar-wrapper table{
-  width:inherit;
-}
 
 
 .property-status{
@@ -533,9 +623,8 @@
   padding: 20px 0;
 }
 
-.subscribe{
-  padding: 2px;
-}
+
+
 
 .pager a{
   cursor:pointer

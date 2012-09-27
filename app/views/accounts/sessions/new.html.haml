@@ -1,0 +1,29 @@
+.container
+  .span2
+  .span10
+    %ul.nav.nav-tabs.page-tabs
+      %li
+        =link_to "Need an account? Sign Up", new_account_registration_path
+      %li.active
+        =link_to "Have an account? Log In", "#"
+    .tab-content.tab-pane-content
+      .span8
+        %h2 Welcome back! Log in to manage your account.
+        =form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+          = devise_error_messages!
+          %div
+            = f.label :email
+            = f.email_field :email
+          %div
+            = f.label :password
+            = f.password_field :password
+            %br
+            = link_to "Forgot your password?", new_password_path(resource_name)
+          - if devise_mapping.rememberable?
+            %div.rememberable
+              = f.check_box :remember_me
+              = f.label :remember_me
+          %div= f.submit "Log in", :class => 'btn btn-primary'
+        %div
+          Don't have an account yet?
+          =link_to " Create one", new_account_registration_path

@@ -1,6 +1,13 @@
+require "#{Rails.root}/app/helpers/cases_helper.rb"
+include CasesHelper
+
 class Demolition < ActiveRecord::Base
   belongs_to :address
   belongs_to :case, :foreign_key => :case_number, :primary_key => :case_number
+
+  after_save do
+    CasesHelper.update_status(self)
+  end
 
   def date
     self.date_completed || self.date_started || DateTime.new(0)

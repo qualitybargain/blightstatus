@@ -1,7 +1,14 @@
+require "#{Rails.root}/app/helpers/cases_helper.rb"
+include CasesHelper
+
 class Hearing < ActiveRecord::Base
 	belongs_to :case, :foreign_key => :case_number, :primary_key => :case_number
 
   validates_uniqueness_of :hearing_date, :scope => :case_number
+
+  after_save do
+    CasesHelper.update_status(self)
+  end
 
   def date
     self.hearing_date || DateTime.new(0)
@@ -21,5 +28,9 @@ class Hearing < ActiveRecord::Base
 
   def self.status
   	Hearing.count(group: :hearing_status)
+  end
+
+  def self.without_notification
+    Hearing.find_by_sql("select h.* from hearings h where not exists (select * from notifications n where n.case_number = h.case_number)")
   end
 end

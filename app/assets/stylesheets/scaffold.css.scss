@@ -5,23 +5,41 @@ html{
   min-width: 970px;
 
   body { 
-    background-image: url('/assets/ricepaper2.png');
+//    background-image: url('/assets/ricepaper2.png');
     font-family: "Lato"; 
     font-weight: #58595B; 
     min-height: 100%; 
+  }
+
+  h1{
+//    color: #F1601D;
+    font-size: 30pt;
+    font-weight: 100;
+  }
+
+  h2, h3{
+    font-family: "Lato";
+//    color: $orange;
+  }
+
+  h4{
+    font-family: "Lato";
+    color: $orange;
+    font-weight: 500;
   }
 
   #wrapper{
     height: 100%;
     padding-bottom: 225px;
     width: 100%;
+    background: url("http://www.textizen.com/assets/header-bg.png") repeat-x scroll 0 0 transparent;
   }
 
   header {
     margin-bottom: 50px;
 
     .logo{
-      padding: 8px 0;
+      padding: 5px 0;
     }
   }
 
@@ -43,7 +61,6 @@ html{
     }
 
     .learn-more{
-
       h4{
         text-align: left; 
         font-size: 150%
@@ -91,7 +108,6 @@ html{
     margin-right: 6%;
   }
 
-
   .right{
     float: left;
     width: 47%;
@@ -99,18 +115,81 @@ html{
 
 }
 
-h1{
-  color: #F1601D;
-  font-size: 30pt;  
+.page-tabs{
+  padding-bottom: 0;
+  margin-bottom: 0;
+  margin-left: 20px;
+
+  &.nav-tabs{
+    border: 0px;
+  }
+
+  li{
+    margin: 10px 0px -2px 0;
+
+    a{
+      border: 0;
+      background-color: $lighterTeal;
+      border-radius: 20px 20px 0 0;
+      border-style: solid;
+      border-width: 1px 1px 0 1px;
+      border-color:  #ccc;
+      text-transform: uppercase;
+      font-size: 140%;
+      padding: 15px 52px;
+      color: $darkGrey;       
+
+    }
+
+    &.active{
+      a{
+        background-color: white;
+        border-radius: 20px 20px 0 0;
+        margin-bottom: -1px;          
+        color: $darkGrey;       
+
+      }
+    }
+  }
 }
 
-h2, h3, h4{
-  font-family: "Lato";
-  color: $orange;
+.tab-content{
+  background: white;
+
+  form {
+    padding: 20px 0 10px;
+    input[type="checkbox"] {
+      float: left;
+      margin-right: 5px;
+    }
+
+    input[type="submit"] {
+      margin-top: 14px;
+    }
+
+    .rememberable {
+      padding: 7px 0 0;
+    }
+  }
+
+  .span3 {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 20px 10px 20px 20px;
+    margin-top: 10px;
+    margin-right: -40px;
+    float: right;
+
+    li {
+      padding: 5px 0;
+    }
+  }
 }
 
-h4{
-  font-weight: 500;
+.tab-pane-content{
+  border: solid #ddd;
+  border-width: 1px 1px 1px 1px;
+  border-radius: 0 0 20px 20px;
+  padding: 40px;
 }
 
 /*
@@ -130,29 +209,57 @@ navbar
     border-bottom: 1px solid $headerLineBreakColor;
   }
 
-  li{
-    &.active{
-      background-color: transparent;
-      color: $orange;        
+
+  .nav{
+    margin-top: 11px;
+    li{      
+      a{
+        text-shadow: none;
+        &.active{
+          background-color: transparent;
+          color: $orange;        
+        }
+      }
     }
   }
 
-
   .dropdown-menu{
 
-    .logged-in, .logged-out{
-      padding: 10px 20px;
-    }
+    padding: 20px;
+    .span3 {
+      padding: 5px 0;
+      margin: 0;
 
-    .span3{
-      margin-left:0;
-      margin: 5px;
-      a{
-        margin:0; 
-        padding: 0         
+      &.login-form {
+        a {
+          font-size: 80%;
+          padding: 0px;
+        }
+      }
+
+      &.sign-up {
+        font-size: 90%;
+        a {
+          display: inline;
+          padding: 3px 20px;
+
+        }
+      }
+
+      input, label {
+        float: left;
+        margin: 11px 5px 2px 0;
+
+        &[type="submit"] {
+          float: right;
+          margin-top: 9px;
+        }
+
+        &[type="checkbox"] {
+          margin-top: 14px;
+        }
       }
     }
-
   }
 
   .top-account{
@@ -160,11 +267,8 @@ navbar
     padding-right: 0px;
 
     a{
-      color: $orange;        
       text-shadow: none;
-
-        color: $orange !important;
-
+      color: $orange;
     }
   }
 
@@ -172,23 +276,9 @@ navbar
     display: block;
     float: right;
     left: 0;
-    margin: 0px 0 0 0;
+    margin: 15px 0 0 0;
     position: relative;
     width: 240px;
-
-    .transparent-submit{
-
-      width: 20px;
-      height: 30px;
-      position: absolute;
-      right: 5px;
-      top: 5px;
-      z-index: 100;
-
-      &:hover{
-        cursor: pointer;
-      }
-    }
 
     .search-form{
       margin: 0 auto;
@@ -214,15 +304,47 @@ navbar
 }
 
 
+.dropdown-menu li{
+
+  a{
+    &:hover{
+      background: $orange;
+      color: white;
+    } 
+  }  
+
+}
+
+//.dropdown-menu {
+//  li {
+//    a{
+//      &:hover{
+//        background: none;
+//        color: $lightTeal;
+//      }
+//    }
+//  }
+//}
 
 .btn{
-  background: none repeat scroll 0 0 #62C1CC;
-  border: 0 none;
-  border-radius: 10px 10px 10px 10px;
+  background: $orange;
+//  border: 0 none;
+//  border-radius: $borderRadius;
   font-family: "Lato";
   font-weight: 300;
   text-transform: uppercase;  
+
+  &:hover{
+//    background-color: $lightOrange;
+  }
 }
+
+.btn-tight{
+  padding: 3px 5px;
+}
+
+
+
 
 
 .clear{
@@ -257,12 +379,14 @@ navbar
 }
 
 .btn-secondary-search{
-  background: url("/assets/search-icon.png") no-repeat white;
-  height: 15px;
-  width: 16px;
-  margin: -26px 12px 0 0;
-  float: right;
-  border: none;
+  background: url("/assets/search-icon.png") no-repeat scroll 0 0 white;
+  border: medium none;
+  height: 20px;
+  padding: 0;
+  position: absolute;
+  right: 9px;
+  top: 8px;
+  width: 17px !important;
 }
 
 ::-webkit-input-placeholder {
@@ -273,7 +397,6 @@ navbar
 }
 
 .address{
-
 	&.result{
 		margin-top: -1px;
 		padding: 5px 3px;
@@ -360,7 +483,7 @@ navbar
 
 .badge-yellow{
 	background-color: #F9CC5D;
-	border-radius: 10px 10px 10px 10px;
+	border-radius: $borderRadius;
 	color: #6A6867;
 	float: left;
 	font-size: 110%;
@@ -397,11 +520,7 @@ navbar
   text-transform: capitalize;
 }
 
-.navbar{
-  .nav{
-    margin-top: 15px;
-  }
-}
+
 
 
 ul.arrow-list{
@@ -431,4 +550,15 @@ ul.arrow-list{
 
 .jslider-value{
   background: transparent;
+}
+
+.dropdown-menu a{
+  padding: 3px 0px;
+}
+#account_remember_me{
+  float: left;
+
+  &+{
+  margin-left: 20px;    
+  }
 }

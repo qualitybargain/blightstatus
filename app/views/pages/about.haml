@@ -1,6 +1,6 @@
 .container.about-page-content
   .left-bar.span6
-    .row
+    .block
       %h2 What does it do?
       %p BlightSTATUS makes it simple for residents to find out what’s going on with blighted properties in their community – no long waits on the telephone or visits to City Hall required. 
       %p A great example of government transparency at work, BlightSTATUS pulls up-to-date property information directly from the City’s official records, providing a single, comprehensive and authoritiative view to the public for the very first time.       
@@ -15,7 +15,7 @@
         %p Subscribe to receive instant alerts via email or text message the moment the status changes on properties you care about. Subscribe to one property, a whole block, or your entire neighborhood, and you’ll always be in the know.      
       .clearfix
 
-    .row
+    .block
       %h2 Why did we make it?
       %p In New Orleans, countless organizations are working around the clock to improve local communities and reduce blight throughout the city -- from community groups and non-profits to City Hall and the local Redevelopment Authority (NORA). 
 
@@ -23,7 +23,7 @@
 
       %p We’ve partnered with New Orleans City Hall and NORA to create this site to provide accurate and up-to-date information about the City’s efforts to reduce blight that everybody can use. We hope that this simple and publicly-accessible resource will make the work of these great organizations just a little bit easier.
 
-    .row
+    .block
       %h2 BlightSTATUS in your city
       %p We know this problem isn’t unique to New Orleans - there are numerous municipalities across the country tasked with managing a large number of vacant or blighted properties. We want to put blightSTATUS to work for you, too!
 
@@ -32,7 +32,7 @@
         =mail_to "neworleans@codeforamerica.org", "neworleans@codeforamerica.org"
 
 
-    .row
+    .block
       %h2 Help us help you!
       %p 
         We want blightSTATUS to make your work easier, not harder. If something is confusing or there is a feature missing that would make your work easier, please, 
@@ -42,26 +42,26 @@
 
 
   .right-bar.span4
-    .meet-the-team
-      %h2
-        MEET THE TEAM      
-      .span4.img-block
-        =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Amir.jpg'
-        .image-name
-          Amir Reavis-Bey
-      .span4.img-block
-        =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Serena.jpg'
-        .image-name
-          Serena Wales
-      .span4.img-block
-        =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Alex_Pandel.jpg'
-        .image-name
-          Alex Pandel
-      .span4.img-block
-        =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Eddie.jpg'
-        .image-name
-          Eddie A Tejeda
-    .clearfix
+    / .meet-the-team
+    /   %h2
+    /     MEET THE TEAM      
+    /   .span4.img-block
+    /     =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Amir.jpg'
+    /     .image-name
+    /       Amir Reavis-Bey
+    /   .span4.img-block
+    /     =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Serena.jpg'
+    /     .image-name
+    /       Serena Wales
+    /   .span4.img-block
+    /     =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Alex_Pandel.jpg'
+    /     .image-name
+    /       Alex Pandel
+    /   .span4.img-block
+    /     =image_tag 'http://codeforamerica.org/wp-content/uploads/2011/10/Eddie.jpg'
+    /     .image-name
+    /       Eddie A Tejeda
+    / .clearfix
     .our-partners
       %h2
         OUR PARTNERS
@@ -69,16 +69,17 @@
       .code-for-america
       .nora
     .clearfix
-    .get-in-touch{:style => "font-size: 110%"}
-      %h2 GET IN TOUCH          
+    .get-in-touch
+      %h2 
+        GET IN TOUCH          
       %p
         Reuse & general info:
-        %p{:style => "padding-left: 30px"}
+        %p{:style => "padding-left: 10px"}
           =mail_to "neworleans@codeforamerica.org", "> neworleans@codeforamerica.org"
       %br
       %p
         Feedback, suggestions, or bugs:
-        %p{:style => "padding-left: 30px"}
+        %p{:style => "padding-left: 10px"}
           %a{:href => "mailto:blightstatus@codeforamerica.org"} 
             > blightstatus@codeforamerica.org
 

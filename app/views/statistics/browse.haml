@@ -1,0 +1,25 @@
+%section.no-search-results.container
+  / .address-title
+  .span12
+    %h1 Browse City 
+    %br
+  .span12
+    %form
+      / =select( "case_active", "case_active", { "Active Cases" => "0", "Closed Cases" => "1"})
+      =select( "only_recent_status", "only_recent_status", { "All Cases" => "0", "Only Recent Status" => "1"})
+      =select( "status", "status", { "Inspected" => "inspections", "Notified" => "notifications", "Hearing" => "hearings", "Judgment" => "judgement", "Abatement" => "maintenances", "Demolitions" => "demolition", "Foreclosure" => "Foreclosures"})
+      =date_select("start_date", "start_date", :start_year => 2011, :end_year => @date.year, :discard_day => true)
+      =select( "show_stats", "show_stats", { "Hide Stats" => "0", "Show Stats" => "1"})
+
+      .row{:style => "height: 20px;"}
+        #map-loading{:style => "margin: 0 auto; width: 150px; background-color: red; color: white; display: none;"}
+          Map Loading....
+        #no-data{:style => "margin: 0 auto; width: 150px; background-color: red; color: white; display: none;"}
+          No results
+
+  .span12
+    #stats-map{:style => "width: 100%; height: 450px"}
+
+
+  .span12
+    #stats-row
