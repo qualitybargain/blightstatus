@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
       stored_location_for(resource) || root_path                                                                                         
     end                                                                                                                                                     
   end
+
   
   private
     def handle_cookies
