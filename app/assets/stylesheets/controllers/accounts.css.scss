@@ -41,6 +41,11 @@
   .email-notification{
     position: fixed;
     top: 400px;
+
+    label, input {
+      float: left;
+      margin-left: 10px;
+    }
   }
 
   .subscription{
