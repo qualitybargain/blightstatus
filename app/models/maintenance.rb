@@ -1,16 +1,17 @@
-require "#{Rails.root}/app/helpers/cases_helper.rb"
-include CasesHelper
-
 class Maintenance < ActiveRecord::Base
   #this is for abatement programs like INAP
-  belongs_to :address
+  after_save :update_address_status
 
-  after_save do
-    CasesHelper.update_status(self)
-  end
+  belongs_to :address
 
   def date
     self.date_completed || DateTime.new(0)
+  end
+
+  def update_address_status
+    if self.address
+      self.address.update_most_recent_status(self)
+    end
   end
 
   def self.import_from_workbook(workbook, sheet)

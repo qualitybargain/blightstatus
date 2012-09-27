@@ -158,10 +158,8 @@ class Case < ActiveRecord::Base
   end
 
   def update_address_status
-    a = self.address
-    latest = self.most_recent_status
-    if self.most_recent_status > a.latest_status
-      a.update_attributes({latest_id: latest.id, latest_type: latest.class})
+    if self.address && self.most_recent_status
+      self.address.update_most_recent_status(self.most_recent_status)
     end
   end
 end

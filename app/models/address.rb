@@ -33,12 +33,27 @@ class Address < ActiveRecord::Base
   end
 
   def latest_status
-    klass = Kernel.const_get(latest_type)
-    klass.find(latest_id)
+    if latest_id
+      klass = Kernel.const_get(latest_type)
+      klass.find(latest_id)
+    elsif !self.workflow_steps.empty?
+      latest_step = self.workflow_steps.sort{ |a, b| a.date <=> b.date }.last
+      self.update_attributes({:latest_id => latest_step.id, :latest_type => latest_step.class.to_s})
+    else
+      nil
+    end
   end
 
   def most_recent_status
-    !self.workflow_steps.empty? ? self.workflow_steps.sort{ |a, b| a.date <=> b.date }.last : nil
+    @latest_status || latest_status
+  end
+
+  def update_most_recent_status(status)
+    unless self.most_recent_status.nil?
+      if self.most_recent_status.date < status.date
+        self.update_attributes({latest_id: status.id, latest_type: status.class.to_s})
+      end
+    end
   end
 
   def sorted_cases

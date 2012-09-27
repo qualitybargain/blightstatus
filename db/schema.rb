@@ -315,8 +315,8 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
     t.string   "notes"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.text     "thegeom"
     t.datetime "date_notified"
-    t.spatial  "thegeom",       :limit => {:srid=>-1, :type=>"geometry"}
   end
 
 end
