@@ -38,22 +38,26 @@ class AddressesController < ApplicationController
 
     @search_term = params[:address]
     Search.create(:term => @search_term, :ip => request.remote_ip)
+
     address_result = AddressHelpers.find_address(params[:address])
 
     # When user searches they get a direct hit!
     if address_result.length == 1
       redirect_to :action => "show", :id => address_result.first.id
     else
-      street_name = AddressHelpers.get_street_name(@search_term)
-
-      if(dir = AddressHelpers.get_direction(@search_term))
-        @addresses = Address.find_addresses_with_cases_by_cardinal_street(dir,street_name).uniq.order(:house_num) 
-        #.page(params[:page]).per(10)
+      if Neighborhood.exists?(:name => @search_term)
+        @addresses = Address.find_addresses_with_cases_by_neighborhood(@search_term)
       else
-        @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:street_name, :house_num)
-        #.page(params[:page]).per(10)
-      end
+        street_name = AddressHelpers.get_street_name(@search_term)
 
+        if(dir = AddressHelpers.get_direction(@search_term))
+          @addresses = Address.find_addresses_with_cases_by_cardinal_street(dir,street_name).uniq.order(:house_num) 
+          #.page(params[:page]).per(10)
+        else
+          @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:street_name, :house_num)
+          #.page(params[:page]).per(10)
+        end
+      end
 
       @addresses.each {|addr|
         addr.address_long = AddressHelpers.unabbreviate_street_types(addr.address_long).capitalize

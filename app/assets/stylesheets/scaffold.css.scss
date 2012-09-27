@@ -224,6 +224,8 @@ navbar
   }
 
   .dropdown-menu{
+
+    padding: 20px;
     .span3 {
       padding: 5px 0;
       margin: 0;
@@ -548,4 +550,15 @@ ul.arrow-list{
 
 .jslider-value{
   background: transparent;
+}
+
+.dropdown-menu a{
+  padding: 3px 0px;
+}
+#account_remember_me{
+  float: left;
+
+  &+{
+  margin-left: 20px;    
+  }
 }

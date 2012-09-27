@@ -6,7 +6,7 @@ namespace :neighborhoods do
   task :load => :environment do
 
     Neighborhood.destroy_all
-    shpfile = "#{Rails.root}/lib/assets/NOLA_Neighborhoods/Neighborhoods.shp"
+    shpfile = "#{Rails.root}/lib/assets/NOLA_Neighborhoods/Neighborhoods_wgs_84.shp"
     
     RGeo::Shapefile::Reader.open(shpfile, {:srid => -1}) do |file|
       puts "File contains #{file.num_records} records"
@@ -20,5 +20,12 @@ namespace :neighborhoods do
   desc "Empty neighborhood table"  
   task :drop => :environment  do |t, args|
     Neighborhood.destroy_all
+  end
+
+  desc "Empty neighborhood table"  
+  task :match_addresses => :environment  do |t, args|
+    sql = "update addresses a set neighborhood_id = n.id from neighborhoods n where ST_Within(a.point, n.the_geom)"
+    ActiveRecord::Base.establish_connection
+    ActiveRecord::Base.connection.execute(sql)
   end
 end

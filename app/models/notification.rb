@@ -1,7 +1,14 @@
+require "#{Rails.root}/app/helpers/cases_helper.rb"
+include CasesHelper
+
 class Notification < ActiveRecord::Base
 	belongs_to :case, :foreign_key => :case_number, :primary_key => :case_number
   
   validates_uniqueness_of :notified, :scope => [:case_number, :notification_type]
+
+  after_save do
+    CasesHelper.update_status(self)
+  end
 
   def date
     return DateTime.new(0) if notified.nil?

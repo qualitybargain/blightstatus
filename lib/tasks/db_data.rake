@@ -18,6 +18,8 @@ namespace :db_data do
       desc "Load all abatement spreadsheet data"
       task :load_all do
             Rake::Task["addresses:load"].invoke
+            Rake::Task["neighborhoods:load"].invoke
+            Rake::Task["neighborhoods:match_addresses"].invoke
             Rake::Task["lama:load_historical"].invoke
             Rake::Task["db_data:load_abatements"].invoke
       end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120925231729) do
+ActiveRecord::Schema.define(:version => 20120927011119) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20120925231729) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "address_id"
+    t.string   "status"
   end
 
   add_index "cases", ["address_id"], :name => "index_cases_on_address_id"
@@ -314,8 +315,8 @@ ActiveRecord::Schema.define(:version => 20120925231729) do
     t.string   "notes"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
-    t.text     "thegeom"
     t.datetime "date_notified"
+    t.spatial  "thegeom",       :limit => {:srid=>-1, :type=>"geometry"}
   end
 
 end
