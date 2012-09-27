@@ -17,6 +17,7 @@ OpenBlight.addresses = {
   show: function(){
     $(".property-status").popover({placement: 'bottom'});
 
+<<<<<<< HEAD
     OpenBlight.addresses.highlightCaseHistory();
     OpenBlight.addresses.mapAddresses();
     OpenBlight.accounts.subscriptionButton();
@@ -44,6 +45,20 @@ OpenBlight.addresses = {
       OpenBlight.addresses.map.on('dragend', function(e){
         if($('#map-search-mode').attr('checked')){
           OpenBlight.addresses.mapSearchByBounds();
+=======
+      var x, y, map, CustomIcon, dotIcon;
+
+        // this should not be hard coded. do json request?
+      x = $("#address").attr("data-x");
+      y = $("#address").attr("data-y");
+
+      CustomIcon = L.DivIcon.extend({
+        options: {
+          iconSize: [ 22, 37 ],
+          iconAnchor: [ 0, 0 ],
+          popupAnchor: [ 11, 0 ],
+          className: "dotmarker"
+>>>>>>> ea08a42a78036a24d7693a45b610fab418b130c7
         }
       });
     });
@@ -65,10 +80,20 @@ OpenBlight.addresses = {
       var current_feature = 0;
       var icon = OpenBlight.addresses.getCustomIcon();
 
+<<<<<<< HEAD
       OpenBlight.addresses.layergroup = L.geoJson(features, {
         pointToLayer: function (feature, latlng) {
           return L.marker(latlng, {icon: new icon() });
         },
+=======
+      map = new L.Map('map')
+        .addLayer(new L.TileLayer.WMS("http://http://gis.nola.gov/ArcGIS/rest/services/basemapcache_wgs/MapServer",{
+          layers: '0,1,2,3,4',
+          format: 'image/png'
+        }))
+        .addLayer(new L.Marker(new L.LatLng(y , x), {icon: dotIcon} ))
+        .setView(new L.LatLng(y , x), 17);
+>>>>>>> ea08a42a78036a24d7693a45b610fab418b130c7
 
         onEachFeature: function(feature, layer) {
           var point = feature.coordinates;
@@ -93,6 +118,7 @@ OpenBlight.addresses = {
         }
       }).addTo(OpenBlight.addresses.map);
 
+<<<<<<< HEAD
       $('ul.nav').removeClass('loading');
       $('#loading').hide();
       if (typeof callbacks  === 'function') {
@@ -100,6 +126,8 @@ OpenBlight.addresses = {
       }
       OpenBlight.addresses.associateMarkers();
     });
+=======
+>>>>>>> ea08a42a78036a24d7693a45b610fab418b130c7
   },
 
   highlightCaseHistory: function(){
