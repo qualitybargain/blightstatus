@@ -3,7 +3,7 @@ module LAMAHelpers
     l = client || LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
 
     incidents.each do |incident|
-      #puts incident.to_s#inspect
+      puts incident.inspect
       case_number = incident.Number
       next unless case_number # need to find a better way to deal with this ... revisit post LAMA data cleanup
       
@@ -66,7 +66,7 @@ module LAMAHelpers
       end
       if events
         events.each do |event|
-          if event.class == Hashie::Mash #&& event.IsComplete =~ /true/
+          if event.class == Hashie::Mash && event.IsComplete =~ /true/
             
             if event.Type =~ /Notice/ && event.Type =~ /Hearing/
               Notification.create(:case_number => case_number, :notified => event.DateEvent, :notification_type => event.Type)
@@ -150,12 +150,13 @@ module LAMAHelpers
             
             if j_status
               Hearing.create(:case_number => case_number, :hearing_date => event.DateEvent, :hearing_status => j_status)
-              Judgement.create(:case_number => case_number, :status => j_status, :notes => notes, :judgement_date => event.DateEvent)  
+              j = Judgement.create(:case_number => case_number, :status => j_status, :notes => notes, :judgement_date => event.DateEvent)  
+              kase.status = j.class
             end
             
             if k_status
               kase.status = k_status
-              #kase.save
+              kase.save
             end
           end
         end
