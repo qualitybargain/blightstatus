@@ -68,7 +68,7 @@
 
       .faq.centered.question-list
         %h3
-          FAQ
+          Common Questions
         -case @address.most_recent_status.class.to_s
           - when 'Inspection'
             =render "pages/help/questions/inspections"
@@ -84,4 +84,4 @@
             =render "pages/help/questions/general"
 
         .view-all-faq
-          =link_to "View All FAQ >", "/pages/help"
+          =link_to "View All Questions >", "/pages/help"

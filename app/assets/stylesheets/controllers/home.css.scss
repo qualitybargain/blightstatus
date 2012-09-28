@@ -17,11 +17,9 @@
     padding-top: 5%;
 
     h1{
-      font-size: 39pt;
-      padding: 22px 0 15px 0;
-      color: #F1601D;
-      font-family: "Kreon", sarif;
-      line-height: 15px;
+      font-size: 240%;
+      color: $orange;
+      font-weight: bold;
     }
   	input.btn[type="submit"] {
   		font-size: 150%;
@@ -81,6 +79,25 @@
       width: 430px;
       font-weight: 300;
       color: $darkGrey;
+    }
+
+
+    .frontpage-screenshot{
+      h3{
+        font-size: 120%;
+        font-weight: 200;
+//          margin-left: 20px;
+        margin: 0 auto;
+        padding: 5px 0;
+        text-align: center; 
+
+
+
+      }
+      a{
+        margin: 0 auto;
+        text-align: center;          
+      }
     }
 
     .search-bubble{

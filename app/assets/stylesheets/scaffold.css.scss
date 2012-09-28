@@ -30,9 +30,11 @@ html{
 
   #wrapper{
     height: 100%;
-    padding-bottom: 225px;
+//    padding-bottom: 225px;
+    padding-bottom: 75px;
+
     width: 100%;
-    background: url("http://www.textizen.com/assets/header-bg.png") repeat-x scroll 0 0 transparent;
+//    background: url("http://www.textizen.com/assets/header-bg.png") repeat-x scroll 0 0 transparent;
   }
 
   header {
@@ -561,4 +563,17 @@ ul.arrow-list{
   &+{
   margin-left: 20px;    
   }
+}
+
+
+  
+
+hr.soften {
+  height: 1px;
+  margin: 1px 0 10px;
+  background-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+  background-image: -moz-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+  background-image: -ms-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+  background-image: -o-linear-gradient(left, transparent, rgba(0, 0, 0, .1), transparent);
+  border: 0;
 }
