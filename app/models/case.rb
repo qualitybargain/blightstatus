@@ -45,6 +45,21 @@ class Case < ActiveRecord::Base
     most_recent_status.date.to_datetime.mjd - first_status.date.to_datetime.mjd
   end
 
+  def update_address_status
+    if self.address && self.most_recent_status
+      self.address.update_most_recent_status(self.most_recent_status)
+    end
+  end
+
+  def update_status(step)
+    latest = most_recent_status
+    p latest
+    if latest.nil? || step.date >= latest.date
+      self.status = step.class.to_s
+      self.save
+    end
+  end
+
   def assign_address(options = {})
     if options[:address_long]
       a = Address.where("address_long = ?", options[:address_long])

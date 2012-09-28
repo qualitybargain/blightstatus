@@ -72,7 +72,7 @@ describe Case do
     it "returns the most recent workflow step for a case" do
       @inspection = FactoryGirl.create(:inspection, :case => @case, :inspection_date => Time.now - 1.week)
       @hearing = FactoryGirl.create(:hearing, :case => @case, :hearing_date => Time.now - 1.day)
-      
+
       @case.most_recent_status.should eq(@hearing)
     end
   end
