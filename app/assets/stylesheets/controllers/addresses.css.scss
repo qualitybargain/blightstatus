@@ -49,6 +49,7 @@
 
   .no-search-results{
     position: relative;
+    min-height: 400px;
 		
 		.suggestions{
 			width: 600px;
@@ -179,7 +180,7 @@
       h2{
         border-bottom: 1px solid #CCCCCC;
         font-family: "Lato";
-        font-size: 24px;
+        font-size: 150%;
         font-weight: 300;
         text-align: left;  
         margin: 0 15px;
