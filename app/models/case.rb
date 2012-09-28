@@ -162,4 +162,12 @@ class Case < ActiveRecord::Base
       self.address.update_most_recent_status(self.most_recent_status)
     end
   end
+
+  def update_status(step)
+    latest = most_recent_status
+    if latest.nil? || step.date >= latest.date
+      self.status = step.class.to_s
+      self.save
+    end
+  end
 end
