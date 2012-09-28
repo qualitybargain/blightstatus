@@ -101,7 +101,7 @@ class AddressesController < ApplicationController
         class_name = 'Judgement'
       when 'foreclosures'
         cases = Case.includes(:address, :foreclosures).where(" cases.address_id = addresses.id  AND  date_completed > '#{start_date}'  AND date_completed < '#{end_date}' ")
-        class_name = 'Demolition'
+        class_name = 'Foreclosure'
       when 'demolitions'
         cases = Case.includes(:address, :demolitions).where(" cases.address_id = addresses.id  AND  date_completed > '#{start_date}'  AND date_completed < '#{end_date}' ")
         class_name = 'Demolition'
