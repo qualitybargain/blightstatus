@@ -52,7 +52,10 @@
           =link_to "Help", "/pages/help"
       - if(controller_name != 'home')
         %ul.nav.top-search
+          / %li
+          /   =link_to "Advanced Search", "/browse"
           %li
             =render "layouts/search"
+
   .clearfix
   %hr.soften

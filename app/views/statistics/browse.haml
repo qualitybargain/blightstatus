@@ -1,25 +1,49 @@
-%section.no-search-results.container
-  / .address-title
-  .span12
-    %h1 Browse City 
-    %br
-  .span12
-    %form
-      / =select( "case_active", "case_active", { "Active Cases" => "0", "Closed Cases" => "1"})
-      =select( "only_recent_status", "only_recent_status", { "All Cases" => "0", "Only Recent Status" => "1"})
-      =select( "status", "status", { "Inspected" => "inspections", "Notified" => "notifications", "Hearing" => "hearings", "Judgment" => "judgement", "Abatement" => "maintenances", "Demolitions" => "demolition", "Foreclosure" => "Foreclosures"})
-      =date_select("start_date", "start_date", :start_year => 2011, :end_year => @date.year, :discard_day => true)
-      =select( "show_stats", "show_stats", { "Hide Stats" => "0", "Show Stats" => "1"})
+%section.search-results{:style => "height: 700px"}
+  .row-fluid
+    .left-bar{:style => "height: 700px; position: absolute; width: 270px; left: 0"}
+      .well{:style => "padding: 20px;"}
+        .nav-header 
+          %h2
+            Browse
+          %p
+            (only showing properties with a case history)
+        %form{:style => "padding: 0px 10px;"}
+          / =select( "case_active", "case_active", { "Active Cases" => "0", "Closed Cases" => "1"})
+          %div
+            %p{:style => "font-size: 120%; padding-left: 0 10px; margin: 15px 0 5px"}
+              Case:
+              %br
+            =select( "only_recent_status", "only_recent_status", { "All Cases" => "0", "Only Recent Status" => "1"})
+          %div
+            %p{:style => "font-size: 120%; padding-left: 0 10px; margin: 15px 0 5px"}
+              Status:
+              %br
+            =select( "status", "status", { "Inspected" => "inspections", "Notified" => "notifications", "Hearing" => "hearings", "Judgment" => "judgement", "Abatement" => "maintenances", "Demolitions" => "demolition", "Foreclosure" => "Foreclosures"})
+          %div
+            %p{:style => "font-size: 120%; padding-left: 0 10px; margin: 15px 0 5px"}
+              Date:
+              %br
+            =date_select("start_date", "start_date", :start_year => 2012, :end_year => @date.year, :discard_day => true)
+          %div
+            %p{:style => "font-size: 120%; padding-left: 0 10px; margin: 15px 0 5px"}
+              Show Stats:
+              %br
+            =select( "show_stats", "show_stats", { "Hide Stats" => "0", "Show Stats" => "1"})
+          %div
+            #map-loading{:style => "margin: 0 auto; width: 150px; background-color: red; color: white; display: none;"}
+              Map Loading....
+            #no-data{:style => "margin: 0 auto; width: 150px; background-color: red; color: white; display: none;"}
+              No results
 
-      .row{:style => "height: 20px;"}
-        #map-loading{:style => "margin: 0 auto; width: 150px; background-color: red; color: white; display: none;"}
-          Map Loading....
-        #no-data{:style => "margin: 0 auto; width: 150px; background-color: red; color: white; display: none;"}
-          No results
+  .right-bar{:style => "left: 270px;width: 75%; position: absolute"}
+    .toggle
+      .btn-group{:style => "height: 50px"}
+        / %input#map-search-mode{:name => "map-search-mode" , :type => "checkbox", :value => "true", :class => "filter-checkbox"}
+        / %label.btn{:for => "map-search-mode"} Reload map when map is moved 
 
-  .span12
-    #stats-map{:style => "width: 100%; height: 450px"}
-
-
-  .span12
+    #map{:style => "height: 550px; border: 1px solid #aaa"}
     #stats-row
+
+  .row
+  .btn-toolbar
+    .btn-group

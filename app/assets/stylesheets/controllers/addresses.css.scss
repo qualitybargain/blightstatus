@@ -11,6 +11,10 @@
     border: 1px solid #ccc;
   }
 
+
+  .property-page{
+    margin-top: 50px;
+  }
   #map-search-mode{
     display: none;
   }
@@ -34,7 +38,7 @@
   }
 
 	header{
-		height: 40px;
+//		height: 40px;
     
 		h1 {
   		float: left;
@@ -57,63 +61,7 @@
 		}
   }
   
-	.search-results{
-		
-    
-		.left-bar{
-      border: none;
 
-
-      .result {
-        a{
-          text-transform:capitalize;
-        }
-      }
-
-      .well{
-        position: relative;
-
-        .nav{
-          height: 500px;
-          overflow-x: hidden;
-          overflow-y: auto;
-        }
-      }
-
-      li.result a{
-        color: #58595B;
-      }
-
-      li.result:hover{
-//        background: url("/assets/marker-selected.png") no-repeat 10px 4px  $lighterTeal;
-        border-radius: 5px;
-      }
-
-      ul.list.loading {
-        opacity: 0.4;
-      }
-
-      #loading {
-        display: none;
-        left: 60px;
-        top: 100px;
-      }
-
-      .nav-header{
-        text-align: left;
-        p{
-          font-family: "Lato";
-          font-weight: 300;
-          font-style: italic;
-          font-size: 95%;
-        }
-
-        border-bottom: #ccc 1px solid;
-        margin-bottom: 20px;
-
-      }
-		}
-	}
 
   .main{
     background-color: white;
