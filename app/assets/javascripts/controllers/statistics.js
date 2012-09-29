@@ -19,7 +19,7 @@ OpenBlight.statistics = {
       OpenBlight.statistics.createStatsMap()
      ).then(function () {
 
-      var selectBox = $("select").selectBoxIt();
+      // var selectBox = $("select").selectBoxIt();
       OpenBlight.statistics.initilizeSelectBoxes();
       OpenBlight.statistics.limitMonthSelectBoxes();
       $('#start_date_start_date_2i').val('3');
@@ -45,10 +45,10 @@ OpenBlight.statistics = {
 
     var ready = wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
       var y = 29.96;
-      var x = -90.02;
+      var x = -90.09;
       var zoom = 12;
 
-      OpenBlight.statistics.map = new L.Map('stats-map', {
+      OpenBlight.statistics.map = new L.Map('map', {
         touchZoom: false,
         scrollWheelZoom: false,
         boxZoom: false
