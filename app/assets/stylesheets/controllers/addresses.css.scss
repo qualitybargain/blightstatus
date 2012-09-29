@@ -70,17 +70,7 @@
     padding: 20px;
     position: relative;
 
-    .subscribe{
-      padding: 2px;
-      position: absolute;
-      top: 0;
-      right: 0;
-      .subscribe-button{
-        &:hover{
-          cursor: pointer;
-        }
-      }
-    }
+
   }
 
   .sidebar{
@@ -95,6 +85,19 @@
 
     .faq{
       margin-top: 50px;
+    }
+
+    .subscribe{
+      text-align: center;
+//      padding: 2px;
+//      position: absolute;
+//      top: 0;
+//      right: 0;
+      .subscribe-button{
+        &:hover{
+          cursor: pointer;
+        }
+      }
     }
 
   }
@@ -200,8 +203,8 @@
 
 .assessor{
   .parcel-link{
-    font-weight: 400;
-    font-size: 120%;
+    font-size: 100%;
+    padding: 15px 0;
   }
 
   p{
