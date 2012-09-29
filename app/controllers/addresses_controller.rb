@@ -88,25 +88,25 @@ class AddressesController < ApplicationController
 
     case params[:status]
       when 'inspections'
-        cases = Case.includes(:address, :inspections).where(" cases.address_id = addresses.id  AND inspections.inspection_date > '#{start_date}' AND inspections.inspection_date < '#{end_date}' ")
+        cases = Case.includes(:address, :inspections).where(" cases.address_id = addresses.id  AND inspections.inspection_date > :start_date AND inspections.inspection_date <  :end_date ",   {:start_date => start_date, :end_date => end_date} )
         class_name = 'Inspection'
       when 'notifications'
-        cases = Case.includes(:address, :notifications).where(" cases.address_id = addresses.id  AND notified > '#{start_date}' AND notified < '#{end_date}' ")
+        cases = Case.includes(:address, :notifications).where(" cases.address_id = addresses.id  AND notified > :start_date  AND notified < :end_date ",   {:start_date => start_date, :end_date => end_date} )
         class_name = 'Notification'
       when 'hearings'
-        cases = Case.includes(:address, :hearings).where(" cases.address_id = addresses.id  AND  hearing_date > '#{start_date}' AND hearing_date < '#{end_date}' ")
+        cases = Case.includes(:address, :hearings).where(" cases.address_id = addresses.id  AND  hearing_date > :start_date  AND hearing_date < :end_date ",   {:start_date => start_date, :end_date => end_date} )
         class_name = 'Hearing'
       when 'judgements'
-        cases = Case.includes(:address, :judgements).where(" cases.address_id = addresses.id  AND  judgement_date > '#{start_date}' AND judgement_date < '#{end_date}' ")
+        cases = Case.includes(:address, :judgements).where(" cases.address_id = addresses.id  AND  judgement_date > :start_date  AND judgement_date < :end_date ",   {:start_date => start_date, :end_date => end_date} )
         class_name = 'Judgement'
       when 'foreclosures'
-        cases = Case.includes(:address, :foreclosures).where(" cases.address_id = addresses.id  AND  date_completed > '#{start_date}'  AND date_completed < '#{end_date}' ")
+        cases = Case.includes(:address, :foreclosures).where(" cases.address_id = addresses.id  AND  date_completed > :start_date   AND date_completed < :end_date ",   {:start_date => start_date, :end_date => end_date} )
         class_name = 'Foreclosure'
       when 'demolitions'
-        cases = Case.includes(:address, :demolitions).where(" cases.address_id = addresses.id  AND  date_completed > '#{start_date}'  AND date_completed < '#{end_date}' ")
+        cases = Case.includes(:address, :demolitions).where(" cases.address_id = addresses.id  AND  date_completed > :start_date  AND date_completed <  :end_date",   {:start_date => start_date, :end_date => end_date} )
         class_name = 'Demolition'
       when 'abatement'
-        cases = Case.includes(:address, :maintenances).where(" cases.address_id = addresses.id  AND  date_completed > '#{start_date}'  AND date_completed < '#{end_date}' ")
+        cases = Case.includes(:address, :maintenances).where(" cases.address_id = addresses.id  AND  date_completed > :start_date   AND date_completed < :end_date ",   {:start_date => start_date, :end_date => end_date} )
         class_name = 'Maintenance'
     end
 
