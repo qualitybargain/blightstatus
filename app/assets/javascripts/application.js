@@ -23,7 +23,6 @@
 //= require jquery-cookie
 //= require jquery.slider.min.js
 //= require bootstrap.min.js
-//= require jquery.selectBoxIt.js
 //= require init
 //= require_directory ./controllers
 
