@@ -28,6 +28,8 @@ namespace :lama do
     end_date = date - 1.day
 
     Rake::Task["lama:load_by_date"].invoke(end_date, date)
+
+    Account.all.each(&:send_digest)
   end
 
   desc "Import LAMA data from our Accela endpoint until current time"

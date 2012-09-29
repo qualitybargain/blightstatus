@@ -3,7 +3,6 @@ module LAMAHelpers
     l = client || LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
 
     incidents.each do |incident|
-      puts incident.inspect
       case_number = incident.Number
       next unless case_number # need to find a better way to deal with this ... revisit post LAMA data cleanup
       

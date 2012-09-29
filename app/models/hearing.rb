@@ -4,7 +4,9 @@ class Hearing < ActiveRecord::Base
   validates_uniqueness_of :hearing_date, :scope => :case_number
 
   after_save do
-    self.case.update_last_step(self)
+    if self.case
+      self.case.update_status(self)
+    end
   end
 
   def date
