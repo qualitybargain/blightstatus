@@ -73,6 +73,11 @@ GEM
     daemons (1.1.9)
     dbf (2.0.0)
       fastercsv (~> 1.5.4)
+    delayed_job (3.0.3)
+      activesupport (~> 3.0)
+    delayed_job_active_record (0.3.2)
+      activerecord (> 2.1.0)
+      delayed_job (~> 3.0.0)
     devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -97,8 +102,6 @@ GEM
       faraday (>= 0.7.4, < 0.9)
     fastercsv (1.5.5)
     ffi (1.1.5)
-    foreigner (1.2.1)
-      activerecord (>= 3.0.0)
     google-spreadsheet-ruby (0.3.0)
       google_drive (>= 0.3.0)
     google_drive (0.3.1)
@@ -279,11 +282,11 @@ DEPENDENCIES
   aws-s3
   capybara
   coffee-rails (~> 3.2.1)
+  delayed_job_active_record
   devise
   docsplit
   factory_girl_rails
   faker
-  foreigner
   haml
   httpclient (~> 2.1.5)
   jquery-rails

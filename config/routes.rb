@@ -27,10 +27,6 @@ Openblight::Application.routes.draw do
   match "addresses/addresses_with_case" => "addresses#addresses_with_case"
   match "addresses/redirect_latlong" => "addresses#redirect_latlong"
 
-  
-
-
-
   match "browse" => "statistics#browse"
   match "stats/browse" => "statistics#browse"
   match "stats/stats" => "statistics#stats"
@@ -44,6 +40,7 @@ Openblight::Application.routes.draw do
   resources :accounts, :except => [:destroy, :create, :edit] do
     collection do
       get :map
+      post :notify
     end
   end
   

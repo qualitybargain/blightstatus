@@ -1,12 +1,10 @@
 .container.about-page-content.no-search-results
-  
   .span12
     .span8{:style => "margin-left: 0"}
       .notice
         %h1
           My Watchlist
     .span4
-
   .row.span8
     .block
       #subscriptions
@@ -38,12 +36,11 @@
                   .btn.btn-primary.btn-tight
                     View Property
             .clearfix
-
   .row.span3
     .map#map{:style => "width: 300px; height: 200px"}
     .email-notification
-      .btn-group
-        %input#email-notification-toggle{:name => "email-notification-toggle" , :type => "checkbox", :value => "true"}
-        %label.btn.btn-primary{:for => "email-notification-toggle"} Receive Emails
+      =form_for :account do |f|
+        =f.check_box :send_notifications
+        =f.label :send_notifications, "Receive Email Updates"
 
 
