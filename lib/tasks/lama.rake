@@ -32,8 +32,8 @@ namespace :lama do
 
   desc "Import LAMA data from our Accela endpoint until current time"
   task :load_historical => :environment do |t, args|
-    start_date = Date.new(2012, 9, 26) #Time.now
-    end_date = Date.new(2012, 3, 1)
+    start_date = Time.now
+    end_date = Date.new(2012, 3, 19)
 
     l = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
     

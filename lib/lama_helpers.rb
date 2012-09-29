@@ -19,11 +19,13 @@ module LAMAHelpers
           inspections = inspections.Inspection
           inspections.each do |inspection|
             if inspection.class == Hashie::Mash
-              i = Inspection.create(:case_number => case_number, :inspection_date => inspection.InspectionDate, :notes => inspection.Comment)
+              i = Inspection.find_or_create_by_case_number_and_inspection_date(:case_number => case_number, :inspection_date => inspection.InspectionDate, :notes => inspection.Comment)
               if inspection.Findings != nil && inspection.Findings.InspectionFinding != nil
                 inspection.Findings.InspectionFinding.each do |finding|
                   if finding.class == Hashie::Mash
-                    i.inspection_findings.create(:finding => finding.Finding, :label => finding.Label)
+                    if finding.Finding && finding.Finding.length > 0
+                      i.inspection_findings.create(:finding => finding.Finding, :label => finding.Label)
+                    end
                   end
                 end
               end
