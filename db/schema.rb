@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120927204116) do
+ActiveRecord::Schema.define(:version => 20120928235439) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                  :default => "",   :null => false
@@ -44,14 +44,16 @@ ActiveRecord::Schema.define(:version => 20120927204116) do
     t.float    "x"
     t.float    "y"
     t.string   "status"
-    t.datetime "created_at",                                                 :null => false
-    t.datetime "updated_at",                                                 :null => false
-    t.spatial  "point",            :limit => {:srid=>-1, :type=>"geometry"}
+    t.datetime "created_at",                                                :null => false
+    t.datetime "updated_at",                                                :null => false
+    t.spatial  "point",            :limit => {:srid=>0, :type=>"geometry"}
     t.string   "parcel_id"
     t.boolean  "official"
     t.string   "street_full_name"
     t.string   "assessor_url"
     t.integer  "neighborhood_id"
+    t.string   "latest_type"
+    t.integer  "latest_id"
   end
 
   add_index "addresses", ["address_long"], :name => "index_addresses_on_address_long"
@@ -81,6 +83,44 @@ ActiveRecord::Schema.define(:version => 20120927204116) do
     t.string   "case_number"
     t.string   "name"
   end
+
+  create_table "cases", :force => true do |t|
+    t.string   "case_number"
+    t.integer  "geopin"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "address_id"
+    t.integer  "status_id"
+    t.string   "status_type"
+  end
+
+  add_index "cases", ["address_id"], :name => "index_cases_on_address_id"
+  add_index "cases", ["case_number"], :name => "index_cases_on_case_number"
+
+  create_table "complaints", :force => true do |t|
+    t.string   "status"
+    t.datetime "date_received"
+    t.string   "case_number"
+    t.string   "notes"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "demolitions", :force => true do |t|
     t.string   "case_number"
@@ -212,9 +252,9 @@ ActiveRecord::Schema.define(:version => 20120927204116) do
     t.float    "x_max"
     t.float    "y_max"
     t.float    "area"
-    t.datetime "created_at",                                           :null => false
-    t.datetime "updated_at",                                           :null => false
-    t.spatial  "the_geom",   :limit => {:srid=>-1, :type=>"geometry"}
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.text     "the_geom"
   end
 
   create_table "notifications", :force => true do |t|
@@ -264,9 +304,9 @@ ActiveRecord::Schema.define(:version => 20120927204116) do
     t.string   "full_name"
     t.integer  "length_numberic"
     t.integer  "shape_len"
-    t.datetime "created_at",                                                 :null => false
-    t.datetime "updated_at",                                                 :null => false
-    t.spatial  "the_geom",         :limit => {:srid=>-1, :type=>"geometry"}
+    t.datetime "created_at",                                                :null => false
+    t.datetime "updated_at",                                                :null => false
+    t.spatial  "the_geom",         :limit => {:srid=>0, :type=>"geometry"}
     t.string   "prefix_direction"
     t.string   "suffix_direction"
   end
