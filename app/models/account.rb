@@ -1,21 +1,24 @@
 class Account < ActiveRecord::Base
-  has_many :subscriptions
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :send_notifications
 
+  has_many :subscriptions
   has_many :addresses, :through => :subscriptions
+
   accepts_nested_attributes_for :subscriptions, :allow_destroy => true
 
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  validates_presence_of :email
 
-  def subscribed_addresses
-    #addresses
+  def send_digest
+    if send_notifications
+      subs = subscriptions.select{ |s| s.updated_since_last_notification? }
+      if subs.length > 0
+        t = Time.now
+        subs.each{ |s| s.update_attribute(:date_notified, t) }
+        AccountMailer.delay.deliver_digest(self, subs)
+      end
+    end
   end
-
-
-
 end

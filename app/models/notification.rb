@@ -4,7 +4,9 @@ class Notification < ActiveRecord::Base
   validates_uniqueness_of :notified, :scope => [:case_number, :notification_type]
 
   after_save do
-    self.case.update_status(self)
+    if self.case
+      self.case.update_status(self)
+    end
   end
 
   def date

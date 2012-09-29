@@ -42,13 +42,13 @@
   }
 
   .email-notification{
-
     position: fixed;
     top: 400px;
-    #email-notification-toggle{
-      display: none;
-    }
 
+    label, input {
+      float: left;
+      margin-left: 10px;
+    }
   }
 
   .subscription{

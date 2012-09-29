@@ -11,11 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120927011119) do
+ActiveRecord::Schema.define(:version => 20120928235439) do
 
   create_table "accounts", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                  :default => "",   :null => false
+    t.string   "encrypted_password",     :default => "",   :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -24,8 +24,9 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.boolean  "send_notifications",     :default => true
   end
 
   add_index "accounts", ["email"], :name => "index_accounts_on_email", :unique => true
@@ -51,6 +52,8 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
     t.string   "street_full_name"
     t.string   "assessor_url"
     t.integer  "neighborhood_id"
+    t.string   "latest_type"
+    t.integer  "latest_id"
   end
 
   add_index "addresses", ["address_long"], :name => "index_addresses_on_address_long"
@@ -87,7 +90,9 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "address_id"
-    t.string   "status"
+    t.string   "last_step"
+    t.integer  "status_id"
+    t.string   "status_type"
   end
 
   add_index "cases", ["address_id"], :name => "index_cases_on_address_id"
@@ -101,6 +106,22 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "demolitions", :force => true do |t|
     t.string   "case_number"

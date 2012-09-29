@@ -3,11 +3,10 @@ module LAMAHelpers
     l = client || LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
 
     incidents.each do |incident|
-      puts incident.inspect
       case_number = incident.Number
       next unless case_number # need to find a better way to deal with this ... revisit post LAMA data cleanup
       
-      kase = Case.find_or_initialize_by_case_number(case_number)
+      kase = Case.find_or_create_by_case_number(case_number)
 
       incident_full = l.incident(case_number)
       
@@ -15,20 +14,19 @@ module LAMAHelpers
       #Inspections
       inspections = incident_full.Inspections
       if inspections
-        inspections.each do |inspection|
-          #puts "Inspection => #{inspection.inspect}" 
-          #i = Inspection.create(:case_number => case_number, :inspection_date => inspection.InspectionDate, :notes => inspection.Comment)
-          inspection = inspection[1].first
-          if inspection.class == Hashie::Mash
-            i = Inspection.create(:case_number => case_number, :inspection_date => inspection.InspectionDate, :notes => inspection.Comment)
-            if inspection.Findings != nil #&& inspection.Findings.InspectionFinding != nil
-              inspection.Findings.each do |inspectionFinding|
-                #inspectionFinding.each do |finding|
-                  if inspectionFinding.class == Hashie::Mash
-                    #i.inspection_findings.build(:finding => finding.Finding, :label => finding.Label)
-                    i.inspection_findings.build(:finding => inspectionFinding.Finding, :label => inspectionFinding.Label)
+        if inspections.class == Hashie::Mash
+          inspections = inspections.Inspection
+          inspections.each do |inspection|
+            if inspection.class == Hashie::Mash
+              i = Inspection.find_or_create_by_case_number_and_inspection_date(:case_number => case_number, :inspection_date => inspection.InspectionDate, :notes => inspection.Comment)
+              if inspection.Findings != nil && inspection.Findings.InspectionFinding != nil
+                inspection.Findings.InspectionFinding.each do |finding|
+                  if finding.class == Hashie::Mash
+                    if finding.Finding && finding.Finding.length > 0
+                      i.inspection_findings.create(:finding => finding.Finding, :label => finding.Label)
+                    end
                   end
-                #end
+                end
               end
             end
           end
@@ -97,7 +95,6 @@ module LAMAHelpers
             end
 
             j_status = nil
-            k_status = nil
             if event.Name =~ /Guilty/ || (event.Name =~ /Hearing/ && event.Status =~ /Guilty/)
               if event.Name =~ /Guilty/
                 notes = event.Name.strip
@@ -117,8 +114,9 @@ module LAMAHelpers
                 notes = event.Status.strip
               end
               j_status = 'Closed'
+              kase.status = j_status
             elsif event.Name =~ /Dismiss/
-              k_status = 'Closed'
+              kase.status = 'Closed'
             elsif (event.Name =~ /Hearing/ && event.Name =~ /Compliance/) || (event.Name =~ /Hearing/ && event.Status =~ /Compliance/)
               if event.Name =~ /Compliance/
                 notes = event.Name.strip
@@ -126,8 +124,9 @@ module LAMAHelpers
                 notes = event.Status.strip
               end
               j_status = 'Closed'
+              kase.status = j_status
             elsif event.Name =~ /Compliance/
-              k_status = "Closed In Compliance"
+              kase.status = "Closed In Compliance"
             elsif (event.Name =~ /Hearing/ && event.Name =~ /Closed New Owner/) || (event.Name =~ /Hearing/ && event.Status =~ /Closed/)
               if event.Name =~ /Closed/
                 notes = event.Name.strip
@@ -135,8 +134,9 @@ module LAMAHelpers
                 notes = event.Status.strip
               end
               j_status = 'Closed'
+              kase.status = j_status
             elsif event.Name =~ /Closed New Owner/
-              k_status = 'Closed New Owner'
+              kase.status = 'Closed New Owner'
             elsif (event.Name =~ /Hearing/ && event.Name =~ /Judgment rescinded/) || (event.Name =~ /Hearing/ && event.Status =~ /Judgment rescinded/)
               if event.Name =~ /rescinded/
                 notes = event.Name.strip
@@ -144,19 +144,15 @@ module LAMAHelpers
                 notes = event.Status.strip
               end
               j_status = 'Judgment Rescinded'
+              kase.status = j_status
             elsif event.Name =~ /Judgment rescinded/
-              k_status = 'Judgment Rescinded'
+              kase.status = 'Judgment Rescinded'
             end
             
             if j_status
               Hearing.create(:case_number => case_number, :hearing_date => event.DateEvent, :hearing_status => j_status)
-              j = Judgement.create(:case_number => case_number, :status => j_status, :notes => notes, :judgement_date => event.DateEvent)  
-              kase.status = j.class
-            end
+              Judgement.create(:case_number => case_number, :status => j_status, :notes => notes, :judgement_date => event.DateEvent)  
             
-            if k_status
-              kase.status = k_status
-              kase.save
             end
           end
         end
