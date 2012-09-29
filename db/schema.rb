@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120928235439) do
-
+ActiveRecord::Schema.define(:version => 20120928221423) do
   create_table "accounts", :force => true do |t|
     t.string   "email",                  :default => "",   :null => false
     t.string   "encrypted_password",     :default => "",   :null => false
@@ -46,7 +45,6 @@ ActiveRecord::Schema.define(:version => 20120928235439) do
     t.string   "status"
     t.datetime "created_at",                                                :null => false
     t.datetime "updated_at",                                                :null => false
-    t.spatial  "point",            :limit => {:srid=>0, :type=>"geometry"}
     t.string   "parcel_id"
     t.boolean  "official"
     t.string   "street_full_name"
@@ -54,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20120928235439) do
     t.integer  "neighborhood_id"
     t.string   "latest_type"
     t.integer  "latest_id"
+    t.spatial  "point",            :limit => {:srid=>-1, :type=>"geometry"}
   end
 
   add_index "addresses", ["address_long"], :name => "index_addresses_on_address_long"
@@ -265,6 +264,14 @@ ActiveRecord::Schema.define(:version => 20120928235439) do
     t.string   "notification_type"
   end
 
+  create_table "notifications", :force => true do |t|
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "case_number"
+    t.date     "notified"
+    t.string   "notification_type"
+  end
+
   create_table "parcels", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -309,6 +316,7 @@ ActiveRecord::Schema.define(:version => 20120928235439) do
     t.spatial  "the_geom",         :limit => {:srid=>0, :type=>"geometry"}
     t.string   "prefix_direction"
     t.string   "suffix_direction"
+    t.spatial  "the_geom",         :limit => {:srid=>-1, :type=>"geometry"}
   end
 
   create_table "subscriptions", :force => true do |t|
@@ -317,8 +325,7 @@ ActiveRecord::Schema.define(:version => 20120928235439) do
     t.string   "notes"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
-    t.text     "thegeom"
-    t.datetime "date_notified"
+    t.spatial  "thegeom",       :limit => {:srid=>-1, :type=>"geometry"}
   end
 
 end
