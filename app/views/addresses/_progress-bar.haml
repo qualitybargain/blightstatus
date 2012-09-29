@@ -17,7 +17,7 @@
           %td
             .case-number
               &nbsp;
-          %td
+          %td{:rel => "tooltip", :class => "tooltip-hover", "data-placement" => "bottom", "title" => "Hello"}
             .progress-arrow.pending{:style => "z-index: 14"}
           %td
             .progress-arrow.pending{:style => "z-index: 13"}
@@ -31,36 +31,40 @@
 
       -else
         %tr
+          / %td{:rel => "tooltip", :class => "tooltip-hover", "data-placement" => "top", "title" => "The Code Enforcement department inspects all aspects of the property, including grass, debris, walls, roofs, driveways, sheds, porches and drainage for violations."}
           %td
             -unless kase.inspections.nil? || kase.inspections.empty?
-              -kase.inspections.each do |i|
-                .progress-arrow.inspection{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
+              / -kase.inspections.each do |i|
+              .progress-arrow.inspection{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
             -else
               -if kase.case_data_error?
                 .progress-arrow.error{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
               -else
                 .progress-arrow.pending{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
 
+          / %td{:rel => "tooltip", :class => "tooltip-hover", "data-placement" => "top", "title" => "The notice is posted on the property and is mailed to the owner as part of a Notice of Violation packet. "}
           %td
             -unless kase.notifications.nil? || kase.notifications.empty?
-              -kase.notifications.each do |n|
-                .progress-arrow.notification{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
+              / -kase.notifications.each do |n|
+              .progress-arrow.notification{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
             -else
               -if kase.case_data_error? && kase.case_steps < 0
                 .progress-arrow.error{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
               -else
                 .progress-arrow.pending{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
 
+          / %td{:rel => "tooltip", :class => "tooltip-hover", "data-placement" => "top", "title" => "If a property owner does not correct the violations observed by City inspectors, an administrative hearing is conducted by an impartial judge."}
           %td
             -unless kase.hearings.nil? || kase.hearings.empty?
-              -kase.hearings.each do |h|
-                .progress-arrow.hearing{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
+              / -kase.hearings.each do |h|
+              .progress-arrow.hearing{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
             -else
               -if kase.case_data_error? && kase.case_steps < 1
                 .progress-arrow.error{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
               -else
                 .progress-arrow.pending{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
 
+          / %td{:rel => "tooltip", :class => "tooltip-hover", "data-placement" => "top", "title" => "Hello"}
           %td
             -unless kase.judgement.nil?
               .progress-arrow.judgement{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
@@ -70,6 +74,7 @@
               -else
                 .progress-arrow.pending{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
 
+          / %td{:rel => "tooltip", :class => "tooltip-hover", "data-placement" => "top", "title" => "A resolution is when a case is closed and can be Abatement, Foclosure, Demolition or Dismissed."}
           %td
             -unless kase.resolutions.empty?
               .progress-arrow.resolution{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
