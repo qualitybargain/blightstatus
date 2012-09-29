@@ -163,10 +163,10 @@ class Case < ActiveRecord::Base
       cases
   end
 
-  def update_status(step)
+  def update_last_step(step)
     latest = most_recent_status
     if latest.nil? || step.date >= latest.date
-      self.status = step.class.to_s
+      self.last_step = step.class.to_s
       self.save
     end
   end

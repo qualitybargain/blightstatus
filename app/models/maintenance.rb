@@ -3,7 +3,7 @@ class Maintenance < ActiveRecord::Base
   belongs_to :address
 
   after_save do
-    self.case.update_status(self)
+    self.case.update_last_step(self)
   end
 
   def date

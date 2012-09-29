@@ -3,7 +3,7 @@ class Foreclosure < ActiveRecord::Base
   belongs_to :case, :foreign_key => :case_number, :primary_key => :case_number
 
   after_save do
-    self.case.update_status(self)
+    self.case.update_last_step(self)
   end
 
   def date

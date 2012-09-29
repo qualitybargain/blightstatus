@@ -3,7 +3,7 @@ class Judgement < ActiveRecord::Base
 	validates_uniqueness_of :judgement_date, :scope => :case_number  
   
   after_save do
-    self.case.update_status(self)
+    self.case.update_last_step(self)
   end
 
   def date

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120927011119) do
+ActiveRecord::Schema.define(:version => 20120928221423) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -45,12 +45,12 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
     t.string   "status"
     t.datetime "created_at",                                                 :null => false
     t.datetime "updated_at",                                                 :null => false
-    t.spatial  "point",            :limit => {:srid=>-1, :type=>"geometry"}
     t.string   "parcel_id"
     t.boolean  "official"
     t.string   "street_full_name"
     t.string   "assessor_url"
     t.integer  "neighborhood_id"
+    t.spatial  "point",            :limit => {:srid=>-1, :type=>"geometry"}
   end
 
   add_index "addresses", ["address_long"], :name => "index_addresses_on_address_long"
@@ -79,6 +79,28 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
     t.datetime "updated_at",  :null => false
     t.string   "case_number"
     t.string   "name"
+  end
+
+  create_table "cases", :force => true do |t|
+    t.string   "case_number"
+    t.integer  "geopin"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "address_id"
+    t.string   "status"
+    t.string   "last_step"
+  end
+
+  add_index "cases", ["address_id"], :name => "index_cases_on_address_id"
+  add_index "cases", ["case_number"], :name => "index_cases_on_case_number"
+
+  create_table "complaints", :force => true do |t|
+    t.string   "status"
+    t.datetime "date_received"
+    t.string   "case_number"
+    t.string   "notes"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "demolitions", :force => true do |t|
@@ -122,6 +144,30 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
 
   add_index "foreclosures", ["address_id"], :name => "index_foreclosures_on_address_id"
 
+  create_table "hearings", :force => true do |t|
+    t.datetime "hearing_date"
+    t.string   "hearing_status"
+    t.boolean  "reset_hearing"
+    t.integer  "one_time_fine"
+    t.integer  "court_cost"
+    t.integer  "recordation_cost"
+    t.integer  "hearing_fines_owed"
+    t.integer  "daily_fines_owed"
+    t.integer  "fines_paid"
+    t.datetime "date_paid"
+    t.integer  "amount_still_owed"
+    t.integer  "grace_days"
+    t.datetime "grace_end"
+    t.string   "case_manager"
+    t.integer  "tax_id"
+    t.string   "case_number"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "hearing_type"
+  end
+
+  add_index "hearings", ["case_number"], :name => "index_hearings_on_case_number"
+
   create_table "inspection_findings", :force => true do |t|
     t.integer  "inspection_id"
     t.text     "finding"
@@ -130,11 +176,36 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
     t.datetime "updated_at",    :null => false
   end
 
+  create_table "inspections", :force => true do |t|
+    t.string   "case_number"
+    t.string   "result"
+    t.datetime "scheduled_date"
+    t.datetime "inspection_date"
+    t.string   "inspection_type"
+    t.integer  "inspector_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.text     "notes"
+  end
+
+  add_index "inspections", ["case_number"], :name => "index_inspections_on_case_number"
+
   create_table "inspectors", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "judgements", :force => true do |t|
+    t.string   "case_number"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.string   "status"
+    t.string   "notes"
+    t.datetime "judgement_date"
+  end
+
+  add_index "judgements", ["case_number"], :name => "index_judgements_on_case_number"
 
   create_table "maintenances", :force => true do |t|
     t.string   "house_num"
@@ -167,6 +238,14 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
     t.spatial  "the_geom",   :limit => {:srid=>-1, :type=>"geometry"}
   end
 
+  create_table "notifications", :force => true do |t|
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "case_number"
+    t.date     "notified"
+    t.string   "notification_type"
+  end
+
   create_table "parcels", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -179,6 +258,16 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "resets", :force => true do |t|
+    t.string   "case_number"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.datetime "reset_date"
+    t.string   "notes"
+  end
+
+  add_index "resets", ["case_number"], :name => "index_resets_on_case_number"
 
   create_table "searches", :force => true do |t|
     t.text     "term"
@@ -198,9 +287,9 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
     t.integer  "shape_len"
     t.datetime "created_at",                                                 :null => false
     t.datetime "updated_at",                                                 :null => false
-    t.spatial  "the_geom",         :limit => {:srid=>-1, :type=>"geometry"}
     t.string   "prefix_direction"
     t.string   "suffix_direction"
+    t.spatial  "the_geom",         :limit => {:srid=>-1, :type=>"geometry"}
   end
 
   create_table "subscriptions", :force => true do |t|
@@ -209,8 +298,8 @@ ActiveRecord::Schema.define(:version => 20120927011119) do
     t.string   "notes"
     t.datetime "created_at",                                              :null => false
     t.datetime "updated_at",                                              :null => false
-    t.spatial  "thegeom",       :limit => {:srid=>-1, :type=>"geometry"}
     t.datetime "date_notified"
+    t.spatial  "thegeom",       :limit => {:srid=>-1, :type=>"geometry"}
   end
 
 end
