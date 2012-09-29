@@ -7,33 +7,32 @@
       .address-title
         %h1=@address.address_long
 
+      / -unless @address.workflow_steps.empty?
+      .property-history
+        .cases
+          -@address.sorted_cases.each do |c|
+            .case
+              %h2
+                Case:
+                =c.case_number
+              =render :partial => "addresses/progress-bar", :locals => {:kase => c}
 
-      / =render :partial => "addresses/status-update", :locals => {:address => @address}
-      -unless @address.workflow_steps.empty?
-        .property-history
-          .cases
-            -@address.sorted_cases.each do |c|
-              .case
-                %h2
-                  Case:
-                  =c.case_number
-                =render :partial => "addresses/progress-bar", :locals => {:kase => c}
-
-                -if c.case_data_error?
-                  .block{:style => "text-align: center; padding: 0 0 10px; margin:0 auto;"}
-                    %b{:style => "color: red"}
-                      Warning:
-                    This case is missing data.
+              -if c.case_data_error?
+                .block{:style => "text-align: center; padding: 0 0 10px; margin:0 auto;"}
+                  %b{:style => "color: red"}
+                    Warning:
+                  This case is missing data.
 
 
 
-                .case-details
-                  =render :partial => "addresses/property-history", :locals => {:kase => c}
-                .clearfix
-                %br
-                %br                
-            %a#show-history{:style => "text-align: center"}
-              Show Historical Cases
+              .case-details
+                =render :partial => "addresses/property-history", :locals => {:kase => c}
+              .clearfix
+              %br
+              %br                
+          %a#show-history{:style => "text-align: center"}
+            Show Historical Cases
+
 
 
 
