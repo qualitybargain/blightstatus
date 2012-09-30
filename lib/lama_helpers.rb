@@ -127,6 +127,9 @@ module LAMAHelpers
           j_status = 'Guilty'
         end
         kase.state = j_status
+      elsif (event.Name =~ /Judgment/ && (event.Name =~ /Posting/ || event.Name =~ /Notice/ || event.Name =~ /Recordation/))
+        j_status = ''
+        kase.state = 'Judgment'
       elsif (event.Name =~ /Hearing/ && event.Name =~ /Dismiss/) || (event.Name =~ /Hearing/ && (event.Status =~ /Dismiss/ || event.Status =~ /dismiss/))
         if event.Name =~ /Dismiss/
           notes = event.Name.strip
@@ -199,6 +202,9 @@ module LAMAHelpers
         Reset.create(:case_number => kase.case_number, :reset_date => action.Date)
       elsif action.Type =~ /Notice/ && action.Type =~ /Compliance/
         kase.state = 'Closed: In Compliance'
+      elsif action.Type =~ /Judgment/ && (action.Type =~ /Posting/ || action.Type =~ /Recordation/ || action.Type =~ /Notice/)
+        Judgement.create(:case_number => kase.case_number, :status => '', :judgement_date => action.Date, :notes => action.Type)
+        kase.state = 'Judgment'
       elsif action.Type =~ /Administrative Hearing/
         unless action.Type =~ /Notice/
          Hearing.create(:case_number => kase.case_number, :hearing_date => action.Date, :hearing_type => action.Type)
@@ -219,6 +225,9 @@ module LAMAHelpers
     elsif case_status =~ /Guilty/
       kase.state = 'Guilty'
       Judgement.create(:case_number => kase.case_number, :status => 'Guilty', :judgement_date => date, :notes => case_status)
+    elsif case_status =~ /Judgment/ && (case_status =~ /Posting/ || case_status =~ /Notice/ || case_status =~ /Recordation/)
+      kase.state = 'Judgment'
+      Judgement.create(:case_number => kase.case_number, :status => '', :judgement_date => date, :notes => case_status)
     elsif case_status =~ /Judgment rescinded/
       kase.state = 'Judgment Rescinded' 
     elsif case_status =~ /omplaint/ && case_status =~ /eceived/
