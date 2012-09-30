@@ -13,7 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20120930010414) do
 
-
   create_table "accounts", :force => true do |t|
     t.string   "email",                  :default => "",   :null => false
     t.string   "encrypted_password",     :default => "",   :null => false
