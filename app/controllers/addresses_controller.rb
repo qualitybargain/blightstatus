@@ -139,12 +139,13 @@ class AddressesController < ApplicationController
     # TODO: this is temporary. stats method should be in each model 
     stats = []
     if params[:show_stats].to_i == 1
-      stats = get_stats(params[:status], {:start_date => start_date, :end_date => end_date} )
+      # stats = get_stats(params[:status], {:start_date => start_date, :end_date => end_date} )
     end
 
 
     respond_to do |format|
-      format.json { render :json =>  {:cases => case_addresses, :stats => stats}.to_json }
+      # format.json { render :json =>  {:cases => case_addresses, :stats => stats}.to_json }
+        format.json { render :json => case_addresses.to_json(:only => [ :id, :address_long, :latest_type, :point ]) }      
     end
       
   end
