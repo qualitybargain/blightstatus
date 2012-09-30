@@ -136,11 +136,6 @@ class AddressesController < ApplicationController
     }
 
 
-    # TODO: this is temporary. stats method should be in each model 
-    stats = []
-    if params[:show_stats].to_i == 1
-      # stats = get_stats(params[:status], {:start_date => start_date, :end_date => end_date} )
-    end
 
 
     respond_to do |format|
@@ -175,7 +170,7 @@ class AddressesController < ApplicationController
 
   private
 
-
+  # DEPRCATED
   def get_stats(status, sql_params)
     puts '-----------GET STATS-----------------'
     puts status.inspect

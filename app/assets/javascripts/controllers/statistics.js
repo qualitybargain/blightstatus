@@ -124,7 +124,7 @@ OpenBlight.statistics = {
               current_feature = current_feature + 1;
             }
           }).addTo(OpenBlight.statistics.map);
-          // OpenBlight.statistics.regenerateStats(data.stats);
+          OpenBlight.statistics.regenerateStats(data);
           $("#map-loading").hide();
 
         }
@@ -136,14 +136,27 @@ OpenBlight.statistics = {
 
   regenerateStats: function(data){
 
-    // console.log(data);
+    stats = {};
+    stats['Total'] = data.length; 
+
+    for(i = 0; i < data.length; i++){
+
+      if(typeof data[i].latest_type == 'string'){
+
+        stats[data[i].latest_type] = (stats[data[i].latest_type] == null )? 0 : stats[data[i].latest_type]+1;
+
+      }
+
+
+    }
+
     $('#stats-row').html('<table id="stats-table"><thead></thead><tbody></tbody></table>');
 
-    $.each(data, function(a, b){
+    $.each(stats, function(a, b){
       $('#stats-table thead').append('<td><span>'+a+'</span></td>')
     })
 
-    $.each(data, function(a, b){
+    $.each(stats, function(a, b){
       $('#stats-table tbody').append('<td>'+b+'</td>')
     })
 
