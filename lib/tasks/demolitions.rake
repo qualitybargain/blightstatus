@@ -9,7 +9,6 @@ include AddressHelpers
 include AbatementHelpers
 
 
-
 namespace :demolitions do
   desc "Downloading FEMA files from s3.amazon.com and load them into the db"  
   task :load_fema, [:file_name, :bucket_name] => :environment  do |t, args|
@@ -77,8 +76,8 @@ namespace :demolitions do
     exceptions = []
     properties[:data].each do |row|
       begin
-        house_num = row[12].split(' ')[0]
-        Demolition.find_or_create_by_address_long_and_date_completed(:house_num => house_num, :street_name => row[12].sub(house_num + ' ', '').upcase, :address_long =>  row[12], :date_completed => row[15], :program_name => row[8])
+        house_num = row[11].split(' ')[0]
+        Demolition.find_or_create_by_address_long_and_date_completed(:house_num => house_num, :street_name => row[11].sub(house_num + ' ', '').upcase, :address_long =>  row[11], :date_completed => row[14], :program_name => row[8])
       rescue
         #these exceptions are for properties that are missing most data, except for address, date demolished, and program (they are all NORA). What do we want to do with them?
         exceptions.push({ :exception => $!, :row => row })
@@ -86,7 +85,7 @@ namespace :demolitions do
     end
     
     if exceptions.length
-      puts "There are #{exceptions.length} import errors errors"
+      puts "There are #{exceptions.length} import errors"
       exceptions.each do |e|
         puts " OBJECT ID: #{e[:row][2]}, ERROR: #{e[:exception]}"
       end
