@@ -27,18 +27,17 @@ module LAMAHelpers
       #Actions
       actions = []
       if incident_full.Actions && incident_full.Actions.CodeAction
-        actions == incident_full.Actions.CodeAction
+        actions = incident_full.Actions.CodeAction
+        if actions
+          if actions.class == Array
+            actions.each do |action|
+              parseAction(case_number,action)          
+            end
+          else
+            parseAction(case_number,actions)
+          end     
+        end      
       end
-      if actions
-        if actions.class == Array
-          actions.each do |action|
-            parseAction(case_number,action)          
-          end
-        else
-          parseAction(case_number,actions)
-        end
-      end      
-
       #Events
       events = []
       if incident_full.Events && incident_full.Events.IncidEvent

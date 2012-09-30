@@ -46,12 +46,12 @@ ActiveRecord::Schema.define(:version => 20120930010414) do
     t.string   "status"
     t.datetime "created_at",                                                 :null => false
     t.datetime "updated_at",                                                 :null => false
-    t.spatial  "point",            :limit => {:srid=>-1, :type=>"geometry"}
     t.string   "parcel_id"
     t.boolean  "official"
     t.string   "street_full_name"
     t.string   "assessor_url"
     t.integer  "neighborhood_id"
+    t.spatial  "point",            :limit => {:srid=>-1, :type=>"geometry"}
     t.string   "latest_type"
     t.integer  "latest_id"
   end
@@ -307,9 +307,9 @@ ActiveRecord::Schema.define(:version => 20120930010414) do
     t.integer  "shape_len"
     t.datetime "created_at",                                                 :null => false
     t.datetime "updated_at",                                                 :null => false
-    t.spatial  "the_geom",         :limit => {:srid=>-1, :type=>"geometry"}
     t.string   "prefix_direction"
     t.string   "suffix_direction"
+    t.spatial  "the_geom",         :limit => {:srid=>-1, :type=>"geometry"}
   end
 
   create_table "subscriptions", :force => true do |t|
@@ -318,8 +318,8 @@ ActiveRecord::Schema.define(:version => 20120930010414) do
     t.string   "notes"
     t.datetime "created_at",                                              :null => false
     t.datetime "updated_at",                                              :null => false
-    t.spatial  "thegeom",       :limit => {:srid=>-1, :type=>"geometry"}
     t.datetime "date_notified"
+    t.spatial  "thegeom",       :limit => {:srid=>-1, :type=>"geometry"}
   end
 
 end
