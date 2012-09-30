@@ -1,9 +1,9 @@
 
 -unless @addresses.empty?
-  %section.search-results.container.container-fluid
+  %section.search-results{:style => "height: 600px"}
     .row-fluid
-      .span3.left-bar      
-        .well{:style => "padding: 8px 0;"}
+      .left-bar{:style => "height: 550px; position: absolute; width: 270px; left: 0; z-index: 1000"}
+        .well{:style => "padding: 20px;"}
           .nav-header 
             %h2
               Search Results
@@ -22,24 +22,15 @@
                   .maps-marker
                   =a.address_long
           .clearfix
-      .span9.right-bar
+      .right-bar{:style => "left: 270px;width: 75%; position: absolute"}
         .toggle
-
           .btn-group
             %input#map-search-mode{:name => "map-search-mode" , :type => "checkbox", :value => "true", :class => "filter-checkbox"}/
             %label.btn{:for => "map-search-mode"} Reload map when map is moved 
-
-          / =check_box_tag('map-search-mode', 'true', true)
-          / Redo search when map is moved
-
         #map{:style => "height: 550px;"}
-        / .toggle
-        /   =check_box_tag('map-search-mode')
-        /   Redo search when map is moved
       .row
       .btn-toolbar
         .btn-group
-          / =paginate @addresses
 
 -else
   %section.no-search-results

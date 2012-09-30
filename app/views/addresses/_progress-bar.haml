@@ -15,9 +15,6 @@
       -if kase.case_steps == 0
         %tr
           %td
-            .case-number
-              &nbsp;
-          %td
             .progress-arrow.pending{:style => "z-index: 14"}
           %td
             .progress-arrow.pending{:style => "z-index: 13"}
@@ -33,8 +30,8 @@
         %tr
           %td
             -unless kase.inspections.nil? || kase.inspections.empty?
-              -kase.inspections.each do |i|
-                .progress-arrow.inspection{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
+              / -kase.inspections.each do |i|
+              .progress-arrow.inspection{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
             -else
               -if kase.case_data_error?
                 .progress-arrow.error{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
@@ -43,8 +40,8 @@
 
           %td
             -unless kase.notifications.nil? || kase.notifications.empty?
-              -kase.notifications.each do |n|
-                .progress-arrow.notification{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
+              / -kase.notifications.each do |n|
+              .progress-arrow.notification{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
             -else
               -if kase.case_data_error? && kase.case_steps < 0
                 .progress-arrow.error{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
@@ -53,8 +50,8 @@
 
           %td
             -unless kase.hearings.nil? || kase.hearings.empty?
-              -kase.hearings.each do |h|
-                .progress-arrow.hearing{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
+              / -kase.hearings.each do |h|
+              .progress-arrow.hearing{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
             -else
               -if kase.case_data_error? && kase.case_steps < 1
                 .progress-arrow.error{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}

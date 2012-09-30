@@ -14,6 +14,7 @@
 		margin: 0 auto;
 	}
 
+
 	.btn-group > input {
 		display: none;
 	}
@@ -29,32 +30,36 @@
 	}
 
 
-	#stats-row{
+	#start_date_start_date_2i, #start_date_start_date_1i{
+		width: 90px;
+	}
 
-		table{
-			margin: 20px auto;
-			padding: 10px;
-			font-size: 130%;
-      text-align: center;
 
-			td{
-				padding: 5px 10px 10px;
-			}
+	table{
+		margin: 20px auto;
+		padding: 10px;
+		font-size: 130%;
+    text-align: center;
 
-			thead{
-        font-size: 85%;
-        font-weight: bold;
-
-        span{
-          border-bottom: 1px solid;
-          padding: 1px 3px;
-        }
-			}
-			tbody{
-			}
-
+		td{
+			padding: 20px 10px 10px;
 		}
 
+		thead{
+      font-size: 100%;
+      font-weight: bold;
+      margin-bottom: 20px;
+      span{
+        border-bottom: 1px solid;
+        padding: 1px 3px;
+      }
+		}
+		tbody{
+			padding: 10px;
+			font-size: 50px;
+		}
+
+	
 
 	}
 

@@ -16,6 +16,9 @@ OpenBlight = {
             return this.charAt(0).toUpperCase() + this.slice(1);
         }
       }
+
+      $('.tooltip-hover').tooltip('hide')
+
     },
 
     dropdownLoginForm: function(){

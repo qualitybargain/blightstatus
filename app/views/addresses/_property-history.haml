@@ -13,12 +13,13 @@
                 %td.date
                 %td Data Missing
 
-              -kase.inspections.each do |i|
-                -unless kase.inspections.empty?
-                  %td.date=i.inspection_date.strftime("%-m/%-d/%y")
-                  %td 
-                    Property was inspected, with a finding of 
-                    %b #{i.result}
+              -unless kase.inspections.empty?
+                / -kase.inspections.first do |i|
+                %td.date=kase.inspections.first.inspection_date.strftime("%-m/%-d/%y")
+                %td 
+                  Property was inspected
+                  /, with a finding of 
+                  / %b #{kase.inspections.first.result}
 
       -unless kase.notifications.empty?
         %tr{:class => "case-history-notification case-history-notification-#{kase.case_number}"}

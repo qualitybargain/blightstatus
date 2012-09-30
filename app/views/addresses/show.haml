@@ -1,4 +1,4 @@
-.container
+.container.property-page
   %section.row-fluid
 
 
@@ -7,33 +7,32 @@
       .address-title
         %h1=@address.address_long
 
+      / -unless @address.workflow_steps.empty?
+      .property-history
+        .cases
+          -@address.sorted_cases.each do |c|
+            .case
+              %h2
+                Case:
+                =c.case_number
+              =render :partial => "addresses/progress-bar", :locals => {:kase => c}
 
-      / =render :partial => "addresses/status-update", :locals => {:address => @address}
-      -unless @address.workflow_steps.empty?
-        .property-history
-          .cases
-            -@address.sorted_cases.each do |c|
-              .case
-                %h2
-                  Case:
-                  =c.case_number
-                =render :partial => "addresses/progress-bar", :locals => {:kase => c}
-
-                -if c.case_data_error?
-                  .block{:style => "text-align: center; padding: 0 0 10px; margin:0 auto;"}
-                    %b{:style => "color: red"}
-                      Warning:
-                    This case is missing data.
+              -if c.case_data_error?
+                .block{:style => "text-align: center; padding: 0 0 10px; margin:0 auto;"}
+                  %b{:style => "color: red"}
+                    Warning:
+                  This case is missing data.
 
 
 
-                .case-details
-                  =render :partial => "addresses/property-history", :locals => {:kase => c}
-                .clearfix
-                %br
-                %br                
-            %a#show-history{:style => "text-align: center"}
-              Show Historical Cases
+              .case-details
+                =render :partial => "addresses/property-history", :locals => {:kase => c}
+              .clearfix
+              %br
+              %br                
+          %a#show-history{:style => "text-align: center"}
+            Show Historical Cases
+
 
 
 
@@ -51,13 +50,11 @@
         %br
         -if(account_signed_in?)
           -if(@account_subscribed)
-            =link_to('Watching', "/subscriptions/#{@address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button ui-icon-circle-plus' , :id => "subscribe-button")
+            =link_to('Watching', "/subscriptions/#{@address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button tooltip-hover' , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Stop Receiving notifications when the status of this property changes")
           -else
-            =link_to('Add to Watchlist', "/subscriptions/#{@address.id}", :remote => true, :method => :put,  'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button ui-icon-circle-plus'  , :id => "subscribe-button")
+            =link_to('Add to Watchlist', "/subscriptions/#{@address.id}", :remote => true, :method => :put,  'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button tooltip-hover'  , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Receive notifications when the status of this property changes")
         -else
-          =link_to('Add to Watchlist', new_account_session_path, :class => 'btn btn-primary subscribe-button ui-icon-circle-plus' , :id => "subscribe-button")
-        %a{ "data-placement"=>"bottom", :rel=>"tooltip", "data-original-title"=>"Tooltip on bottom"}
-          [?]
+          =link_to('Add to Watchlist', new_account_session_path, :class => 'btn btn-primary btn-tight subscribe-button tooltip-hover' , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Receive notifications when the status of this property changes")
 
       .assessor.centered
         -if @address.assessor_url
