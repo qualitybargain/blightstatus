@@ -52,10 +52,8 @@ class AddressesController < ApplicationController
 
         if(dir = AddressHelpers.get_direction(@search_term))
           @addresses = Address.find_addresses_with_cases_by_cardinal_street(dir,street_name).uniq.order(:house_num) 
-          #.page(params[:page]).per(10)
         else
           @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:street_name, :house_num)
-          #.page(params[:page]).per(10)
         end
       end
 
@@ -66,9 +64,7 @@ class AddressesController < ApplicationController
       
       respond_to do |format|
         format.html
-        format.json { render :json => @address_list.to_json(:methods => [:most_recent_status_preview]) }
-        # format.json { render :json => @address_list.to_json }
-
+        format.json { render :json => @address_list.to_json(:only => [ :id, :address_long, :latest_type, :point ]) }
       end
     end
   end
@@ -163,7 +159,7 @@ class AddressesController < ApplicationController
     # respond_with [@addresses.to_json(:methods => [:most_recent_status_preview])]
 
     respond_to do |format|
-        format.json { render :json => @addresses.to_json(:methods => [:most_recent_status_preview]) }
+        format.json { render :json => @addresses.to_json }
     end    
   end
 
