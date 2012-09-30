@@ -3,7 +3,9 @@ class Complaint < ActiveRecord::Base
   validates_uniqueness_of :date_received, :scope => :case_number
   
   after_save do
-    self.case.update_last_step(self)
+    if self.case
+      self.case.update_status(self)
+    end
   end
   
   def date
