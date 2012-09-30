@@ -30,11 +30,21 @@
                 =address.address_long
 
 
-              -address.sorted_cases.each do |c|
+              -address.cases.each do |c|
                 .progress-bar
                   %h3
                     Case:
                     =c.case_number
+                    %div.pull-right{:style => "margin: 10px;width: 70px;"}
+                      -if c.state == 'Open'
+                        .label.label-success
+                          Case: 
+                          =c.state
+                      -else
+                        .label.label-important
+                          Case: 
+                          =c.state
+
                   =render :partial => "addresses/progress-bar", :locals => {:kase => c}
                   -if c.case_data_error?
                     .block{:style => "text-align: center; padding: 0 0 10px; margin:0 auto;"}
@@ -44,12 +54,13 @@
 
               .clearfix
               %br
-              .subscribe
-                =link_to('Remove Watchlist', "/subscriptions/#{address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button' , :id => "subscribe-button")
               .view-property
                 =link_to address do
                   .btn.btn-primary.btn-tight
                     View Property
+              .subscribe
+                =link_to('Remove Watchlist', "/subscriptions/#{address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button' , :id => "subscribe-button")
+
             .clearfix
   .row.span3
     .map#map{:style => "width: 300px; height: 200px"}
