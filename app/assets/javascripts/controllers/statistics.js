@@ -139,16 +139,16 @@ OpenBlight.statistics = {
     stats = {};
     stats['Total'] = data.length; 
 
-    for(i = 0; i < data.length; i++){
+    // for(i = 0; i < data.length; i++){
 
-      if(typeof data[i].latest_type == 'string'){
+    //   if(typeof data[i].latest_type == 'string'){
 
-        stats[data[i].latest_type] = (stats[data[i].latest_type] == null )? 0 : stats[data[i].latest_type]+1;
+    //     stats[data[i].latest_type] = (stats[data[i].latest_type] == null )? 0 : stats[data[i].latest_type]+1;
 
-      }
+    //   }
 
 
-    }
+    // }
 
     $('#stats-row').html('<table id="stats-table"><thead></thead><tbody></tbody></table>');
 
