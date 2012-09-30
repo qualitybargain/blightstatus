@@ -15,54 +15,36 @@ module LAMAHelpers
       if inspections
         if inspections.class == Hashie::Mash
           inspections = inspections.Inspection
-          inspections.each do |inspection|
-            if inspection.class == Hashie::Mash
-              i = Inspection.find_or_create_by_case_number_and_inspection_date(:case_number => case_number, :inspection_date => inspection.InspectionDate, :notes => inspection.Comment)
-              if inspection.Findings != nil && inspection.Findings.InspectionFinding != nil
-                inspection.Findings.InspectionFinding.each do |finding|
-                  if finding.class == Hashie::Mash
-                    if finding.Finding && finding.Finding.length > 0
-                      i.inspection_findings.create(:finding => finding.Finding, :label => finding.Label)
-                    end
-                  end
-                end
-              end
+          if inspections.class == Array
+            inspections.each do |inspection|
+              parseInspection(case_number,inspection)          
             end
+          else
+            parseInspection(case_number,inspections)
           end
         end
       end
       #Actions
       actions = []
       if incident_full.Actions && incident_full.Actions.CodeAction
-        actions == incident_full.Actions.CodeAction
+        actions = incident_full.Actions.CodeAction
+        if actions
+          if actions.class == Array
+            actions.each do |action|
+              parseAction(case_number,action)          
+            end
+          else
+            parseAction(case_number,actions)
+          end     
+        end      
       end
-      if actions
-        actions.each do |action|
-          if action.class == Hashie::Mash
-            if action.Type =~ /Notice/ && action.Type =~ /Hearing/
-              Notification.create(:case_number => case_number, :notified => action.Date, :notification_type => action.Type)
-            end
-            
-            if action.Type =~ /Notice/ && action.Type =~ /Reset/
-              Reset.create(:case_number => case_number, :reset_date => action.Date)
-            end
-            
-            if action.Type =~ /Administrative Hearing/
-              unless action.Type =~ /Notice/
-               Hearing.create(:case_number => case_number, :hearing_date => action.Date, :hearing_type => action.Type)
-              end
-            end
-          end
-        end
-      end      
-
       #Events
       events = []
       if incident_full.Events && incident_full.Events.IncidEvent
         events = incident_full.Events.IncidEvent
       end
       if events
-        if events.class == Array.class
+        if events.class == Array
           events.each do |event|
             parseEvent(kase,event)          
           end
@@ -178,7 +160,7 @@ module LAMAHelpers
         j_status = 'Closed'
         kase.state = 'Closed: In Compliance'
       elsif event.Name =~ /Compliance/
-        kase.state = "Closed In Compliance"
+        kase.state = "Closed: In Compliance"
       elsif (event.Name =~ /Hearing/ && event.Name =~ /Closed/) || (event.Name =~ /Hearing/ && event.Status =~ /Closed/)
         if event.Name =~ /Closed/
           notes = event.Name.strip
@@ -206,6 +188,35 @@ module LAMAHelpers
       if j_status
         Hearing.create(:case_number => case_number, :hearing_date => event.DateEvent, :hearing_status => j_status)
         Judgement.create(:case_number => case_number, :status => j_status, :notes => notes, :judgement_date => event.DateEvent)             
+      end
+    end
+  end
+  def parseInspection(case_number,inspection)
+    if inspection.class == Hashie::Mash
+      i = Inspection.find_or_create_by_case_number_and_inspection_date(:case_number => case_number, :inspection_date => inspection.InspectionDate, :notes => inspection.Comment)
+      if inspection.Findings != nil && inspection.Findings.InspectionFinding != nil
+        inspection.Findings.InspectionFinding.each do |finding|
+          if finding.class == Hashie::Mash
+            if finding.Finding && finding.Finding.length > 0
+              i.inspection_findings.create(:finding => finding.Finding, :label => finding.Label)
+            end
+          end
+        end
+      end
+    end
+  end
+  def parseAction(case_number,action)
+    if action.class == Hashie::Mash
+      if action.Type =~ /Notice/ && action.Type =~ /Hearing/
+        Notification.create(:case_number => case_number, :notified => action.Date, :notification_type => action.Type)
+      elsif action.Type =~ /Notice/ && action.Type =~ /Reset/
+        Reset.create(:case_number => case_number, :reset_date => action.Date)
+      elsif action.Type =~ /Notice/ && action.Type =~ /Compliance/
+        kase.state = 'Closed: In Compliance'
+      elsif action.Type =~ /Administrative Hearing/
+        unless action.Type =~ /Notice/
+         Hearing.create(:case_number => case_number, :hearing_date => action.Date, :hearing_type => action.Type)
+        end
       end
     end
   end
