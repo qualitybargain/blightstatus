@@ -63,6 +63,10 @@ group :test, :development do
   gem "simplecov"
 end
 
+group :development do
+  gem 'awesome_print'
+end
+
 group :test do
   gem "rake"
 end

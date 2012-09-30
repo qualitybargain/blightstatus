@@ -8,7 +8,22 @@
   .row.span8
     .block
       #subscriptions
-        -if @account_subcriptions.count > 0
+        -if @account_subcriptions.count  == 0
+          .subscription
+            %br
+            %p 
+              When the status of any property you are watching changes you'll be notified by email with a summary of the changes.
+
+            %p 
+              To watch a property, search for an address and at the property page you'll see a button that looks like this:
+            %p
+              =image_tag 'watchlist-sample.png', :style => "width: 150px"
+            %p
+              Click it and it be automatically be saved in your account.
+
+
+
+        -else
           -@account_subcriptions.each do |address|
             .subscription{:id => "subscription-#{address.id}" }
               %h2.address-title

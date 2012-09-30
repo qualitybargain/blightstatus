@@ -52,10 +52,8 @@ class AddressesController < ApplicationController
 
         if(dir = AddressHelpers.get_direction(@search_term))
           @addresses = Address.find_addresses_with_cases_by_cardinal_street(dir,street_name).uniq.order(:house_num) 
-          #.page(params[:page]).per(10)
         else
           @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:street_name, :house_num)
-          #.page(params[:page]).per(10)
         end
       end
 
@@ -66,9 +64,7 @@ class AddressesController < ApplicationController
       
       respond_to do |format|
         format.html
-        format.json { render :json => @address_list.to_json(:methods => [:most_recent_status_preview]) }
-        # format.json { render :json => @address_list.to_json }
-
+        format.json { render :json => @address_list.to_json(:only => [ :id, :address_long, :latest_type, :point ]) }
       end
     end
   end
@@ -86,28 +82,47 @@ class AddressesController < ApplicationController
     end_date = start + 1.month - 1.day
     class_name = ''
 
+
+
+    append_sql_query = ''
+    sql_params = {:start_date => start_date, :end_date => end_date} 
+
+    if params[:only_recent_status].to_i == 1
+      append_sql_query = " AND cases.status_type = :status_type "
+      case params[:status]
+        when 'inspections'
+          sql_params[:status_type] = "Inspection"
+        when 'notifications'
+          sql_params[:status_type] = "Notification"
+        when 'hearings'
+          sql_params[:status_type] = "Hearing"
+        when 'judgements'
+          sql_params[:status_type] = "Judgement"
+        when 'foreclosures'
+          sql_params[:status_type] = "Foreclosure"
+        when 'demolitions'
+          sql_params[:status_type] = "Demolition"
+        when 'abatement'
+          sql_params[:status_type] = "Maintenance"
+      end
+    end
+
+
     case params[:status]
       when 'inspections'
-        cases = Case.includes(:address, :inspections).where(" cases.address_id = addresses.id  AND inspections.inspection_date > :start_date AND inspections.inspection_date <  :end_date ",   {:start_date => start_date, :end_date => end_date} )
-        class_name = 'Inspection'
+        cases = Case.includes(:address, :inspections).where(" cases.address_id = addresses.id  AND inspections.inspection_date > :start_date AND inspections.inspection_date < :end_date #{append_sql_query} ",  sql_params)
       when 'notifications'
-        cases = Case.includes(:address, :notifications).where(" cases.address_id = addresses.id  AND notified > :start_date  AND notified < :end_date ",   {:start_date => start_date, :end_date => end_date} )
-        class_name = 'Notification'
+        cases = Case.includes(:address, :notifications).where(" cases.address_id = addresses.id  AND notified > :start_date  AND notified < :end_date #{append_sql_query}",   sql_params)
       when 'hearings'
-        cases = Case.includes(:address, :hearings).where(" cases.address_id = addresses.id  AND  hearing_date > :start_date  AND hearing_date < :end_date ",   {:start_date => start_date, :end_date => end_date} )
-        class_name = 'Hearing'
+        cases = Case.includes(:address, :hearings).where(" cases.address_id = addresses.id  AND  hearing_date > :start_date  AND hearing_date < :end_date #{append_sql_query}",   sql_params )
       when 'judgements'
-        cases = Case.includes(:address, :judgements).where(" cases.address_id = addresses.id  AND  judgement_date > :start_date  AND judgement_date < :end_date ",   {:start_date => start_date, :end_date => end_date} )
-        class_name = 'Judgement'
+        cases = Case.includes(:address, :judgements).where(" cases.address_id = addresses.id  AND  judgement_date > :start_date  AND judgement_date < :end_date #{append_sql_query}", sql_params )
       when 'foreclosures'
-        cases = Case.includes(:address, :foreclosures).where(" cases.address_id = addresses.id  AND  date_completed > :start_date   AND date_completed < :end_date ",   {:start_date => start_date, :end_date => end_date} )
-        class_name = 'Foreclosure'
+        cases = Case.includes(:address, :foreclosures).where(" cases.address_id = addresses.id  AND  sale_date > :start_date   AND sale_date < :end_date #{append_sql_query}",  sql_params )
       when 'demolitions'
-        cases = Case.includes(:address, :demolitions).where(" cases.address_id = addresses.id  AND  date_completed > :start_date  AND date_completed <  :end_date",   {:start_date => start_date, :end_date => end_date} )
-        class_name = 'Demolition'
+        cases = Case.includes(:address, :demolitions).where(" cases.address_id = addresses.id  AND  date_completed > :start_date  AND date_completed <  :end_date  #{append_sql_query}" ,  sql_params )
       when 'abatement'
-        cases = Case.includes(:address, :maintenances).where(" cases.address_id = addresses.id  AND  date_completed > :start_date   AND date_completed < :end_date ",   {:start_date => start_date, :end_date => end_date} )
-        class_name = 'Maintenance'
+        cases = Case.includes(:address, :maintenances).where(" cases.address_id = addresses.id  AND  date_completed > :start_date   AND date_completed < :end_date  #{append_sql_query}",   sql_params)
     end
 
 
@@ -115,30 +130,17 @@ class AddressesController < ApplicationController
     if cases.nil?
       cases = Hash.new
     end
-    if params[:only_recent_status].to_i == 1
-      case_addresses = cases.map{| single_case |
-        
-        if single_case.most_recent_status.class.to_s == class_name
-          single_case.address
-        end
 
-      }.compact
-    else
-      case_addresses = cases.map{| single_case |
-        single_case.address
-      }
-    end
+    case_addresses = cases.map{| single_case |
+      single_case.address
+    }
 
 
-    # TODO: this is temporary. stats method should be in each model 
-    stats = []
-    if params[:show_stats].to_i == 1
-      stats = get_stats(params[:status], start_date, end_date)
-    end
 
 
     respond_to do |format|
-      format.json { render :json =>  {:cases => case_addresses, :stats => stats}.to_json }
+      # format.json { render :json =>  {:cases => case_addresses, :stats => stats}.to_json }
+        format.json { render :json => case_addresses.to_json(:only => [ :id, :address_long, :latest_type, :point ]) }      
     end
       
   end
@@ -153,7 +155,7 @@ class AddressesController < ApplicationController
     # respond_with [@addresses.to_json(:methods => [:most_recent_status_preview])]
 
     respond_to do |format|
-        format.json { render :json => @addresses.to_json(:methods => [:most_recent_status_preview]) }
+        format.json { render :json => @addresses.to_json }
     end    
   end
 
@@ -168,25 +170,26 @@ class AddressesController < ApplicationController
 
   private
 
-
-  def get_stats(status, start_date, end_date)
+  # DEPRCATED
+  def get_stats(status, sql_params)
+    puts '-----------GET STATS-----------------'
+    puts status.inspect
+    puts sql_params.inspect
     case status
       when "inspections"
-        Inspection.where(" inspection_date > '#{start_date}' AND inspection_date < '#{end_date}' ").results
+        Inspection.where(" inspections.inspection_date > :start_date AND inspections.inspection_date < :end_date ",  sql_params).results
       when "notifications"
-        Notification.where(" notified > '#{start_date}' AND notified < '#{end_date}' ").types
+        Notification.where(" notified > :start_date  AND notified < :end_date ",   sql_params).types
       when "hearings"
-        Hearing.where(" hearing_date > '#{start_date}' AND hearing_date < '#{end_date}' ").status
-      when "resets"
-        Reset.where(" reset_date > '#{start_date}' AND reset_date < '#{end_date}' ").status
+        Hearing.where(" hearing_date > :start_date  AND hearing_date < :end_date ",   sql_params ).status
       when "judgements"
-        Judgement.where(" judgement_date > '#{start_date}' AND judgement_date < '#{end_date}' ").status
+        Judgement.where(" judgement_date > :start_date  AND judgement_date < :end_date ", sql_params ).status
       when "maintenances"
-        Maintenance.where(" maintenance_date > '#{start_date}' AND maintenance_date < '#{end_date}' ").status
+        Maintenance.where(" date_completed > :start_date   AND date_completed < :end_date ",  sql_params ).status
       when "foreclosures"
-        Foreclosure.where(" foreclosure_date > '#{start_date}' AND foreclosure_date < '#{end_date}' ").status
+        Foreclosure.where(" sale_date > :start_date  AND sale_date <  :end_date  " ,  sql_params ).status
       when "demolitions"
-        Demolition.where(" demolition_date > '#{start_date}' AND demolition_date < '#{end_date}' ").status
+        Demolition.where(" date_completed > :start_date   AND date_completed < :end_date  ",   sql_params).status
     end
   end
 
