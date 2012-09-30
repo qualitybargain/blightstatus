@@ -4,6 +4,7 @@ OpenBlight.statistics = {
    */
   init: function(){
     OpenBlight.statistics.layergroup = {};
+    OpenBlight.statistics.markers = [];
   },
 
 
@@ -11,22 +12,13 @@ OpenBlight.statistics = {
    * Controller method
    */
   browse: function(){
-    // don't cache the selection. otherwise on reload the trigger event below won't fire
-    $(":radio").attr("autocomplete", "off");
-
-
     $.when(
       OpenBlight.statistics.createStatsMap()
      ).then(function () {
 
-      // var selectBox = $("select").selectBoxIt();
       OpenBlight.statistics.initilizeSelectBoxes();
-      OpenBlight.statistics.limitMonthSelectBoxes();
-      // $('#start_date_start_date_2i').val('3');
       $('#start_date_start_date_2i').trigger('change');
      });
-
-
   },
 
 
@@ -64,20 +56,6 @@ OpenBlight.statistics = {
   },
 
 
-  limitMonthSelectBoxes: function(){
-
-    var d = new Date();
-    $('#start_date_start_date_1i').on('change', function(index){
-
-      if($('#start_date_start_date_1i').val() == d.getFullYear()){
-        console.log('year');
-        // $('#start_date_start_date_2i').val() +  "-1" ;
-
-      }
-    });
-
-  },
-
   initilizeSelectBoxes: function(){
     $('select').on('change', function(index){
       var show_stats = $('#show_stats_show_stats').val();
@@ -103,7 +81,7 @@ OpenBlight.statistics = {
 
           $('#stats-row').html('');
 
-          if(data.cases.length  == 0) {
+          if(data.length  == 0) {
             $("#map-loading").hide();
             $("#no-data").show();
             return;
@@ -111,11 +89,12 @@ OpenBlight.statistics = {
 
 
           var geo_json = [];
-          for(i = 0; i < data.cases.length; i++){
-            geo_json.push(data.cases[i].point);
+          for(i = 0; i < data.length; i++){
+            geo_json.push(data[i].point);
           }
 
           var icon = OpenBlight.addresses.getCustomIcon('dotmarker');
+          var current_feature = 0;
 
           OpenBlight.statistics.layergroup[1] = L.geoJson(geo_json, {
             pointToLayer: function (feature, latlng) {
@@ -123,11 +102,29 @@ OpenBlight.statistics = {
             },
 
             onEachFeature: function(feature, layer) {
-              layer.on('click', function() { window.location = '/addresses/redirect_latlong?x=' + feature.coordinates[0]  + '&y=' + feature.coordinates[1] })
+              var point = feature.coordinates;
+              var y = point[1], x= point[0];
+              var link = '/addresses/'+ data[current_feature].id;
+              var popupContent = '<h3><a href="' + link + '">' + data[current_feature].address_long + '</a></h3>' + 
+              '<img src="http://maps.googleapis.com/maps/api/streetview?location='+y+','+x+'&size=200x100&sensor=false" >';
 
+              if(data[current_feature].latest_type.length){
+                popupContent = popupContent + '<p>The most recent status is: <br><b>'+ data[current_feature].latest_type + '</b></p>';
+              }
+              layer.id = data[current_feature].id;
+              OpenBlight.statistics.markers.push( layer );
+
+              var pos = current_feature+1;
+
+              layer.on('dblclick', function(){ window.location.href = link });
+              layer.on('click', function(){ 
+                OpenBlight.statistics.map.panTo( this.getLatLng() );
+                L.popup().setLatLng(layer.getLatLng()).setContent(popupContent).openOn(OpenBlight.statistics.map);
+              });
+              current_feature = current_feature + 1;
             }
           }).addTo(OpenBlight.statistics.map);
-          OpenBlight.statistics.regenerateStats(data.stats);
+          OpenBlight.statistics.regenerateStats(data);
           $("#map-loading").hide();
 
         }
@@ -139,14 +136,27 @@ OpenBlight.statistics = {
 
   regenerateStats: function(data){
 
-    // console.log(data);
+    stats = {};
+    stats['Total'] = data.length; 
+
+    for(i = 0; i < data.length; i++){
+
+      if(typeof data[i].latest_type == 'string'){
+
+        stats[data[i].latest_type] = (stats[data[i].latest_type] == null )? 0 : stats[data[i].latest_type]+1;
+
+      }
+
+
+    }
+
     $('#stats-row').html('<table id="stats-table"><thead></thead><tbody></tbody></table>');
 
-    $.each(data, function(a, b){
+    $.each(stats, function(a, b){
       $('#stats-table thead').append('<td><span>'+a+'</span></td>')
     })
 
-    $.each(data, function(a, b){
+    $.each(stats, function(a, b){
       $('#stats-table tbody').append('<td>'+b+'</td>')
     })
 

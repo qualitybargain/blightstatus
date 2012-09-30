@@ -54,6 +54,7 @@
   .no-search-results{
     position: relative;
     min-height: 400px;
+    margin-top: 50px;
 		
 		.suggestions{
 			width: 600px;
@@ -303,7 +304,7 @@
 .leaflet-marker-icon{
     color: white;
     font-weight: bold;
-    margin: 7px 16px;
+    margin: 2px -9px !important;
 //  margin: 0 !important;
 }
 

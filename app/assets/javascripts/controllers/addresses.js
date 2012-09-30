@@ -6,16 +6,20 @@ OpenBlight.addresses = {
   },
 
   search: function(){
+
     var json_path = window.location.toString().replace(/search\?/i, 'search.json\?');
 
-    OpenBlight.addresses.createSearchResultsMap();
-    OpenBlight.addresses.populateMap(json_path, {},  function(){
-      OpenBlight.addresses.fitPointersOnMap();
+    $.when(
+      OpenBlight.addresses.createSearchResultsMap()
+     ).then(function () {
+        OpenBlight.addresses.populateMap(json_path, {},  function(){
+          OpenBlight.addresses.fitPointersOnMap();
+          $('.address').on('click', function(index){
+            window.location = '/addresses/' + $(this).attr('data-id');
+          });
+        });
+     });
 
-      $('.address').on('click', function(index){
-        window.location = '/addresses/' + $(this).attr('data-id');
-      });
-    });
 
 
 
@@ -61,9 +65,12 @@ OpenBlight.addresses = {
       });
     });
   },
+
+
   
   createSearchResultsMap: function(){
-    wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
+    var deferred = jQuery.Deferred();
+    var ready = wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
       var y = 29.96;
       var x = -90.08;
 
@@ -82,7 +89,9 @@ OpenBlight.addresses = {
           OpenBlight.addresses.mapSearchByBounds();
         }
       });
+      deferred.resolve();
     });
+    return deferred;
   },
 
 
@@ -112,7 +121,10 @@ OpenBlight.addresses = {
           var link = '/addresses/'+ data[current_feature].id;
           var popupContent = '<h3><a href="' + link + '">' + data[current_feature].address_long + '</a></h3>' + 
           '<img src="http://maps.googleapis.com/maps/api/streetview?location='+y+','+x+'&size=200x100&sensor=false" >';
-          '<p>'+ data[current_feature].most_recent_status_preview.type + ' on ' + data[current_feature].most_recent_status_preview.date + '</p>';
+
+          if(data[current_feature].latest_type.length){
+            popupContent = popupContent + '<p>The most recent status is: <br><b>'+ data[current_feature].latest_type + '</b></p>';
+          }
           layer.id = data[current_feature].id;
           OpenBlight.addresses.markers.push( layer );
 
