@@ -10,11 +10,21 @@
       / -unless @address.workflow_steps.empty?
       .property-history
         .cases
-          -@address.sorted_cases.each do |c|
+          -@address.cases.each do |c|
             .case
               %h2
                 Case:
                 =c.case_number
+                %div.pull-right{:style => "margin: 10px;width: 70px;"}
+                  -if c.state == 'Open'
+                    .label.label-success
+                      Case: 
+                      =c.state
+                  -else
+                    .label.label-important
+                      Case: 
+                      =c.state
+
               =render :partial => "addresses/progress-bar", :locals => {:kase => c}
 
               -if c.case_data_error?
