@@ -89,7 +89,7 @@
     }
 
     .subscribe{
-      text-align: center;
+      text-align: left;
 //      padding: 2px;
 //      position: absolute;
 //      top: 0;
@@ -130,7 +130,6 @@
     .case{
 
       h2{
-        border-bottom: 1px solid #CCCCCC;
         font-family: "Lato";
         font-size: 150%;
         font-weight: 300;
@@ -372,7 +371,7 @@
 
 
 .progress-bar-wrapper {
-  margin-top: 20px;
+  margin-top: 5px;
   min-height: 10px;
 
   .table{
