@@ -86,7 +86,7 @@ module LAMAHelpers
           kase.address = addresses.first
         end
       end
-      unless (kase.accela_steps.nil? || kase.state == orig_state)
+      if !kase.accela_steps.nil? || kase.state != orig_state
         k = kase.save
       end
     end
