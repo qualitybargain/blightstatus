@@ -38,7 +38,7 @@ OpenBlight.statistics = {
     var ready = wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
       var y = 29.96;
       var x = -90.09;
-      var zoom = 13;
+      var zoom = 12;
 
       OpenBlight.statistics.map = new L.Map('map', {
         touchZoom: false,
@@ -113,7 +113,7 @@ OpenBlight.statistics = {
               '<img src="http://maps.googleapis.com/maps/api/streetview?location='+y+','+x+'&size=200x100&sensor=false" >';
 
               if(data[current_feature].latest_type.length){
-                popupContent = popupContent + '<p>The most recent status is: <br><b>'+ data[current_feature].latest_type + '</b></p>';
+                popupContent = popupContent + '<p>The most recent activity is: <br><b>'+ data[current_feature].latest_type + '</b></p>';
               }
               layer.id = data[current_feature].id;
               OpenBlight.statistics.markers.push( layer );
