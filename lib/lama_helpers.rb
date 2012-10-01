@@ -129,7 +129,6 @@ module LAMAHelpers
         kase.state = j_status
       elsif (event.Name =~ /Judgment/ && (event.Name =~ /Posting/ || event.Name =~ /Notice/ || event.Name =~ /Recordation/))
         j_status = ''
-        kase.state = 'Judgment'
       elsif (event.Name =~ /Hearing/ && event.Name =~ /Dismiss/) || (event.Name =~ /Hearing/ && (event.Status =~ /Dismiss/ || event.Status =~ /dismiss/))
         if event.Name =~ /Dismiss/
           notes = event.Name.strip
@@ -175,8 +174,14 @@ module LAMAHelpers
       end
       
       if j_status
-        Hearing.create(:case_number => kase.case_number, :hearing_date => event.DateEvent, :hearing_status => j_status)
-        Judgement.create(:case_number => kase.case_number, :status => j_status, :notes => notes, :judgement_date => event.DateEvent)             
+        if j_status.length > 0
+          Hearing.create(:case_number => kase.case_number, :hearing_date => event.DateEvent, :hearing_status => j_status)
+          Judgement.delete_all("case_number = '#{kase.case_number}' AND status is null")
+          Judgement.create(:case_number => kase.case_number, :notes => notes, :status => j_status, :judgement_date => event.DateEvent)
+        else
+          kase.state = 'Judgment'
+          Judgement.find_or_create_by_case_number(:case_number => kase.case_number, :notes => notes, :judgement_date => event.DateEvent)
+        end
       end
     end
   end
@@ -203,8 +208,10 @@ module LAMAHelpers
       elsif action.Type =~ /Notice/ && action.Type =~ /Compliance/
         kase.state = 'Closed: In Compliance'
       elsif action.Type =~ /Judgment/ && (action.Type =~ /Posting/ || action.Type =~ /Recordation/ || action.Type =~ /Notice/)
-        Judgement.create(:case_number => kase.case_number, :status => '', :judgement_date => action.Date, :notes => action.Type)
-        kase.state = 'Judgment'
+        j = Judgement.find_or_create_by_case_number(:case_number => kase.case_number, :judgement_date => action.Date, :notes => action.Type)
+        unless j.status
+          kase.state = 'Judgment' if kase.state != 'Judgment'
+        end
       elsif action.Type =~ /Administrative Hearing/
         unless action.Type =~ /Notice/
          Hearing.create(:case_number => kase.case_number, :hearing_date => action.Date, :hearing_type => action.Type)
@@ -221,13 +228,17 @@ module LAMAHelpers
       kase.state = 'Closed'
     elsif case_status =~ /Not Guilty/
       kase.state = 'Not Guilty'
+      Judgement.delete_all("case_number = '#{kase.case_number}' AND status is null")
       Judgement.create(:case_number => kase.case_number, :status => 'Not Guilty', :judgement_date => date, :notes => case_status)
     elsif case_status =~ /Guilty/
       kase.state = 'Guilty'
+      Judgement.delete_all("case_number = '#{kase.case_number}' AND status is null")
       Judgement.create(:case_number => kase.case_number, :status => 'Guilty', :judgement_date => date, :notes => case_status)
     elsif case_status =~ /Judgment/ && (case_status =~ /Posting/ || case_status =~ /Notice/ || case_status =~ /Recordation/)
-      kase.state = 'Judgment'
-      Judgement.create(:case_number => kase.case_number, :status => '', :judgement_date => date, :notes => case_status)
+      j = Judgement.find_or_create_by_case_number(:case_number => kase.case_number, :judgement_date => date, :notes => case_status)
+      unless j.status
+        kase.state = 'Judgment' if kase.state != 'Judgment'
+      end
     elsif case_status =~ /Judgment rescinded/
       kase.state = 'Judgment Rescinded' 
     elsif case_status =~ /omplaint/ && case_status =~ /eceived/
