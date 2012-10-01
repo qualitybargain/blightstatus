@@ -62,11 +62,14 @@ OpenBlight.statistics = {
       var status = $('#status_status').val();
       var only_recent_status = $('#only_recent_status_only_recent_status').val();
       var start_date = $('#start_date_start_date_1i').val() +'-'+ $('#start_date_start_date_2i').val() +  "-1" ;
+      var case_open = $('#state_state').val();
 
       $.each(OpenBlight.statistics.layergroup, function(index, value) { 
         OpenBlight.statistics.map.removeLayer(OpenBlight.statistics.layergroup[index]);
       });
 
+
+      OpenBlight.statistics.map.closePopup();
 
       $("#map-loading").show();
       $("#no-data").hide();
@@ -75,7 +78,8 @@ OpenBlight.statistics = {
           status: status, 
           only_recent_status: only_recent_status, 
           show_stats: show_stats,
-          start_date: start_date
+          start_date: start_date,
+          case_open: case_open
         }, 
         function(data) {
 
