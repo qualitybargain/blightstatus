@@ -112,7 +112,7 @@ class AddressesController < ApplicationController
     if params[:case_open].to_i == 1
       sql_params[:state] = "Open"
     else
-      sql_params[:state] = "Closed"        
+      sql_params[:state] = "Closed"
     end
 
 
@@ -136,7 +136,7 @@ class AddressesController < ApplicationController
 
     # TODO: performance needs to be evaluated! compact!, compact, delete, reject etc
     if cases.nil?
-      cases = Hash.new
+      cases = {}
     end
 
     case_addresses = cases.map{| single_case |
@@ -147,11 +147,9 @@ class AddressesController < ApplicationController
       single
     }
 
-
-
     respond_to do |format|
       # format.json { render :json =>  {:cases => case_addresses, :stats => stats}.to_json }
-        format.json { render :json => case_addresses.to_json(:only => [ :id, :address_long, :latest_type, :status_type, :point ]) }      
+        format.json { render :json => case_addresses.to_json(:only => [ :id, :address_long, :latest_type, :status_type, :point ]) }
     end
       
   end
