@@ -5,13 +5,15 @@ class Case < ActiveRecord::Base
 
   has_many :hearings, :foreign_key => :case_number, :primary_key => :case_number
   has_many :inspections, :foreign_key => :case_number, :primary_key => :case_number
+  has_many :notifications, :foreign_key => :case_number, :primary_key => :case_number
+
   has_many :demolitions, :foreign_key => :case_number, :primary_key => :case_number
   has_many :maintenances, :foreign_key => :case_number, :primary_key => :case_number 
+
   has_one  :judgement, :foreign_key => :case_number, :primary_key => :case_number
   has_one  :case_manager, :foreign_key => :case_number, :primary_key => :case_number
   has_one  :foreclosure, :foreign_key => :case_number, :primary_key => :case_number
   has_many :resets, :foreign_key => :case_number, :primary_key => :case_number
-  has_many :notifications, :foreign_key => :case_number, :primary_key => :case_number
   has_one  :complaint, :foreign_key => :case_number, :primary_key => :case_number
 
   validates_presence_of :case_number
@@ -136,20 +138,48 @@ class Case < ActiveRecord::Base
 
   def case_steps
     case_steps = []
-    case_steps << self.inspections << self.hearings   << self.notifications << self.judgement << (self.demolitions || self.foreclosure || self.maintenances )
+    case_steps << self.inspections.first << self.hearings.first   << self.notifications.first << self.judgement << (self.demolitions || self.foreclosure || self.maintenances )
     case_steps.flatten.compact.count
   end
 
 
   def case_data_error?
-    data_error = false;
 
-    data_error = self.inspections.empty? && !self.hearings.nil?
-    data_error = self.hearings.nil? && !self.notifications.nil? || data_error
-    data_error = self.notifications.nil? && !self.judgement.nil? || data_error
-    data_error = self.judgement.nil? && !(self.demolitions.nil? || self.foreclosure.nil? || self.maintenances.nil? ) || data_error
-    data_error
+    if case_steps < 1 && missing_inspection?
+      true
+    elsif case_steps < 2 && missing_notification?
+      true
+    elsif case_steps < 3 && missing_hearing? 
+      true
+    elsif case_steps < 4 && missing_judgement?
+      true
+    elsif case_steps < 5 && missing_resolution?
+      true
+    end
   end
+
+  def missing_inspection?
+    !self.inspections.empty?
+  end
+
+
+  def missing_hearing?
+    !self.hearings.empty?
+  end
+
+
+  def missing_notification?
+    !self.notifications.empty?
+  end
+
+  def missing_judgement?
+    !self.judgement.nil? 
+  end
+
+  def missing_resolution?
+    !(self.demolitions.empty? || self.foreclosure.nil? || self.maintenances.empty? )
+  end
+
 
   def resolutions
     res_ary = []

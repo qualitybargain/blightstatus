@@ -32,9 +32,9 @@
             -unless kase.inspections.nil? || kase.inspections.empty?
               .progress-arrow.inspection{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
             -else
-              -if kase.case_data_error?
+              -if kase.case_data_error? && kase.missing_inspection?
                 .progress-arrow.error{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
-              -if kase.state == 'Closed'
+              -elsif kase.state == 'Closed'
                 .progress-arrow.error{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
               -else
                 .progress-arrow.pending{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
@@ -43,9 +43,9 @@
             -unless kase.notifications.nil? || kase.notifications.empty?
               .progress-arrow.notification{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
             -else
-              -if kase.case_data_error? && kase.case_steps < 0
+              -if kase.case_data_error? && kase.notifications.empty?
                 .progress-arrow.error{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
-              -if kase.state == 'Closed'
+              -elsif kase.state == 'Closed'
                 .progress-arrow.error{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
               -else
                 .progress-arrow.pending{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
@@ -54,9 +54,9 @@
             -unless kase.hearings.nil? || kase.hearings.empty?
               .progress-arrow.hearing{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
             -else
-              -if kase.case_data_error? && kase.case_steps < 1
+              -if kase.case_data_error? && kase.missing_hearing?
                 .progress-arrow.error{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
-              -if kase.state == 'Closed'
+              -elsif kase.state == 'Closed'
                 .progress-arrow.error{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
               -else
                 .progress-arrow.pending{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
@@ -65,9 +65,9 @@
             -unless kase.judgement.nil?
               .progress-arrow.judgement{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
             -else
-              -if kase.case_data_error? && kase.case_steps < 2
+              -if kase.case_data_error? && kase.missing_judgement?
                 .progress-arrow.error{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
-              -if kase.state == 'Closed'
+              -elsif kase.state == 'Closed'
                 .progress-arrow.error{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
               -else
                 .progress-arrow.pending{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
@@ -76,9 +76,9 @@
             -unless kase.resolutions.empty?
               .progress-arrow.resolution{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
             -else
-              -if kase.case_data_error? && kase.case_steps < 3
+              -if kase.case_data_error? && kase.missing_resolution?
                 .progress-arrow.error{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
-              -if kase.state == 'Closed'
+              -elsif kase.state == 'Closed'
                 .progress-arrow.error{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
               -else
                 .progress-arrow.pending{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
