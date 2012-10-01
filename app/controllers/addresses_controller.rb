@@ -36,7 +36,7 @@ class AddressesController < ApplicationController
   def search
     RGeo::ActiveRecord::GeometryMixin.set_json_generator(:geojson)
 
-    @search_term =search_term= params[:address]
+    @search_term =search_term = params[:address]
     Search.create(:term => search_term, :ip => request.remote_ip)
 
     address_result = AddressHelpers.find_address(params[:address])
@@ -45,8 +45,9 @@ class AddressesController < ApplicationController
     if address_result.length == 1
       redirect_to :action => "show", :id => address_result.first.id
     else
-      if Neighborhood.exists?(:name => search_term)
-        addresses = Address.find_addresses_with_cases_by_neighborhood(search_term)
+      neighborhood = search_term.to_s.upcase
+      if Neighborhood.exists?(:name => neighborhood)
+        addresses = Address.find_addresses_with_cases_by_neighborhood(neighborhood)
       else
         street_name = AddressHelpers.get_street_name(search_term)
 
@@ -61,7 +62,6 @@ class AddressesController < ApplicationController
         addr.address_long = AddressHelpers.unabbreviate_street_types(addr.address_long).capitalize
       }
       address_list = addresses.sort{ |a, b| a.house_num.to_i <=> b.house_num.to_i }
-      
 
       @results_empty = address_list.empty?
       respond_to do |format|

@@ -122,7 +122,7 @@ OpenBlight.addresses = {
           var popupContent = '<h3><a href="' + link + '">' + data[current_feature].address_long + '</a></h3>' + 
           '<img src="http://maps.googleapis.com/maps/api/streetview?location='+y+','+x+'&size=200x100&sensor=false" >';
 
-          if(data[current_feature].latest_type.length){
+          if(data[current_feature].latest_type && data[current_feature].latest_type.length){
             popupContent = popupContent + '<p>The most recent activity is: <br><b>'+ data[current_feature].latest_type + '</b></p>';
           }
           layer.id = data[current_feature].id;
