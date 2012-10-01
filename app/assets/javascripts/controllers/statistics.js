@@ -38,7 +38,7 @@ OpenBlight.statistics = {
     var ready = wax.tilejson('http://a.tiles.mapbox.com/v3/cfaneworleans.NewOrleansPostGIS.jsonp',function(tilejson) {
       var y = 29.96;
       var x = -90.09;
-      var zoom = 13;
+      var zoom = 12;
 
       OpenBlight.statistics.map = new L.Map('map', {
         touchZoom: false,
@@ -62,11 +62,14 @@ OpenBlight.statistics = {
       var status = $('#status_status').val();
       var only_recent_status = $('#only_recent_status_only_recent_status').val();
       var start_date = $('#start_date_start_date_1i').val() +'-'+ $('#start_date_start_date_2i').val() +  "-1" ;
+      var case_open = $('#state_state').val();
 
       $.each(OpenBlight.statistics.layergroup, function(index, value) { 
         OpenBlight.statistics.map.removeLayer(OpenBlight.statistics.layergroup[index]);
       });
 
+
+      OpenBlight.statistics.map.closePopup();
 
       $("#map-loading").show();
       $("#no-data").hide();
@@ -75,7 +78,8 @@ OpenBlight.statistics = {
           status: status, 
           only_recent_status: only_recent_status, 
           show_stats: show_stats,
-          start_date: start_date
+          start_date: start_date,
+          case_open: case_open
         }, 
         function(data) {
 
@@ -109,7 +113,7 @@ OpenBlight.statistics = {
               '<img src="http://maps.googleapis.com/maps/api/streetview?location='+y+','+x+'&size=200x100&sensor=false" >';
 
               if(data[current_feature].latest_type.length){
-                popupContent = popupContent + '<p>The most recent status is: <br><b>'+ data[current_feature].latest_type + '</b></p>';
+                popupContent = popupContent + '<p>The most recent activity is: <br><b>'+ data[current_feature].status_type + '</b></p>';
               }
               layer.id = data[current_feature].id;
               OpenBlight.statistics.markers.push( layer );

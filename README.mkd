@@ -118,7 +118,7 @@ implementations:
 If something doesn't work on one of these interpreters, it should be considered
 a bug.
 
-This library may inadvertently work (or seem to work) on other Ruby
+This application may inadvertently work (or seem to work) on other Ruby
 implementations, however support will only be provided for the versions listed
 above.
 

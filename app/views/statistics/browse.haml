@@ -1,4 +1,4 @@
-%section.search-results{:style => "height: 700px"}
+%section.search-results.browse-page{:style => "height: 700px"}
   .row-fluid
     .left-bar{:style => "height: 700px; position: absolute; width: 270px; left: 0"}
       .well{:style => "padding: 20px;"}
@@ -8,27 +8,32 @@
           %p
             (only showing properties with a case history)
         %form{:style => "padding: 0px 10px;"}
-          / =select( "case_active", "case_active", { "Active Cases" => "0", "Closed Cases" => "1"})
-          %div
-            %p{:style => "font-size: 120%; padding-left: 0 10px; margin: 15px 0 5px"}
-              Case:
-              %br
-            =select( "only_recent_status", "only_recent_status", { "All Cases" => "0", "Only Recent Status" => "1"})
           %div
             %p{:style => "font-size: 120%; padding-left: 0 10px; margin: 15px 0 5px"}
               Status:
               %br
+              =select( "state", "state", { "Open Cases" => "1", "Closed Cases" => "0"})
+          %div
+            %p{:style => "font-size: 120%; padding-left: 0 10px; margin: 15px 0 5px"}
+              Activity:
+              %br
             =select( "status", "status", { "Inspected" => "inspections", "Notified" => "notifications", "Hearing" => "hearings", "Judgment" => "judgement", "Abatement" => "maintenances", "Demolitions" => "demolition", "Foreclosure" => "Foreclosures"})
+          %div
+            %p{:style => "font-size: 120%; padding-left: 0 10px; margin: 15px 0 5px"}
+              Recent:
+              %br
+            =select( "only_recent_status", "only_recent_status", { "All Cases" => "0", "Only Recent Activity" => "1"})
+
           %div
             %p{:style => "font-size: 120%; padding-left: 0 10px; margin: 15px 0 5px"}
               Date:
               %br
-            =date_select("start_date", "start_date",  :default => @date, :order => [:month, :year], :start_year => 2012, :end_year => @date.year, :discard_day => true)
-          %div
-            %p{:style => "font-size: 120%; padding-left: 0 10px; margin: 15px 0 5px"}
+            =date_select("start_date", "start_date",  :default => @date, :order => [:month, :year], :start_year => 2011, :end_year => @date.year, :discard_day => true)
+          %div{:style => "display: none"}
+            %p{:style => " font-size: 120%; padding-left: 0 10px; margin: 15px 0 5px"}
               Show Stats:
               %br
-            =select( "show_stats", "show_stats", { "Hide Stats" => "0", "Show Stats" => "1"})
+            =select( "show_stats", "show_stats", { "Show Stats" => "1","Hide Stats" => "0" } )
           %div
             #map-loading{:style => "margin: 0 auto; width: 150px; background-color: red; color: white; display: none;"}
               Map Loading....
