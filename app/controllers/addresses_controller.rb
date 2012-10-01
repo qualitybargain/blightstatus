@@ -140,15 +140,17 @@ class AddressesController < ApplicationController
     end
 
     case_addresses = cases.map{| single_case |
-      single_case.address
+      single = {}
+      single = single_case.address
+      single[:status_type] = single_case.status_type
+      single
     }
-
 
 
 
     respond_to do |format|
       # format.json { render :json =>  {:cases => case_addresses, :stats => stats}.to_json }
-        format.json { render :json => case_addresses.to_json(:only => [ :id, :address_long, :latest_type, :point ]) }      
+        format.json { render :json => case_addresses.to_json(:only => [ :id, :address_long, :status_type, :latest_type, :point ]) }      
     end
       
   end
