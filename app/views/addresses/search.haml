@@ -1,5 +1,5 @@
 
--unless @addresses.empty?
+-unless @results_empty
   %section.search-results{:style => "height: 600px"}
     .row-fluid
       .left-bar{:style => "height: 550px; position: absolute; width: 270px; left: 0; z-index: 1000"}
@@ -10,17 +10,6 @@
             %p
               (only showing properties with a case history)
           %ul.nav.list
-            / #loading=image_tag('ajax-loader.gif')
-            -#-@addresses.each do |a|
-              %li.active.address.result
-                %a{:href => "#"}
-                  %img{ :width => "10px", :src => "/assets/marker.png"  }
-                  %i.home
-                  =link_to a.address_long, address_path(a.id)
-
-                %a{:href => address_path(a)}
-                  .maps-marker
-                  =a.address_long
           .clearfix
       .right-bar{:style => "left: 270px;width: 75%; position: absolute"}
         .toggle

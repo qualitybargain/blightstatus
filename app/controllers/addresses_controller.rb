@@ -36,8 +36,8 @@ class AddressesController < ApplicationController
   def search
     RGeo::ActiveRecord::GeometryMixin.set_json_generator(:geojson)
 
-    @search_term = params[:address]
-    Search.create(:term => @search_term, :ip => request.remote_ip)
+    @search_term =search_term= params[:address]
+    Search.create(:term => search_term, :ip => request.remote_ip)
 
     address_result = AddressHelpers.find_address(params[:address])
 
@@ -45,26 +45,28 @@ class AddressesController < ApplicationController
     if address_result.length == 1
       redirect_to :action => "show", :id => address_result.first.id
     else
-      if Neighborhood.exists?(:name => @search_term)
-        @addresses = Address.find_addresses_with_cases_by_neighborhood(@search_term)
+      if Neighborhood.exists?(:name => search_term)
+        addresses = Address.find_addresses_with_cases_by_neighborhood(search_term)
       else
-        street_name = AddressHelpers.get_street_name(@search_term)
+        street_name = AddressHelpers.get_street_name(search_term)
 
-        if(dir = AddressHelpers.get_direction(@search_term))
-          @addresses = Address.find_addresses_with_cases_by_cardinal_street(dir,street_name).uniq.order(:house_num) 
+        if(dir = AddressHelpers.get_direction(search_term))
+          addresses = Address.find_addresses_with_cases_by_cardinal_street(dir,street_name).uniq.order(:house_num) 
         else
-          @addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:street_name, :house_num)
+          addresses = Address.find_addresses_with_cases_by_street(street_name).uniq.order(:street_name, :house_num)
         end
       end
 
-      @addresses.each {|addr|
+      addresses.each {|addr|
         addr.address_long = AddressHelpers.unabbreviate_street_types(addr.address_long).capitalize
       }
-      @address_list = @addresses.sort{ |a, b| a.house_num.to_i <=> b.house_num.to_i }
+      address_list = addresses.sort{ |a, b| a.house_num.to_i <=> b.house_num.to_i }
       
+
+      @results_empty = address_list.empty?
       respond_to do |format|
         format.html
-        format.json { render :json => @address_list.to_json(:only => [ :id, :address_long, :latest_type, :point ]) }
+        format.json { render :json => address_list.to_json(:only => [ :id, :address_long, :latest_type, :point ]) }      
       end
     end
   end
@@ -143,6 +145,7 @@ class AddressesController < ApplicationController
       single = {}
       single = single_case.address
       single[:status_type] = single_case.status_type
+      # single[:latest_type] = single_case.latest_type
       single
     }
 
@@ -150,7 +153,7 @@ class AddressesController < ApplicationController
 
     respond_to do |format|
       # format.json { render :json =>  {:cases => case_addresses, :stats => stats}.to_json }
-        format.json { render :json => case_addresses.to_json(:only => [ :id, :address_long, :status_type, :latest_type, :point ]) }      
+        format.json { render :json => case_addresses.to_json(:only => [ :id, :address_long, :latest_type, :status_type, :point ]) }      
     end
       
   end
