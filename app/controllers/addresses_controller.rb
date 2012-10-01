@@ -84,8 +84,6 @@ class AddressesController < ApplicationController
     end_date = start + 1.month - 1.day
     class_name = ''
 
-
-
     append_sql_query = ''
     sql_params = {:start_date => start_date, :end_date => end_date} 
 
@@ -109,7 +107,7 @@ class AddressesController < ApplicationController
       end
     end
 
-    append_sql_query = " #{append_sql_query} AND cases.state = :state "
+    append_sql_query = " #{append_sql_query} AND cases.status_type = :state "
 
     if params[:case_open].to_i == 1
       sql_params[:state] = "Open"
