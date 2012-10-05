@@ -10,38 +10,49 @@
       / -unless @address.workflow_steps.empty?
       .property-history
         .cases
-          -@address.cases.each do |c|
+          -if @address.cases.empty?
             .case
               %h2
-                Case:
-                =c.case_number
-                %div.pull-right{:style => "margin: 10px 0 10px 10px"}
-                  -if c.state == 'Open'
-                    .label.label-success
-                      Case: 
-                      =c.state
-                  -else
-                    .label.label-important
-                      Case: 
-                      =c.state
-
-              =render :partial => "addresses/progress-bar", :locals => {:kase => c}
-
-              -if c.case_data_error?
-                .block{:style => "text-align: center; padding: 0 0 10px; margin:0 auto;"}
-                  %b{:style => "color: red"}
-                    Warning:
-                  This case is missing data.
-
-
-
-              .case-details
-                =render :partial => "addresses/property-history", :locals => {:kase => c}
-              .clearfix
+                This property does not have a Code Enforcement record with the City of New Orleans
               %br
-              %br                
-          %a#show-history{:style => "text-align: center"}
-            Show Historical Cases
+              %br
+              / %p
+              /   To report a violation call 
+              /   %b
+              /     3-1-1
+          -else
+            -@address.cases.each do |c|
+              .case
+                %h2
+                  Case:
+                  =c.case_number
+                  %div.pull-right{:style => "margin: 10px 0 10px 10px"}
+                    -if c.state == 'Open'
+                      .label.label-success
+                        Case: 
+                        =c.state
+                    -else
+                      .label.label-important
+                        Case: 
+                        =c.state
+
+                =render :partial => "addresses/progress-bar", :locals => {:kase => c}
+
+                -if c.case_data_error?
+                  .block{:style => "text-align: center; padding: 0 0 10px; margin:0 auto;"}
+                    %b{:style => "color: red"}
+                      Warning:
+                    This case is missing data.
+
+
+
+                .case-details
+                  =render :partial => "addresses/property-history", :locals => {:kase => c}
+                .clearfix
+                %br
+                %br                
+            %a#show-history{:style => "text-align: center"}
+              Show Historical Cases
 
 
 
