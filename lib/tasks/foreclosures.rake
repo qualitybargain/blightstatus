@@ -14,16 +14,17 @@ namespace :foreclosures do
   desc "Downloading CDC case numbers from s3.amazon.com"  
   task :load_writfile, [:file_name, :bucket_name] => :environment  do |t, args|
     
-    args.with_defaults(:bucket_name => "neworleansdata", :file_name => "Writs Filed - Code Enforcement.xlsx")  
-    p args
+    # args.with_defaults(:bucket_name => "neworleansdata", :file_name => "WRITS - WORKING COPY - Oct.3.2012.xlsx")#"Writs Filed - Code Enforcement.xlsx")  
+    # p args
 
-    #connect to amazon
-    ImportHelpers.connect_to_aws
-    s3obj = AWS::S3::S3Object.find args.file_name, args.bucket_name
-    downloaded_file_path = ImportHelpers.download_from_aws(s3obj)
+    # #connect to amazon
+    # ImportHelpers.connect_to_aws
+    # s3obj = AWS::S3::S3Object.find args.file_name, args.bucket_name
+    # downloaded_file_path = ImportHelpers.download_from_aws(s3obj)
 
 
-    workbook = RubyXL::Parser.parse(downloaded_file_path)
+    # workbook = RubyXL::Parser.parse(downloaded_file_path)
+    workbook = RubyXL::Parser.parse "/Users/amirbey/Downloads/WRITS\ -\ WORKING\ COPY\ -\ Oct.3.2012.xlsx"
     sheet = workbook.worksheets[1].extract_data
     cdc_col = 2
     addr_col = 0
