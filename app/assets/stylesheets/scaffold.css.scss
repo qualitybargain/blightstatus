@@ -665,3 +665,24 @@ hr.soften {
 #legal-disclaimer{
   display: none;
 }
+
+.disclaimer{
+  padding: 20px 50px;
+  text-align: left;
+  line-height: 170%;
+  p{
+    font-size: 120%;
+  }
+  b{
+    font-weight:700;
+  }
+}
+
+.disclaimer-email-form{
+  padding: 10px;
+  text-align: center;
+  line-height: 170%;
+  p{
+    font-size: 120%;
+  }
+}
