@@ -21,6 +21,7 @@
 
     h4{
       font-size: $largeFontSize;
+      font-weight: bold;
       padding-left: 0;
     }
     p, h4{
@@ -82,14 +83,14 @@
     }
   }
 
-  .meet-the-team, .our-partners, .get-in-touch{
+  .meet-the-team, .our-partners, .our-supporters, .get-in-touch{
     margin-bottom: 40px;
     h2{
       font-weight: 300;
       font-family: "Lato";
       border-bottom: 1px solid $darkerBeige;
       margin-bottom: 15px;
-//      margin-top: 30px;
+      margin-top: 30px;
       padding: 10px 0px 5px 0px;
     }
 
@@ -106,7 +107,7 @@
     }
   }
 
-  .meet-the-team{
+  .our-partners, .meet-the-team{
     h2{
       margin-top: 0px;
     }
