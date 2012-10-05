@@ -70,7 +70,20 @@ OpenBlight = {
       $('#legal-disclaimer .btn-primary').click(function(){
         $.cookie('agree_to_legal_disclaimer', true);
       })
+
+      $('#subscribe-to-notification').click(function(){
+
+        $.post("http://www.blightstatus.com/signup", {email : $('#signup-post-email').val() }, function(data){
+          if(data.saved == false){
+            //do something if it fails
+          }
+        });
+
+
+      });
+
     }
+
   }
 };
 

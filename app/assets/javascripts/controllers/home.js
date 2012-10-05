@@ -6,6 +6,8 @@ OpenBlight.home = {
   index: function(){
 
 
+	jQuery('#main-search-field').attr("autocomplete", "off"); 
+
   }
 
 
