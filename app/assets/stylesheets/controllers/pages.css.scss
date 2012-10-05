@@ -60,7 +60,7 @@
   }
 
 
-  .our-partners{
+  .our-partners, .our-supporters{
     .code-for-america{
       background: url("/assets/partner-logos.png") no-repeat scroll 7px -60px transparent;
       width: 135px;
@@ -80,6 +80,29 @@
       width: 140px;
       height: 50px;
       float: left;
+    }
+
+
+
+    .gnof{
+      background: url("/assets/gnof_logo.png") no-repeat scroll 10px 5px transparent;
+      float: left;
+      height: 150px;
+      width: 99px;
+    }
+
+    .osf{
+      background: url("/assets/OSF_logo.png") no-repeat scroll 10px 0 transparent;
+      float: right;
+      height: 60px;
+      width: 200px;
+
+    }
+    .ford{
+      background: url("/assets/Ford_logo.png") no-repeat scroll 10px 0 transparent;
+      float: right;
+      height: 60px;
+      width: 200px;
     }
   }
 
