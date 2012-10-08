@@ -36,6 +36,6 @@ class Inspection < ActiveRecord::Base
   end
 
   def self.results
-  	Inspection.count(group: :inspection_type)
+  	Inspection.count(group: :result)
   end
 end
