@@ -34,7 +34,13 @@ OpenBlight.addresses = {
     OpenBlight.addresses.showHistory();
 
     $('.property-history .case').hide();
-    $('.case-status-open').first().show();
+
+    if($('.case-status-open').length){
+      $('.case-status-open').first().show();
+    }
+    else{
+      $('.case').first().show();
+    }
 
 
 
