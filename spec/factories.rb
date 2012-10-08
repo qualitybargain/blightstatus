@@ -47,8 +47,6 @@ FactoryGirl.define do
   end
 
   factory :maintenance do
-    date_recorded   { DateTime.new(rand(1000)) }
-    date_completed  { DateTime.new(rand(1000)) }
   end
 
   factory :neighborhood do

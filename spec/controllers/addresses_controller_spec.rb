@@ -34,7 +34,7 @@ describe AddressesController do
     end
 
     it "matches the street name if no number is given and the searched address has a case" do
-      c = FactoryGirl.create(:case, :address_id => @address.id)
+      c = FactoryGirl.create(:case, :address => @address)
 
       get :search, :address => "CHARBONNET ST"
       assigns(:addresses).should eq([@address])

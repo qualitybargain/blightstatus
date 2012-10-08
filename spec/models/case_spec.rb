@@ -17,13 +17,11 @@ describe Case do
 
   describe "#accela_steps" do
     it "returns all workflow steps associated with a case" do
-      @inspection = FactoryGirl.create(:inspection, :case => @case, :inspection_date => Time.now - 1.week)
-      @hearing = FactoryGirl.create(:hearing, :case => @case, :hearing_date => Time.now - 1.day)
+      @case.hearings << FactoryGirl.create(:hearing, :case => @case)
+      @case.inspections << FactoryGirl.create(:inspection, :case => @case)
 
       steps = @case.accela_steps
-      steps.should include(@inspection)
-      steps.should include(@hearing)
-      steps.length.should eq(2)
+      steps.should include(Inspection.last, Hearing.last)
     end
 
     it "returns an empty array if a case has no workflow steps" do

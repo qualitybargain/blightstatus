@@ -5,7 +5,7 @@ class Maintenance < ActiveRecord::Base
   belongs_to :address
 
   def date
-    self.date_completed || DateTime.new(0)
+    self.date_completed || self.date_recorded || DateTime.new(0)
   end
 
   def update_address_status
