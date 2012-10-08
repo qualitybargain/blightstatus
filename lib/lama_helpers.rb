@@ -94,7 +94,7 @@ module LAMAHelpers
 
   def parseEvent(kase,event)
     case_number = kase.case_number
-    if event.class == Hashie::Mash #&& event.IsComplete =~ /true/
+    if event.class == Hashie::Mash && event.IsComplete =~ /true/
       j_status = nil
       if event.Type =~ /Notice/ && event.Type =~ /Hearing/
         Notification.create(:case_number => kase.case_number, :notified => event.DateEvent, :notification_type => event.Type)
@@ -200,7 +200,7 @@ module LAMAHelpers
     end
   end
   def parseAction(kase,action)
-    if action.class == Hashie::Mash #&& action.IsComplete =~ /true/
+    if action.class == Hashie::Mash && action.IsComplete =~ /true/
       if action.Type =~ /Notice/ && action.Type =~ /Hearing/
         Notification.create(:case_number => kase.case_number, :notified => action.Date, :notification_type => action.Type)
       elsif action.Type =~ /Notice/ && action.Type =~ /Reset/
