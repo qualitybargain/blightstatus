@@ -186,7 +186,7 @@ module LAMAHelpers
     end
   end
   def parseInspection(case_number,inspection)
-    if inspection.class == Hashie::Mash
+    if inspection.class == Hashie::Mash && inspection.IsComplete =~ /true/
       i = Inspection.find_or_create_by_case_number_and_inspection_date(:case_number => case_number, :inspection_date => inspection.InspectionDate, :notes => inspection.Comment)
       if inspection.Findings != nil && inspection.Findings.InspectionFinding != nil
         inspection.Findings.InspectionFinding.each do |finding|
