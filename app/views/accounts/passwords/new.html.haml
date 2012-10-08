@@ -10,5 +10,5 @@
           = f.label :email
           %br/
           = f.email_field :email
-        %div= f.submit "Send me reset password instructions"
+        %div= f.submit "Send me reset password instructions", :class => "btn btn-primary"
       = render "devise/shared/links"
