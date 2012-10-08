@@ -16,7 +16,6 @@
             %p.query-selector
               Activity:
             =select( "status", "status", { "Inspected" => "inspections", "Notified" => "notifications", "Hearing" => "hearings", "Judgment" => "judgement", "Abatement" => "maintenances", "Demolitions" => "demolition", "Foreclosure" => "Foreclosures"})
-          -#
             %div
               %p{:style => "font-size: 120%; padding-left: 0 10px; margin: 15px 0 5px"}
                 Recent:
@@ -26,7 +25,7 @@
             %p.query-selector
               Date:
             =date_select("start_date", "start_date",  :default => @date, :order => [:month, :year], :start_year => 2011, :end_year => @date.year, :discard_day => true)
-          -#
+
             %div{:style => "display: none"}
               %p{:style => " font-size: 120%; padding-left: 0 10px; margin: 15px 0 5px"}
                 Show Stats:
