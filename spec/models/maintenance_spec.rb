@@ -9,29 +9,39 @@ describe Maintenance do
 
 
 	describe "#date" do
-  	it "nil date should return DateTime.new(0)" do
-  		maintenance = FactoryGirl.create(:maintenance, :date_recorded => nil, :date_completed => nil)
-  		result = maintenance.date
-  		result.should eq(DateTime.new(0))
-  	end
+    context "no date recorded or date completed" do
+      it "it returns a new DateTime object" do
+        maintenance = FactoryGirl.create(:maintenance, :date_recorded => nil, :date_completed => nil)
+        maintenance.date.should == DateTime.new(0)
+      end
+    end
   	
-  	it "set date should return dt" do
-  		dt = DateTime.now - 1.day
-  		maintenance = FactoryGirl.create(:maintenance, :date_completed => dt)
-  		result = maintenance.date
-  		result.should eq(dt)
-  	end
+    context "date completed" do
+      it "returns the date completed" do
+        dt = Time.now
+        maintenance = FactoryGirl.create(:maintenance, :date_completed => dt)
+        maintenance.date.should == dt
+      end
+    end
+
+    context "date recorded" do
+      it "returns the date recorded" do
+        dt = Time.now
+        maintenance = FactoryGirl.create(:maintenance, :date_recorded => dt)
+        maintenance.date.should == dt
+      end
+    end
   end
 
-  describe "#self.matched_count" do
-    	it "should return the totl count of maintenances matched to cases" do
+  describe ".matched_count" do
+    it "returns the totl count of maintenances matched to cases" do
 			FactoryGirl.create(:maintenance)
 			result = Maintenance.matched_count
 			result.should eq(1)
 		end
 	end
 
-	describe "#self.unmatched_count" do
+	describe ".unmatched_count" do
 		it "should return the total count of maintenances that do not match cases" do
 			FactoryGirl.create(:maintenance)
 			result = Maintenance.unmatched_count
@@ -39,32 +49,32 @@ describe Maintenance do
 		end
 	end
 
-	describe "#self.pct_matched" do
+	describe ".pct_matched" do
 		it "% of maintenances matched to a case" do
-			FactoryGirl.create(:maintenance)
-			FactoryGirl.create(:maintenance)
-			FactoryGirl.create(:maintenance)
+      3.times do |i|
+        FactoryGirl.create(:maintenance)
+      end
 			result = Maintenance.pct_matched
 			result.should eq(25)
 		end
 	end
 	
-	describe "#self.status" do
+	describe ".status" do
 		it "return the # of distinct maintenance status in database" do
-			FactoryGirl.create(:maintenance, :status => 'guilty')
-			FactoryGirl.create(:maintenance, :status => 'closed')
-			FactoryGirl.create(:maintenance, :status => 'dismissed')
+      %w('guilty', 'closed', 'dismissed').each do |w|
+        FactoryGirl.create(:maintenance, :status => w)
+      end
 			result = Maintenance.status.count
 			result.should eq(4)
 		end
 	end
 
 
-	describe "#self.program_names" do
+	describe ".program_names" do
 		it "return the # of distict program_names in database" do
-			FactoryGirl.create(:maintenance, :program_name => 'Prog1')
-			FactoryGirl.create(:maintenance, :program_name => 'Prog2')
-			FactoryGirl.create(:maintenance, :program_name => 'Prog3')
+      3.times do |i|
+        FactoryGirl.create(:maintenance, :program_name => 'Prog' + i.to_s)
+      end
 			result = Maintenance.program_names.count
 			result.should eq(4)
 		end
