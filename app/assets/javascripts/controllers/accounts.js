@@ -13,6 +13,8 @@ OpenBlight.accounts = {
     OpenBlight.accounts.subscriptionButton()
     OpenBlight.accounts.createAccountsMap();
     OpenBlight.accounts.bindDeliveryToggle();
+    OpenBlight.accounts.showAccountGuide();
+
   },
 
   map: function(){
@@ -34,22 +36,47 @@ OpenBlight.accounts = {
     });
   },
 
+  showAccountGuide: function(){
+
+    if($('#no-subscriptions-found').length){
+
+      if($('.subscription').length > 0){
+        console.log('is 0')
+        $('#no-subscriptions-found').hide();
+      }
+      else{
+        console.log('is greater 0');
+        $('#no-subscriptions-found').show();
+      }
+
+    }
+
+  },
+
+
   subscriptionButton: function(){
     $(".subscribe-button").bind("ajax:success",
        function(evt, data, status, xhr){
+
         if($(this).data('method') == 'delete'){
           if(OpenBlight.accounts.account_page){
             $(this).parentsUntil('.subscription').parent().fadeOut('slow');
+            $(this).parentsUntil('.subscription').parent().remove();
           }
           else{
             $(this).html('Add to Watchlist');
             $(this).data('method', 'put');
+
           }
         }
         else{
           $(this).html('Watching');
           $(this).data('method', 'delete')
         }
+
+        OpenBlight.accounts.showAccountGuide();
+        console.log('1hllo');
+
       }).bind("ajax:error", function(evt, data, status, xhr){
         //do something with the error here
         // console.log(data);

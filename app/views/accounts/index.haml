@@ -8,60 +8,56 @@
   .row.span8
     .block
       #subscriptions
-        -if @account_subcriptions.count  == 0
-          .subscription
-            %br
-            %p 
-              When the status of any property you are watching changes you'll be notified by email with a summary of the changes.
+        #no-subscriptions-found
+          %br
+          %p 
+            When the status of any property you are watching changes you'll be notified by email with a summary of the changes.
 
-            %p 
-              To watch a property, search for an address and at the property page you'll see a button that looks like this:
-            %p
-              =image_tag 'watchlist-sample.png'
-            %p
-              Click it and it be automatically be saved in your account.
+          %p 
+            To watch a property, search for an address and at the property page you'll see a button that looks like this:
+          %p
+            =image_tag 'watchlist-sample.png'
+          %p
+            Click it and it be automatically be saved in your account.
 
-
-
-        -else
-          -@account_subcriptions.each do |address|
-            .subscription{:id => "subscription-#{address.id}" }
-              %h2.address-title
-                =address.address_long
+        -@account_subcriptions.each do |address|
+          .subscription{:id => "subscription-#{address.id}" }
+            %h2.address-title
+              =address.address_long
 
 
-              -address.cases.each do |c|
-                .progress-bar
-                  %h3
-                    Case:
-                    =c.case_number
-                    %div.pull-right{:style => "margin: 10px 0 10px 10px"}
-                      -if c.state == 'Open'
-                        .label.label-success
-                          Case: 
-                          =c.state
-                      -else
-                        .label.label-important
-                          Case: 
-                          =c.state
+            -address.cases.each do |c|
+              .progress-bar
+                %h3
+                  Case:
+                  =c.case_number
+                  %div.pull-right{:style => "margin: 10px 0 10px 10px"}
+                    -if c.state == 'Open'
+                      .label.label-success
+                        Case: 
+                        =c.state
+                    -else
+                      .label.label-important
+                        Case: 
+                        =c.state
 
-                  =render :partial => "addresses/progress-bar", :locals => {:kase => c}
-                  -if c.case_data_error?
-                    .block{:style => "text-align: center; padding: 0 0 10px; margin:0 auto;"}
-                      %b{:style => "color: red"}
-                        Warning:
-                      This case is missing data.
-
-              .clearfix
-              %br
-              .view-property
-                =link_to address do
-                  .btn.btn-primary.btn-tight
-                    View Property
-              .subscribe
-                =link_to('Remove Watchlist', "/subscriptions/#{address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button' , :id => "subscribe-button")
+                =render :partial => "addresses/progress-bar", :locals => {:kase => c}
+                -if c.case_data_error?
+                  .block{:style => "text-align: center; padding: 0 0 10px; margin:0 auto;"}
+                    %b{:style => "color: red"}
+                      Warning:
+                    This case is missing data.
 
             .clearfix
+            %br
+            .view-property
+              =link_to address do
+                .btn.btn-primary.btn-tight
+                  View Property
+            .subscribe
+              =link_to('Remove Watchlist', "/subscriptions/#{address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button' , :id => "subscribe-button")
+
+          .clearfix
   .row.span3
     .map#map{:style => "width: 300px; height: 200px"}
     .email-notification

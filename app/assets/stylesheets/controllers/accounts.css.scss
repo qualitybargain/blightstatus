@@ -126,7 +126,10 @@
     }
   }    
 
-  .subscription{
+  #no-subscriptions-found{
+    display: none;
+  }
+  .subscription,#no-subscriptions-found{
 
     background-color: white;
     border: 1px solid #CCCCCC;
