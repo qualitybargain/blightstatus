@@ -435,46 +435,46 @@
     &.error {
 //      background: url('/assets/progress-arrows.png') no-repeat 0 0;
 //      background: url('/assets/progress-arrows.png') no-repeat 0 -25px transparent;
-      background: url("/assets/single-progress-arrows.png") no-repeat scroll 0 -79px transparent;
+      background: url("/assets/single-progress-arrows-2.png") no-repeat scroll 0 -102px transparent;
     }
 
     &.inspection {
 //      background: url('/assets/progress-arrows.png') no-repeat 0 0;
 //      background: url('/assets/progress-arrows.png') no-repeat 0 -25px transparent;
-      background: url("/assets/single-progress-arrows.png") no-repeat scroll 0 -26px transparent;
+      background: url("/assets/single-progress-arrows-2.png") no-repeat scroll 0 -26px transparent;
     }
 
     &.notification {
 //      background: url('/assets/progress-arrows.png') no-repeat 0 0;
 //      background: url('/assets/progress-arrows.png') no-repeat 0 -25px transparent;
-      background: url("/assets/single-progress-arrows.png") no-repeat scroll 0 -26px transparent;
+      background: url("/assets/single-progress-arrows-2.png") no-repeat scroll 0 -26px transparent;
     }
 
     &.hearing{
 //      background: url('/assets/progress-arrows.png') no-repeat 0 -25px transparent;
 //      background: url('/assets/progress-arrows.png') no-repeat -5px -49px transparent;
-      background: url("/assets/single-progress-arrows.png") no-repeat scroll 0 -26px transparent;
+      background: url("/assets/single-progress-arrows-2.png") no-repeat scroll 0 -26px transparent;
     }
 
     &.judgement {
 //      background: url('/assets/progress-arrows.png') no-repeat 0 -25px transparent;
 //      background: url('/assets/progress-arrows.png') no-repeat 0 -73px transparent;
-      background: url("/assets/single-progress-arrows.png") no-repeat scroll 0 -26px transparent;
+      background: url("/assets/single-progress-arrows-2.png") no-repeat scroll 0 -26px transparent;
 
     }
 
     &.resolution {
 //      background: url('/assets/progress-arrows.png') no-repeat 0 -25px transparent;
 //      background: url('/assets/progress-arrows.png') no-repeat -225px -50px transparent;
-      background: url("/assets/single-progress-arrows.png") no-repeat scroll 0 -26px transparent;
+      background: url("/assets/single-progress-arrows-2.png") no-repeat scroll 0 -26px transparent;
 
       &.pending {
-        background: url("/assets/single-progress-arrows.png") no-repeat scroll -5px -55px transparent;
+        background: url("/assets/single-progress-arrows-2.png") no-repeat scroll -1px -55px transparent;
       }
     }
 
     &.pending {
-      background: url("/assets/single-progress-arrows.png") no-repeat -5px -1px transparent;
+      background: url("/assets/single-progress-arrows-2.png") no-repeat -1px -1px transparent;
     }
 
 

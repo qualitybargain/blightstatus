@@ -61,6 +61,8 @@ class AddressesController < ApplicationController
       addresses.each {|addr|
         addr.address_long = AddressHelpers.unabbreviate_street_types(addr.address_long).capitalize
       }
+
+      address_list = []
       address_list = addresses.sort{ |a, b| a.house_num.to_i <=> b.house_num.to_i }
 
       @results_empty = address_list.empty?

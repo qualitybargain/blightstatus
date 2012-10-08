@@ -1,9 +1,10 @@
+.header-background
 %header.container.header
-  .header-background{:style => "z-index: -100; position: absolute; top: 0; left: 0; width: 100%; height: 60px; background: -moz-linear-gradient(center top , #FFFFFF 0%, #F9F9F9 50%, #F1F1F1 65.1%, #EFEFEF 100%) repeat scroll 0 0 transparent"}
+  #beta-logo
   .span3
     .logo
       %a{:href => "/"}
-        =image_tag "blightstatus-logo.png"
+        =image_tag "logo-stronger.png"
   .span8
     .navbar
       / .border
@@ -44,8 +45,8 @@
                     =link_to "Sign Up", "/accounts/sign_up"
                   .clearfix
       %ul.nav.top-links
-        %li
-          =link_to "About", "/pages/about"
+        / %li
+        /   =link_to "About", "/pages/about"
         %li
           =link_to "Browse", "/browse"
         %li
@@ -58,4 +59,3 @@
             =render "layouts/search"
 
   .clearfix
-  %hr.soften
