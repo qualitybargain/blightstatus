@@ -109,7 +109,7 @@ class AddressesController < ApplicationController
       end
     end
 
-    append_sql_query = " #{append_sql_query} AND cases.status_type = :state "
+    append_sql_query = " #{append_sql_query} AND cases.state = :state "
 
     if params[:case_open].to_i == 1
       sql_params[:state] = "Open"

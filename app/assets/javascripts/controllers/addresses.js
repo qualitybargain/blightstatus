@@ -34,7 +34,7 @@ OpenBlight.addresses = {
     OpenBlight.addresses.showHistory();
 
     $('.property-history .case').hide();
-    $('.property-history .case').first().show();
+    $('.case-status-open').first().show();
 
 
 
@@ -58,10 +58,16 @@ OpenBlight.addresses = {
       $('.property-history .case').show();
     }, function(){
       $('.property-history .case').each(function(index){
-        if( index > 0){
+
+        if(!$(this).hasClass('case-status-open')){
           $("#show-history").html('Show Historical Cases ');
           $(this).hide();          
         }
+        // console.log();
+        // if( index > 0){
+        //   $("#show-history").html('Show Historical Cases ');
+        //   $(this).hide();          
+        // }
       });
     });
   },
