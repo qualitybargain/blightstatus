@@ -28,6 +28,7 @@ describe Address do
       result.count.should < (Address.find_addresses_with_cases_by_cardinal_street('N','PETERS').count + Address.find_addresses_with_cases_by_cardinal_street('S','PETERS').count)
     end
   end
+
   describe "#workflow_steps" do
     context "no associated workflow steps" do
       it "returns an empty array" do
@@ -36,15 +37,12 @@ describe Address do
     end
 
     context "associated workflow steps" do
-      before do
-        @demo = FactoryGirl.create(:demolition, :address => @address, :date_started => Time.now - 2.days )
-        c = FactoryGirl.create(:case, :address => @address)
-        @hearing = FactoryGirl.create(:hearing, :case => c, :hearing_date => Time.now - 1.day)
-      end
-
       it "returns all steps" do
-        @address.workflow_steps.should include(@demo)
-        @address.workflow_steps.should include(@hearing)
+        c = FactoryGirl.create(:case, :address => @address)
+        c.hearings << FactoryGirl.create(:hearing)
+        @address.demolitions << FactoryGirl.create(:demolition)
+
+        @address.workflow_steps.should include(Demolition.last, Hearing.last)
       end
     end
   end
@@ -79,10 +77,10 @@ describe Address do
     context "associated cases" do
       it "returns an array of all cases sorted by their last workflow step" do
         c1 = FactoryGirl.create(:case, :address => @address)
-        inspection = FactoryGirl.create(:inspection, :case => c1, :inspection_date => Time.now)
+        c1.inspections << FactoryGirl.create(:inspection, :inspection_date => Time.now - 1.day)
 
         c2 = FactoryGirl.create(:case, :address => @address)
-        inspection = FactoryGirl.create(:inspection, :case => c2, :inspection_date => Time.now)
+        c2.inspections << FactoryGirl.create(:inspection, :inspection_date => Time.now)
 
         @address.sorted_cases.should eq([c1, c2])
       end
