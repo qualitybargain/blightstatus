@@ -22,7 +22,7 @@
               /     3-1-1
           -else
             -@address.cases.each do |c|
-              .case
+              .case{:class => "case-status-#{c.state}".downcase}
                 %h2
                   Case:
                   =c.case_number
