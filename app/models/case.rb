@@ -19,6 +19,10 @@ class Case < ActiveRecord::Base
   validates_presence_of :case_number
   validates_uniqueness_of :case_number
 
+  def first_inspection
+    self.inspections.sort{ |a, b| a.date <=> b.date }.first
+  end
+
   def accela_steps
     steps_ary = []
     steps_ary << self.hearings << self.inspections << self.demolitions << self.resets << self.foreclosure << self.notifications << self.maintenances << self.judgement
@@ -44,6 +48,8 @@ class Case < ActiveRecord::Base
   def most_recent_status
     self.status
   end
+
+
 
   def update_status(step)
     latest = most_recent_status
@@ -120,6 +126,11 @@ class Case < ActiveRecord::Base
   def self.pct_matched
     Case.matched_count.to_f / Case.count.to_f * 100
   end
+
+
+
+
+
 
   def to_hash
     c = {}
