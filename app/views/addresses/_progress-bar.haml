@@ -34,7 +34,7 @@
             -else
               -if kase.case_data_error? && kase.missing_inspection?
                 .progress-arrow.error{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
-              -elsif kase.state == 'Closed'
+              -elsif kase.state != 'Open'
                 .progress-arrow.error{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
               -else
                 .progress-arrow.pending{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
@@ -45,7 +45,7 @@
             -else
               -if kase.case_data_error? && kase.notifications.empty?
                 .progress-arrow.error{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
-              -elsif kase.state == 'Closed'
+              -elsif kase.state != 'Open'
                 .progress-arrow.error{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
               -else
                 .progress-arrow.pending{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
@@ -56,7 +56,7 @@
             -else
               -if kase.case_data_error? && kase.missing_hearing?
                 .progress-arrow.error{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
-              -elsif kase.state == 'Closed'
+              -elsif kase.state != 'Open'
                 .progress-arrow.error{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
               -else
                 .progress-arrow.pending{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
@@ -67,7 +67,7 @@
             -else
               -if kase.case_data_error? && kase.missing_judgement?
                 .progress-arrow.error{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
-              -elsif kase.state == 'Closed'
+              -elsif kase.state != 'Open'
                 .progress-arrow.error{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
               -else
                 .progress-arrow.pending{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
@@ -78,9 +78,16 @@
             -else
               -if kase.case_data_error? && kase.missing_resolution?
                 .progress-arrow.error{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
-              -elsif kase.state == 'Closed'
+              -elsif kase.state != 'Open'
                 .progress-arrow.error{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
               -else
                 .progress-arrow.pending{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
           %td
         %hr.soften
+  -if kase.case_data_error?
+    %p{:style => "text-align: center; padding: 0 0 10px; margin:0 auto;"}
+      %b{:style => "color: red"}
+        Warning:
+      This case is missing steps. 
+      %a{:href => "/pages/about"}
+        Why?

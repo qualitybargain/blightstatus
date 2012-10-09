@@ -1,25 +1,34 @@
 .case-history
   %table.table.table-condensed.timeline
-    %tbody
+    %tbody    
       %tr{:class => "case-history-inspection case-history-inspection-#{kase.case_number}"}
-        %td 
-          %span.arrow            
-        %td.status 
-          Inspected
-        %td
-          %table.table-nolines
-            %tr
-              -if kase.case_data_error? 
-                %td.date
-                %td Data Missing
+        -unless kase.inspections.empty?
+          %td 
+            %span.arrow            
+          %td.status 
+            Inspected
+          %td
+            %table.table-nolines
+              -unless kase.first_inspection.nil?
+                %tr
+                  %td.date=kase.first_inspection.inspection_date.strftime("%-m/%-d/%y")
+                  %td 
+                    Property was inspected
+                    -unless kase.first_inspection.inspection_findings.first.nil?
+                      , with a finding of 
+                      %b #{kase.first_inspection.inspection_findings.first.finding}
 
-              -unless kase.inspections.empty?
-                / -kase.inspections.first do |i|
-                %td.date=kase.inspections.first.inspection_date.strftime("%-m/%-d/%y")
-                %td 
-                  Property was inspected
-                  /, with a finding of 
-                  / %b #{kase.inspections.first.result}
+        -else
+          %td{:style => "width: 40px"}
+          %td 
+            -if kase.state == 'Open'
+              A case for this property created. Inspection is pending.
+            -else
+              A case for this property created. No futher actions have occured. 
+              %a{:href => "/pages/help"}
+                Why?
+
+
 
       -unless kase.notifications.empty?
         %tr{:class => "case-history-notification case-history-notification-#{kase.case_number}"}
@@ -51,17 +60,6 @@
 
 
 
-      / -unless kase.resets.empty?
-      /   %tr{:class => "case-history-reset case-history-reset-#{kase.case_number}"}
-      /     %td
-      /       %span.arrow                                    
-      /     %td.status Reset
-      /     %td
-      /       %table.table-nolines
-      /         -kase.resets.each do |r|
-      /           %tr
-      /             %td.date=r.reset_date.strftime("%-m/%-d/%y")
-
 
 
       -unless kase.judgement.nil?
@@ -82,6 +80,7 @@
 
 
 
+      / These are resolutions brought through a code enforcement case
       -unless kase.resolutions.empty?
         %tr{:class => "case-history-resolution case-history-resolution-#{kase.case_number}"}
           %td
@@ -118,4 +117,3 @@
                 - else
                   %td
                     %td=r.class.to_s + ": " + r.date.strftime("%-m/%-d/%y")
-

@@ -22,11 +22,14 @@
 
         -@account_subcriptions.each do |address|
           .subscription{:id => "subscription-#{address.id}" }
+
             %h2.address-title
-              =address.address_long
+              =link_to address do
+                =address.address_long
 
 
-            -address.cases.each do |c|
+
+            -address.cases_sorted_by_state.each do |c|
               .progress-bar
                 %h3
                   Case:
@@ -42,11 +45,8 @@
                         =c.state
 
                 =render :partial => "addresses/progress-bar", :locals => {:kase => c}
-                -if c.case_data_error?
-                  .block{:style => "text-align: center; padding: 0 0 10px; margin:0 auto;"}
-                    %b{:style => "color: red"}
-                      Warning:
-                    This case is missing data.
+
+            =render :partial => "addresses/additional-address-information", :locals => {:address => address}
 
             .clearfix
             %br

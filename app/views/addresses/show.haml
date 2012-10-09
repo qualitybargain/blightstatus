@@ -9,19 +9,18 @@
 
       / -unless @address.workflow_steps.empty?
       .property-history
-        .cases
+        .block
           -if @address.cases.empty?
             .case
               %h2
-                This property does not have a Code Enforcement record with the City of New Orleans
-              %br
-              %br
-              / %p
-              /   To report a violation call 
-              /   %b
-              /     3-1-1
+                This property does not have a Code Enforcement record.
+                %br
+              %h2
+                To report a violation call 
+                %b
+                  311
           -else
-            -@address.cases.each do |c|
+            -@address.cases_sorted_by_state.each do |c|
               .case{:class => "case-status-#{c.state}".downcase}
                 %h2
                   Case:
@@ -38,11 +37,7 @@
 
                 =render :partial => "addresses/progress-bar", :locals => {:kase => c}
 
-                -if c.case_data_error?
-                  .block{:style => "text-align: center; padding: 0 0 10px; margin:0 auto;"}
-                    %b{:style => "color: red"}
-                      Warning:
-                    This case is missing data.
+
 
 
 
@@ -54,7 +49,7 @@
             %a#show-history{:style => "text-align: center"}
               Show Historical Cases
 
-
+          =render :partial => "addresses/additional-address-information", :locals => {:address => @address}
 
 
 
@@ -84,6 +79,8 @@
           %p
             via the Orleans Parish Assessor’s website
 
+
+
       .faq.centered.question-list
         %h3
           Common Questions
@@ -103,3 +100,21 @@
 
         .view-all-faq
           =link_to "View All Questions >", "/pages/help"
+
+
+
+      / .faq.centered.question-list
+      /   %h3
+      /     Data Quality
+      /   %ul
+      /     %li
+      /       What data is included?
+      /       %ul
+      /         %li hello world              
+      /         %li hello world
+
+      /     %li
+      /       What data is not included?
+      /       %ul
+      /         %li hello world              
+      /         %li hello world

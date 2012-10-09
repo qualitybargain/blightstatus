@@ -66,6 +66,10 @@ class Address < ActiveRecord::Base
     self.cases.sort{ |a, b| ( a.most_recent_status and b.most_recent_status ) ? a.most_recent_status.date <=> b.most_recent_status.date : ( a.most_recent_status ? -1 : 1 ) }
   end
 
+  def cases_sorted_by_state
+    self.cases.sort{|a,b| b[:state] <=> a[:state]}
+  end
+
   def workflow_steps
     steps_ary = []
     self.cases.each do |c|
