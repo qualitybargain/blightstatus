@@ -14,7 +14,7 @@ html{
   h1{
 //    color: #F1601D;
     font-size: 30pt;
-    font-weight: 100;
+    font-weight: 400;
   }
 
   h2, h3{
@@ -367,7 +367,7 @@ navbar
 //  border: 0 none;
 //  border-radius: $borderRadius;
   font-family: "Lato";
-  font-weight: 300;
+  font-weight: 400;
   text-transform: uppercase;  
 
   &:hover{
@@ -378,8 +378,10 @@ navbar
 .btn-tight{
   padding: 3px 5px;
 }
-
-
+.btn-large{
+  font-size: 135%;
+  padding: 8px 10px;
+}
 
 
 
