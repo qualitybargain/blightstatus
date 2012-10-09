@@ -13,7 +13,7 @@ OpenBlight.accounts = {
     OpenBlight.accounts.subscriptionButton()
     OpenBlight.accounts.createAccountsMap();
     OpenBlight.accounts.bindDeliveryToggle();
-    OpenBlight.accounts.showAccountGuide();
+    // OpenBlight.accounts.showAccountGuide();
 
   },
 
@@ -74,8 +74,7 @@ OpenBlight.accounts = {
           $(this).data('method', 'delete')
         }
 
-        OpenBlight.accounts.showAccountGuide();
-        console.log('1hllo');
+        // OpenBlight.accounts.showAccountGuide();
 
       }).bind("ajax:error", function(evt, data, status, xhr){
         //do something with the error here
