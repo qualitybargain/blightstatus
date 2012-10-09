@@ -1,11 +1,26 @@
 .container.property-page
-  %section.row-fluid
 
+  .row
+    .container
+      .span8
+        .address-title
+          %h1=@address.address_long
+      .span3
+        .subscribe
+          -if(account_signed_in?)
+            -if(@account_subscribed)
+              =link_to('Watching', "/subscriptions/#{@address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-large subscribe-button tooltip-hover' , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Stop Receiving notifications when the status of this property changes")
+            -else
+              =link_to('Add to Watchlist', "/subscriptions/#{@address.id}", :remote => true, :method => :put,  'data-type' => 'json', :class => 'btn btn-primary btn-large subscribe-button tooltip-hover'  , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Receive notifications when the status of this property changes")
+          -else
+            =link_to('Add to Watchlist', new_account_session_path, :class => 'btn btn-primary btn-large subscribe-button tooltip-hover' , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Receive notifications when the status of this property changes")
+
+      .clearfix
+
+  %section.row-fluid
 
     / Left bar
     .span8.main
-      .address-title
-        %h1=@address.address_long
 
       / -unless @address.workflow_steps.empty?
       .property-history
@@ -62,15 +77,6 @@
         .map-address{"internal_address_id" => @address.id, "address_id" => @address.address_id, "map-id" => "map-#{@address.id}" , "data-x" => @address.point.x, "data-y" => @address.point.y }
           .leaflet-map{:style => "border: 1px solid #aaa; height: 150px;", :id => "map-#{@address.id}"}
 
-      .subscribe
-        %br
-        -if(account_signed_in?)
-          -if(@account_subscribed)
-            =link_to('Watching', "/subscriptions/#{@address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button tooltip-hover' , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Stop Receiving notifications when the status of this property changes")
-          -else
-            =link_to('Add to Watchlist', "/subscriptions/#{@address.id}", :remote => true, :method => :put,  'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button tooltip-hover'  , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Receive notifications when the status of this property changes")
-        -else
-          =link_to('Add to Watchlist', new_account_session_path, :class => 'btn btn-primary btn-tight subscribe-button tooltip-hover' , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Receive notifications when the status of this property changes")
 
       .assessor.centered
         -if @address.assessor_url
