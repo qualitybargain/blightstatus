@@ -213,9 +213,9 @@ describe Case do
 
       @address = FactoryGirl.create(:address)
 
-      FactoryGirl.create(:case, :case_number => '1', :address => @address)
-      FactoryGirl.create(:case, :case_number => '2', :address => @address)
-      FactoryGirl.create(:case, :case_number => '3', :address => @address)
+      FactoryGirl.create(:case, :address => @address)
+      FactoryGirl.create(:case, :address => @address)
+      FactoryGirl.create(:case, :address => @address)
 
       result = Case.pct_matched
       result.should == 75.0
