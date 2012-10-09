@@ -264,11 +264,13 @@ navbar
       padding: 5px 0;
       margin: 0;
 
+
       &.login-form {
         a {
           font-size: 80%;
           padding: 0px;
         }
+
       }
 
       &.sign-up {
@@ -587,10 +589,11 @@ ul.arrow-list{
 }
 
 .dropdown-menu a{
-  padding: 3px 0px;
+  padding: 3px 10px;
 }
 #account_remember_me{
   float: left;
+  padding: 2px 6px 2px 0;
 
   &+{
   margin-left: 20px;    

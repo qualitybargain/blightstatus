@@ -19,6 +19,8 @@ class Inspection < ActiveRecord::Base
   	self.result
   end
 
+
+
   def self.matched_count
   	Inspection.count(:conditions =>'case_number is not null')
   end
@@ -36,6 +38,6 @@ class Inspection < ActiveRecord::Base
   end
 
   def self.results
-  	Inspection.count(group: :inspection_type)
+  	Inspection.count(group: :result)
   end
 end

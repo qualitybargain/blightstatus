@@ -1,21 +1,10 @@
 require 'spec_helper'
 
 describe StatisticsController do
-
-  describe "GET graphs" do
+  describe "GET browse" do
     it "returns a response" do
-      get 'graphs'
+      get 'browse'
       response.should be_success
     end
   end
-
-
-  describe "GET index" do
-    it "returns a response" do
-      get 'maps'
-      response.should be_success
-    end
-  end
-
-
 end

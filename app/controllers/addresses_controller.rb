@@ -62,13 +62,12 @@ class AddressesController < ApplicationController
         addr.address_long = AddressHelpers.unabbreviate_street_types(addr.address_long).capitalize
       }
 
-      address_list = []
-      address_list = addresses.sort{ |a, b| a.house_num.to_i <=> b.house_num.to_i }
+      @addresses = addresses.sort{ |a, b| a.house_num.to_i <=> b.house_num.to_i }
 
-      @results_empty = address_list.empty?
+      @results_empty = @addresses.empty?
       respond_to do |format|
         format.html
-        format.json { render :json => address_list.to_json(:only => [ :id, :address_long, :latest_type, :point ]) }      
+        format.json { render :json => @addresses.to_json(:only => [ :id, :address_long, :latest_type, :point ]) }      
       end
     end
   end

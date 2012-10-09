@@ -125,9 +125,25 @@
     }
   }
 
+
+  .additional-address-information{
+    text-align: left;  
+    margin: 0 15px;
+    color: inherit; 
+    font-size: 120%;
+    font-weight: 300;
+
+    h2{
+      font-family: "Lato";
+      font-size: 120%;
+      font-weight: 400;
+    }
+  }
   .property-history{
 
     .case{
+
+      display: none;
 
       h2{
         font-family: "Lato";
