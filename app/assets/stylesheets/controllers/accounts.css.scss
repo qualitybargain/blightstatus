@@ -54,6 +54,10 @@
   .subscription{
     margin: 0 0 40px;
 
+    .additional-address-information{
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
     h2 {
 
       font-family: "Lato";
@@ -126,8 +130,19 @@
   }    
 
   #no-subscriptions-found{
-//    display: none;
-    font-size: 120%;
+    display: none;
+//    font-size: 120%;
+//display: none;
+
+    h2{
+      font-family: "Lato";
+      font-size: 150%;
+      font-weight: 300;
+      text-align: left;  
+      margin: 0 15px;
+      color: inherit;      
+    }
+
   }
 
   .additional-address-information{

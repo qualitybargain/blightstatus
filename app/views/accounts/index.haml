@@ -8,16 +8,18 @@
   .row.span8
     .block
       #subscriptions
-        #no-subscriptions-found
+        #subscriptions-information
+          Hello world
+        #no-subscriptions-found.case
           %br
-          %p 
+          %h2
             When the status of any property you are watching changes you'll be notified by email with a summary of the changes.
 
-          %p 
+          %h2
             To watch a property, search for an address and at the property page you'll see a button that looks like this:
-          %p
+          %h2
             =image_tag 'watchlist-sample.png'
-          %p
+          %h2
             Click it and it be automatically be saved in your account.
 
         -@account_subcriptions.each do |address|
@@ -55,7 +57,7 @@
                 .btn.btn-primary.btn-tight
                   View Property
             .subscribe
-              =link_to('Remove Watchlist', "/subscriptions/#{address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button' , :id => "subscribe-button")
+              =link_to('Remove', "/subscriptions/#{address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button' , :id => "subscribe-button")
 
           .clearfix
   .row.span3
