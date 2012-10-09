@@ -36,6 +36,7 @@ class Case < ActiveRecord::Base
   def status
     step = nil
     if self.status_type && self.status_id
+      puts "status_type => #{status_type.inspect}       status_id => #{status_id.inspect}"
       step = Kernel.const_get(status_type).find(status_id)
     elsif !self.accela_steps.empty?
       step = self.accela_steps.sort{ |a, b| a.date <=> b.date }.last
@@ -138,7 +139,7 @@ class Case < ActiveRecord::Base
     c[:inspections] = self.inspections
     c[:notifications] = self.notifications
     c[:hearings] = self.hearings
-    c[:judgement] = self.judgement
+    c[:judgements] = self.judgement
     c[:case_manager] = self.case_manager
     c[:resets] = self.resets
     c[:foreclosure] = self.foreclosure
