@@ -70,6 +70,28 @@ namespace :demolitions do
     end
   end
 
+
+
+  desc "Downloading LAMA Permit Demolition files from s3.amazon.com and load them into the db"  
+  task :load_lama_demolition_permits, [:file_name, :bucket_name] => :environment  do |t, args|
+    # args.with_defaults(:bucket_name => "neworleansdata", :file_name => "NOSD  BlightStat Report  January 2012.xlsx")  
+    # p args
+
+    # ImportHelpers.connect_to_aws
+    # s3obj = AWS::S3::S3Object.find args.file_name, args.bucket_name
+    # downloaded_file_path = ImportHelpers.download_from_aws(s3obj)
+
+    # SpreadsheetHelpers.workbook_to_hash(downloaded_file_path).each do |row|
+    #   unless SpreadsheetHelpers.row_is_empty? row
+    #     if row['Number'].to_s.end_with?(".0")
+    #       row['Number'] = row['Number'].to_i.to_s
+    #     end
+    #     #:date_completed => row['Demo Complete'], this throws error. need to format date.
+    #     Demolition.create(:house_num => row['Number'], :street_name => row['Street'].upcase, :address_long =>  row['Address'].upcase, :date_started => row['Demo Start'],  :program_name => "NOSD")
+    #   end
+    # end
+  end
+
   desc "Downloading Socrata files from s3.amazon.com and load them into the db"
   task :load_socrata => :environment  do |t, args|
     properties = ImportHelpers.download_json_convert_to_hash('https://data.nola.gov/api/views/abvi-rghr/rows.json?accessType=DOWNLOAD')

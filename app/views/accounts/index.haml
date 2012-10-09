@@ -22,8 +22,11 @@
 
         -@account_subcriptions.each do |address|
           .subscription{:id => "subscription-#{address.id}" }
+
             %h2.address-title
-              =address.address_long
+              =link_to address do
+                =address.address_long
+
 
 
             -address.cases_sorted_by_state.each do |c|
@@ -43,6 +46,7 @@
 
                 =render :partial => "addresses/progress-bar", :locals => {:kase => c}
 
+            =render :partial => "addresses/additional-address-information", :locals => {:address => address}
 
             .clearfix
             %br
