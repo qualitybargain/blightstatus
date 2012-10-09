@@ -126,7 +126,7 @@ OpenBlight.addresses = {
 
       OpenBlight.addresses.layergroup = L.geoJson(features, {
         pointToLayer: function (feature, latlng) {
-          return L.marker(latlng, icon);
+          return L.circleMarker(latlng, icon);
         },
 
         onEachFeature: function(feature, layer) {
