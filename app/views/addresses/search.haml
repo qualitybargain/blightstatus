@@ -27,18 +27,18 @@
       .span2
       .span7.main
         .address-title
-          %h1 No Results
+          %h1 Address Not Found
         .status-update
           .no-status
             .no-record-notice
               The address "#{@search_term}" was not found
             .recommended-next-action
 
-              %p{:style => "margin-top: 20px"} This could mean a few different things:
-
+              %p{:style => "margin-top: 20px"} 
+                Check to see if you typed the address correctly. 
               %ul
-                %li 
-                  Check to see if you typed the address correctly. 
-                %li 
-                  If you believe you've run into a technical glitch, please report it to 
-                  =mail_to "blightstatus@codeforamerica.org", "blightstatus@codeforamerica.org"
+                %li
+                  If you are unsure of the official spelling, SLOWLY type the first few letters into the search box.
+                %li
+                  A drop-down list will appear with auto-complete suggestions. 
+
