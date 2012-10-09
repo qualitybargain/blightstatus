@@ -10,7 +10,7 @@ class Case < ActiveRecord::Base
   has_many :demolitions, :foreign_key => :case_number, :primary_key => :case_number
   has_many :maintenances, :foreign_key => :case_number, :primary_key => :case_number 
 
-  has_one  :judgement, :foreign_key => :case_number, :primary_key => :case_number
+  has_many :judgements, :foreign_key => :case_number, :primary_key => :case_number
   has_one  :case_manager, :foreign_key => :case_number, :primary_key => :case_number
   has_one  :foreclosure, :foreign_key => :case_number, :primary_key => :case_number
   has_many :resets, :foreign_key => :case_number, :primary_key => :case_number
@@ -100,11 +100,11 @@ class Case < ActiveRecord::Base
   end
 
   def self.complete
-    Case.joins(:hearings, :inspections, :judgement).uniq
+    Case.joins(:hearings, :inspections, :judgements).uniq
   end
 
   def self.at_inspection
-    Case.includes([:hearings, :judgement]).where("hearings.id IS NULL AND judgements.id IS NULL")
+    Case.includes([:hearings, :judgements]).where("hearings.id IS NULL AND judgements.id IS NULL")
   end
 
   def self.without_inspection
@@ -112,7 +112,7 @@ class Case < ActiveRecord::Base
   end
 
   def self.hearings_without_judgement
-    Case.includes([:hearings, :judgement]).where("judgements.id IS NULL AND cases.case_number = hearings.case_number")
+    Case.includes([:hearings, :judgements]).where("judgements.id IS NULL AND cases.case_number = hearings.case_number")
   end
 
   def self.matched_count
@@ -156,7 +156,7 @@ class Case < ActiveRecord::Base
   def adjudication_steps
     steps_ary = []
     steps_ary << self.inspections << self.notifications << self.hearings << self.judgement << self.resets 
-    steps_ary.flatten.sort{ |a, b| a.date <=> b.date }
+    steps_ary.flatten.compact.sort{ |a, b| a.date <=> b.date }
   end
 
   def case_data_error?
@@ -226,5 +226,9 @@ class Case < ActiveRecord::Base
     case_numbers.uniq!
     cases = case_numbers.map {|case_number| Case.new(:case_number => case_number)}
     cases
+  end
+
+  def judgement
+    self.judgements.last
   end
 end
