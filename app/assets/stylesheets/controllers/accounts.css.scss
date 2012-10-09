@@ -31,8 +31,7 @@
 
     color: #58595B;
     font-family: "Lato";
-//    font-size: 250%;
-    padding: 0 0 20px;
+    padding: 0 0 20px 20px;
     text-align: left;
   }
 
@@ -127,8 +126,24 @@
   }    
 
   #no-subscriptions-found{
-    display: none;
+//    display: none;
+    font-size: 120%;
   }
+
+  .additional-address-information{
+    h2{
+      margin-top: 20px;
+      display: none;
+    }
+    .soften{
+      display: none;
+    }
+  }
+
+  #no-subscriptions-found{
+    font-weight: 300;
+  }
+
   .subscription,#no-subscriptions-found{
 
     background-color: white;
@@ -137,6 +152,7 @@
     box-shadow: 2px 1px 2px #F1F1F1;
     margin: 0 0 40px;
     padding: 20px;
+
 
 
 
