@@ -151,6 +151,11 @@
 
       display: none;
 
+      &.no-case-record{
+        display: block;
+      }
+
+
       h2{
         font-family: "Lato";
         font-size: 150%;
@@ -351,7 +356,7 @@
 
 .address-title {
   h1 {
-    padding: 0 0 30px;
+    padding: 0 0 30px 20px;
     color: $darkGrey;
     font-family: "Lato";
     font-size: 295%;
