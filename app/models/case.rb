@@ -142,6 +142,11 @@ class Case < ActiveRecord::Base
     case_steps.flatten.compact.count
   end
 
+  def adjudication_steps
+    steps_ary = []
+    steps_ary << self.inspections << self.notifications << self.hearings << self.judgement << self.resets 
+    steps_ary.flatten.sort{ |a, b| a.date <=> b.date }
+  end
 
   def case_data_error?
 
