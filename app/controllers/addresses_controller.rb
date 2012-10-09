@@ -36,7 +36,7 @@ class AddressesController < ApplicationController
   def search
     RGeo::ActiveRecord::GeometryMixin.set_json_generator(:geojson)
 
-    @search_term =search_term = params[:address]
+    @search_term = search_term = params[:address]
     Search.create(:term => search_term, :ip => request.remote_ip)
 
     address_result = AddressHelpers.find_address(params[:address])
