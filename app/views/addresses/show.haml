@@ -2,18 +2,17 @@
 
   .row
     .container
-      .span8
-        .address-title
+      .span12
+        .address-title{:class => "pull-left"}
           %h1=@address.address_long
-      .span3
-        .subscribe
+        .subscribe{:class => "pull-left", :style => "margin-left: 20px;padding: 5px"}
           -if(account_signed_in?)
             -if(@account_subscribed)
-              =link_to('Watching', "/subscriptions/#{@address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-large subscribe-button tooltip-hover' , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Stop Receiving notifications when the status of this property changes")
+              =link_to('Watching', "/subscriptions/#{@address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button tooltip-hover' , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Stop Receiving notifications when the status of this property changes")
             -else
-              =link_to('Add to Watchlist', "/subscriptions/#{@address.id}", :remote => true, :method => :put,  'data-type' => 'json', :class => 'btn btn-primary btn-large subscribe-button tooltip-hover'  , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Receive notifications when the status of this property changes")
+              =link_to(' +  Watchlist', "/subscriptions/#{@address.id}", :remote => true, :method => :put,  'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button tooltip-hover'  , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Receive notifications when the status of this property changes")
           -else
-            =link_to('Add to Watchlist', new_account_session_path, :class => 'btn btn-primary btn-large subscribe-button tooltip-hover' , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Receive notifications when the status of this property changes")
+            =link_to(' +  Watchlist', new_account_session_path, :class => 'btn btn-primary btn-tight subscribe-button tooltip-hover' , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Receive notifications when the status of this property changes")
 
       .clearfix
 
