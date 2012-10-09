@@ -71,9 +71,69 @@ describe AddressesController do
   end
 
   describe "GET addresses_with_case" do
-    it "returns a json of addresses with inspections in the last 2 weeks" do
-      get :addresses_with_case, :format => :json, :type => "inspections"
-      response.should be_success
+    let(:kase){ FactoryGirl.create(:case, :address => @address) }
+
+    context "inspections" do
+      it "returns inspections from the last month in JSON format" do
+        kase.inspections << FactoryGirl.create(:inspection)
+
+        get :addresses_with_case, :format => :json, :type => "inspections"
+        response.should be_success
+      end
+    end
+
+    context "notifications" do
+      it "returns notifications from the last month in JSON format" do
+        kase.notifications << FactoryGirl.create(:notification)
+
+        get :addresses_with_case, :format => :json, :type => "notifications"
+        response.should be_success
+      end
+    end
+
+    context "hearings" do
+      it "returns hearings from the last month in JSON format" do
+        kase.hearings << FactoryGirl.create(:hearing)
+
+        get :addresses_with_case, :format => :json, :type => "hearings"
+        response.should be_success
+      end
+    end
+
+    context "judgments" do
+      it "returns judements from the last month in JSON format" do
+        kase.judgement = FactoryGirl.create(:judgement)
+
+        get :addresses_with_case, :format => :json, :type => "judements"
+        response.should be_success
+      end
+    end
+
+    context "foreclosures" do
+      it "returns foreclosures from the last month in JSON format" do
+        kase.foreclosure = FactoryGirl.create(:foreclosure)
+
+        get :addresses_with_case, :format => :json, :type => "foreclosures"
+        response.should be_success
+      end
+    end
+
+    context "demolitions" do
+      it "returns demolitions from the last month in JSON format" do
+        kase.demolitions << FactoryGirl.create(:demolition)
+
+        get :addresses_with_case, :format => :json, :type => "demolitions"
+        response.should be_success
+      end
+    end
+
+    context "maintenances" do
+      it "returns maintenances from the last month in JSON format" do
+        kase.maintenances << FactoryGirl.create(:maintenance)
+
+        get :addresses_with_case, :format => :json, :type => "maintenances"
+        response.should be_success
+      end
     end
   end
 

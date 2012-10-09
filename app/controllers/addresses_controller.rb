@@ -135,7 +135,7 @@ class AddressesController < ApplicationController
     end
 
 
-    # TODO: performance needs to be evaluated! compact!, compact, delete, reject etc
+    # TODO: REWRITE FRONTEND SO IT CAN HANDLE RETURNED ARRAY OF ADDRESSES
     if cases.nil?
       cases = {}
     end
