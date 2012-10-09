@@ -15,10 +15,10 @@
               %h2
                 This property does not have a Code Enforcement record.
                 %br
-              / %p
-              /   To report a violation call 
-              /   %b
-              /     3-1-1
+              %h2
+                To report a violation call 
+                %b
+                  311
           -else
             -@address.cases_sorted_by_state.each do |c|
               .case{:class => "case-status-#{c.state}".downcase}
