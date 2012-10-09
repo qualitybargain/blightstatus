@@ -138,13 +138,12 @@ namespace :demolitions do
         success += 1
 
         demo.address.cases.each do |c|
-          puts 'judgement closed?'
           unless Judgement.where("case_number = :case_number", {:case_number => c.case_number}).nil?
-            puts 'yes'
             demo.update_attributes(:case_number => c.case_number)
             case_matches += 1;
           end
         end
+        
       else
         puts "#{row.address_long} address not found in address table "
         failure += 1
