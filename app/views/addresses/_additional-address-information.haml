@@ -1,4 +1,4 @@
--if !address.demolitions.empty? || !address.maintenances.empty?
+-if !address.demolitions.empty? || !address.foreclosures.empty?
   %br
   %br
   %hr.soften
@@ -12,12 +12,13 @@
           %b=d.program_name
           on
           =d.date_completed.strftime("%-m/%-d/%y")
-      -address.maintenances.each do |d|
-        %li
-          This property was demolished on:
-          =d.date_completed.strftime("%-m/%-d/%y")
 
       -address.foreclosures.each do |d|
         %li
           This property foreclosed on by the city on:
           =d.date_completed.strftime("%-m/%-d/%y")
+
+      / -address.maintenances.each do |d|
+      /   %li
+      /     This property was demolished on:
+      /     =d.date_completed.strftime("%-m/%-d/%y")
