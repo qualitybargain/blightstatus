@@ -95,9 +95,7 @@ module LAMAHelpers
           invalidate_steps(kase)
           k = kase.save
         end
-      rescue Interrupt
-        return
-      rescue Exception => ex
+      rescue StandardError => ex
         puts "THERE WAS AN EXCEPTION OF TYPE #{ex.class}, which told us that #{ex.message}"
       end
     end
@@ -296,9 +294,7 @@ module LAMAHelpers
           division = incident.Division if incident.Number == case_number
         end
       end
-    rescue Interrupt
-      return
-    rescue Exception => ex
+    rescue StandardError => ex
       puts "There was an error of type #{ex.class}, with a message of #{ex.message}"
     end
     division
