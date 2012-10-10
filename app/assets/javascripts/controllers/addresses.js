@@ -60,20 +60,27 @@ OpenBlight.addresses = {
 
     $("#show-history").toggle(function() {
       
-      $("#show-history").html('Hide Historical Cases ');
+      $("#show-history").html(' Hide Historical Cases ');
       $('.property-history .case').show();
     }, function(){
       $('.property-history .case').each(function(index){
 
-        if(!$(this).hasClass('case-status-open')){
-          $("#show-history").html('Show Historical Cases ');
-          $(this).hide();          
+        if($('.case-status-open').length > 0){
+          if(!$(this).hasClass('case-status-open')){
+            $("#show-history").html(' Show Historical Cases ');
+            $(this).hide();          
+          }          
         }
-        // console.log();
-        // if( index > 0){
-        //   $("#show-history").html('Show Historical Cases ');
-        //   $(this).hide();          
-        // }
+        else{
+          if(index == 0){
+            $($('.case').get(index)).show();
+          }
+          else{
+            $($('.case').get(index)).hide();            
+          }
+          // console.log($('.case').get(0).show());          
+          // $().show();
+        }
       });
     });
   },
