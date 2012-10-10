@@ -72,6 +72,12 @@
     position: relative;
 
 
+
+    background-color: white;
+    border: 1px solid #CCCCCC;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 2px 1px 2px #F1F1F1;
+
   }
 
   .sidebar{
@@ -144,6 +150,12 @@
     .case{
 
       display: none;
+
+      &.no-case-record{
+        display: block;
+        margin-bottom: 20px;
+      }
+
 
       h2{
         font-family: "Lato";
@@ -345,14 +357,13 @@
 
 .address-title {
   h1 {
-    padding: 5px 10px;
+    padding: 0 0 30px 20px;
     color: $darkGrey;
     font-family: "Lato";
-    font-weight: 200;
     font-size: 295%;
   }
 
-  border-bottom: 1px solid $darkGrey;
+//  border-bottom: 1px solid $darkGrey;
   clear: both;
 
 }
@@ -587,11 +598,24 @@
   padding: 20px 0;
 }
 
-
-
-
 .pager a{
   cursor:pointer
 }
 
 
+
+
+#register-login-prompt{
+  h2{
+    font-family: "Lato";
+    font-size: 150%;
+    font-weight: 400;
+    line-height: 140%;
+    padding: 10px 10px 20px;
+    text-align: center;
+  }
+
+  .close{
+    padding: 10px 15px;
+  }
+}

@@ -97,12 +97,12 @@ OpenBlight.statistics = {
             geo_json.push(data[i].point);
           }
 
-          var icon = OpenBlight.addresses.getCustomIcon('dotmarker');
+          var icon = OpenBlight.addresses.getCircleIcon();
           var current_feature = 0;
 
           OpenBlight.statistics.layergroup[1] = L.geoJson(geo_json, {
             pointToLayer: function (feature, latlng) {
-              return L.marker(latlng, {icon: new icon() });
+              return L.circleMarker(latlng, icon);
             },
 
             onEachFeature: function(feature, layer) {

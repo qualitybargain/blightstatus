@@ -74,22 +74,28 @@ namespace :demolitions do
 
   desc "Downloading LAMA Permit Demolition files from s3.amazon.com and load them into the db"  
   task :load_lama_demolition_permits, [:file_name, :bucket_name] => :environment  do |t, args|
-    # args.with_defaults(:bucket_name => "neworleansdata", :file_name => "NOSD  BlightStat Report  January 2012.xlsx")  
+    args.with_defaults(:bucket_name => "neworleansdata", :file_name => "Demolitions.xls")  
     # p args
 
-    # ImportHelpers.connect_to_aws
-    # s3obj = AWS::S3::S3Object.find args.file_name, args.bucket_name
-    # downloaded_file_path = ImportHelpers.download_from_aws(s3obj)
+    ImportHelpers.connect_to_aws
+    s3obj = AWS::S3::S3Object.find args.file_name, args.bucket_name
+    downloaded_file_path = ImportHelpers.download_from_aws(s3obj)
 
-    # SpreadsheetHelpers.workbook_to_hash(downloaded_file_path).each do |row|
-    #   unless SpreadsheetHelpers.row_is_empty? row
-    #     if row['Number'].to_s.end_with?(".0")
-    #       row['Number'] = row['Number'].to_i.to_s
-    #     end
-    #     #:date_completed => row['Demo Complete'], this throws error. need to format date.
-    #     Demolition.create(:house_num => row['Number'], :street_name => row['Street'].upcase, :address_long =>  row['Address'].upcase, :date_started => row['Demo Start'],  :program_name => "NOSD")
-    #   end
-    # end
+    SpreadsheetHelpers.workbook_to_hash(downloaded_file_path).each do |row|
+      unless SpreadsheetHelpers.row_is_empty? row
+
+# YES
+# Current Status
+# "Certificate of Occupancy - Issued No Meter"
+
+        puts row.inspect
+        #if row['Number'].to_s.end_with?(".0")
+        #  row['Number'] = row['Number'].to_i.to_s
+        #end
+        #:date_completed => row['Demo Complete'], this throws error. need to format date.
+        #Demolition.create(:house_num => row['Number'], :street_name => row['Street'].upcase, :address_long =>  row['Address'].upcase, :date_started => row['Demo Start'],  :program_name => "NOSD")
+      end
+    end
   end
 
   desc "Downloading Socrata files from s3.amazon.com and load them into the db"
@@ -119,6 +125,7 @@ namespace :demolitions do
     # go through each demolition
     success = 0
     failure = 0
+    case_matches = 0;
 
     Demolition.all.each do |row|
       # compare each address in demo list to our address table
@@ -126,14 +133,25 @@ namespace :demolitions do
       address = AddressHelpers.find_address(row.address_long)
 
       unless (address.empty?)
-        Demolition.find(row.id).update_attributes(:address_id => address.first.id)      
+        demo = Demolition.find(row.id)
+        demo.update_attributes(:address_id => address.first.id)
         success += 1
+
+        demo.address.cases.each do |c|
+          unless Judgement.where("case_number = :case_number", {:case_number => c.case_number}).nil?
+            demo.update_attributes(:case_number => c.case_number)
+            case_matches += 1;
+          end
+        end
+        
       else
-        puts "#{row.address_long} address not found in address table"
+        puts "#{row.address_long} address not found in address table "
         failure += 1
       end
     end
-    puts "There were #{success} successful matches and #{failure} failed matches"      
+
+
+    puts "There were #{success} successful matches and #{failure} failed matches and #{case_matches} cases matched"      
   end
 
   desc "Correlate demolition data with cases"  

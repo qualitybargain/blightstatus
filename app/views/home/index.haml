@@ -26,7 +26,7 @@
         Try some example searches:
 
     .row.frontpage-screenshot
-      .span3
+      .span4
         =link_to(image_tag("specific-address.png", :alt => "View single address"), "/addresses/157537")
         %h3
           %b
@@ -37,7 +37,7 @@
           
 
 
-      .span3
+      .span4
         =link_to(image_tag("streetname.png", :alt => "View street"), "/addresses/search?utf8=✓&address=CLOUET+ST&commit=")
         %h3
           %b
@@ -46,14 +46,15 @@
           Clouet street
 
 
-      .span3
-        =link_to(image_tag("neighborhood.png", :alt => "View neighborhood"), "/addresses/search?utf8=✓&address=mid-city&commit=Search")
-        %h3
-          %b
-            Neighborhood name:
-          %br
-          Mid-City
-      .span3
+      / .span3
+      /   =link_to(image_tag("neighborhood.png", :alt => "View neighborhood"), "/addresses/search?utf8=✓&address=mid-city&commit=Search")
+      /   %h3
+      /     %b
+      /       Neighborhood name:
+      /     %br
+      /     Mid-City
+
+      .span4
         =link_to(image_tag("citywide.png", :alt => "Browse map"), "/browse")
         %h3
           %b
