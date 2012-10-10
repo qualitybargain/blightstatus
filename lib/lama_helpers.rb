@@ -10,9 +10,10 @@ module LAMAHelpers
         division = get_incident_division_by_location(l,incident.Location,case_number)
 
         next unless division == 'CE'
+        case_state = 'Open'
+        case_state = 'Closed' if incident.IsClosed =~/true/
+        kase = Case.find_or_create_by_case_number(:case_number => case_number, :state => case_state)
         
-        kase = Case.find_or_create_by_case_number(:case_number => case_number, :state => 'Open')
-        kase.state = 'Closed' if incident.IsClosed =~/true/
         puts "case => #{case_number}   status => #{incident.CurrentStatus}    date => #{incident.CurrentStatusDate}"
         orig_state = kase.state
         orig_outcome = kase.outcome
