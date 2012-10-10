@@ -102,7 +102,7 @@ describe AddressesController do
 
     context "judgments" do
       it "returns judements from the last month in JSON format" do
-        kase.judgement = FactoryGirl.create(:judgement)
+        kase.judgements << FactoryGirl.create(:judgement)
 
         get :addresses_with_case, :format => :json, :type => "judements"
         response.should be_success
