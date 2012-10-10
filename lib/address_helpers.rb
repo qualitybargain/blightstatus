@@ -165,69 +165,43 @@ module AddressHelpers
     address_string = strip_special_char(orig_address.upcase.single_space)
 
     address = Address.where("address_long = ?", "#{address_string}")
-    if !address.empty?
-      puts "----FOUND------. Original address: #{orig_address}            Processed address: #{address_string}"
-    end
     return address if !address.empty?
 
     # if there is no direct hit, then we look for units in the address
     # and strip the unit number
     address_string = strip_address_unit(address_string)
     address = Address.where("address_long = ?", "#{address_string}")
-    if !address.empty?
-      puts "----FOUND------. Original address: #{orig_address}            Processed address: #{address_string}"
-    end
     return address if !address.empty?
 
     # first we match just by abbriviating street suffixes
     # if we match we return
     address_string = unabbreviate_street_types(address_string)
     address = Address.where("address_long = ?", "#{address_string}")
-    if !address.empty?
-      puts "----FOUND------. Original address: #{orig_address}            Processed address: #{address_string}"
-    end
     return address if !address.empty?
 
     # first we match just by abbriviating street suffixes
     # if we match we return
     address_string = abbreviate_street_types(address_string)
     address = Address.where("address_long = ?", "#{address_string}")
-    if !address.empty?
-      puts "----FOUND------. Original address: #{orig_address}            Processed address: #{address_string}"
-    end
     return address if !address.empty?
 
     address_string = abbreviate_street_direction(address_string)
     address = Address.where("address_long = ?", "#{address_string}")
-    if !address.empty?
-      puts "----FOUND------. Original address: #{orig_address}            Processed address: #{address_string}"
-    end
     return address if !address.empty?
 
     address_string = strip_cruft(address_string)
     address = Address.where("address_long = ?", "#{address_string}")
-    if !address.empty?
-      puts "----FOUND------. Original address: #{orig_address}            Processed address: #{address_string}"
-    end
     return address if !address.empty?
 
     address_string = strip_suffix(address_string)
     address_street = get_street_name(address_string)
     address = Address.where("house_num = ? and street_name = ?", "#{address_string.split(' ')[0]}", "#{address_street}")
-    if !address.empty?
-      puts "----FOUND------. Original address: #{orig_address}            Processed address: #{address_string}"
-    end
     return address if !address.empty?
 
     address_string = strip_direction(address_string)
     address_street = get_street_name(address_string)
     address = Address.where("house_num = ? and street_name = ?", "#{address_string.split(' ')[0]}", "#{address_street}")
-
-    if !address.empty?
-      puts "----FOUND------. Original address: #{orig_address}            Processed address: #{address_string}"
-    end
     return address if !address.empty?
-
 
     puts "----NOT FOUND------. Original address: #{orig_address}            Processed address: #{address_string}"
     []
