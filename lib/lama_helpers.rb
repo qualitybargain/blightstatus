@@ -274,8 +274,8 @@ module LAMAHelpers
     if  j && latest && j != latest && !j.status.nil? && (j.status =~ /Rescinded/).nil?
       kase.adjudication_steps.each do |s|
         if s.date > j.date
+          s.destroy
           kase.state = "Closed"
-          kase.update_last_status
         end
       end
     end
@@ -298,8 +298,8 @@ module LAMAHelpers
     end
     division
   end
+
   def parseJudgement(kase,judgement)
-    
     if judgement.class == Hashie::Mash
       j_status = judgement.Status.downcase unless judgement.Status.nil?
       date = judgement.D_Court unless judgement.D_Court.nil?
