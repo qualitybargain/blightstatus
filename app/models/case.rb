@@ -204,7 +204,7 @@ class Case < ActiveRecord::Base
 
   def resolutions
     res_ary = []
-    res_ary << self.demolitions << self.maintenances #self.foreclosures << 
+    res_ary << self.demolitions << self.maintenances << self.foreclosure
     res_ary.flatten.compact
   end
 
