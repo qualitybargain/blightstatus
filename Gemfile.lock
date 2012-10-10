@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/gangleton/lama.git
-  revision: 110e9820fe9b4f792f6403bcdbbef9555ecc5c04
+  revision: 2ed32743d3a363e5fa90ea42b269a5ddf104ff4b
   specs:
     lama (0.0.1)
       faraday
