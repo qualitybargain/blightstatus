@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121009131533) do
+ActiveRecord::Schema.define(:version => 20121010004526) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                  :default => "",   :null => false
@@ -187,6 +187,7 @@ ActiveRecord::Schema.define(:version => 20121009131533) do
     t.datetime "updated_at",         :null => false
     t.string   "hearing_type"
     t.boolean  "is_valid"
+    t.boolean  "is_complete"
   end
 
   add_index "hearings", ["case_number"], :name => "index_hearings_on_case_number"
@@ -323,10 +324,10 @@ ActiveRecord::Schema.define(:version => 20121009131533) do
     t.integer  "address_id"
     t.integer  "account_id"
     t.string   "notes"
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.text     "thegeom"
     t.datetime "date_notified"
-    t.spatial  "thegeom",       :limit => {:srid=>-1, :type=>"geometry"}
   end
 
 end
