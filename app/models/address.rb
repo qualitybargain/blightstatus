@@ -28,7 +28,11 @@ class Address < ActiveRecord::Base
   def latest_status
     latest_step = nil
     if latest_id
-      latest_step = Kernel.const_get(latest_type).find(latest_id)
+      begin
+        latest_step = Kernel.const_get(latest_type).find(latest_id)
+      rescue ActiveRecord::RecordNotFound
+        self.update_attributes(:status_id => nil, :status_type => nil)
+      end
     elsif !self.workflow_steps.empty?
       latest_step = self.workflow_steps.sort{ |a, b| a.date <=> b.date }.last
       self.update_attributes({:latest_id => latest_step.id, :latest_type => latest_step.class.to_s})
