@@ -28,6 +28,7 @@ module LAMAHelpers
               inspections.each do |inspection|
                 parseInspection(case_number,inspection)          
               end
+            end
           end
         end
 
@@ -68,7 +69,6 @@ module LAMAHelpers
             end     
           end      
         end
-        
 
         #Violations
         #TODO: add violations table and create front end for this 
@@ -95,6 +95,8 @@ module LAMAHelpers
           invalidate_steps(kase)
           k = kase.save
         end
+      rescue Interrupt
+        return
       rescue Exception => ex
         puts "THERE WAS AN EXCEPTION OF TYPE #{ex.class}, which told us that #{ex.message}"
       end
