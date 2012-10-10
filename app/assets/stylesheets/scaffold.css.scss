@@ -56,8 +56,8 @@ html{
     background: -webkit-gradient(linear, 0 0, 0 bottom, from(#FFFFFF), to(#F9F9F9));
     background: linear-gradient(#FFFFFF, #F9F9F9);
     background: -moz-linear-gradient(center top , #FFFFFF 0%, #F9F9F9 50%, #F1F1F1 65.1%, #EFEFEF 100%) repeat scroll 0 0 transparent;
-
     border-bottom: 1px solid #ddd;
+    min-width: 940px;
   }
 
 
@@ -346,6 +346,7 @@ navbar
     &:hover{
       background: $orange;
       color: white;
+      text-decoration: none;
     } 
   }  
 
@@ -599,7 +600,7 @@ ul.arrow-list{
 }
 #account_remember_me{
   float: left;
-  padding: 2px 6px 2px 0;
+  margin: 2px 6px 2px 0;
 
   &+{
   margin-left: 20px;    
@@ -702,6 +703,12 @@ hr.soften {
   width: 325px;
 }
 
+.ui-state-hover{
+  border: 0px !important;
+  font-weight: 300 !important;
+  margin: 0 !important;
+
+}
 #legal-disclaimer{
   display: none;
 }

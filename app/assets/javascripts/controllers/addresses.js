@@ -112,7 +112,7 @@ OpenBlight.addresses = {
       OpenBlight.addresses.markers = [];
 
       var features = [];
-      for(i = 0; i < data.length -1; i++){
+      for(i = 0; i < data.length; i++){
         features.push(data[i].point);
       }
 
