@@ -185,6 +185,8 @@ ActiveRecord::Schema.define(:version => 20121010013409) do
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.string   "hearing_type"
+    t.boolean  "is_valid"
+    t.boolean  "is_complete"
   end
 
   add_index "hearings", ["case_number"], :name => "index_hearings_on_case_number"
@@ -317,9 +319,9 @@ ActiveRecord::Schema.define(:version => 20121010013409) do
     t.integer  "address_id"
     t.integer  "account_id"
     t.string   "notes"
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
-    t.spatial  "thegeom",       :limit => {:srid=>-1, :type=>"geometry"}
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.text     "thegeom"
     t.datetime "date_notified"
   end
 

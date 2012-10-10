@@ -1,4 +1,5 @@
 require 'roo'
+require 'iconv'
 
 module SpreadsheetHelpers
   # the roo gem returns some pretty ugly data structures. this function loops through

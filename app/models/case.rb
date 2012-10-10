@@ -35,20 +35,21 @@ class Case < ActiveRecord::Base
 
   def status
     step = nil
-    if self.status_type && self.status_id
-      step = Kernel.const_get(status_type).find(status_id)
+    if self.status_type && self.status_id 
+      begin
+        step = Kernel.const_get(status_type).find(status_id)
+      rescue ActiveRecord::RecordNotFound
+        self.update_attributes({:status_id => nil, :status_type => nil })
+      end
     else
-      update_last_status
+      step = update_last_status
     end
-    @status = step
     return step
   end
 
   def most_recent_status
     self.status
   end
-
-
 
   def update_status(step)
     latest = most_recent_status
@@ -61,6 +62,7 @@ class Case < ActiveRecord::Base
     if !self.accela_steps.empty?
       step = self.adjudication_steps.last
       self.update_attributes({:status_id => step.id, :status_type => step.class.to_s })
+      return step
     else
       self.update_attributes({:status_id => nil, :status_type => nil })
     end
@@ -135,11 +137,6 @@ class Case < ActiveRecord::Base
     Case.matched_count.to_f / Case.count.to_f * 100
   end
 
-
-
-
-
-
   def to_hash
     c = {}
     c[:complaint] = self.complaint
@@ -163,7 +160,7 @@ class Case < ActiveRecord::Base
 
   def adjudication_steps
     steps_ary = []
-    steps_ary << self.inspections << self.notifications << self.hearings << self.judgement << self.resets 
+    steps_ary << self.inspections(true) << self.notifications(true) << self.hearings(true) << self.judgement << self.resets(true) 
     steps_ary.flatten.compact.sort{ |a, b| a.date <=> b.date }
   end
 

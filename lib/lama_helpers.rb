@@ -107,7 +107,7 @@ module LAMAHelpers
       if ((event.Type =~ /Notice/ || event.Name =~ /Notice/) && (event.Type =~ /Hearing/ || event.Name =~ /Hearing/)) || (event.Type == 'Notice' || event.Name == 'Notice')
         Notification.create(:case_number => kase.case_number, :notified => event.DateEvent, :notification_type => event.Type)
       elsif event.Type =~ /Administrative Hearing/
-       Hearing.create(:case_number => kase.case_number, :hearing_date => event.DateEvent, :hearing_status => event.Status, :hearing_type => event.Type)
+       Hearing.create(:case_number => kase.case_number, :hearing_date => event.DateEvent, :hearing_status => event.Status, :hearing_type => event.Type, :is_complete => true)#, :is_valid => true)
       elsif event.Type =~ /Input Hearing Results/
        if event.Items != nil and event.IncidEventItem != nil
          event.IncidEventItem.each do |item|
@@ -262,24 +262,22 @@ module LAMAHelpers
   def invalidate_steps(kase)
     latest = kase.most_recent_status
     
-    bad_judgement = Judgement.where(:case_number => kase.case_number, :status => nil).last if bad_judgement.nil?
-    j = bad_judgement
+    j = Judgement.where(:case_number => kase.case_number, :status => nil).last
     if  j && latest && j != latest && (j.status.nil? || j.status.length == 0)
       kase.adjudication_steps.each do |s|
-        s.delete if s.date < j.date
+        s.destroy if s.date < j.date
       end
-      j.delete
+      j.destroy
     end
 
-    good_judgement = kase.judgement
-    j = good_judgement
+    j = kase.judgement
     if  j && latest && j != latest && !j.status.nil? && (j.status =~ /Rescinded/).nil?
       kase.adjudication_steps.each do |s|
-        puts "Deleting --> #{s}"
-        s.delete if s.date > j.date
+        if s.date > j.date
+          s.destroy
+          kase.update_last_status
+        end
       end
-      kase.update_last_status
-      kase.state = 'Closed'
     end
 
   end

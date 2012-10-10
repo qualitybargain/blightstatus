@@ -74,26 +74,22 @@ namespace :demolitions do
 
   desc "Downloading LAMA Permit Demolition files from s3.amazon.com and load them into the db"  
   task :load_lama_demolition_permits, [:file_name, :bucket_name] => :environment  do |t, args|
-    args.with_defaults(:bucket_name => "neworleansdata", :file_name => "Demolitions.xls")  
-    # p args
+    args.with_defaults(:bucket_name => "neworleansdata", :file_name => "tung_demolitions_oct_2012.xls")
 
     ImportHelpers.connect_to_aws
     s3obj = AWS::S3::S3Object.find args.file_name, args.bucket_name
     downloaded_file_path = ImportHelpers.download_from_aws(s3obj)
 
     SpreadsheetHelpers.workbook_to_hash(downloaded_file_path).each do |row|
-      unless SpreadsheetHelpers.row_is_empty? row
-
-# YES
-# Current Status
-# "Certificate of Occupancy - Issued No Meter"
-
-        puts row.inspect
-        #if row['Number'].to_s.end_with?(".0")
-        #  row['Number'] = row['Number'].to_i.to_s
-        #end
-        #:date_completed => row['Demo Complete'], this throws error. need to format date.
+       unless SpreadsheetHelpers.row_is_empty? row
+         if row["Current Status"] ~= /Certificate of Completion/
+           Demolition.create(:address_long => row['Address'].upcase, :date_completed => row['Current Status Date'])
+         else
+         end
         #Demolition.create(:house_num => row['Number'], :street_name => row['Street'].upcase, :address_long =>  row['Address'].upcase, :date_started => row['Demo Start'],  :program_name => "NOSD")
+        # YES
+        # Current Status
+        # "Certificate of Occupancy - Issued No Meter"
       end
     end
   end

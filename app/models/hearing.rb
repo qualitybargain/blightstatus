@@ -3,6 +3,8 @@ class Hearing < ActiveRecord::Base
 
   validates_uniqueness_of :hearing_date, :scope => :case_number
 
+  scope :past_incomplete
+
   after_save do
     if self.case
       self.case.update_status(self)
@@ -17,6 +19,14 @@ class Hearing < ActiveRecord::Base
 
   def date
     self.hearing_date || DateTime.new(0)
+  end
+
+  def self.past_incomplete
+    where("is_complete = false AND hearing_date < ?", DateTime.now)
+  end
+
+  def self.clear_incomplete
+    self.past_incomplete.destroy_all
   end
 
   def self.matched_count
