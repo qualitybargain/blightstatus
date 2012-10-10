@@ -1,4 +1,5 @@
 module LAMAHelpers
+  SCHED = nil
   def import_to_database(incidents, client=nil)
     l = client || LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
 
@@ -10,6 +11,7 @@ module LAMAHelpers
         division = get_incident_division_by_location(l,incident.Location,case_number)
 
         next unless division == 'CE'
+        SCHED = Hash.new
         case_state = 'Open'
         case_state = 'Closed' if incident.IsClosed =~/true/
         kase = Case.find_or_create_by_case_number(:case_number => case_number, :state => case_state)
@@ -183,6 +185,8 @@ module LAMAHelpers
         kase.outcome = "Closed"
       elsif event.Name =~ /Judgment rescinded/
         kase.outcome = 'Judgment Rescinded'
+      elsif (event.Name.downcase =~ /hearing/ && (event.Name.downcase =~ /date/ && event.Name.downcase =~ /set/)) || (event.Name.downcase =~ /reset/ && event.Name.downcase =~ /notice/)
+        SCHED[:hearing_set] = event.DateEvent
       end
       
       if j_status
@@ -198,6 +202,33 @@ module LAMAHelpers
           Judgement.find_or_create_by_case_number(:case_number => kase.case_number, :notes => notes, :judgement_date => event.DateEvent)
         end
       end
+    elsif event.class == Hashie::Mash && event.IsComplete =~ /false/
+      if event.Name =~ /Administrative Hearing/ || event.Type =~ /Administrative Hearing/
+        if SCHED[:hearing_set]
+          hearing_set = Hearing.new(:case_number => kase.case_number, :hearing_date => SCHED[:hearing_set])
+          last_hearing = Hearing.where(:case => kase.case_number).last
+          last_reset = Resets.where(:case => kase.case_number).last
+          last_notice = Notification.where(:case => kase.case_number).last
+          last_inpsection = kase.inspections.last
+          if last_hearing.nil? && last_reset.nil? && last_notice.nil?#  || (last_notice && last_hearing.date < last_notice.date)
+            if last_hearing && last_hearing.date < hearing_set.date
+            elsif last_reset && last_hearing.date < last_reset.date
+            elsif 
+            end
+              
+              
+            if last_inspection && (last_hearing.nil || (last_hearing.date < last_inspection.date))
+
+            end
+
+          end
+          if i
+            if
+              Hearing.create(:case_number => kase.case_number, :hearing_date => event.DateEvent, :hearing_status => event.Status, :hearing_type => event.Type, :is_complete => false)
+            end
+          end
+        end
+      end 
     end
   end
   def parseInspection(case_number,inspection)
