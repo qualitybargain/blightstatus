@@ -12,7 +12,25 @@
             -else
               =link_to(' +  Watchlist', "/subscriptions/#{@address.id}", :remote => true, :method => :put,  'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button tooltip-hover'  , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Receive notifications when the status of this property changes")
           -else
-            =link_to(' +  Watchlist', new_account_session_path, :class => 'btn btn-primary btn-tight subscribe-button tooltip-hover' , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Receive notifications when the status of this property changes")
+            =link_to(' +  Watchlist', '#register-login-prompt', :class => 'btn btn-primary btn-tight subscribe-button tooltip-hover' , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-toggle"=>"modal", "data-title"=>"Receive notifications when the status of this property changes")
+
+
+            .modal.hide.fade#register-login-prompt
+              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+              .modal-body
+                .login-information{:style => "margin: 0 auto;"}
+                  %h2
+                    You need an account to watch properties and receive email alerts when their status changes.
+                %hr.soften
+                %br
+                .register-or-login{:style => "margin: 0 auto; text-align: center"}
+                  %h3
+                    %a.btn.btn-primary.btn-large{:href => "/accounts/sign_up"} Log in
+                    OR 
+                    %a.btn.btn-primary.btn-large{:href => "/accounts/sign_in"} Register
+                / %h2
+                /   Not sure yet? 
+                /   =link_to Take a Tour >
 
       .clearfix
 
