@@ -14,7 +14,7 @@ html{
   h1{
 //    color: #F1601D;
     font-size: 30pt;
-    font-weight: 100;
+    font-weight: 400;
   }
 
   h2, h3{
@@ -76,7 +76,7 @@ html{
     bottom: 0;
     background: rgba(0,0,0,0.1);
     color: $darkGrey;
-    padding: 20px 0;
+    padding: 30px 0 20px 0;
     font-weight: 400;
     width: 100%;
 
@@ -95,10 +95,10 @@ html{
       }
 
       p{
-        padding-top: 40px;
+        padding-top: 10px;
         font-size: 150%;  
         line-height: 125%;  
-        font-weight: 400;
+        font-weight: 300;
         font-style: italic;
       }
     }
@@ -117,7 +117,7 @@ html{
     }
 
     .city-footer-logo{
-      padding: 10px 20px;
+      padding: 0px 20px;
     }
   }
 
@@ -346,6 +346,7 @@ navbar
     &:hover{
       background: $orange;
       color: white;
+      text-decoration: none;
     } 
   }  
 
@@ -367,7 +368,7 @@ navbar
 //  border: 0 none;
 //  border-radius: $borderRadius;
   font-family: "Lato";
-  font-weight: 300;
+  font-weight: 400;
   text-transform: uppercase;  
 
   &:hover{
@@ -378,8 +379,10 @@ navbar
 .btn-tight{
   padding: 3px 5px;
 }
-
-
+.btn-large{
+  font-size: 120%;
+  padding: 5px 10px;
+}
 
 
 
@@ -517,6 +520,10 @@ navbar
   border: 1px solid #EEE;
 }
 
+
+.add-icon{
+  width:10px; padding: 0px 2px;
+}
 .badge-yellow{
 	background-color: #F9CC5D;
 	border-radius: $borderRadius;
@@ -593,7 +600,7 @@ ul.arrow-list{
 }
 #account_remember_me{
   float: left;
-  padding: 2px 6px 2px 0;
+  margin: 2px 6px 2px 0;
 
   &+{
   margin-left: 20px;    
@@ -696,6 +703,12 @@ hr.soften {
   width: 325px;
 }
 
+.ui-state-hover{
+  border: 0px !important;
+  font-weight: 300 !important;
+  margin: 0 !important;
+
+}
 #legal-disclaimer{
   display: none;
 }

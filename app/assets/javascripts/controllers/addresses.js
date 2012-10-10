@@ -112,7 +112,7 @@ OpenBlight.addresses = {
       OpenBlight.addresses.markers = [];
 
       var features = [];
-      for(i = 0; i < data.length -1; i++){
+      for(i = 0; i < data.length; i++){
         features.push(data[i].point);
       }
 
@@ -120,11 +120,13 @@ OpenBlight.addresses = {
       $ul.html('');
 
       var current_feature = 0;
-      var icon = OpenBlight.addresses.getCustomIcon();
+      var icon = OpenBlight.addresses.getCircleIcon();
+
+
 
       OpenBlight.addresses.layergroup = L.geoJson(features, {
         pointToLayer: function (feature, latlng) {
-          return L.marker(latlng, {icon: new icon() });
+          return L.circleMarker(latlng, icon);
         },
 
         onEachFeature: function(feature, layer) {
@@ -283,6 +285,17 @@ OpenBlight.addresses = {
         className: classname
       }
     });
+  },
+
+  getCircleIcon: function(classname){
+    return {
+        radius: 3,
+        fillColor: "#ff7800",
+        color: "#000",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+    };
   },
 
   fitPointersOnMap: function(){

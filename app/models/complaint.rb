@@ -7,6 +7,12 @@ class Complaint < ActiveRecord::Base
       self.case.update_status(self)
     end
   end
+
+  # after_destroy do
+  #   if self.case
+  #     self.case.update_last_status
+  #   end
+  # end
   
   def date
     self.date_received || DateTime.new(0)

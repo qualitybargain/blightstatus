@@ -121,21 +121,32 @@ namespace :foreclosures do
     # go through each foreclosure
     success = 0
     failure = 0
-
+    case_matches = 0
     Foreclosure.where('address_id is null').each do |row|
       # compare each address in demo list to our address table
       #address = Address.where("address_long LIKE ?", "%#{row.address_long}%")
       address = AddressHelpers.find_address(row.address_long)
 
       unless (address.empty?)
-        Foreclosure.find(row.id).update_attributes(:address_id => address.first.id)      
+        fore = Foreclosure.find(row.id)
+        fore.update_attributes(:address_id => address.first.id)      
         success += 1
+
+        fore.address.cases.each do |c|
+          unless Foreclosure.where("case_number = :case_number", {:case_number => c.case_number}).nil?
+            fore.update_attributes(:case_number => c.case_number)
+            case_matches += 1;
+          end
+        end
+
       else
         puts "#{row.address_long} address not found in address table"
         failure += 1
       end
     end
-    puts "There were #{success} successful matches and #{failure} failed matches"      
+
+
+    puts "There were #{success} successful address matches and #{failure} failed matches. There were #{case_matches}"      
   end
 
   desc "Correlate foreclosure data with cases"  

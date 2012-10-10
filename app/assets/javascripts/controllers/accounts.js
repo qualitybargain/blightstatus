@@ -41,12 +41,14 @@ OpenBlight.accounts = {
     if($('#no-subscriptions-found').length){
 
       if($('.subscription').length > 0){
-        console.log('is 0')
+        // console.log('is 0')
         $('#no-subscriptions-found').hide();
+        // $('#subscriptions-information').show();
       }
       else{
-        console.log('is greater 0');
+        // console.log('is greater 0');
         $('#no-subscriptions-found').show();
+        // $('#subscriptions-information').hide();
       }
 
     }
@@ -64,18 +66,18 @@ OpenBlight.accounts = {
             $(this).parentsUntil('.subscription').parent().remove();
           }
           else{
-            $(this).html('Add to Watchlist');
+            $(this).html('<img src="/assets/+icon.png" class="add-icon"> Watchlist');
             $(this).data('method', 'put');
 
           }
         }
         else{
+
           $(this).html('Watching');
           $(this).data('method', 'delete')
         }
 
         OpenBlight.accounts.showAccountGuide();
-        console.log('1hllo');
 
       }).bind("ajax:error", function(evt, data, status, xhr){
         //do something with the error here
@@ -155,10 +157,13 @@ OpenBlight.accounts = {
 
         onEachFeature: function(feature, layer) {
            $(layer).on('click', function(){
+
+            // console.log(data[current_feature_id].id);
             var select_subcription = "subscription-" + data[current_feature_id].id;
             OpenBlight.common.goToByScroll(select_subcription, 'slow', '150');
             current_feature_id = current_feature_id +1;
 
+            // console.log(select_subcription);
             $('#' + select_subcription).animate({ backgroundColor: "#FFFFE0" }, 'slow').animate({ backgroundColor: "white" }, 'fast');
           });
         }

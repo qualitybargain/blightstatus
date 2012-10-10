@@ -32,20 +32,15 @@ module LAMAHelpers
           end
         end
       end
-      #Actions
-      actions = []
-      if incident_full.Actions && incident_full.Actions.CodeAction
-        actions = incident_full.Actions.CodeAction
-        if actions
-          if actions.class == Array
-            actions.each do |action|
-              parseAction(kase, action)          
-            end
-          else
-            parseAction(kase, actions)
-          end     
-        end      
+
+      judgements = incident_full.Judgments
+      if judgements
+        if judgements.class == Hashie::Mash
+          judgement = judgements.Judgement
+          parseInspection(kase,judgement)
+        end
       end
+      
       #Events
       events = []
       if incident_full.Events && incident_full.Events.IncidEvent
@@ -60,6 +55,22 @@ module LAMAHelpers
           parseEvent(kase,events)
         end
       end
+
+      #Actions
+      actions = []
+      if incident_full.Actions && incident_full.Actions.CodeAction
+        actions = incident_full.Actions.CodeAction
+        if actions
+          if actions.class == Array
+            actions.each do |action|
+              parseAction(kase, action)          
+            end
+          else
+            parseAction(kase, actions)
+          end     
+        end      
+      end
+      
 
       #Violations
       #TODO: add violations table and create front end for this 
@@ -83,8 +94,8 @@ module LAMAHelpers
         end
       end
       if !kase.accela_steps.nil? || kase.state != orig_state || kase.outcome != orig_outcome
+        invalidate_steps(kase)
         k = kase.save
-        #invalidate_steps(kase)
       end
     end
   end
@@ -94,7 +105,7 @@ module LAMAHelpers
     if event.class == Hashie::Mash && event.IsComplete =~ /true/
       j_status = nil
       if ((event.Type =~ /Notice/ || event.Name =~ /Notice/) && (event.Type =~ /Hearing/ || event.Name =~ /Hearing/)) || (event.Type == 'Notice' || event.Name == 'Notice')
-        Notification.create(:case_number => kase.case_number, :notified => event.DateEvent, :notification_type => event.Type)#, :is_valid => true)
+        Notification.create(:case_number => kase.case_number, :notified => event.DateEvent, :notification_type => event.Type)
       elsif event.Type =~ /Administrative Hearing/
        Hearing.create(:case_number => kase.case_number, :hearing_date => event.DateEvent, :hearing_status => event.Status, :hearing_type => event.Type, :is_complete => true)#, :is_valid => true)
       elsif event.Type =~ /Input Hearing Results/
@@ -102,15 +113,15 @@ module LAMAHelpers
          event.IncidEventItem.each do |item|
            if item.class == Hashie::Mash
              if (item.Title =~ /Reset Notice/ || item.Title =~ /Reset Hearing/) && item.IsComplete == "true"
-                Reset.create(:case_number => kase.case_number, :reset_date => item.DateCompleted)#, :is_valid => true)
+                Reset.create(:case_number => kase.case_number, :reset_date => item.DateCompleted)
              end
            end
          end
        end
       elsif event.Type =~ /Inspection/ || event.Name =~ /Inspection/ || event.Type =~ /Reinspection/ || event.Name =~ /Reinspection/
-        i = Inspection.create(:case_number => kase.case_number, :inspection_date => event.DateEvent, :notes => event.Status, :inspection_type => event.Type)#, :is_valid => true)
+        i = Inspection.create(:case_number => kase.case_number, :inspection_date => event.DateEvent, :notes => event.Status, :inspection_type => event.Type)
       elsif event.Type =~ /Complaint Received/ || event.Name =~ /Complaint Received/
-       Complaint.create(:case_number => kase.case_number, :date_received => event.DateEvent, :status => event.Status)#, :is_valid => true)
+       Complaint.create(:case_number => kase.case_number, :date_received => event.DateEvent, :status => event.Status)
       elsif (event.Name =~ /Guilty/ || event.Status =~ /Guilty/ || event.Type =~ /Guilty/) && (event.Name =~ /Hearing/ || event.Status =~ /Hearing/ || event.Type =~ /Hearing/)#event.Name =~ /Hearing/
         if event.Name =~ /Guilty/
           notes = event.Name.strip
@@ -174,29 +185,22 @@ module LAMAHelpers
       
       if j_status
         if j_status.length > 0
-          Hearing.create(:case_number => kase.case_number, :hearing_date => event.DateEvent, :hearing_status => j_status)#, :is_valid => true)
+          Hearing.create(:case_number => kase.case_number, :hearing_date => event.DateEvent, :hearing_status => j_status)
 
-          # j = kase.judgement
           Judgement.where(:case_number => kase.case_number, :judgement_date => event.DateEvent, :status => nil).delete_all
-          Judgement.create(:case_number => kase.case_number, :notes => notes, :status => j_status, :judgement_date => event.DateEvent)#, :is_valid => true)
-          # k = Judgement.new(:case_number => kase.case_number, :notes => notes, :status => j_status, :judgement_date => event.DateEvent)#, :is_valid => true)
+          Judgement.create(:case_number => kase.case_number, :notes => notes, :status => j_status, :judgement_date => event.DateEvent)
           
-          # if j && j.status.nil?
-          #   invalidate_steps(kase, j)
-          #   #Judgement.delete_all("case_number = '#{kase.case_number}' AND status is null")
-          # end
-          # k.save
           kase.outcome = j_status
         else
           kase.outcome = 'Judgment'
-          Judgement.find_or_create_by_case_number(:case_number => kase.case_number, :notes => notes, :judgement_date => event.DateEvent)#, :is_valid => true)
+          Judgement.find_or_create_by_case_number(:case_number => kase.case_number, :notes => notes, :judgement_date => event.DateEvent)
         end
       end
     end
   end
   def parseInspection(case_number,inspection)
     if inspection.class == Hashie::Mash && inspection.IsComplete =~ /true/
-      i = Inspection.find_or_create_by_case_number_and_inspection_date(:case_number => case_number, :inspection_date => inspection.InspectionDate, :notes => inspection.Comment)#, :is_valid => true)
+      i = Inspection.find_or_create_by_case_number_and_inspection_date(:case_number => case_number, :inspection_date => inspection.InspectionDate, :notes => inspection.Comment)
       if inspection.Findings != nil && inspection.Findings.InspectionFinding != nil
         inspection.Findings.InspectionFinding.each do |finding|
           if finding.class == Hashie::Mash
@@ -211,20 +215,20 @@ module LAMAHelpers
   def parseAction(kase,action)
     if action.class == Hashie::Mash && action.IsComplete =~ /true/
       if (action.Type =~ /Notice/ && action.Type =~ /Hearing/) || action.Type == 'Notice'
-        Notification.create(:case_number => kase.case_number, :notified => action.Date, :notification_type => action.Type)#, :is_valid => true)
+        Notification.create(:case_number => kase.case_number, :notified => action.Date, :notification_type => action.Type)
       elsif action.Type =~ /Notice/ && action.Type =~ /Reset/
-        Reset.create(:case_number => kase.case_number, :reset_date => action.Date)#, :is_valid => true)
+        Reset.create(:case_number => kase.case_number, :reset_date => action.Date)
       elsif action.Type =~ /Notice/ && action.Type =~ /Compliance/
         kase.outcome = 'Closed: In Compliance'
       elsif action.Type =~ /Judgment/ && (action.Type =~ /Posting/ || action.Type =~ /Recordation/ || action.Type =~ /Notice/)
         Judgement.where(:case_number => kase.case_number, :judgement_date => action.Date, :status => nil).delete_all
-         Judgement.find_or_create_by_case_number(:case_number => kase.case_number, :judgement_date => action.Date, :notes => action.Type)#, :is_valid => true)
+         Judgement.find_or_create_by_case_number(:case_number => kase.case_number, :judgement_date => action.Date, :notes => action.Type)
         unless j.status
           kase.outcome = 'Judgment' if kase.outcome != 'Judgment'
         end
       elsif action.Type =~ /Administrative Hearing/
         unless action.Type =~ /Notice/
-         Hearing.create(:case_number => kase.case_number, :hearing_date => action.Date, :hearing_type => action.Type)#, :is_valid => true)
+         Hearing.create(:case_number => kase.case_number, :hearing_date => action.Date, :hearing_type => action.Type)
         end
       end
     end
@@ -242,60 +246,83 @@ module LAMAHelpers
       else
         kase.outcome = 'Guilty'
       end
-        # j = kase.judgement
-        # k = Judgement.new(:case_number => kase.case_number, :status => kase.outcome, :judgement_date => date, :notes => case_status)#, :is_valid => true)
-        Judgement.create(:case_number => kase.case_number, :status => kase.outcome, :judgement_date => date, :notes => case_status)#, :is_valid => true)
-        # puts "old judgement => #{j.inspect}"
-        # if j && j.status.nil?
-        #   invalidate_steps(kase, k)
-        #   #Judgement.delete_all("case_number = '#{kase.case_number}' AND status is null")
-        # end
-        # k.save
+        Judgement.create(:case_number => kase.case_number, :status => kase.outcome, :judgement_date => date, :notes => case_status)
     elsif case_status =~ /Judgment/ && (case_status =~ /Posting/ || case_status =~ /Notice/ || case_status =~ /Recordation/)
-      j = Judgement.find_or_create_by_case_number(:case_number => kase.case_number, :judgement_date => date, :notes => case_status)#, :is_valid => true)
+      j = Judgement.find_or_create_by_case_number(:case_number => kase.case_number, :judgement_date => date, :notes => case_status)
       unless j.status
         kase.outcome = 'Judgment' if kase.outcome != 'Judgment'
       end
     elsif case_status =~ /Judgment rescinded/
       kase.outcome = 'Judgment Rescinded' 
     elsif case_status =~ /omplaint/ && case_status =~ /eceived/
-      Complaint.create(:case_number => kase.case_number, :status => 'Received', :date_received => date, :notes => case_status)#, :is_valid => true)
+      Complaint.create(:case_number => kase.case_number, :status => 'Received', :date_received => date, :notes => case_status)
     end
   end
 
-  def invalidate_steps(kase)#, bad_judgement)
+  def invalidate_steps(kase)
     latest = kase.most_recent_status
-    bad_judgement = Judgement.where(:case_number => kase.case_number, :status => nil).last if bad_judgement.nil?#latest = kase.most_recent_status if latest.nil?
+    
+    bad_judgement = Judgement.where(:case_number => kase.case_number, :status => nil).last if bad_judgement.nil?
     j = bad_judgement
     if  j && latest && j != latest && (j.status.nil? || j.status.length == 0)
       kase.adjudication_steps.each do |s|
-        if s.date < j.date
-          puts "Deleting step => #{s.inspect}"
-          s.delete #update_attribute(:is_valid, false)
-        end
+        s.delete if s.date < j.date
       end
-      puts "Deleting Judgement => #{j.inspect}"
       j.delete
     end
+
+    good_judgement = kase.judgement
+    j = good_judgement
+    if  j && latest && j != latest && !j.status.nil? && (j.status =~ /Rescinded/).nil?
+      kase.adjudication_steps.each do |s|
+        puts "Deleting --> #{s}"
+        s.delete if s.date > j.date
+      end
+      kase.update_last_status
+      kase.state = 'Closed'
+    end
+
   end
 
   def get_incident_division_by_location(lama,location,case_number)
     division = nil
     incidents = lama.incidents_by_location(location)
     if incidents.class == Hashie::Mash
-      if incidents.Number == case_number
-        division = incidents.Division
-        puts "location => #{location}     Class => #{incidents.class.to_s}"
-      end
+      division = incidents.Division if incidents.Number == case_number
     elsif incidents.class == Array
       incidents.each do |incident|
-        if incident.Number == case_number
-          division = incident.Division
-          puts "location => #{location}     Class => #{incident.class.to_s}"
-        end
+        division = incident.Division if incident.Number == case_number
       end
     end
-    print "case_number =>   #{case_number}    division => #{division}"
     division
+  end
+  def parseJudgement(kase,judgement)
+    
+    if judgement.class == Hashie::Mash
+      j_status = judgement.Status.downcase unless judgement.Status.nil?
+      date = judgement.D_Court unless judgement.D_Court.nil?
+    end
+    
+    return if j_status =~ 'pending'
+
+    if j_status =~ /dismiss/
+      j = 'Dismissed'
+      kase.outcome = "Closed: Dismissed"
+    elsif j_status =~ /closed/
+      j = 'Closed'
+      kase.outcome = "Closed"
+    elsif case_status =~ /guilty/
+      if case_status =~ /not guilty/
+        j = 'Not Guilty'
+      else
+        j = 'Guilty'
+      end
+      kase.outcome = j        
+    elsif case_status =~ /rescinded/
+        j = 'Rescinded'
+        kase.outcome = 'Judgment Rescinded' 
+    end
+    j_status = judgement.Status.downcase unless judgement.Status.nil?  
+    Judgement.create(:case_number => kase.case_number, :status => j, :judgement_date => date, :notes => j_status)
   end
 end

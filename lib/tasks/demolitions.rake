@@ -86,7 +86,10 @@ namespace :demolitions do
            Demolition.create(:address_long => row['Address'].upcase, :date_completed => row['Current Status Date'])
          else
          end
-    #     Demolition.create(:house_num => row['Number'], :street_name => row['Street'].upcase, :address_long =>  row['Address'].upcase, :date_started => row['Demo Start'],  :program_name => "NOSD")
+        #Demolition.create(:house_num => row['Number'], :street_name => row['Street'].upcase, :address_long =>  row['Address'].upcase, :date_started => row['Demo Start'],  :program_name => "NOSD")
+        # YES
+        # Current Status
+        # "Certificate of Occupancy - Issued No Meter"
       end
     end
   end
@@ -118,6 +121,7 @@ namespace :demolitions do
     # go through each demolition
     success = 0
     failure = 0
+    case_matches = 0;
 
     Demolition.all.each do |row|
       # compare each address in demo list to our address table
@@ -125,14 +129,25 @@ namespace :demolitions do
       address = AddressHelpers.find_address(row.address_long)
 
       unless (address.empty?)
-        Demolition.find(row.id).update_attributes(:address_id => address.first.id)      
+        demo = Demolition.find(row.id)
+        demo.update_attributes(:address_id => address.first.id)
         success += 1
+
+        demo.address.cases.each do |c|
+          unless Judgement.where("case_number = :case_number", {:case_number => c.case_number}).nil?
+            demo.update_attributes(:case_number => c.case_number)
+            case_matches += 1;
+          end
+        end
+        
       else
-        puts "#{row.address_long} address not found in address table"
+        puts "#{row.address_long} address not found in address table "
         failure += 1
       end
     end
-    puts "There were #{success} successful matches and #{failure} failed matches"      
+
+
+    puts "There were #{success} successful matches and #{failure} failed matches and #{case_matches} cases matched"      
   end
 
   desc "Correlate demolition data with cases"  
