@@ -598,11 +598,24 @@
   padding: 20px 0;
 }
 
-
-
-
 .pager a{
   cursor:pointer
 }
 
 
+
+
+#register-login-prompt{
+  h2{
+    font-family: "Lato";
+    font-size: 150%;
+    font-weight: 400;
+    line-height: 140%;
+    padding: 10px 10px 20px;
+    text-align: center;
+  }
+
+  .close{
+    padding: 10px 15px;
+  }
+}

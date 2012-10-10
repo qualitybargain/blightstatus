@@ -1,5 +1,15 @@
 @import "variables.css.scss";
 
+.container-registrations, .container-sessions{
+
+  .container-accounts{
+    margin-top: 50px;
+  }
+
+
+}
+
+
 .container-accounts{
 
   padding-bottom: 400px !important;
@@ -159,6 +169,8 @@
     font-weight: 300;
   }
 
+
+
   .subscription,#no-subscriptions-found{
 
     background-color: white;
@@ -205,4 +217,7 @@
     }
   }
 
+  #subscriptions-information{
+    display: none;
+  }
 }
