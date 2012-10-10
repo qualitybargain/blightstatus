@@ -43,12 +43,12 @@ OpenBlight.accounts = {
       if($('.subscription').length > 0){
         console.log('is 0')
         $('#no-subscriptions-found').hide();
-        $('#subscriptions-information').show();
+        // $('#subscriptions-information').show();
       }
       else{
         console.log('is greater 0');
         $('#no-subscriptions-found').show();
-        $('#subscriptions-information').hide();
+        // $('#subscriptions-information').hide();
       }
 
     }
