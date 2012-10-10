@@ -4,8 +4,13 @@
 
 @import "variables.css.scss";
 
+#no-data, #map-loading{
+	width: 100px;
+	display: none;
+}
 .container-statistics{
-	
+
+
   select{
     width: 185px;
   }
