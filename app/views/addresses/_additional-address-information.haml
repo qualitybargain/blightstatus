@@ -16,7 +16,7 @@
       -address.foreclosures.each do |d|
         %li
           This property foreclosed on by the city on:
-          =d.date_completed.strftime("%-m/%-d/%y")
+          =d.sale_date.strftime("%-m/%-d/%y")
 
       / -address.maintenances.each do |d|
       /   %li
