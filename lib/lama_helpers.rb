@@ -177,6 +177,7 @@ module LAMAHelpers
           Hearing.create(:case_number => kase.case_number, :hearing_date => event.DateEvent, :hearing_status => j_status)#, :is_valid => true)
 
           # j = kase.judgement
+          Judgement.where(:case_number => kase.case_number, :judgement_date => event.DateEvent, :status => nil).delete_all
           Judgement.create(:case_number => kase.case_number, :notes => notes, :status => j_status, :judgement_date => event.DateEvent)#, :is_valid => true)
           # k = Judgement.new(:case_number => kase.case_number, :notes => notes, :status => j_status, :judgement_date => event.DateEvent)#, :is_valid => true)
           
@@ -216,7 +217,8 @@ module LAMAHelpers
       elsif action.Type =~ /Notice/ && action.Type =~ /Compliance/
         kase.outcome = 'Closed: In Compliance'
       elsif action.Type =~ /Judgment/ && (action.Type =~ /Posting/ || action.Type =~ /Recordation/ || action.Type =~ /Notice/)
-        j = Judgement.find_or_create_by_case_number(:case_number => kase.case_number, :judgement_date => action.Date, :notes => action.Type)#, :is_valid => true)
+        Judgement.where(:case_number => kase.case_number, :judgement_date => action.Date, :status => nil).delete_all
+         Judgement.find_or_create_by_case_number(:case_number => kase.case_number, :judgement_date => action.Date, :notes => action.Type)#, :is_valid => true)
         unless j.status
           kase.outcome = 'Judgment' if kase.outcome != 'Judgment'
         end
