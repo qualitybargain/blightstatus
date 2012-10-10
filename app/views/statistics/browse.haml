@@ -8,22 +8,22 @@
           %p
             (only showing properties with a case history)
         %form{:style => "padding: 0px 10px;"}
-          %div
+          %div{:style => "display: none"}
             %p.query-selector
-              Status:
+              Case Status:
             =select( "state", "state", { "Open Cases" => "1", "Closed Cases" => "0"})
+          %div
+            %p{:style => "font-size: 120%; padding-left: 0 10px; margin: 15px 0 5px"}
+              Show:
+              %br
+            =select( "only_recent_status", "only_recent_status", { "All Cases" => "0", "Only Most Recent Activity" => "1"})
           %div
             %p.query-selector
               Activity:
             =select( "status", "status", { "Inspected" => "inspections", "Notified" => "notifications", "Hearing" => "hearings", "Judgment" => "judgement", "Demolitions" => "demolitions", "Foreclosure" => "foreclosures"})
-            %div
-              %p{:style => "font-size: 120%; padding-left: 0 10px; margin: 15px 0 5px"}
-                Recent:
-                %br
-            =select( "only_recent_status", "only_recent_status", { "All Cases" => "0", "Only Recent Activity" => "1"})
           %div
             %p.query-selector
-              Date:
+              Occured on:
             =date_select("start_date", "start_date",  :default => @date, :order => [:month, :year], :start_year => 2011, :end_year => @date.year, :discard_day => true)
 
             %div{:style => "display: none"}
@@ -32,9 +32,9 @@
                 %br
               =select( "show_stats", "show_stats", { "Show Stats" => "1","Hide Stats" => "0" } )
           %div
-            #map-loading{:style => "margin: 0 auto; width: 150px; background-color: red; color: white; display: none;"}
+            #map-loading.label.label-important
               Map Loading....
-            #no-data{:style => "margin: 0 auto; width: 150px; background-color: red; color: white; display: none;"}
+            #no-data.label.label-important
               No results
             #stats-row
 
