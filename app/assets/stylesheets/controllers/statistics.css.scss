@@ -5,8 +5,18 @@
 @import "variables.css.scss";
 
 #no-data, #map-loading{
-	width: 30%;
-	display: none;
+  width: 30%;
+  display: none;
+}
+
+.browse-page{
+
+  #map{
+    height: 550px; 
+    border: 1px solid #aaa;
+    width: 100%;
+    min-width: 500px;   
+  }
 }
 .container-statistics{
 
@@ -14,43 +24,43 @@
   select{
     width: 185px;
   }
-	.inner{
-		width: 70%;
-		margin: 0 auto;
-	}
+  .inner{
+    width: 70%;
+    margin: 0 auto;
+  }
 
 
-	.btn-group > input {
-		display: none;
-	}
+  .btn-group > input {
+    display: none;
+  }
 
-	.btn-group input + .btn {
-	   /* This is an actual copy/paste of the .btn-group .btn:first-child style */
-	  border-radius: 4px;
-	  border-radius: 4px;
-	  margin-left: 0;
-	  margin: 5px 0;
-	  color: white;
+  .btn-group input + .btn {
+     /* This is an actual copy/paste of the .btn-group .btn:first-child style */
+    border-radius: 4px;
+    border-radius: 4px;
+    margin-left: 0;
+    margin: 5px 0;
+    color: white;
 
-	}
-
-
-	#start_date_start_date_2i, #start_date_start_date_1i{
-		width: 90px;
-	}
+  }
 
 
-	table{
-		margin: 20px auto;
-		padding: 10px;
-		font-size: 130%;
+  #start_date_start_date_2i, #start_date_start_date_1i{
+    width: 90px;
+  }
+
+
+  table{
+    margin: 20px auto;
+    padding: 10px;
+    font-size: 130%;
     text-align: center;
 
-		td{
-			padding: 20px 10px 10px;
-		}
+    td{
+      padding: 20px 10px 10px;
+    }
 
-		thead{
+    thead{
       font-size: 100%;
       font-weight: bold;
       margin-bottom: 20px;
@@ -58,89 +68,89 @@
         border-bottom: 1px solid;
         padding: 1px 3px;
       }
-		}
-		tbody{
-			padding: 10px;
-			font-size: 50px;
-		}
+    }
+    tbody{
+      padding: 10px;
+      font-size: 50px;
+    }
 
-	
+  
 
-	}
+  }
 
-	#checkbox-inspections + label.btn{
-		background-color: $inspections;
-	}
-
-
-	#checkbox-hearings + label.btn{
-		background-color: $hearings;
-
-	}
-	
-	#checkbox-judgements + label.btn{
-		background-color: $judgements;
-	}
-	
-	#checkbox-demolitions + label.btn, #checkbox-abatement + label.btn{
-		background-color: $demolitions;
-	}
-
-	input:checked + label.btn {
-	  /* This is an actual copy/paste of the .btn:active style */
-	  background-color: #E6E6E6;
-	  background-image: none;
-	  box-shadow: 0 2px 4px rgba(0, 0, 0.5, 0.9) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
-	  color: rgba(255, 255, 255, 0.8);
-	  outline: 0 none;
-	  opacity: 0.5;
-
-	}
+  #checkbox-inspections + label.btn{
+    background-color: $inspections;
+  }
 
 
+  #checkbox-hearings + label.btn{
+    background-color: $hearings;
 
-	input[disabled] + label.btn {
-	  /* This is an actual copy/paste of the .btn:disabled style */
-	  background-color: #E6E6E6;
-	  background-image: none;
-	  box-shadow: none;
-	  cursor: default;
-	  opacity: 0.55;
-	}
+  }
+  
+  #checkbox-judgements + label.btn{
+    background-color: $judgements;
+  }
+  
+  #checkbox-demolitions + label.btn, #checkbox-abatement + label.btn{
+    background-color: $demolitions;
+  }
+
+  input:checked + label.btn {
+    /* This is an actual copy/paste of the .btn:active style */
+    background-color: #E6E6E6;
+    background-image: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0.5, 0.9) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+    color: rgba(255, 255, 255, 0.8);
+    outline: 0 none;
+    opacity: 0.5;
+
+  }
 
 
 
-	#stats-map{
-		border: 1px solid #ccc;
-	}
+  input[disabled] + label.btn {
+    /* This is an actual copy/paste of the .btn:disabled style */
+    background-color: #E6E6E6;
+    background-image: none;
+    box-shadow: none;
+    cursor: default;
+    opacity: 0.55;
+  }
 
-	.layout-wrapper{
-		width: 100%;
-		position: relative;
-		margin: 25px;
-		font-size: 120%;
 
-		.layout-slider{
-			width: 500px;
-			margin: 0 auto;
-		}
 
-		.timeline-range{
-			display: none;
-		}
+  #stats-map{
+    border: 1px solid #ccc;
+  }
 
-		.current-year{
-			position: absolute;
-			top: 0px;
-			right: 160px;
-		}
+  .layout-wrapper{
+    width: 100%;
+    position: relative;
+    margin: 25px;
+    font-size: 120%;
 
-		.previous-year{
-			position: absolute;
-			top: 0px;
-			left: 170px;
-		}
-	}
+    .layout-slider{
+      width: 500px;
+      margin: 0 auto;
+    }
+
+    .timeline-range{
+      display: none;
+    }
+
+    .current-year{
+      position: absolute;
+      top: 0px;
+      right: 160px;
+    }
+
+    .previous-year{
+      position: absolute;
+      top: 0px;
+      left: 170px;
+    }
+  }
 
   .selectboxit, .selectboxit-options{
     width: auto;
@@ -156,7 +166,7 @@
     background: #FDFDFD;
   }
   .selectboxit-text{
-    text-indent: 15px;  	
+    text-indent: 15px;    
     line-height: 32px !important;
   }
 

@@ -2,7 +2,7 @@ OpenBlight = {
   common: {
     init: function() {
       // application-wide code
-      OpenBlight.common.show_disclaimer();
+      // OpenBlight.common.show_disclaimer();
       OpenBlight.common.handle_auto_complete_address();
       OpenBlight.common.dropdownLoginForm();
 

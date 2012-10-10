@@ -50,6 +50,12 @@
 		}
 	}
 
+  .search-results #map{
+
+    height: 550px; 
+    width: 100%;
+    min-width: 500px;
+  }
 
   .no-search-results{
     position: relative;
@@ -119,6 +125,7 @@
     padding: 2px;
     margin-top: 10px;
     font-size: 115%;
+    width: 100%;
 
     .no-record-notice{
 
@@ -496,7 +503,7 @@
       background: url("/assets/single-progress-arrows-2.png") no-repeat scroll 0 -26px transparent;
 
       &.pending {
-        background: url("/assets/single-progress-arrows-2.png") no-repeat scroll -1px -55px transparent;
+        background: url("/assets/single-progress-arrows-2.png") no-repeat scroll 0px -54px transparent;
       }
     }
 

@@ -81,7 +81,7 @@
               -elsif kase.state != 'Open'
                 .progress-arrow.error{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
               -else
-                .progress-arrow.pending{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
+                .progress-arrow.resolution.pending{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
           %td
         %hr.soften
   -if kase.case_data_error?
