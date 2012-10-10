@@ -203,13 +203,18 @@ module LAMAHelpers
         end
       end
     elsif event.class == Hashie::Mash && event.IsComplete =~ /false/
-      if event.Name =~ /Administrative Hearing/ || event.Type =~ /Administrative Hearing/
-        if SCHED[:hearing_set]
+      if (event.Name =~ /Administrative/ && event.Name =~ /Hearing/) || (event.Type =~ /Administrative/ event.Type =~ /Hearing/)
+        #if SCHED[:hearing_set]
           hearing_set = Hearing.new(:case_number => kase.case_number, :hearing_date => SCHED[:hearing_set])
           last_hearing = Hearing.where(:case => kase.case_number).last
+          last_inpsection = kase.inspections.last
+
+          return if last_inspection.nill
+          if last_hearing && last_
+
           last_reset = Resets.where(:case => kase.case_number).last
           last_notice = Notification.where(:case => kase.case_number).last
-          last_inpsection = kase.inspections.last
+          
           if last_hearing.nil? && last_reset.nil? && last_notice.nil?#  || (last_notice && last_hearing.date < last_notice.date)
             if last_hearing && last_hearing.date < hearing_set.date
             elsif last_reset && last_hearing.date < last_reset.date
@@ -227,7 +232,7 @@ module LAMAHelpers
               Hearing.create(:case_number => kase.case_number, :hearing_date => event.DateEvent, :hearing_status => event.Status, :hearing_type => event.Type, :is_complete => false)
             end
           end
-        end
+        #end
       end 
     end
   end
