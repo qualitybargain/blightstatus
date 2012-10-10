@@ -34,13 +34,13 @@
         %tr{:class => "case-history-notification case-history-notification-#{kase.case_number}"}
           %td
             %span.arrow                                    
-          %td.status Owner Notified
+          %td.status Notice Sent
           %td
             %table.table.table-nolines
               -kase.notifications.each do |n|
                 %tr
                   %td.date=n.date.strftime("%-m/%-d/%y")
-                  %td The owner was notified that an administrative case was being brought against this property for violations of the New Orleans Building Code.
+                  %td A notice of hearing was sent to the property owner.
 
 
 
@@ -48,15 +48,14 @@
         %tr{:class => "case-history-hearing case-history-hearing-#{kase.case_number}"}
           %td
             %span.arrow                                    
-          %td.status Hearing Scheduled
+          %td.status Case Heard
           %td
             %table.table-nolines
               -kase.hearings.each do |h|
                 %tr
                   %td.date=h.hearing_date.strftime("%-m/%-d/%y")
                   %td
-                    The case against this property #{h.date > Time.now ? 'will be' : 'was'} heard in a public hearing at 
-                    at New Orleans Courthouse
+                    The case against this property #{h.date > Time.now ? 'will be' : 'was'} heard with an initial judgment of ---
 
 
 
@@ -66,17 +65,17 @@
         %tr{:class => "case-history-judgement case-history-judgement-#{kase.case_number}"}
           %td
             %span.arrow                                    
-          %td.status Judgement Reach
+          %td.status Judgment Recorded
           %td
             %table.table-nolines
               -kase.hearings.each do |h|
                 %tr
                   %td.date=h.hearing_date.strftime("%-m/%-d/%y")
                   %td
-                    A judgement of 
+                    A judgment of 
                     %b
                       #{h.hearing_status}
-                    was reached
+                    was recorded
 
 
 
@@ -108,12 +107,12 @@
                         %td.date=r.date.strftime("%-m/%-d/%y")
                         %td This property was sent to code lien foreclosure
                 - elsif r.class == Maintenance
-                  %td.status Interim Nuisanace Abatement Program
+                  %td.status Lot Cleared
                   %td
                     %table.table-nolines
                       %tr
                         %td.date=r.date.strftime("%-m/%-d/%y")
-                        %td This property was maintained by #{r.program_name}
+                        %td This lot was cleared by #{r.program_name}
                 - else
                   %td
                     %td=r.class.to_s + ": " + r.date.strftime("%-m/%-d/%y")
