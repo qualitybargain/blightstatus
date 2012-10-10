@@ -19,7 +19,11 @@ namespace :lama do
       return
     end
 
-    LAMAHelpers.import_to_database(incidents, l)
+    begin
+      LAMAHelpers.import_to_database(incidents, l)
+    rescue Exception => ex
+      puts "THERE WAS AN EXCEPTION OF TYPE #{ex.class}, which told us that #{ex.message}"
+    end
   end
 
   desc "Import day's LAMA events"
