@@ -11,11 +11,11 @@ class Inspection < ActiveRecord::Base
     end
   end
 
-  # after_destroy do
-  #   if self.case
-  #     self.case.update_last_status
-  #   end
-  # end
+  after_destroy do
+    if self.case
+      self.case.update_last_status
+    end
+  end
 
   def date
     self.inspection_date || self.scheduled_date || DateTime.new(0)
