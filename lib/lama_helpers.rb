@@ -3,99 +3,102 @@ module LAMAHelpers
     l = client || LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
 
     incidents.each do |incident|
-      case_number = incident.Number
-      next unless case_number # need to find a better way to deal with this ... revisit post LAMA data cleanup
-      
-      division = get_incident_division_by_location(l,incident.Location,case_number)
+      begin
+        case_number = incident.Number
+        next unless case_number # need to find a better way to deal with this ... revisit post LAMA data cleanup
+        
+        division = get_incident_division_by_location(l,incident.Location,case_number)
 
-      next unless division == 'CE'
-      
-      kase = Case.find_or_create_by_case_number(:case_number => case_number, :state => 'Open')
-      kase.state = 'Closed' if incident.IsClosed =~/true/
-      puts "case => #{case_number}   status => #{incident.CurrentStatus}    status => #{incident.CurrentStatusDate}"
-      orig_state = kase.state
-      orig_outcome = kase.outcome
-      incident_full = l.incident(case_number)
-      
-      #Go through all data points and pull out relevant things here
-      #Inspections
-      inspections = incident_full.Inspections
-      if inspections
-        if inspections.class == Hashie::Mash
-          inspections = inspections.Inspection
-          if inspections.class == Array
-            inspections.each do |inspection|
-              parseInspection(case_number,inspection)          
+        next unless division == 'CE'
+        
+        kase = Case.find_or_create_by_case_number(:case_number => case_number, :state => 'Open')
+        kase.state = 'Closed' if incident.IsClosed =~/true/
+        puts "case => #{case_number}   status => #{incident.CurrentStatus}    date => #{incident.CurrentStatusDate}"
+        orig_state = kase.state
+        orig_outcome = kase.outcome
+        incident_full = l.incident(case_number)
+        
+        #Go through all data points and pull out relevant things here
+        #Inspections
+        inspections = incident_full.Inspections
+        if inspections
+          if inspections.class == Hashie::Mash
+            inspections = inspections.Inspection
+            if inspections.class == Array
+              inspections.each do |inspection|
+                parseInspection(case_number,inspection)          
+              end
             end
-          else
-            parseInspection(case_number,inspections)
           end
         end
-      end
 
-      judgements = incident_full.Judgments
-      if judgements
-        if judgements.class == Hashie::Mash
-          judgement = judgements.Judgement
-          parseInspection(kase,judgement)
-        end
-      end
-      
-      #Events
-      events = []
-      if incident_full.Events && incident_full.Events.IncidEvent
-        events = incident_full.Events.IncidEvent
-      end
-      if events
-        if events.class == Array
-          events.each do |event|
-            parseEvent(kase,event)          
+        judgements = incident_full.Judgments
+        if judgements
+          if judgements.class == Hashie::Mash
+            judgement = judgements.Judgement
+            parseInspection(kase,judgement)
           end
-        else
-          parseEvent(kase,events)
         end
-      end
-
-      #Actions
-      actions = []
-      if incident_full.Actions && incident_full.Actions.CodeAction
-        actions = incident_full.Actions.CodeAction
-        if actions
-          if actions.class == Array
-            actions.each do |action|
-              parseAction(kase, action)          
+        
+        #Events
+        events = []
+        if incident_full.Events && incident_full.Events.IncidEvent
+          events = incident_full.Events.IncidEvent
+        end
+        if events
+          if events.class == Array
+            events.each do |event|
+              parseEvent(kase,event)          
             end
           else
-            parseAction(kase, actions)
-          end     
-        end      
-      end
-      
-
-      #Violations
-      #TODO: add violations table and create front end for this 
-      #Judgments - Closed
-      case_status = incident_full.Description
-      if (case_status =~ /Status:/ && case_status =~ /Status Date:/)
-        case_status = case_status[((case_status =~ /Status:/) + "Status:".length) ... case_status =~ /Status Date:/].strip
-
-        d = incident_full.Description
-        d = d[d.index('Status Date:') .. -1].split(' ')
-        d = d[2].split('/')
-        d = DateTime.new(d[2].to_i,d[0].to_i,d[1].to_i)
-
-        parseStatus(kase,case_status,d)
-      end
-      
-      if kase.address.nil?
-        addresses = AddressHelpers.find_address(incident.Location)
-        unless addresses.empty?
-          kase.address = addresses.first
+            parseEvent(kase,events)
+          end
         end
-      end
-      if !kase.accela_steps.nil? || kase.state != orig_state || kase.outcome != orig_outcome
-        invalidate_steps(kase)
-        k = kase.save
+
+        #Actions
+        actions = []
+        if incident_full.Actions && incident_full.Actions.CodeAction
+          actions = incident_full.Actions.CodeAction
+          if actions
+            if actions.class == Array
+              actions.each do |action|
+                parseAction(kase, action)          
+              end
+            else
+              parseAction(kase, actions)
+            end     
+          end      
+        end
+
+        #Violations
+        #TODO: add violations table and create front end for this 
+        #Judgments - Closed
+        case_status = incident_full.Description
+        if (case_status =~ /Status:/ && case_status =~ /Status Date:/)
+          case_status = case_status[((case_status =~ /Status:/) + "Status:".length) ... case_status =~ /Status Date:/].strip
+
+          d = incident_full.Description
+          d = d[d.index('Status Date:') .. -1].split(' ')
+          d = d[2].split('/')
+          d = DateTime.new(d[2].to_i,d[0].to_i,d[1].to_i)
+
+          parseStatus(kase,case_status,d)
+        end
+        
+        if kase.address.nil?
+          addresses = AddressHelpers.find_address(incident.Location)
+          unless addresses.empty?
+            kase.address = addresses.first
+          end
+        end
+        if !kase.accela_steps.nil? || kase.state != orig_state || kase.outcome != orig_outcome
+          invalidate_steps(kase)
+          k = kase.save
+        end
+      rescue Interrupt
+        return
+      rescue Exception => ex
+        puts "THERE WAS AN EXCEPTION OF TYPE #{ex.class}, which told us that #{ex.message}"
       end
     end
   end
@@ -222,7 +225,7 @@ module LAMAHelpers
         kase.outcome = 'Closed: In Compliance'
       elsif action.Type =~ /Judgment/ && (action.Type =~ /Posting/ || action.Type =~ /Recordation/ || action.Type =~ /Notice/)
         Judgement.where(:case_number => kase.case_number, :judgement_date => action.Date, :status => nil).delete_all
-         Judgement.find_or_create_by_case_number(:case_number => kase.case_number, :judgement_date => action.Date, :notes => action.Type)
+        j = Judgement.find_or_create_by_case_number(:case_number => kase.case_number, :judgement_date => action.Date, :notes => action.Type)
         unless j.status
           kase.outcome = 'Judgment' if kase.outcome != 'Judgment'
         end
@@ -293,6 +296,8 @@ module LAMAHelpers
           division = incident.Division if incident.Number == case_number
         end
       end
+    rescue Interrupt
+      return
     rescue Exception => ex
       puts "There was an error of type #{ex.class}, with a message of #{ex.message}"
     end
