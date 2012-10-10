@@ -63,15 +63,16 @@ OpenBlight.accounts = {
         if($(this).data('method') == 'delete'){
           if(OpenBlight.accounts.account_page){
             $(this).parentsUntil('.subscription').parent().fadeOut('slow');
-            // $(this).parentsUntil('.subscription').parent().remove();
+            $(this).parentsUntil('.subscription').parent().remove();
           }
           else{
-            $(this).html('Add to Watchlist');
+            $(this).html('<img src="/assets/+icon.png" class="add-icon"> Watchlist');
             $(this).data('method', 'put');
 
           }
         }
         else{
+
           $(this).html('Watching');
           $(this).data('method', 'delete')
         }
