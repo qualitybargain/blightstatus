@@ -23,7 +23,7 @@
             =select( "status", "status", { "Inspected" => "inspections", "Notified" => "notifications", "Hearing" => "hearings", "Judgment" => "judgement", "Demolitions" => "demolitions", "Foreclosure" => "foreclosures"})
           %div
             %p.query-selector
-              Occured on:
+              Occured in:
             =date_select("start_date", "start_date",  :default => @date, :order => [:month, :year], :start_year => 2011, :end_year => @date.year, :discard_day => true)
 
             %div{:style => "display: none"}
@@ -33,7 +33,7 @@
               =select( "show_stats", "show_stats", { "Show Stats" => "1","Hide Stats" => "0" } )
           %div
             #map-loading.label.label-important
-              Map Loading....
+              Map Loading
             #no-data.label.label-important
               No results
             #stats-row
