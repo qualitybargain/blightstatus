@@ -123,12 +123,15 @@
   .status-update{
     display: inline-block;
     padding: 2px;
-    margin-top: 10px;
-    font-size: 115%;
+    font-size: 120%;
     width: 100%;
-
-    .no-record-notice{
-
+    h1{
+      padding: 5px 0 15px 0;
+      color: $darkGrey;
+    }
+  }
+  
+   .no-record-notice{
       padding: 15px;
       background-color: $lighterTeal;
       border-radius: $borderRadius;
@@ -136,8 +139,6 @@
       font-family: "Lato";
       font-size: $largeFontSize;
     }
-  }
-
 
   .additional-address-information{
     text-align: left;  
