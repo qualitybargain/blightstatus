@@ -36,8 +36,8 @@ module LAMAHelpers
         judgements = incident_full.Judgments
         if judgements
           if judgements.class == Hashie::Mash
-            judgement = judgements.Judgement
-            parseInspection(kase,judgement)
+            judgement = judgements.Judgment
+            parseJudgement(kase,judgement)
           end
         end
         
@@ -305,28 +305,28 @@ module LAMAHelpers
     if judgement.class == Hashie::Mash
       j_status = judgement.Status.downcase unless judgement.Status.nil?
       date = judgement.D_Court unless judgement.D_Court.nil?
-    end
     
-    return if j_status =~ 'pending'
-
-    if j_status =~ /dismiss/
-      j = 'Dismissed'
-      kase.outcome = "Closed: Dismissed"
-    elsif j_status =~ /closed/
-      j = 'Closed'
-      kase.outcome = "Closed"
-    elsif case_status =~ /guilty/
-      if case_status =~ /not guilty/
-        j = 'Not Guilty'
-      else
-        j = 'Guilty'
+    
+      return if j_status =~ /pending/
+      if j_status =~ /dismiss/
+        j = 'Dismissed'
+        kase.outcome = "Closed: Dismissed"
+      elsif j_status =~ /closed/
+        j = 'Closed'
+        kase.outcome = "Closed"
+      elsif j_status =~ /guilty/
+        if j_status =~ /not guilty/
+          j = 'Not Guilty'
+        else
+          j = 'Guilty'
+        end
+        kase.outcome = j        
+      elsif j_status =~ /rescinded/
+          j = 'Rescinded'
+          kase.outcome = 'Judgment Rescinded' 
       end
-      kase.outcome = j        
-    elsif case_status =~ /rescinded/
-        j = 'Rescinded'
-        kase.outcome = 'Judgment Rescinded' 
+      j_status = judgement.Status unless judgement.Status.nil?  
+      Judgement.create(:case_number => kase.case_number, :status => j, :judgement_date => date, :notes => j_status)      
     end
-    j_status = judgement.Status.downcase unless judgement.Status.nil?  
-    Judgement.create(:case_number => kase.case_number, :status => j, :judgement_date => date, :notes => j_status)
   end
 end
