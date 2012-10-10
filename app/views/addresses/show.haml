@@ -28,9 +28,9 @@
                 %br
                 .register-or-login{:style => "margin: 0 auto; text-align: center"}
                   %h3
-                    %a.btn.btn-primary.btn-large{:href => "/accounts/sign_up"} Log in
+                    %a.btn.btn-primary.btn-large{:href => "/accounts/sign_up"} Sign up
                     OR 
-                    %a.btn.btn-primary.btn-large{:href => "/accounts/sign_in"} Register
+                    %a.btn.btn-primary.btn-large{:href => "/accounts/sign_in"} Log in
                 / %h2
                 /   Not sure yet? 
                 /   =link_to Take a Tour >
@@ -46,14 +46,14 @@
       .property-history
         .block
           -if @address.cases.empty?
-            .case.no-case-record
-              %h2
-                This property does not have a Code Enforcement record.
-                %br
-              %h2
-                To report a violation call 
-                %b
-                  311
+            .case
+              .no-record-notice
+                This property does not have a blight case record.
+              .status-update
+                %p
+                  To report a code violation, call 
+                  %b
+                    311
           -else
             -@address.cases_sorted_by_state.each do |c|
               .case{:class => "case-status-#{c.state}".downcase}
