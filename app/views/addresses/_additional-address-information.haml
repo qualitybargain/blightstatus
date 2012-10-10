@@ -10,11 +10,11 @@
           -if d.first.program_name == "NORA"
             sold to the state and demolished through the <b>Road Home</b> program
           -elsif d.first.program_name == "IDC"
-            %b=d.program_name
+            %b=d.first.program_name
           -elsif d.first.program_name == "SDER"
-            %b=d.program_name
+            %b=d.first.program_name
           -elsif d.first.program_name == "NOSD"
-            %b=d.program_name
+            %b=d.first.program_name
           -else
             demolished
 
