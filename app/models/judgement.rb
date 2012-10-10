@@ -8,11 +8,11 @@ class Judgement < ActiveRecord::Base
     end
   end
 
-  # after_destroy do
-  #   if self.case
-  #     self.case.update_last_status
-  #   end
-  # end
+  after_destroy do
+    if self.case
+      self.case.update_last_status
+    end
+  end
 
   def date
     self.judgement_date || Time.now
