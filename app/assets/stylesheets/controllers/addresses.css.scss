@@ -15,8 +15,8 @@
   .property-page{
     margin-top: 50px;
   }
-  #map-search-mode{
-    display: none;
+  #map-search-mode, #map-search-mode + label{
+    display: inline;
   }
 
   label.btn{
