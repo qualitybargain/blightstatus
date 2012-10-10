@@ -17,9 +17,33 @@
 
       %p
         Please help us make this site better by reporting technical problems to 
-        %a{:href => "mailto:blightstatus@codeforamerica.org"} 
-          blightstatus@codeforamerica.org.
-    
+
+        =link_to('#contact-form-prompt', "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-toggle"=>"modal", "data-title"=>"Receive notifications when the status of this property changes") do
+          blightstatus@codeforamerica.org
+
+        .modal.hide.fade#contact-form-prompt
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+          .modal-body
+            .login-information{:style => "margin: 0 auto; font-size: 90%;"}
+              %h2{:style => "font-size: 150%;"}
+                This email does not send information to Code Enforcement. 
+              %h2{:style => "font-size: 150%;"}
+                Please contact <b>311</b> for any requests about specific addresses.
+            %br
+            %hr.soften
+            %br
+            .register-or-login
+              %h3{:style => "margin: 0 auto; text-align: center"}
+                %a.btn.btn-primary.btn-large{:mailto => "blightstatus@codeforamerica.org"} Email Us
+                OR 
+                %a.btn.btn-primary.btn-large{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Return to website
+            / %h2
+            /   Not sure yet? 
+            /   =link_to Take a Tour >
+
+
+
+
 
     .span3.city-footer-logo
       %img{:src => "/assets/CNO_logo.gif", :width => "200px"}
