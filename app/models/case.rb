@@ -137,11 +137,6 @@ class Case < ActiveRecord::Base
     Case.matched_count.to_f / Case.count.to_f * 100
   end
 
-
-
-
-
-
   def to_hash
     c = {}
     c[:complaint] = self.complaint
