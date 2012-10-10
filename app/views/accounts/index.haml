@@ -9,18 +9,17 @@
     .block
       #subscriptions
         #subscriptions-information
-          Hello world
+          %p
+            Add properties to your Watchlist to keep track of their progress, all in one place. 
+          %p
+            Receive email alerts the moment any of the properties you are watching move forward in the blight process. 
         #no-subscriptions-found.case
-          %br
-          %h2
-            When the status of any property you are watching changes you'll be notified by email with a summary of the changes.
-
-          %h2
-            To watch a property, search for an address and at the property page you'll see a button that looks like this:
-          %h2
+          %p
+            To watch a property, search for an address and you'll see a button at the top of the page that looks like this:
+          %p
             =image_tag 'watchlist-sample.png'
-          %h2
-            Click it and it be automatically be saved in your account.
+          %p
+            Click it, and that property will be instantly added to your Watchlist.
 
         -@account_subcriptions.each do |address|
           .subscription{:id => "subscription-#{address.id}" }
