@@ -146,7 +146,7 @@ namespace :foreclosures do
     end
 
 
-    puts "There were #{success} successful address matches and #{failure} failed matches. There were #{case_matches}"      
+    puts "There were #{success} successful address matches and #{failure} failed address matches and #{case_matches} cases matched"      
   end
 
   desc "Correlate foreclosure data with cases"  
