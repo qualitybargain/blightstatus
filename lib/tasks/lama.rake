@@ -10,6 +10,8 @@ namespace :lama do
     args.with_defaults(:start_date => date - 2.weeks, :end_date => date)
 
     l = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
+    
+    puts "Searching for incidents from #{args.start_date} to #{args.end_date}"
     incidents = l.incidents_by_date(args.start_date, args.end_date)
 
     incid_num = incidents.length
