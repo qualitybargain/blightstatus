@@ -279,7 +279,7 @@ module LAMAHelpers
         end
       end
     end
-
+    kase.save
   end
 
   def get_incident_division_by_location(lama,location,case_number)
