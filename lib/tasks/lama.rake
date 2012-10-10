@@ -15,17 +15,13 @@ namespace :lama do
     incidents = l.incidents_by_date(args.start_date, args.end_date)
 
     incid_num = incidents.length
-    p "There are #{incid_num} incidents"
+    puts "There are #{incid_num} incidents"
     if incid_num >= 1000
       p "LAMA can only return 1000 incidents at once- please try a smaller date range"
       return
     end
 
-    begin
-      LAMAHelpers.import_to_database(incidents, l)
-    rescue Exception => ex
-      puts "THERE WAS AN EXCEPTION OF TYPE #{ex.class}, which told us that #{ex.message}"
-    end
+    LAMAHelpers.import_to_database(incidents, l)
   end
 
   desc "Import day's LAMA events"
@@ -33,11 +29,7 @@ namespace :lama do
     date = Time.now
     end_date = date - 1.day
 
-    begin
-      Rake::Task["lama:load_by_date"].invoke(end_date, date)
-    rescue Exception => ex
-      puts "THERE WAS AN EXCEPTION OF TYPE #{ex.class}, which told us that #{ex.message}"
-    end
+    Rake::Task["lama:load_by_date"].invoke(end_date, date)
 
     Hearing.clear_incomplete
     Account.all.each(&:send_digest)
