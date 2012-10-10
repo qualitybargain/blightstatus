@@ -82,7 +82,7 @@ namespace :demolitions do
 
     SpreadsheetHelpers.workbook_to_hash(downloaded_file_path).each do |row|
        unless SpreadsheetHelpers.row_is_empty? row
-         if row["Current Status"] ~= /Certificate of Completion/
+         if row["Current Status"] =~ /Certificate of Completion/
            Demolition.create(:address_long => row['Address'].upcase, :date_completed => row['Current Status Date'])
          else
          end

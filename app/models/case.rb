@@ -59,11 +59,11 @@ class Case < ActiveRecord::Base
   end
 
   def update_last_status
-    if !self.accela_steps.empty?
-      step = self.adjudication_steps.last
+    if !adjudication_steps.empty?
+      step = adjudication_steps.last
       self.update_attributes({:status_id => step.id, :status_type => step.class.to_s })
       return step
-    else
+    elsif status_id != nil && status_type != nil
       self.update_attributes({:status_id => nil, :status_type => nil })
     end
   end

@@ -44,9 +44,9 @@ ActiveRecord::Schema.define(:version => 20121010013409) do
     t.float    "x"
     t.float    "y"
     t.string   "status"
-    t.datetime "created_at",                                                 :null => false
-    t.datetime "updated_at",                                                 :null => false
-    t.spatial  "point",            :limit => {:srid=>-1, :type=>"geometry"}
+    t.datetime "created_at",                                                :null => false
+    t.datetime "updated_at",                                                :null => false
+    t.spatial  "point",            :limit => {:srid=>0, :type=>"geometry"}
     t.string   "parcel_id"
     t.boolean  "official"
     t.string   "street_full_name"
@@ -90,9 +90,9 @@ ActiveRecord::Schema.define(:version => 20121010013409) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "address_id"
-    t.string   "state"
     t.integer  "status_id"
     t.string   "status_type"
+    t.string   "state"
     t.string   "outcome"
   end
 
@@ -185,7 +185,6 @@ ActiveRecord::Schema.define(:version => 20121010013409) do
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.string   "hearing_type"
-    t.boolean  "is_valid"
     t.boolean  "is_complete"
   end
 
@@ -256,9 +255,9 @@ ActiveRecord::Schema.define(:version => 20121010013409) do
     t.float    "x_max"
     t.float    "y_max"
     t.float    "area"
-    t.datetime "created_at",                                           :null => false
-    t.datetime "updated_at",                                           :null => false
-    t.spatial  "the_geom",   :limit => {:srid=>-1, :type=>"geometry"}
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.text     "the_geom"
   end
 
   create_table "notifications", :force => true do |t|
@@ -308,9 +307,9 @@ ActiveRecord::Schema.define(:version => 20121010013409) do
     t.string   "full_name"
     t.integer  "length_numberic"
     t.integer  "shape_len"
-    t.datetime "created_at",                                                 :null => false
-    t.datetime "updated_at",                                                 :null => false
-    t.spatial  "the_geom",         :limit => {:srid=>-1, :type=>"geometry"}
+    t.datetime "created_at",                                                :null => false
+    t.datetime "updated_at",                                                :null => false
+    t.spatial  "the_geom",         :limit => {:srid=>0, :type=>"geometry"}
     t.string   "prefix_direction"
     t.string   "suffix_direction"
   end
