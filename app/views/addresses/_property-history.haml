@@ -19,14 +19,15 @@
                       %b #{kase.first_inspection.inspection_findings.first.finding}
 
         -else
-          %td{:style => "width: 40px"}
-          %td 
+          %td{:colspan => "3", :style => "text-align: center"} 
             -if kase.state == 'Open'
               A case for this property created. Inspection is pending.
             -else
               A case for this property created. No futher actions have occured. 
               %a{:href => "/pages/help"}
                 Why?
+            %br
+            %br
 
 
 
