@@ -27,7 +27,11 @@ namespace :lama do
     date = Time.now
     end_date = date - 1.day
 
-    Rake::Task["lama:load_by_date"].invoke(end_date, date)
+    begin
+      Rake::Task["lama:load_by_date"].invoke(end_date, date)
+    rescue Exception => ex
+      puts "THERE WAS AN EXCEPTION OF TYPE #{ex.class}, which told us that #{ex.message}"
+    end
 
     Hearing.clear_incomplete
     Account.all.each(&:send_digest)
