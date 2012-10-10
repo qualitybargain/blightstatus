@@ -34,7 +34,7 @@ gem 'kaminari'
 gem 'thin'
 
 gem 'newrelic_rpm'
-gem 'delayed_task'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
