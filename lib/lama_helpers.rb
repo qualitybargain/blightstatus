@@ -12,7 +12,7 @@ module LAMAHelpers
       
       kase = Case.find_or_create_by_case_number(:case_number => case_number, :state => 'Open')
       kase.state = 'Closed' if incident.IsClosed =~/true/
-      puts "case => #{case_number}   status => #{incident.CurrentStatus}"
+      puts "case => #{case_number}   status => #{incident.CurrentStatus}    status => #{incident.CurrentStatusDate}"
       orig_state = kase.state
       orig_outcome = kase.outcome
       incident_full = l.incident(case_number)
