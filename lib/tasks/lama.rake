@@ -9,7 +9,7 @@ namespace :lama do
     date = Time.now
     args.with_defaults(:start_date => date - 2.weeks, :end_date => date)
 
-    if args.end_date != date
+    if args.end_date == date
       if ENV['start_date']
         args.start_date = ENV['start_date']
       end
