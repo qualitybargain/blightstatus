@@ -31,7 +31,7 @@ class Address < ActiveRecord::Base
       begin
         latest_step = Kernel.const_get(latest_type).find(latest_id)
       rescue ActiveRecord::RecordNotFound
-        self.update_attributes(:step_id => nil, :step_type => nil)
+        self.update_attributes(:latest_id => nil, :latest_type => nil)
       end
     elsif !self.workflow_steps.empty?
       latest_step = self.workflow_steps.sort{ |a, b| a.date <=> b.date }.last
