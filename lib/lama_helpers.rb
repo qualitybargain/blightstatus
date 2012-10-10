@@ -277,7 +277,6 @@ module LAMAHelpers
       kase.adjudication_steps.each do |s|
         if s.date > j.date
           s.destroy
-          kase.state = "Closed"
         end
       end
     end
