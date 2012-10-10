@@ -95,8 +95,6 @@ module LAMAHelpers
           invalidate_steps(kase)
           k = kase.save
         end
-      rescue Interrupt
-        return
       rescue Exception => ex
         puts "THERE WAS AN EXCEPTION OF TYPE #{ex.class}, which told us that #{ex.message}"
       end
