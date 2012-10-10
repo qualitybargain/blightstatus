@@ -36,11 +36,9 @@ class Case < ActiveRecord::Base
   def status
     step = nil
     if self.status_type && self.status_id
-      puts "status_type => #{status_type.inspect}       status_id => #{status_id.inspect}"
       step = Kernel.const_get(status_type).find(status_id)
-    elsif !self.accela_steps.empty?
-      step = self.accela_steps.sort{ |a, b| a.date <=> b.date }.last
-      self.update_attributes({:status_id => step.id, :status_type => step.class.to_s })
+    else
+      update_last_status
     end
     @status = step
     return step
@@ -56,6 +54,15 @@ class Case < ActiveRecord::Base
     latest = most_recent_status
     if latest.nil? || step.date >= latest.date
       self.update_attributes({:status_id => step.id, :status_type => step.class.to_s })
+    end
+  end
+
+  def update_last_status
+    if !self.accela_steps.empty?
+      step = self.adjudication_steps.last
+      self.update_attributes({:status_id => step.id, :status_type => step.class.to_s })
+    else
+      self.update_attributes({:status_id => nil, :status_type => nil })
     end
   end
 

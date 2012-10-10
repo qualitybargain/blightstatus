@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121009131533) do
+ActiveRecord::Schema.define(:version => 20121010013409) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                  :default => "",   :null => false
@@ -106,7 +106,6 @@ ActiveRecord::Schema.define(:version => 20121009131533) do
     t.string   "notes"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
-    t.boolean  "is_valid"
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -186,7 +185,6 @@ ActiveRecord::Schema.define(:version => 20121009131533) do
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.string   "hearing_type"
-    t.boolean  "is_valid"
   end
 
   add_index "hearings", ["case_number"], :name => "index_hearings_on_case_number"
@@ -209,7 +207,6 @@ ActiveRecord::Schema.define(:version => 20121009131533) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.text     "notes"
-    t.boolean  "is_valid"
   end
 
   add_index "inspections", ["case_number"], :name => "index_inspections_on_case_number"
@@ -227,7 +224,6 @@ ActiveRecord::Schema.define(:version => 20121009131533) do
     t.string   "status"
     t.string   "notes"
     t.datetime "judgement_date"
-    t.boolean  "is_valid"
   end
 
   add_index "judgements", ["case_number"], :name => "index_judgements_on_case_number"
@@ -269,7 +265,6 @@ ActiveRecord::Schema.define(:version => 20121009131533) do
     t.string   "case_number"
     t.date     "notified"
     t.string   "notification_type"
-    t.boolean  "is_valid"
   end
 
   create_table "parcels", :force => true do |t|
@@ -291,7 +286,6 @@ ActiveRecord::Schema.define(:version => 20121009131533) do
     t.datetime "updated_at",  :null => false
     t.datetime "reset_date"
     t.string   "notes"
-    t.boolean  "is_valid"
   end
 
   add_index "resets", ["case_number"], :name => "index_resets_on_case_number"
