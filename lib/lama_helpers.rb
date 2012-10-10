@@ -10,9 +10,10 @@ module LAMAHelpers
         division = get_incident_division_by_location(l,incident.Location,case_number)
 
         next unless division == 'CE'
+        case_state = 'Open'
+        case_state = 'Closed' if incident.IsClosed =~/true/
+        kase = Case.find_or_create_by_case_number(:case_number => case_number, :state => case_state)
         
-        kase = Case.find_or_create_by_case_number(:case_number => case_number, :state => 'Open')
-        kase.state = 'Closed' if incident.IsClosed =~/true/
         puts "case => #{case_number}   status => #{incident.CurrentStatus}    date => #{incident.CurrentStatusDate}"
         orig_state = kase.state
         orig_outcome = kase.outcome
@@ -35,8 +36,8 @@ module LAMAHelpers
         judgements = incident_full.Judgments
         if judgements
           if judgements.class == Hashie::Mash
-            judgement = judgements.Judgement
-            parseInspection(kase,judgement)
+            judgement = judgements.Judgment
+            parseJudgement(kase,judgement)
           end
         end
         
@@ -95,9 +96,7 @@ module LAMAHelpers
           invalidate_steps(kase)
           k = kase.save
         end
-      rescue Interrupt
-        return
-      rescue Exception => ex
+      rescue StandardError => ex
         puts "THERE WAS AN EXCEPTION OF TYPE #{ex.class}, which told us that #{ex.message}"
       end
     end
@@ -296,9 +295,7 @@ module LAMAHelpers
           division = incident.Division if incident.Number == case_number
         end
       end
-    rescue Interrupt
-      return
-    rescue Exception => ex
+    rescue StandardError => ex
       puts "There was an error of type #{ex.class}, with a message of #{ex.message}"
     end
     division
@@ -308,28 +305,28 @@ module LAMAHelpers
     if judgement.class == Hashie::Mash
       j_status = judgement.Status.downcase unless judgement.Status.nil?
       date = judgement.D_Court unless judgement.D_Court.nil?
-    end
     
-    return if j_status =~ 'pending'
-
-    if j_status =~ /dismiss/
-      j = 'Dismissed'
-      kase.outcome = "Closed: Dismissed"
-    elsif j_status =~ /closed/
-      j = 'Closed'
-      kase.outcome = "Closed"
-    elsif case_status =~ /guilty/
-      if case_status =~ /not guilty/
-        j = 'Not Guilty'
-      else
-        j = 'Guilty'
+    
+      return if j_status =~ /pending/
+      if j_status =~ /dismiss/
+        j = 'Dismissed'
+        kase.outcome = "Closed: Dismissed"
+      elsif j_status =~ /closed/
+        j = 'Closed'
+        kase.outcome = "Closed"
+      elsif j_status =~ /guilty/
+        if j_status =~ /not guilty/
+          j = 'Not Guilty'
+        else
+          j = 'Guilty'
+        end
+        kase.outcome = j        
+      elsif j_status =~ /rescinded/
+          j = 'Rescinded'
+          kase.outcome = 'Judgment Rescinded' 
       end
-      kase.outcome = j        
-    elsif case_status =~ /rescinded/
-        j = 'Rescinded'
-        kase.outcome = 'Judgment Rescinded' 
+      j_status = judgement.Status unless judgement.Status.nil?  
+      Judgement.create(:case_number => kase.case_number, :status => j, :judgement_date => date, :notes => j_status)      
     end
-    j_status = judgement.Status.downcase unless judgement.Status.nil?  
-    Judgement.create(:case_number => kase.case_number, :status => j, :judgement_date => date, :notes => j_status)
   end
 end

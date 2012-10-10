@@ -8,10 +8,21 @@ namespace :lama do
   task :load_by_date, [:start_date, :end_date] => :environment do |t, args|
     date = Time.now
     args.with_defaults(:start_date => date - 2.weeks, :end_date => date)
+    start = args.start_date
+    finish = args.end_date
+
+    if finish == date
+      if ENV['start_date']
+        start = ENV['start_date']
+      end
+      if ENV['end_date']
+        finish = ENV['end_date']
+      end
+    end
 
     l = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
     
-    puts "Searching for incidents from #{args.start_date} to #{args.end_date}"
+    puts "Searching for incidents from #{start} to #{finish}"
     incidents = l.incidents_by_date(args.start_date, args.end_date)
 
     incid_num = incidents.length
