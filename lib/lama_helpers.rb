@@ -284,13 +284,17 @@ module LAMAHelpers
 
   def get_incident_division_by_location(lama,location,case_number)
     division = nil
-    incidents = lama.incidents_by_location(location)
-    if incidents.class == Hashie::Mash
-      division = incidents.Division if incidents.Number == case_number
-    elsif incidents.class == Array
-      incidents.each do |incident|
-        division = incident.Division if incident.Number == case_number
+    begin
+      incidents = lama.incidents_by_location(location)
+      if incidents.class == Hashie::Mash
+        division = incidents.Division if incidents.Number == case_number
+      elsif incidents.class == Array
+        incidents.each do |incident|
+          division = incident.Division if incident.Number == case_number
+        end
       end
+    rescue Exception => ex
+      puts "There was an error of type #{ex.class}, with a message of #{ex.message}"
     end
     division
   end
