@@ -108,4 +108,17 @@ namespace :lama do
       end
     end
   end
+
+  desc "Refresh case.state for all cases"
+  task :update_case_state => :environment do |t, args|
+    
+    l = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
+    Case.all.each do |kase|
+      incident = l.incident(kase.case_number)
+      if incident && incident.IsClosed
+        incident.IsClosed =~ /true/ ? state = 'Closed' : state = 'Open'
+        kase.update_attribute(:state, state)
+      end
+    end
+  end
 end
