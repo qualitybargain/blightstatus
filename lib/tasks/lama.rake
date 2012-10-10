@@ -8,11 +8,14 @@ namespace :lama do
   task :load_by_date, [:start_date, :end_date] => :environment do |t, args|
     date = Time.now
     args.with_defaults(:start_date => date - 2.weeks, :end_date => date)
-    if ENV['start_date']
-      args.start_date = ENV['start_date']
-    end
-    if ENV['end_date']
-      args.end_date = ENV['end_date']
+
+    if args.end_date != date
+      if ENV['start_date']
+        args.start_date = ENV['start_date']
+      end
+      if ENV['end_date']
+        args.end_date = ENV['end_date']
+      end
     end
 
     l = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
