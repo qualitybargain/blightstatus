@@ -457,7 +457,7 @@
   }
 
   .progress-arrow{
-    height: 25px;
+    height: 23px;
     position: relative;
     width: 130px;
     margin-right: -25px;
@@ -509,6 +509,10 @@
 
       &.pending {
         background: url("/assets/single-progress-arrows-2.png") no-repeat scroll 0px -54px transparent !important;
+      }
+
+      &.loading{
+        background: url("/assets/single-progress-arrows-2.png") no-repeat scroll 0 -152px transparent !important;        
       }
     }
 
