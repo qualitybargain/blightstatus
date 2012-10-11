@@ -3,14 +3,14 @@
     .row
       .home-search
         .search-bubble
-          %h1 Find out what’s going on with properties in New Orleans.
+          %h1 What’s the status?
           %br.search-form
           =form_tag("/addresses/search", :method => "get") do
             .search-field
-              =text_field_tag 'address', '', :placeholder => "Example: 1415 Charbonnet St", :id => "main-search-field"
+              =text_field_tag 'address', '', :placeholder => "Example: 1708 St Roch Ave", :id => "main-search-field"
             .search-button
               =submit_tag("Search", :class => 'btn btn-primary btn-primary-search')
-          %span.help-block Enter any street name or address within Orleans Parish, Louisiana
+          %span.help-block Find out what the city is doing about blighted properties in New Orleans
           .speak-bubble
         .home-illustration
         / %h3.tag-line Find out what’s going on with properties in New Orleans.
@@ -27,23 +27,23 @@
 
     .row.frontpage-screenshot
       .span4
-        =link_to(image_tag("specific-address.png", :alt => "View single address"), "/addresses/157537")
+        =link_to(image_tag("specific-address.png", :alt => "View single address"), "/addresses/151886")
         %h3
           %b
             Specific address:
           %br
-            252 Sharon Dr
+            1708 St Roch Ave
 
           
 
 
       .span4
-        =link_to(image_tag("streetname.png", :alt => "View street"), "/addresses/search?utf8=✓&address=st+roch+avenue&commit=")
+        =link_to(image_tag("streetname.png", :alt => "View street"), "/addresses/search?utf8=✓&address=N+Miro&commit=")
         %h3
           %b
             Street name:
           %br
-          St Roch Avenue
+          N Miro Street
 
 
       / .span3

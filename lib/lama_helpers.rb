@@ -305,7 +305,7 @@ module LAMAHelpers
       j_status = judgement.Status.downcase unless judgement.Status.nil?
       date = judgement.D_Court unless judgement.D_Court.nil?
     
-    
+      j = nil
       return if j_status =~ /pending/
       if j_status =~ /dismiss/
         j = 'Dismissed'
@@ -325,7 +325,7 @@ module LAMAHelpers
           kase.outcome = 'Judgment Rescinded' 
       end
       j_status = judgement.Status unless judgement.Status.nil?  
-      Judgement.create(:case_number => kase.case_number, :status => j, :judgement_date => date, :notes => j_status)      
+      Judgement.create(:case_number => kase.case_number, :status => j, :judgement_date => date, :notes => j_status) if j
     end
   end
 end

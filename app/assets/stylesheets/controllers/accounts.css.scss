@@ -117,6 +117,8 @@
 
 
 
+
+
   .leaflet-map{
     border: 1px solid #aaa; 
     padding: 0 10px 0 0; 
@@ -221,3 +223,13 @@
 
   }
 }
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+
+#map, .email-notification{
+  position: absolute !important;
+}
+
+}
+
