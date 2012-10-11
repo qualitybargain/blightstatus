@@ -23,7 +23,7 @@
           %td
             .progress-arrow.pending{:style => "z-index: 11"}
           %td
-            .progress-arrow.pending{:style => "z-index: 10"}
+            .progress-arrow.resolution.pending{:style => "z-index: 10"}
           %td
 
       -else
@@ -76,21 +76,12 @@
             -unless kase.resolutions.empty?
               .progress-arrow.resolution{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
             -else
-
-              / %h2
-              /   =kase.resolutions.inspect
-              /   =kase.case_data_error?.inspect
-              /   =kase.missing_resolution?.inspect
-
               -if kase.case_data_error? && kase.missing_resolution?
-                .progress-arrow.error{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
-                1
+                .progress-arrow.resolution.error{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
               -elsif kase.state != 'Open'
-                .progress-arrow.error{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
-                2
+                .progress-arrow.resolution.error{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
               -else
-                .progress-arrow.pending{:class => "resolution-#{kase.case_number} resolution", :style => "z-index: 10"}
-                3
+                .progress-arrow.resolution.pending{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
           %td
         %hr.soften
   -if kase.case_data_error?
