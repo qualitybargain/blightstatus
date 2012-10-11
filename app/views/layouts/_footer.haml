@@ -1,3 +1,19 @@
+.modal.hide.fade#why-data-incomplete
+  %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+  .modal-body
+    .login-information{:style => "margin: 0 auto; font-size: 90%;"}
+      %h2{:style => "font-size: 150%;"}
+        We’re aggregating a lot of different data sources to tell a complete story about each property, and everything might not be perfectly integrated yet. However, it’s going to be improving every day
+    %br
+    %hr.soften
+    %br
+    .register-or-login
+      %h3{:style => "margin: 0 auto; text-align: center"}
+        %a.btn.btn-primary.btn-large{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Return to website
+    / %h2
+    /   Not sure yet? 
+    /   =link_to Take a Tour >
+
 %footer
   .container.footer
     .span5.learn-more
