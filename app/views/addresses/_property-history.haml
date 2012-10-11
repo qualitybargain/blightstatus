@@ -21,9 +21,9 @@
         -else
           %td{:colspan => "3", :style => "text-align: center"} 
             -if kase.state == 'Open'
-              A case for this property created. Inspection is pending.
+              A case for this property was created. Inspection is pending.
             -else
-              A case for this property created. No futher actions have occured. 
+              A case for this property was created. No futher actions have occured. 
               =link_to('#why-data-incomplete', "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-toggle"=>"modal", "data-title"=>"Receive notifications when the status of this property changes") do
                 Why?
 

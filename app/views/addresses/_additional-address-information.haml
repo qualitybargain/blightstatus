@@ -8,13 +8,13 @@
         %li
           This property was 
           -if d.first.program_name == "NORA"
-            sold to the state and demolished through the <b>Road Home</b> program
+            sold to the state and demolished through the <b>Road Home</b> program.
           -elsif d.first.program_name == "IDC"
-            %b=d.first.program_name
+            demolished because it was determined to be in <b>Imminent Danger of Collapse</b> 
           -elsif d.first.program_name == "SDER"
-            %b=d.first.program_name
+            demolished under the City's Strategic Demolition program
           -elsif d.first.program_name == "NOSD"
-            %b=d.first.program_name
+            demolished under the City's Strategic Demolition program
           -else
             demolished
 
