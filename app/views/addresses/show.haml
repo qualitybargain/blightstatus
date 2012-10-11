@@ -135,18 +135,15 @@
 
 
 
-      / .faq.centered.question-list
-      /   %h3
-      /     Data Quality
-      /   %ul
-      /     %li
-      /       What data is included?
-      /       %ul
-      /         %li hello world              
-      /         %li hello world
+      .faq.centered.question-list
+        %h3
+          Data Sources
+        .questions{:style => "padding-left: 20px; padding-right: 5px"}
+          / #data-quality-1.answer.collapse
+          %p
+            Data in BlightStatus comes from:
+          %ul
+            %li City of New Orleans Permits & Licensing system
+            %li City of New Orleans & Road Home Program <a href="https://data.nola.gov/Administrative-Data/BlightStat-Demolitions/abvi-rghr">demolition data</a>
+            %li <a href="http://civilsheriff.com/">Orleans Parish Sheriff</a>’s foreclosure data
 
-      /     %li
-      /       What data is not included?
-      /       %ul
-      /         %li hello world              
-      /         %li hello world
