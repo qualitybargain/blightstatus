@@ -69,18 +69,18 @@
       -unless kase.judgement.nil?
         %tr{:class => "case-history-judgement case-history-judgement-#{kase.case_number}"}
           %td
-            %span.arrow                                    
-          %td.status Judgment Recorded
+            %span.arrow
+          %td.status Judgment Reached
           %td
             %table.table-nolines
-              -kase.hearings.each do |h|
+              -kase.judgements do |j|
                 %tr
-                  %td.date=h.hearing_date.strftime("%-m/%-d/%y")
+                  %td.date=j.judgement_date.strftime("%-m/%-d/%y")
                   %td
-                    A judgment of 
+                    A judgment of
                     %b
-                      #{h.hearing_status}
-                    was recorded
+                      #{j.status}
+                    was reached
 
 
 
