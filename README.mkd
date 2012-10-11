@@ -20,7 +20,7 @@ Or, if you'd like to contribute to this project, read on!
 [travis]: http://travis-ci.org/codeforamerica/blightstatus
 
 ## <a name="dependencies"></a>Dependency Status
-[![Dependency Status](https://gemnasium.com/codeforamerica/cfa_template.png?travis)][gemnasium]
+[![Dependency Status](https://gemnasium.com/codeforamerica/blightstatus.png)](https://gemnasium.com/codeforamerica/blightstatus)
 
 [gemnasium]: https://gemnasium.com/codeforamerica/blightstatus
 
