@@ -112,6 +112,7 @@
 
                 - elsif r.class == Foreclosure
                   %td.status 
+                    / =r.inspect
                     Foreclosure
                     -if r.date > Time.now
                       Scheduled

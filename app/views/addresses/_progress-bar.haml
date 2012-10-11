@@ -76,11 +76,9 @@
             / %h1
             /   =kase.resolutions.first.values
             -unless kase.resolutions.empty?
-
               -if kase.resolutions.first.date > Time.now
                 .progress-arrow.resolution.loading{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
               -else
-                no nil
                 .progress-arrow.resolution{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
             -else
               -if kase.case_data_error? && kase.missing_resolution?
