@@ -19,14 +19,18 @@
                       %b #{kase.first_inspection.inspection_findings.first.finding}
 
         -else
-          %td{:style => "width: 40px"}
-          %td 
+          %td{:colspan => "3", :style => "text-align: center"} 
             -if kase.state == 'Open'
-              A case for this property created. Inspection is pending.
+              A case for this property was created. Inspection is pending.
             -else
-              A case for this property created. No futher actions have occured. 
-              %a{:href => "/pages/help"}
+              A case for this property was created. No futher actions have occured. 
+              =link_to('#why-data-incomplete', "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-toggle"=>"modal", "data-title"=>"Receive notifications when the status of this property changes") do
                 Why?
+
+
+
+            %br
+            %br
 
 
 
@@ -65,27 +69,21 @@
       -unless kase.judgement.nil?
         %tr{:class => "case-history-judgement case-history-judgement-#{kase.case_number}"}
           %td
-            %span.arrow                                    
+            %span.arrow
           %td.status Judgment Recorded
           %td
             %table.table-nolines
-              -kase.hearings.each do |h|
-                %tr
-                  %td.date=h.hearing_date.strftime("%-m/%-d/%y")
-                  %td
-                    A judgment of 
-                    %b
-                      #{h.hearing_status}
-                    was recorded
-
-
+              %tr
+                %td.date=kase.judgement.judgement_date.strftime("%-m/%-d/%y")
+                %td
+                  A judgment of
+                  %b
+                    #{kase.judgement.status}
+                  was reached
 
       / These are resolutions brought through a code enforcement case
       -unless kase.resolutions.empty?
         %tr{:class => "case-history-resolution case-history-resolution-#{kase.case_number}"}
-          %td
-            %span.arrow                                    
-          %td.status Reset
           %td
             %table.table-nolines
             -@address.resolutions.each do |r|
@@ -99,14 +97,37 @@
                     %table.table-nolines
                       %tr
                         %td.date=r.date.strftime("%-m/%-d/%y")
-                        %td This property was demolished by #{r.program_name}
+                        %td 
+                          This property was 
+                          -if r.program_name == "NORA"
+                            sold to the state and demolished through the <b>Road Home</b> program.
+                          -elsif r.program_name == "IDC"
+                            demolished because it was determined to be in <b>Imminent Danger of Collapse</b> 
+                          -elsif r.program_name == "SDER"
+                            demolished under the <b>City's Strategic Demolition</b> program
+                          -elsif r.program_name == "NOSD"
+                            demolished under the <b>City's Strategic Demolition</b> program
+                          -else
+                            demolished
+
                 - elsif r.class == Foreclosure
-                  %td.status Foreclosure
+                  %td.status 
+                    / =r.inspect
+                    Sheriff Sale 
+                    -if r.date > Time.now
+                      Scheduled
+                    / =r.inspect
                   %td
                     %table.table-nolines
                       %tr
                         %td.date=r.date.strftime("%-m/%-d/%y")
-                        %td This property was sent to code lien foreclosure
+                        %td 
+                          This property is scheduled for public auction in the lobby of the Civil District Courthouse at 421 Loyola Ave.
+                          %br
+                          -unless r.status.nil?
+                            The status is
+                            %b=r.status
+
                 - elsif r.class == Maintenance
                   %td.status Lot Cleared
                   %td

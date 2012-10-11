@@ -36,8 +36,11 @@
       %h2 Help us help you!
       %p 
         We want BlightStatus to make your work easier, not harder. If something is confusing or there is a feature missing that would make your work easier, please, 
-        %a{:href => "mailto:blightstatus@codeforamerica.org"} 
+        =link_to('#contact-form-prompt', "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-toggle"=>"modal", "data-title"=>"Receive notifications when the status of this property changes") do
           let us know!
+          
+        / %a{:href => "mailto:blightstatus@codeforamerica.org"} 
+        /   let us know!
 
 
 

@@ -162,7 +162,7 @@ namespace :demolitions do
     end
 
 
-    puts "There were #{success} successful matches and #{failure} failed matches and #{case_matches} cases matched"      
+    puts "There were #{success} successful address matches and #{failure} failed address matches and #{case_matches} cases matched"      
   end
 
   desc "Correlate demolition data with cases"  

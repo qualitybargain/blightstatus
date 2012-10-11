@@ -23,7 +23,7 @@
           %td
             .progress-arrow.pending{:style => "z-index: 11"}
           %td
-            .progress-arrow.pending{:style => "z-index: 10"}
+            .progress-arrow.resolution.pending{:style => "z-index: 10"}
           %td
 
       -else
@@ -54,7 +54,7 @@
             -unless kase.hearings.nil? || kase.hearings.empty?
               .progress-arrow.hearing{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
             -else
-              -if kase.case_data_error? && kase.missing_hearing?
+              -if kase.case_data_error? && kase.hearings.empty?
                 .progress-arrow.error{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
               -elsif kase.state != 'Open'
                 .progress-arrow.error{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
@@ -73,13 +73,18 @@
                 .progress-arrow.pending{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
 
           %td
+            / %h1
+            /   =kase.resolutions.first.values
             -unless kase.resolutions.empty?
-              .progress-arrow.resolution{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
+              -if kase.resolutions.first.date > Time.now
+                .progress-arrow.resolution.loading{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
+              -else
+                .progress-arrow.resolution{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
             -else
               -if kase.case_data_error? && kase.missing_resolution?
-                .progress-arrow.error{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
+                .progress-arrow.resolution.error{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
               -elsif kase.state != 'Open'
-                .progress-arrow.error{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
+                .progress-arrow.resolution.error{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
               -else
                 .progress-arrow.resolution.pending{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
           %td
@@ -89,5 +94,7 @@
       %b{:style => "color: red"}
         Warning:
       This case is missing steps. 
-      %a{:href => "/pages/help"}
+      =link_to('#why-data-incomplete', "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-toggle"=>"modal", "data-title"=>"Receive notifications when the status of this property changes") do
         Why?
+
+

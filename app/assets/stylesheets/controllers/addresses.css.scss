@@ -229,7 +229,7 @@
 
     .date {
       min-width: 80px;
-      text-align: center;
+      text-align: left;
     }
   }
 }
@@ -457,7 +457,7 @@
   }
 
   .progress-arrow{
-    height: 25px;
+    height: 23px;
     position: relative;
     width: 130px;
     margin-right: -25px;
@@ -498,19 +498,24 @@
 
     }
 
-    &.resolution {
-//      background: url('/assets/progress-arrows.png') no-repeat 0 -25px transparent;
-//      background: url('/assets/progress-arrows.png') no-repeat -225px -50px transparent;
-      background: url("/assets/single-progress-arrows-2.png") no-repeat scroll 0 -26px transparent;
-
-      &.pending {
-        background: url("/assets/single-progress-arrows-2.png") no-repeat scroll 0px -54px transparent;
-      }
-    }
-
     &.pending {
       background: url("/assets/single-progress-arrows-2.png") no-repeat -1px -1px transparent;
     }
+
+    &.resolution {
+//      background: url('/assets/progress-arrows.png') no-repeat 0 -25px transparent;
+//      background: url('/assets/progress-arrows.png') no-repeat -225px -50px transparent;
+      background: url("/assets/single-progress-arrows-2.png") no-repeat scroll 0 -172px transparent;
+
+      &.pending {
+        background: url("/assets/single-progress-arrows-2.png") no-repeat scroll 0px -54px transparent !important;
+      }
+
+      &.loading{
+        background: url("/assets/single-progress-arrows-2.png") no-repeat scroll 0 -152px transparent !important;        
+      }
+    }
+
 
 
   }

@@ -2,6 +2,7 @@ class Notification < ActiveRecord::Base
 	belongs_to :case, :foreign_key => :case_number, :primary_key => :case_number
   
   validates_uniqueness_of :notified, :scope => [:case_number, :notification_type]
+  validates_uniqueness_of :case_number, :scope => :notified
 
   after_save do
     if self.case
