@@ -10,6 +10,11 @@ module LAMAHelpers
         division = get_incident_division_by_location(l,incident.Location,case_number)
 
         next unless division == 'CE'
+        
+        action_spawn = nil
+        judgement_spawn = nil
+        inspection_spawn = nil
+
         case_state = 'Open'
         case_state = 'Closed' if incident.IsClosed =~/true/
         kase = Case.find_or_create_by_case_number(:case_number => case_number, :state => case_state)
@@ -21,6 +26,7 @@ module LAMAHelpers
         
         #Go through all data points and pull out relevant things here
         #Inspections
+        inspection_hash = {}
         inspections = incident_full.Inspections
         if inspections
           if inspections.class == Hashie::Mash
@@ -41,6 +47,20 @@ module LAMAHelpers
           end
         end
         
+        #Actions
+        actions = []
+        if incident_full.Actions && incident_full.Actions.CodeAction
+          actions = incident_full.Actions.CodeAction
+          if actions
+            if actions.class == Array
+              actions.each do |action|
+                parseAction(kase, action)          
+              end
+            else
+              parseAction(kase, actions)
+            end     
+          end      
+        end
         #Events
         events = []
         if incident_full.Events && incident_full.Events.IncidEvent
@@ -56,20 +76,6 @@ module LAMAHelpers
           end
         end
 
-        #Actions
-        actions = []
-        if incident_full.Actions && incident_full.Actions.CodeAction
-          actions = incident_full.Actions.CodeAction
-          if actions
-            if actions.class == Array
-              actions.each do |action|
-                parseAction(kase, action)          
-              end
-            else
-              parseAction(kase, actions)
-            end     
-          end      
-        end
 
         #Violations
         #TODO: add violations table and create front end for this 
@@ -201,39 +207,49 @@ module LAMAHelpers
     end
   end
   def parseInspection(case_number,inspection)
+    inspection_spawn = nil
     if inspection.class == Hashie::Mash && inspection.IsComplete =~ /true/
-      i = Inspection.find_or_create_by_case_number_and_inspection_date(:case_number => case_number, :inspection_date => inspection.InspectionDate, :notes => inspection.Comment)
+      #i = Inspection.find_or_create_by_case_number_and_inspection_date(:case_number => case_number, :inspection_date => inspection.InspectionDate, :notes => inspection.Comment)
+      inspection_spawn = {:spawn_id => inspection.ID, :inspection_date => inspection.InspectionDate, :notes => inspection.Comment :findings => {}}
+      finding = {}#Hash.new
       if inspection.Findings != nil && inspection.Findings.InspectionFinding != nil
         inspection.Findings.InspectionFinding.each do |finding|
           if finding.class == Hashie::Mash
             if finding.Finding && finding.Finding.length > 0
-              i.inspection_findings.create(:finding => finding.Finding, :label => finding.Label)
+              inspection_spawn[:findings][finding.ID] = {:finding_id => finding.ID, :finding => finding.Finding, :label => finding.Label}#i.inspection_findings.create(:finding => finding.Finding, :label => finding.Label)
             end
           end
         end
       end
     end
+    inspection_spawn
   end
   def parseAction(kase,action)
+    action_spawn = nil
     if action.class == Hashie::Mash && action.IsComplete =~ /true/
+      action_spawn = {:spawn_id => action.ID, :date => action.Date, :type => action.Type}
       if (action.Type =~ /Notice/ && action.Type =~ /Hearing/) || action.Type == 'Notice'
-        Notification.create(:case_number => kase.case_number, :notified => action.Date, :notification_type => action.Type)
+        #Notification.create(:case_number => kase.case_number, :notified => action.Date, :notification_type => action.Type)
+        action_spawn{:event_type => Notification.to_s}
       elsif action.Type =~ /Notice/ && action.Type =~ /Reset/
-        Reset.create(:case_number => kase.case_number, :reset_date => action.Date)
-      elsif action.Type =~ /Notice/ && action.Type =~ /Compliance/
-        kase.outcome = 'Closed: In Compliance'
-      elsif action.Type =~ /Judgment/ && (action.Type =~ /Posting/ || action.Type =~ /Recordation/ || action.Type =~ /Notice/)
-        Judgement.where(:case_number => kase.case_number, :judgement_date => action.Date, :status => nil).delete_all
-        j = Judgement.find_or_create_by_case_number(:case_number => kase.case_number, :judgement_date => action.Date, :notes => action.Type)
-        unless j.status
-          kase.outcome = 'Judgment' if kase.outcome != 'Judgment'
-        end
-      elsif action.Type =~ /Administrative Hearing/
-        unless action.Type =~ /Notice/
-         Hearing.create(:case_number => kase.case_number, :hearing_date => action.Date, :hearing_type => action.Type)
-        end
+        action_spawn{:event_type => Reset.to_s}
+        #Reset.create(:case_number => kase.case_number, :reset_date => action.Date)
       end
+      # elsif action.Type =~ /Notice/ && action.Type =~ /Compliance/
+      #   kase.outcome = 'Closed: In Compliance'
+      # elsif action.Type =~ /Judgment/ && (action.Type =~ /Posting/ || action.Type =~ /Recordation/ || action.Type =~ /Notice/)
+      #   Judgement.where(:case_number => kase.case_number, :judgement_date => action.Date, :status => nil).delete_all
+      #   j = Judgement.find_or_create_by_case_number(:case_number => kase.case_number, :judgement_date => action.Date, :notes => action.Type)
+      #   unless j.status
+      #     kase.outcome = 'Judgment' if kase.outcome != 'Judgment'
+      #   end
+      # elsif action.Type =~ /Administrative Hearing/
+      #   unless action.Type =~ /Notice/
+      #    Hearing.create(:case_number => kase.case_number, :hearing_date => action.Date, :hearing_type => action.Type)
+      #   end
+      # end
     end
+    action_spawn
   end
   def parseStatus(kase,case_status,date)
     if case_status =~ /Compliance/ 
@@ -301,12 +317,14 @@ module LAMAHelpers
   end
 
   def parseJudgement(kase,judgement)
+    judgement_spawn = nil
     if judgement.class == Hashie::Mash
-      j_status = judgement.Status.downcase unless judgement.Status.nil?
-      date = judgement.D_Court unless judgement.D_Court.nil?
+      j_status = judgement.Status.downcase if judgement.Status
+      date = judgement.D_Court if judgement.D_Court
+      id = judgement.ID if judgement.ID
     
-    
-      return if j_status =~ /pending/
+      return judgement_spawn if j_status =~ /pending/
+
       if j_status =~ /dismiss/
         j = 'Dismissed'
         kase.outcome = "Closed: Dismissed"
@@ -325,7 +343,9 @@ module LAMAHelpers
           kase.outcome = 'Judgment Rescinded' 
       end
       j_status = judgement.Status unless judgement.Status.nil?  
-      Judgement.create(:case_number => kase.case_number, :status => j, :judgement_date => date, :notes => j_status)      
+      #Judgement.create(:case_number => kase.case_number, :status => j, :judgement_date => date, :notes => j_status)      
+      judgement_spawn = {:spawn_id => judgement.ID, :status => j, :date => date, :notes => j_status}
     end
+    judgement_spawn
   end
 end
