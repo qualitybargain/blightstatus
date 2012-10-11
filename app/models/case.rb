@@ -23,6 +23,18 @@ class Case < ActiveRecord::Base
     self.inspections.sort{ |a, b| a.date <=> b.date }.first
   end
 
+  def last_inspection
+    self.inspections.sort{ |a, b| a.date <=> b.date }.last
+  end
+
+  def first_hearing
+    self.hearings.sort{ |a, b| a.date <=> b.date }.first
+  end
+
+  def last_hearing
+    self.hearings.sort{ |a, b| a.date <=> b.date }.last
+  end
+
   def accela_steps
     steps_ary = []
     steps_ary << self.hearings << self.inspections << self.demolitions << self.resets << self.foreclosure << self.notifications << self.maintenances << self.judgement
