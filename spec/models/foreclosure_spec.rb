@@ -22,7 +22,6 @@ describe Foreclosure do
   	end
   end
 
-
   describe "#self.matched_count" do
     	it "should return the totl count of foreclosures matched to cases" do
 			FactoryGirl.create(:foreclosure)
@@ -41,9 +40,9 @@ describe Foreclosure do
 
 	describe "#self.pct_matched" do
 		it "% of foreclosures matched to a case" do
-			FactoryGirl.create(:foreclosure)
-			FactoryGirl.create(:foreclosure)
-			FactoryGirl.create(:foreclosure)
+      3.times do 
+        FactoryGirl.create(:foreclosure, :sale_date => Time.now - Random.rand(3).days)
+      end
 			result = Foreclosure.pct_matched
 			result.should eq(25)
 		end
@@ -51,9 +50,9 @@ describe Foreclosure do
 	
 	describe "#self.status" do
 		it "return the # of distict foreclosure status in database" do
-			FactoryGirl.create(:foreclosure, :status => 'guilty')
-			FactoryGirl.create(:foreclosure, :status => 'closed')
-			FactoryGirl.create(:foreclosure, :status => 'dismissed')
+      %w('guilty', 'closed', 'dismissed').each do |stat|
+        FactoryGirl.create(:foreclosure, :status => stat, :sale_date => Time.now - Random.rand(3).days)
+      end
 			result = Foreclosure.status.count
 			result.should eq(4)
 		end
