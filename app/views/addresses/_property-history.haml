@@ -21,9 +21,9 @@
         -else
           %td{:colspan => "3", :style => "text-align: center"} 
             -if kase.state == 'Open'
-              A case for this property created. Inspection is pending.
+              A case for this property was created. Inspection is pending.
             -else
-              A case for this property created. No futher actions have occured. 
+              A case for this property was created. No futher actions have occured. 
               =link_to('#why-data-incomplete', "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-toggle"=>"modal", "data-title"=>"Receive notifications when the status of this property changes") do
                 Why?
 
@@ -82,8 +82,6 @@
                       #{j.status}
                     was reached
 
-
-
       / These are resolutions brought through a code enforcement case
       -unless kase.resolutions.empty?
         %tr{:class => "case-history-resolution case-history-resolution-#{kase.case_number}"}
@@ -100,7 +98,19 @@
                     %table.table-nolines
                       %tr
                         %td.date=r.date.strftime("%-m/%-d/%y")
-                        %td This property was demolished by #{r.program_name}
+                        %td 
+                          This property was 
+                          -if r.program_name == "NORA"
+                            sold to the state and demolished through the <b>Road Home</b> program.
+                          -elsif r.program_name == "IDC"
+                            demolished because it was determined to be in <b>Imminent Danger of Collapse</b> 
+                          -elsif r.program_name == "SDER"
+                            demolished under the <b>City's Strategic Demolition</b> program
+                          -elsif r.program_name == "NOSD"
+                            demolished under the <b>City's Strategic Demolition</b> program
+                          -else
+                            demolished
+
                 - elsif r.class == Foreclosure
                   %td.status 
                     Foreclosure
