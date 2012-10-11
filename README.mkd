@@ -15,13 +15,11 @@ If you'd just like to try out the site, you can do that [here.](http://blightsta
 Or, if you'd like to contribute to this project, read on!
 
 ## <a name="build"></a>Build Status
-[![Build Status](https://secure.travis-ci.org/codeforamerica/cfa_template.png?branch=master)][travis]
-
+[![Build Status](https://secure.travis-ci.org/codeforamerica/blightstatus.png)](http://travis-ci.org/codeforamerica/blightstatus)
 [travis]: http://travis-ci.org/codeforamerica/blightstatus
 
 ## <a name="dependencies"></a>Dependency Status
 [![Dependency Status](https://gemnasium.com/codeforamerica/blightstatus.png)](https://gemnasium.com/codeforamerica/blightstatus)
-
 [gemnasium]: https://gemnasium.com/codeforamerica/blightstatus
 
 ## <a name="demo"></a>Demo
