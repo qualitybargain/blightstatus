@@ -3,14 +3,14 @@
     .row
       .home-search
         .search-bubble
-          %h1 Find out what’s going on with properties in New Orleans.
+          %h1 What’s the status?
           %br.search-form
           =form_tag("/addresses/search", :method => "get") do
             .search-field
               =text_field_tag 'address', '', :placeholder => "Example: 1415 Charbonnet St", :id => "main-search-field"
             .search-button
               =submit_tag("Search", :class => 'btn btn-primary btn-primary-search')
-          %span.help-block Enter any street name or address within Orleans Parish, Louisiana
+          %span.help-block Find out what the city is doing about blighted properties in New Orleans
           .speak-bubble
         .home-illustration
         / %h3.tag-line Find out what’s going on with properties in New Orleans.
