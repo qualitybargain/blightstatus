@@ -1,4 +1,4 @@
--if !address.demolitions.empty? || !address.foreclosures.empty?
+-if (!address.demolitions.empty? && address.demolitions.first.case_number.nil? ) || (!address.foreclosures.empty? && address.foreclosures.first.case_number.nil? )
   .additional-address-information
     %hr.soften
     %h2
