@@ -114,6 +114,7 @@ namespace :lama do
     
     l = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
     Case.all.each do |kase|
+      puts kase.case_number
       incident = l.incident(kase.case_number)
       if incident && incident.IsClosed
         incident.IsClosed =~ /true/ ? state = 'Closed' : state = 'Open'
