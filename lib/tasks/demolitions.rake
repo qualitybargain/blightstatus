@@ -79,17 +79,32 @@ namespace :demolitions do
     ImportHelpers.connect_to_aws
     s3obj = AWS::S3::S3Object.find args.file_name, args.bucket_name
     downloaded_file_path = ImportHelpers.download_from_aws(s3obj)
-
+    
     SpreadsheetHelpers.workbook_to_hash(downloaded_file_path).each do |row|
        unless SpreadsheetHelpers.row_is_empty? row
-         if row["Current Status"] =~ /Certificate of Completion/
-           Demolition.create(:address_long => row['Address'].upcase, :date_completed => row['Current Status Date'])
-         else
+        current_status = row['Current Status'].strip if row['Current Status']
+        address_long = row['Address'].strip.upcase if row['Address']
+        date = row['Current Status Date'] if row['Current Status Date']
+        puts "address_long => #{address_long}"
+
+        addr = {}#address_long: nil, house_num: nil, street_type: nil, street_name: nil}
+          if address_long
+            addr[:address_long] = address_long
+            addr[:address_long] = addr[:address_long].chop if addr[:address_long].end_with?(".")
+          
+            addr[:house_num] = addr[:address_long].split(' ')[0]
+            addr[:street_type] = AddressHelpers.get_street_type addr[:address_long] 
+            addr[:street_name] = AddressHelpers.get_street_name addr[:address_long]
+        end
+         
+         if (current_status =~ /Permit/ && (current_status =~ /Issued/ || current_status =~ /Finaled/)) || (current_status =~ /Certificate/ && current_status =~ /Completion/)
+            d = Demolition.create(:address_long => addr[:address_long], :date_completed => date, :house_num => addr[:house_num], :street_type => addr[:street_type], :street_name => addr[:street_name]) if addr[:address_long]
+            puts "Demo imported => #{d.inspect}" if d
+         elsif (current_status =~ /Issued/ && current_status =~ /Error/)
+            d = Demolition.where(:address_long => addr[:address_long])
+            puts "Demo deleted => #{d.inspect}"
+            d.destroy_all
          end
-        #Demolition.create(:house_num => row['Number'], :street_name => row['Street'].upcase, :address_long =>  row['Address'].upcase, :date_started => row['Demo Start'],  :program_name => "NOSD")
-        # YES
-        # Current Status
-        # "Certificate of Occupancy - Issued No Meter"
       end
     end
   end
