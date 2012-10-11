@@ -70,7 +70,7 @@
         %tr{:class => "case-history-judgement case-history-judgement-#{kase.case_number}"}
           %td
             %span.arrow
-          %td.status Judgment Reached
+          %td.status Judgment Recorded
           %td
             %table.table-nolines
               %tr
@@ -113,7 +113,7 @@
                 - elsif r.class == Foreclosure
                   %td.status 
                     / =r.inspect
-                    Foreclosure
+                    Sheriff Sale 
                     -if r.date > Time.now
                       Scheduled
                     / =r.inspect
