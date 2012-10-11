@@ -68,11 +68,9 @@ OpenBlight.accounts = {
           else{
             $(this).html('<img src="/assets/+icon.png" class="add-icon"> Watchlist');
             $(this).data('method', 'put');
-
           }
         }
         else{
-
           $(this).html('Watching');
           $(this).data('method', 'delete')
         }

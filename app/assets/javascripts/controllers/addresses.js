@@ -19,10 +19,6 @@ OpenBlight.addresses = {
           });
         });
      });
-
-
-
-
   },
 
   show: function(){
@@ -140,8 +136,7 @@ OpenBlight.addresses = {
           var point = feature.coordinates;
           var y = point[1], x= point[0];
           var link = '/addresses/'+ data[current_feature].id;
-          var popupContent = '<h3><a href="' + link + '">' + data[current_feature].address_long + '</a></h3>' + 
-          '<img src="http://maps.googleapis.com/maps/api/streetview?location='+y+','+x+'&size=200x100&sensor=false" >';
+          var popupContent = '<h3><a href="' + link + '">' + data[current_feature].address_long + '</a></h3>';
 
           if(data[current_feature].latest_type && data[current_feature].latest_type.length){
             popupContent = popupContent + '<p>The most recent activity is: <br><b>'+ data[current_feature].latest_type + '</b></p>';
