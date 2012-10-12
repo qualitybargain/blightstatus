@@ -79,14 +79,15 @@ namespace :demolitions do
     ImportHelpers.connect_to_aws
     s3obj = AWS::S3::S3Object.find args.file_name, args.bucket_name
     downloaded_file_path = ImportHelpers.download_from_aws(s3obj)
-    
+    #downloaded_file_path = "/Users/amirbey/Projects/openblight/tmp/cache/tung_demolitions_oct_2012.xls"
     SpreadsheetHelpers.workbook_to_hash(downloaded_file_path).each do |row|
        unless SpreadsheetHelpers.row_is_empty? row
+        demo_number = row['Number'].strip if row['Number']
+        next if demo_number.nil? || demo_number.length == 0
         current_status = row['Current Status'].strip if row['Current Status']
         address_long = row['Address'].strip.upcase if row['Address']
         date = row['Current Status Date'] if row['Current Status Date']
-        puts "address_long => #{address_long}"
-
+        
         addr = {}#address_long: nil, house_num: nil, street_type: nil, street_name: nil}
           if address_long
             addr[:address_long] = address_long
@@ -97,9 +98,18 @@ namespace :demolitions do
             addr[:street_name] = AddressHelpers.get_street_name addr[:address_long]
         end
          
-         if (current_status =~ /Permit/ && (current_status =~ /Issued/ || current_status =~ /Finaled/)) || (current_status =~ /Certificate/ && current_status =~ /Completion/)
-            d = Demolition.create(:address_long => addr[:address_long], :date_completed => date, :house_num => addr[:house_num], :street_type => addr[:street_type], :street_name => addr[:street_name]) if addr[:address_long]
-            puts "Demo imported => #{d.inspect}" if d
+         if (current_status =~ /Permit/ && (current_status =~ /Issued/ || current_status =~ /Finaled/))
+            d = Demolition.find_or_create_by_demo_number(:demo_number => demo_number, :address_long => addr[:address_long], :date_started => date, :house_num => addr[:house_num], :street_type => addr[:street_type], :street_name => addr[:street_name])
+            puts "Demo imported with date_started => #{d.inspect}" if d
+         elsif  (current_status =~ /Certificate/ && current_status =~ /Completion/)
+            d = Demolition.find_by_demo_number(demo_number)
+            if d
+              d.update_attribute(:date_completed, date_completed) if d.date_completed.nil?
+              puts "Demo updated with date_completed => #{d.inspect}" if d
+            else
+               d = Demolition.create(:address_long => addr[:address_long], :date_completed => date, :house_num => addr[:house_num], :street_type => addr[:street_type], :street_name => addr[:street_name], :demo_number => demo_number)
+               puts "Demo imported with date_completed => #{d.inspect}" if d
+            end
          elsif (current_status =~ /Issued/ && current_status =~ /Error/)
             d = Demolition.where(:address_long => addr[:address_long])
             puts "Demo deleted => #{d.inspect}"
