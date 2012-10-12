@@ -141,6 +141,9 @@ OpenBlight.addresses = {
           if(data[current_feature].latest_type && data[current_feature].latest_type.length){
             popupContent = popupContent + '<hr class="soften"/><p>The most recent activity is: <br><b>'+ data[current_feature].latest_type + '</b></p>';
           }
+          else{
+            popupContent = popupContent + '<hr class="soften"/><p>A case has been created: <br><b>No further steps have taken place</b></p>';            
+          }
           layer.id = data[current_feature].id;
           OpenBlight.addresses.markers.push( layer );
 
