@@ -122,4 +122,15 @@ namespace :lama do
       end
     end
   end
+
+  desc "Import updates from LAMA by parameter pipe (|) delimited string of cases"
+  task :load_by_location, [:addresses] => :environment do |t, args|
+    l = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
+    incidents = []
+    addresses = args[:addresses].split('|')
+
+    addresses.each do |address|
+      LAMAHelpers.import_by_location(address.strip,l)
+    end
+  end
 end

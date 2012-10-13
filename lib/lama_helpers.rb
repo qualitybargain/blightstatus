@@ -29,6 +29,8 @@ module LAMAHelpers
               inspections.each do |inspection|
                 parseInspection(case_number,inspection)          
               end
+            else
+              parseInspection(case_number,inspections)     
             end
           end
         end
@@ -36,8 +38,14 @@ module LAMAHelpers
         judgements = incident_full.Judgments
         if judgements
           if judgements.class == Hashie::Mash
-            judgement = judgements.Judgment
-            parseJudgement(kase,judgement)
+            judgements = judgements.Judgment
+            if judgements.class == Array
+              judgements.each do |judgement|
+                parseJudgement(kase,judgement)
+              end
+            else
+              parseJudgement(kase,judgements)
+            end
           end
         end
         
@@ -110,6 +118,8 @@ module LAMAHelpers
         Notification.create(:case_number => kase.case_number, :notified => event.DateEvent, :notification_type => event.Type)
       elsif event.Type =~ /Administrative Hearing/
        Hearing.create(:case_number => kase.case_number, :hearing_date => event.DateEvent, :hearing_status => event.Status, :hearing_type => event.Type, :is_complete => true)#, :is_valid => true)
+      elsif ((event.Type =~ /Notice/ || event.Name =~ /Notice/) && (event.Type =~ /Reset/ || event.Name =~ /Reset/))
+        Reset.create(:case_number => kase.case_number, :reset_date => event.DateEvent)
       elsif event.Type =~ /Input Hearing Results/
        if event.Items != nil and event.IncidEventItem != nil
          event.IncidEventItem.each do |item|
@@ -282,6 +292,27 @@ module LAMAHelpers
     end
     kase.save
   end
+  def import_by_location(address,lama)
+    begin
+      incidents = incidents_by_location(address,lama)
+      #import_to_database(incidents, lama)
+
+      incid_num = incidents.length
+      p "There are #{incid_num} incidents for #{address}"
+      if incid_num >= 1000
+        p "LAMA can only return 1000 incidents at once- please try a smaller date range"
+        return
+      end
+
+      import_to_database(incidents, lama)
+    rescue StandardError => ex
+      puts "There was an error of type #{ex.class}, with a message of #{ex.message}"
+    end
+  end
+
+  def incidents_by_location(location,lama)
+    lama.incidents_by_location(location,lama)
+  end
 
   def get_incident_division_by_location(lama,location,case_number)
     division = nil
@@ -307,7 +338,11 @@ module LAMAHelpers
     
       j = nil
       return if j_status =~ /pending/
-      if j_status =~ /dismiss/
+      if j_status =~ /reset/
+        Reset.create(:case_number => kase.case_number, :reset_date => date, :notes => judgement.Status)
+        puts "reset imported from judgements"
+        kase.outcome = "Reset"
+      elsif j_status =~ /dismiss/
         j = 'Dismissed'
         kase.outcome = "Closed: Dismissed"
       elsif j_status =~ /closed/
