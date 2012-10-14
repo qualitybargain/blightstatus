@@ -55,7 +55,7 @@
           %td.status Case Heard
           %td
             %table.table-nolines
-              -kase.hearings.each do |h|
+              -kase.ordered_hearings.each do |h|
                 %tr
                   %td.date=h.hearing_date.strftime("%-m/%-d/%y")
                   %td
