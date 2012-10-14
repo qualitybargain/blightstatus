@@ -23,6 +23,11 @@ class Case < ActiveRecord::Base
     self.inspections.sort{ |a, b| a.date <=> b.date }.first
   end
 
+
+  def ordered_hearings
+    self.hearings.sort{ |a, b| b.date <=> a.date }
+  end
+
   def accela_steps
     steps_ary = []
     steps_ary << self.hearings << self.inspections << self.demolitions << self.resets << self.foreclosure << self.notifications << self.maintenances << self.judgement
@@ -180,25 +185,25 @@ class Case < ActiveRecord::Base
   end
 
   def missing_inspection?
-    !self.inspections.empty?
+    self.inspections.empty?
   end
 
 
   def missing_hearing?
-    !self.hearings.empty?
+    self.hearings.empty?
   end
 
 
   def missing_notification?
-    !self.notifications.empty?
+    self.notifications.empty?
   end
 
   def missing_judgement?
-    !self.judgement.nil? 
+    self.judgement.nil? 
   end
 
   def missing_resolution?
-    !(self.demolitions.empty? || self.foreclosure.nil? || self.maintenances.empty? )
+    (self.demolitions.empty? || self.foreclosure.nil? || self.maintenances.empty? )
   end
 
 
