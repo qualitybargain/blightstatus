@@ -133,4 +133,14 @@ namespace :lama do
       LAMAHelpers.import_by_location(address.strip,l)
     end
   end
+
+  desc "Import cases for addresses with no cases"
+  task :load_addreses_with_no_cases => :environment do |t, args|
+    l = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
+    addresses = Address.includes([:cases]).where("cases.id IS NULL")# and addresses.street_name = 'MISTLETOE'")
+    addresses.each do |address|
+      puts "Load cases for => #{address.address_long}"
+      LAMAHelpers.import_by_location(address.address_long,l)
+    end
+  end
 end

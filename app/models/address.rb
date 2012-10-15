@@ -1,5 +1,7 @@
 require "#{Rails.root}/lib/lama_helpers.rb"
+require "#{Rails.root}/lib/address_helpers.rb"
 include LAMAHelpers
+include AddressHelpers
 
 class Address < ActiveRecord::Base
   belongs_to :neighborhood
