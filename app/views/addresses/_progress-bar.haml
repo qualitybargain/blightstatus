@@ -12,7 +12,7 @@
 
     / =kase.case_steps
     %tbody
-      -if kase.case_steps == 0
+      -if kase.case_steps == 0 && kase.state == 'Open'
         %tr
           %td
             .progress-arrow.pending{:style => "z-index: 14"}
@@ -25,14 +25,26 @@
           %td
             .progress-arrow.resolution.pending{:style => "z-index: 10"}
           %td
-
+      -elsif kase.case_steps == 0 && kase.state == 'Closed'
+        %tr
+          %td
+            .progress-arrow.error{:style => "z-index: 14"}
+          %td
+            .progress-arrow.error{:style => "z-index: 13"}
+          %td
+            .progress-arrow.error{:style => "z-index: 12"}
+          %td
+            .progress-arrow.error{:style => "z-index: 11"}
+          %td
+            .progress-arrow.resolution.error{:style => "z-index: 10"}
+          %td      
       -else
         %tr
           %td
-            -unless kase.inspections.nil? || kase.inspections.empty?
+            -unless kase.inspections.nil? || kase.inspections.empty? 
               .progress-arrow.inspection{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
             -else
-              -if kase.case_data_error? && kase.missing_inspection?
+              -if kase.missing_inspection?
                 .progress-arrow.error{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
               -elsif kase.state != 'Open'
                 .progress-arrow.error{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
@@ -43,7 +55,7 @@
             -unless kase.notifications.nil? || kase.notifications.empty?
               .progress-arrow.notification{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
             -else
-              -if kase.case_data_error? && kase.notifications.empty?
+              -if kase.missing_notification?
                 .progress-arrow.error{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
               -elsif kase.state != 'Open'
                 .progress-arrow.error{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
@@ -51,10 +63,10 @@
                 .progress-arrow.pending{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
 
           %td
-            -unless kase.hearings.nil? || kase.hearings.empty?
+            -unless kase.hearings.empty? 
               .progress-arrow.hearing{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
             -else
-              -if kase.case_data_error? && kase.hearings.empty?
+              -if kase.missing_hearing?
                 .progress-arrow.error{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
               -elsif kase.state != 'Open'
                 .progress-arrow.error{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
@@ -65,7 +77,7 @@
             -unless kase.judgement.nil?
               .progress-arrow.judgement{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
             -else
-              -if kase.case_data_error? && kase.missing_judgement?
+              -if kase.missing_judgement?
                 .progress-arrow.error{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
               -elsif kase.state != 'Open'
                 .progress-arrow.error{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
@@ -73,15 +85,13 @@
                 .progress-arrow.pending{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
 
           %td
-            / %h1
-            /   =kase.resolutions.first.values
             -unless kase.resolutions.empty?
               -if kase.resolutions.first.date > Time.now
                 .progress-arrow.resolution.loading{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
               -else
                 .progress-arrow.resolution{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
             -else
-              -if kase.case_data_error? && kase.missing_resolution?
+              -if kase.missing_resolution?
                 .progress-arrow.resolution.error{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
               -elsif kase.state != 'Open'
                 .progress-arrow.resolution.error{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
