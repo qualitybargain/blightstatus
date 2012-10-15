@@ -28,6 +28,23 @@ class Case < ActiveRecord::Base
     self.hearings.sort{ |a, b| b.date <=> a.date }
   end
 
+
+  def ordered_case_steps
+    case_steps = []
+    case_steps << self.inspections << self.hearings << self.notifications << self.judgements << (self.demolitions || self.foreclosure || self.maintenances )
+    case_steps.flatten.compact
+  end
+
+
+  def ordered_hearings_and_judgements
+    case_steps = []
+    case_steps << self.hearings << self.judgements
+    case_steps.flatten.compact.sort{ |a, b| a.date <=> b.date }
+
+  end
+
+
+
   def accela_steps
     steps_ary = []
     steps_ary << self.hearings << self.inspections << self.demolitions << self.resets << self.foreclosure << self.notifications << self.maintenances << self.judgement
@@ -171,39 +188,42 @@ class Case < ActiveRecord::Base
 
   def case_data_error?
 
-    if case_steps < 1 && missing_inspection?
+    if case_steps == 1 && missing_inspection?
       true
-    elsif case_steps < 2 && missing_notification?
+    elsif case_steps == 2 && missing_notification?
       true
-    elsif case_steps < 3 && missing_hearing? 
+    elsif case_steps == 3 && missing_hearing? 
       true
-    elsif case_steps < 4 && missing_judgement?
+    elsif case_steps == 4 && missing_judgement?
       true
-    elsif case_steps < 5 && missing_resolution?
+    elsif case_steps == 5 && missing_resolution?
       true
     end
   end
 
+
+  #this sucks. but no other way to do this now. discussions of our new data model will make this obsolete
+
   def missing_inspection?
-    self.inspections.empty?
-  end
-
-
-  def missing_hearing?
-    self.hearings.empty?
+    self.inspections.empty? && ( !self.notifications.empty? || !self.hearings.empty? || !self.judgement.nil? || !(self.demolitions.empty? || self.foreclosure.nil? || self.maintenances.empty? ) )
   end
 
 
   def missing_notification?
-    self.notifications.empty?
+    self.notifications.empty? && ( !self.hearings.empty? || !self.judgement.nil? || !(self.demolitions.empty? || self.foreclosure.nil? || self.maintenances.empty? ) )
   end
 
+  def missing_hearing?
+    self.hearings.empty? && (!self.judgement.nil? || !(self.demolitions.empty? || self.foreclosure.nil? || self.maintenances.empty? ) )
+  end
+
+
   def missing_judgement?
-    self.judgement.nil? 
+    self.judgement.nil? && ( !(self.demolitions.empty? || self.foreclosure.nil? || self.maintenances.empty? ) )
   end
 
   def missing_resolution?
-    (self.demolitions.empty? || self.foreclosure.nil? || self.maintenances.empty? )
+    (self.demolitions.empty? || self.foreclosure.nil? || self.maintenances.empty? ) && case_steps == 5 
   end
 
 
