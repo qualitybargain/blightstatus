@@ -12,7 +12,7 @@
 
     / =kase.case_steps
     %tbody
-      -if kase.case_steps == 0
+      -if kase.case_steps == 0 && kase.state == 'Open'
         %tr
           %td
             .progress-arrow.pending{:style => "z-index: 14"}
@@ -25,11 +25,23 @@
           %td
             .progress-arrow.resolution.pending{:style => "z-index: 10"}
           %td
-
+      -elsif kase.case_steps == 0 && kase.state == 'Closed'
+        %tr
+          %td
+            .progress-arrow.error{:style => "z-index: 14"}
+          %td
+            .progress-arrow.error{:style => "z-index: 13"}
+          %td
+            .progress-arrow.error{:style => "z-index: 12"}
+          %td
+            .progress-arrow.error{:style => "z-index: 11"}
+          %td
+            .progress-arrow.resolution.error{:style => "z-index: 10"}
+          %td      
       -else
         %tr
           %td
-            -unless kase.inspections.nil? || kase.inspections.empty?
+            -unless kase.inspections.nil? || kase.inspections.empty? 
               .progress-arrow.inspection{:class => "inspection-#{kase.case_number}", :style => "z-index: 14"}
             -else
               -if kase.case_data_error? && kase.missing_inspection?
@@ -51,7 +63,7 @@
                 .progress-arrow.pending{:class => "notification-#{kase.case_number}", :style => "z-index: 13"}
 
           %td
-            -unless kase.hearings.nil? || kase.hearings.empty?
+            -unless kase.hearings.nil? || kase.hearings.empty? 
               .progress-arrow.hearing{:class => "hearing-#{kase.case_number}", :style => "z-index: 12"}
             -else
               -if kase.case_data_error? && kase.hearings.empty?
@@ -73,8 +85,6 @@
                 .progress-arrow.pending{:class => "judgement-#{kase.case_number}", :style => "z-index: 11"}
 
           %td
-            / %h1
-            /   =kase.resolutions.first.values
             -unless kase.resolutions.empty?
               -if kase.resolutions.first.date > Time.now
                 .progress-arrow.resolution.loading{:class => "resolution-#{kase.case_number}", :style => "z-index: 10"}
