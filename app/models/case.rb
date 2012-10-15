@@ -205,25 +205,57 @@ class Case < ActiveRecord::Base
   #this sucks. but no other way to do this now. discussions of our new data model will make this obsolete
 
   def missing_inspection?
-    self.inspections.empty? && ( !self.notifications.empty? || !self.hearings.empty? || !self.judgement.nil? || !(self.demolitions.empty? || self.foreclosure.nil? || self.maintenances.empty? ) )
+    # if the current is empty
+    self.inspections.empty? && 
+
+    # and and of the future steps are not empty
+    ( !self.notifications.empty? || !self.hearings.empty? || !self.judgement.nil?  )
   end
 
 
   def missing_notification?
-    self.notifications.empty? && ( !self.hearings.empty? || !self.judgement.nil? || !(self.demolitions.empty? || self.foreclosure.nil? || self.maintenances.empty? ) )
+    # if the current is empty
+    self.notifications.empty? && 
+
+    (    
+      # the previous step is empty 
+      ( self.inspections.empty?) ||
+      # OR future steps are not emptry
+      ( !self.hearings.empty? || !self.judgement.nil?  )
+    )
+
   end
 
   def missing_hearing?
-    self.hearings.empty? && (!self.judgement.nil? || !(self.demolitions.empty? || self.foreclosure.nil? || self.maintenances.empty? ) )
+    # if the current is empty
+    self.hearings.empty? && 
+
+    (    
+      # the previous step is empty 
+      !( self.inspections.empty? || self.notifications.empty? ) || 
+      # OR future steps are not emptry
+      ( !self.judgement.nil?  )
+    )
   end
 
 
   def missing_judgement?
-    self.judgement.nil? && ( !(self.demolitions.empty? || self.foreclosure.nil? || self.maintenances.empty? ) )
+
+    # if the current is empty
+    self.judgement.nil? && 
+
+    (    
+      # the previous step is empty
+      !( self.inspections.empty? || self.notifications.empty? || self.hearings.empty? ) || 
+      # OR future steps are not emptry
+      ( !self.demolitions.empty?  )
+    )
+
   end
 
   def missing_resolution?
-    (self.demolitions.empty? || self.foreclosure.nil? || self.maintenances.empty? ) && case_steps == 5 
+    
+    !( self.inspections.empty? || self.notifications.empty? || self.hearings.empty? || self.judgement.nil? ) 
   end
 
 
