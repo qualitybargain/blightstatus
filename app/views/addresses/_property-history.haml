@@ -15,8 +15,12 @@
                   %td 
                     Property was inspected
                     -unless kase.first_inspection.inspection_findings.first.nil?
-                      , with a finding of 
-                      %b #{kase.first_inspection.inspection_findings.first.finding}
+                      , with a finding of: 
+                      %br
+                      %br
+                      -kase.first_inspection.inspection_findings.each_with_index do |violation, index|
+                        %p  
+                          #{index+1}) #{violation.finding}
 
         -else
           %td{:colspan => "3", :style => "text-align: center"} 
@@ -48,37 +52,41 @@
 
 
 
-      -unless kase.hearings.empty?
-        %tr{:class => "case-history-hearing case-history-hearing-#{kase.case_number}"}
-          %td
-            %span.arrow                                    
-          %td.status Case Heard
-          %td
-            %table.table-nolines
-              -kase.ordered_hearings.each do |h|
-                %tr
-                  %td.date=h.hearing_date.strftime("%-m/%-d/%y")
-                  %td
-                    The case against this property #{h.date > Time.now ? 'will be' : 'was'} heard 
-                    / with an initial judgment of ---
-
-
-
-
-
-      -unless kase.judgement.nil?
-        -unless kase.judgement.judgement_date > Time.now
-
-          %tr{:class => "case-history-judgement case-history-judgement-#{kase.case_number}"}
+      -unless kase.ordered_hearings_and_judgements.empty?
+        -kase.ordered_hearings_and_judgements.each do |r|
+          %tr{:class => "case-history-#{r.class} case-history-#{r.class}-#{kase.case_number}"}
             %td
-              %span.arrow
-            %td.status Judgment Recorded
+              %span.arrow                                    
+            %td.status 
+              -if r.class == Hearing
+                Case Heard
+              -else
+                Judgement
             %td
               %table.table-nolines
                 %tr
-                  %td.date=kase.judgement.judgement_date.strftime("%-m/%-d/%y")
+                  %td.date=r.date.strftime("%-m/%-d/%y")
                   %td
-                    A judgment of <b>Guilty</b> was reached
+                    The case against this property #{r.date > Time.now ? 'will be' : 'was'} heard 
+
+
+
+      / -unless kase.judgement.nil?
+      /   -unless kase.judgement.judgement_date > Time.now
+
+      /     %tr{:class => "case-history-judgement case-history-judgement-#{kase.case_number}"}
+      /       %td
+      /         %span.arrow
+      /       %td.status Judgment Recorded
+      /       %td
+      /         %table.table-nolines
+      /           %tr
+      /             %td.date=kase.judgement.judgement_date.strftime("%-m/%-d/%y")
+      /             %td
+      /               A judgment of <b>Guilty</b> was reached
+
+
+
 
       / These are resolutions brought through a code enforcement case
       -unless kase.resolutions.empty?
