@@ -1,3 +1,6 @@
+require "#{Rails.root}/lib/lama_helpers.rb"
+include LAMAHelpers
+
 class Address < ActiveRecord::Base
   belongs_to :neighborhood
   belongs_to :street
@@ -102,5 +105,9 @@ class Address < ActiveRecord::Base
 
   def self.find_addresses_with_cases_by_neighborhood(neighborhood_name)
     Address.joins(:cases,:neighborhood).where(:neighborhoods => {:name => neighborhood_name})
+  end
+
+  def load_cases
+    LAMAHelpers.import_by_location(self.address_long)
   end
 end

@@ -292,8 +292,10 @@ module LAMAHelpers
     end
     kase.save
   end
-  def import_by_location(address,lama)
+  def import_by_location(address,lama=nil)
     begin
+      lama = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']}) if lama.nil?
+    
       incidents = incidents_by_location(address,lama)
       #import_to_database(incidents, lama)
 
