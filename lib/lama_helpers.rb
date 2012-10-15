@@ -6,9 +6,13 @@ module LAMAHelpers
       begin
         case_number = incident.Number
         next unless case_number # need to find a better way to deal with this ... revisit post LAMA data cleanup
+        location = incident.Location
+        addresses = AddressHelpers.find_address(location)
+        address = addresses.first if addresses
+        division = get_incident_division_by_location(l,address.address_long,case_number) if address
+        division = get_incident_division_by_location(l,location,case_number) if division.nil? || division.strip.length == 0
+        division = incident.Division if division.nil? || division.strip.length == 0
         
-        division = get_incident_division_by_location(l,incident.Location,case_number)
-
         next unless division == 'CE'
         case_state = 'Open'
         case_state = 'Closed' if incident.IsClosed =~/true/
@@ -95,9 +99,8 @@ module LAMAHelpers
         end
         
         if kase.address.nil?
-          addresses = AddressHelpers.find_address(incident.Location)
-          unless addresses.empty?
-            kase.address = addresses.first
+          if address
+            kase.address = address
           end
         end
         if !kase.accela_steps.nil? || kase.state != orig_state || kase.outcome != orig_outcome
@@ -106,6 +109,7 @@ module LAMAHelpers
         end
       rescue StandardError => ex
         puts "THERE WAS AN EXCEPTION OF TYPE #{ex.class}, which told us that #{ex.message}"
+        puts "Backtrace => #{ex.backtrace}"
       end
     end
   end
@@ -292,8 +296,10 @@ module LAMAHelpers
     end
     kase.save
   end
-  def import_by_location(address,lama)
+  def import_by_location(address,lama=nil)
     begin
+      lama = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']}) if lama.nil?
+    
       incidents = incidents_by_location(address,lama)
       #import_to_database(incidents, lama)
 
