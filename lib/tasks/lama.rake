@@ -135,12 +135,14 @@ namespace :lama do
   end
 
   desc "Import cases for addresses with no cases"
-  task :load_addreses_with_no_cases => :environment do |t, args|
+  task :load_addresses_with_no_cases => :environment do |t, args|
     l = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
-    addresses = Address.includes([:cases]).where("cases.id IS NULL")# and addresses.street_name = 'MISTLETOE'")
-    addresses.each do |address|
-      puts "Load cases for => #{address.address_long}"
-      LAMAHelpers.import_by_location(address.address_long,l)
+    Address.includes([:cases]).where("cases.id IS NULL").find_in_batches do |group| # and addresses.street_name = 'MISTLETOE'")
+      sleep(100)
+      group.each do |address|
+        puts "Load cases for => #{address.address_long}"
+        LAMAHelpers.import_by_location(address.address_long,l)
+      end
     end
   end
 end
