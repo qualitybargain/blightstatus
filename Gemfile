@@ -13,6 +13,7 @@ gem 'roo' #excel parser
 gem 'docsplit'
 gem 'rubyXL'
 gem 'devise'
+gem 'devise-async'
 
 gem 'lama', :git => 'https://github.com/gangleton/lama.git'
 gem 'savon'
