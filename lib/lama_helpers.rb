@@ -1,7 +1,7 @@
 module LAMAHelpers
   def import_to_database(incidents, client=nil)
     l = client || LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
-
+    
     incidents.each do |incident|
       begin
         case_number = incident.Number
@@ -301,8 +301,13 @@ module LAMAHelpers
       lama = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']}) if lama.nil?
     
       incidents = incidents_by_location(address,lama)
-      #import_to_database(incidents, lama)
-
+      
+      if incidents.class == Hashie::Mash
+        incident = incidents
+        incidents = []
+        incidents << incident
+      end
+          
       incid_num = incidents.length
       p "There are #{incid_num} incidents for #{address}"
       if incid_num >= 1000
@@ -313,6 +318,7 @@ module LAMAHelpers
       import_to_database(incidents, lama)
     rescue StandardError => ex
       puts "There was an error of type #{ex.class}, with a message of #{ex.message}"
+      puts "Backtrace => #{ex.backtrace}"
     end
   end
 
@@ -333,6 +339,7 @@ module LAMAHelpers
       end
     rescue StandardError => ex
       puts "There was an error of type #{ex.class}, with a message of #{ex.message}"
+      puts "Backtrace => #{ex.backtrace}"
     end
     division
   end
@@ -346,7 +353,6 @@ module LAMAHelpers
       return if j_status =~ /pending/
       if j_status =~ /reset/
         Reset.create(:case_number => kase.case_number, :reset_date => date, :notes => judgement.Status)
-        puts "reset imported from judgements"
         kase.outcome = "Reset"
       elsif j_status =~ /dismiss/
         j = 'Dismissed'
