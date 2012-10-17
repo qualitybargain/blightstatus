@@ -13,10 +13,13 @@ class Address < ActiveRecord::Base
 
   has_many :subscriptions
   has_many :accounts, :through => :subscriptions
+
   has_many :inspections, :through => :cases
   has_many :notifications, :through => :cases
   has_many :hearings, :through => :cases
   has_many :judgements, :through => :cases
+
+  has_one :double_address, :class_name => "Address", :foreign_key => :double_id
 
   accepts_nested_attributes_for :subscriptions, :allow_destroy => true
 
@@ -88,6 +91,15 @@ class Address < ActiveRecord::Base
     steps_ary.flatten.compact
   end
 
+  def assign_double
+    return unless self.double_address.nil?
+    d = Address.where("x = ? AND y = ?", self.x, self.y).first
+    self.double_address = d
+    d.double_address = self
+    save
+    d.save
+  end
+
   def self.find_addresses_with_cases_by_cardinal_street(card, street_string)
     Address.joins(:cases).where('address_long like ?', '%' + card.single_space + ' ' + street_string.single_space + '%')
   end
@@ -107,6 +119,12 @@ class Address < ActiveRecord::Base
 
   def self.find_addresses_with_cases_by_neighborhood(neighborhood_name)
     Address.joins(:cases,:neighborhood).where(:neighborhoods => {:name => neighborhood_name})
+  end
+
+  def self.find_doubles
+    Address.all.find_each do |address|
+      address.assign_double
+    end
   end
 
   def load_cases

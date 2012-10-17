@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121012150839) do
+ActiveRecord::Schema.define(:version => 20121017012147) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                  :default => "",   :null => false
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20121012150839) do
     t.integer  "neighborhood_id"
     t.string   "latest_type"
     t.integer  "latest_id"
+    t.integer  "double_id"
   end
 
   add_index "addresses", ["address_long"], :name => "index_addresses_on_address_long"
