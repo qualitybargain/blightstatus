@@ -4,18 +4,18 @@
     %table
       %tr
         %td
-          %img{:src => "blightstatus-dev.herokuapp.com/assets/blightstatus-logo-bdaea71cfa8012d1f70b58acef5f488b.png"}
+          %img{:src => "http://blightstatus.nola.gov/images/logo-stronger.png"}
       %tr
         %td
-          %h1 Here's your daily digest for your subscribed blightstatus properties.
+          %h2 Here's your daily digest for your subscribed blightstatus properties.
           %br
-          %h2 The following properties have been updated:
+          %h3 The following properties have been updated:
       %tr
         %td
           %table
             -@subs.each do |sub|
               %tr
                 %td
-                  %a{:href => "http://nola.blightstatus.com#{address_path(sub)}" }
+                  %a{:href => "http://blightstatus.nola.gov/addresses/#{sub.id}" }
                     %h3 #{sub.address_long}
 
