@@ -16,6 +16,6 @@
             -@subs.each do |sub|
               %tr
                 %td
-                  %a{:href => "http://blightstatus.nola.gov/addresses/#{sub.id}" }
-                    %h3 #{sub.address_long}
+                  %a{:href => "http://blightstatus.nola.gov/addresses/#{sub.address.id}" }
+                    %h3 #{sub.address.address_long}
 

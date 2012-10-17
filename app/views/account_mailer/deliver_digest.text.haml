@@ -4,5 +4,5 @@ Here's your daily digest for your subscribed BlightStatus properties.
 
 The following properties have been updated:
 
--subs.each do |sub|
-  #{sub.address_long} (http://blightstatus.nola.gov/addresses/#{sub.id})
+-@subs.each do |sub|
+  #{sub.address.address_long} (http://blightstatus.nola.gov/addresses/#{sub.address.id})
