@@ -1,6 +1,8 @@
 class Demolition < ActiveRecord::Base
   belongs_to :address
   belongs_to :case, :foreign_key => :case_number, :primary_key => :case_number
+  validates_presence_of :demo_number
+  validates_uniqueness_of :demo_number
 
   after_save do
     if self.case

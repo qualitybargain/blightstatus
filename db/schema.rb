@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121010013409) do
+ActiveRecord::Schema.define(:version => 20121012150839) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                  :default => "",   :null => false
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(:version => 20121010013409) do
     t.datetime "date_completed"
     t.integer  "address_match_confidence"
     t.boolean  "case_confidence"
+    t.string   "demo_number"
   end
 
   add_index "demolitions", ["address_id"], :name => "index_demolitions_on_address_id"

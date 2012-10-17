@@ -243,7 +243,7 @@ html{
 
   .span3 {
     background: rgba(0, 0, 0, 0.1);
-    padding: 30px 25px 30px 30px;
+    padding: 30px 35px 30px 30px;
     margin-top: 10px;
     margin-right: -40px;
     float: right;
@@ -759,6 +759,13 @@ hr.soften {
   }
   b{
     font-weight:700;
+  }
+}
+
+#why-data-incomplete, #contact-form-prompt{
+  h2{
+    font-weight: 300;    
+    text-align:center;
   }
 }
 

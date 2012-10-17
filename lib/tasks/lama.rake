@@ -122,4 +122,27 @@ namespace :lama do
       end
     end
   end
+
+  desc "Import updates from LAMA by parameter pipe (|) delimited string of cases"
+  task :load_by_location, [:addresses] => :environment do |t, args|
+    l = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
+    incidents = []
+    addresses = args[:addresses].split('|')
+
+    addresses.each do |address|
+      LAMAHelpers.import_by_location(address.strip,l)
+    end
+  end
+
+  desc "Import cases for addresses with no cases"
+  task :load_addresses_with_no_cases => :environment do |t, args|
+    l = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
+    Address.includes([:cases]).where("cases.id IS NULL").find_in_batches do |group| # and addresses.street_name = 'MISTLETOE'")
+      sleep(100)
+      group.each do |address|
+        puts "Load cases for => #{address.address_long}"
+        LAMAHelpers.import_by_location(address.address_long,l)
+      end
+    end
+  end
 end
