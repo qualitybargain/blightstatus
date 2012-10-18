@@ -18,7 +18,7 @@ describe AccountMailer do
     end
 
     it "comes from blightstatus" do
-      @email.from.first.should == "blightstatus@codeforamerica.org"
+      @email.from.first.should == "blightstatus@nola.gov"
     end
   end
 end
