@@ -1,5 +1,8 @@
 module LAMAHelpers
   def import_to_database(incidents, client=nil)
+    
+    return if incidents.nil?
+    
     l = client || LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
     
     incidents.each do |incident|
@@ -301,14 +304,8 @@ module LAMAHelpers
       lama = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']}) if lama.nil?
     
       incidents = incidents_by_location(address,lama)
-      
-      if incidents.class == Hashie::Mash
-        incident = incidents
-        incidents = []
-        incidents << incident
-      end
-          
-      incid_num = incidents.length
+                
+      incidents.nil? ? incid_num = 0 :incid_num = incidents.length
       p "There are #{incid_num} incidents for #{address}"
       if incid_num >= 1000
         p "LAMA can only return 1000 incidents at once- please try a smaller date range"
@@ -323,25 +320,55 @@ module LAMAHelpers
   end
 
   def incidents_by_location(location,lama)
-    lama.incidents_by_location(location,lama)
+    incidents = lama.incidents_by_location(location,lama)
+    if incidents.class == Hashie::Mash
+      incident = incidents
+      incidents = []
+      incidents << incident
+    end
+    incidents
+  end
+  def unsaved_incidents_by_location(location,lama)
+    cases = []
+    incidents = incidents_by_location(location,lama)
+    return if incidents.nil?
+    incidents.each do |incident|
+      cases << incident unless Case.where(:case_number => incident.Number).exists?
+    end
+    cases
+  end
+  
+    def import_unsaved_cases_by_location(address,lama=nil)
+    begin
+      lama = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']}) if lama.nil?
+    
+      incidents = unsaved_incidents_by_location(address,lama)
+                
+      incidents.nil? ? incid_num = 0 :incid_num = incidents.length
+      p "There are #{incid_num} incidents for #{address}"
+      if incid_num >= 1000
+        p "LAMA can only return 1000 incidents at once- please try a smaller date range"
+        return
+      end
+
+      import_to_database(incidents, lama)
+    rescue StandardError => ex
+      puts "There was an error of type #{ex.class}, with a message of #{ex.message}"
+      puts "Backtrace => #{ex.backtrace}"
+    end
   end
 
   def get_incident_division_by_location(lama,location,case_number)
-    division = nil
     begin
-      incidents = lama.incidents_by_location(location)
-      if incidents.class == Hashie::Mash
-        division = incidents.Division if incidents.Number == case_number
-      elsif incidents.class == Array
-        incidents.each do |incident|
-          division = incident.Division if incident.Number == case_number
-        end
+      incidents = incidents_by_location(location,lama)
+      incidents.each do |incident|
+          return incident.Division if incident.Number == case_number
       end
     rescue StandardError => ex
       puts "There was an error of type #{ex.class}, with a message of #{ex.message}"
       puts "Backtrace => #{ex.backtrace}"
     end
-    division
+    nil
   end
 
   def parseJudgement(kase,judgement)

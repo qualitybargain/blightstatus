@@ -126,7 +126,6 @@ namespace :lama do
   desc "Import updates from LAMA by parameter pipe (|) delimited string of cases"
   task :load_by_location, [:addresses] => :environment do |t, args|
     l = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
-    incidents = []
     addresses = args[:addresses].split('|')
 
     addresses.each do |address|
@@ -135,13 +134,37 @@ namespace :lama do
   end
 
   desc "Import cases for addresses with no cases"
-  task :load_addresses_with_no_cases => :environment do |t, args|
+  task :load_addresses_with_no_cases, [:streets] => :environment do |t, args|
     l = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
-    Address.includes([:cases]).where("cases.id IS NULL").find_in_batches do |group| # and addresses.street_name = 'MISTLETOE'")
-      sleep(100)
-      group.each do |address|
+    if args[:streets]
+      streets = args[:streets].split('|')
+    else
+      streets = Address.uniq.pluck(:street_name)
+    end
+    puts "#{streets}"
+    streets.each do |street|
+      addresses = Address.includes([:cases]).where("cases.id IS NULL and addresses.street_name = '#{street}'")
+      addresses.each do |address|
         puts "Load cases for => #{address.address_long}"
         LAMAHelpers.import_by_location(address.address_long,l)
+      end
+    end
+  end
+
+  desc "Import unsaved cases for all addresses"
+  task :load_addresses_with_unsaved_cases, [:streets] => :environment do |t, args|
+    l = LAMA.new({ :login => ENV['LAMA_EMAIL'], :pass => ENV['LAMA_PASSWORD']})
+    if args[:streets]
+      streets = args[:streets].split('|')
+    else
+      streets = Address.uniq.pluck(:street_name)
+    end
+    puts "#{streets}"
+    streets.each do |street|
+      addresses = Address.select(:address_long).where(:street_name => street)
+      addresses.each do |address|
+        puts "Load cases for => #{address.address_long}"
+        LAMAHelpers.import_unsaved_cases_by_location(address.address_long,l)
       end
     end
   end
