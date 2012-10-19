@@ -30,33 +30,35 @@ You can see a live instance of BlightStatus running at
 
 ## <a name="installation"></a>Installation
 
+    git clone git://github.com/codeforamerica/blightstatus.git
+    cd blightstatus
+    bundle install
+    rake db:migrate
+    
+
 [Instructions for Ubuntu 12.04 Precise Pangolin (LTS)](https://gist.github.com/2843358)
 
 [Instructions for Mac OS X 10.6 Snow Leopard](https://gist.github.com/2885672)
 
 
-
-    git clone git://github.com/codeforamerica/blightstatus.git
-    cd blightstatus
-    bundle install
-    rake db:migrate
-
 ## <a name="usage"></a>Usage
     rails server
 
 ## <a name="deployment"></a>Deploying to Heroku
-This application has some particular challenges when deploying to Heroku.
-1) You need to have a Postgis-enabled database
-2) Taps doesn't recognize the Postgis adapter type. In order to use
-taps, you have to change the adapter in your database.yml file to
-postgres. You also need to temporarily change the database URL to
-postgres://path-to-your-database via heroku config
-3) If you push or pull a database using taps, your spacial column types
-will not be saved. Go into rails or heroku pg:psql and run:
->ALTER TABLE addresses ALTER point TYPE Geometry USING
->ST_GeomFromText(point);
->ALTER TABLE streets ALTER the_geom TYPE Geometry USING
->ST_GeomFromText(the_geom);
+This application has some particular challenges when deploying to Heroku. You need to have a Postgis-enabled database.
+
+If you're using Taps to manage your database, Taps will not recognize the Postgis adapter type. In order to use Taps, you have to change the adapter in your **database.yml** file to from **postgis** to **postgres**. You also need to temporarily change the database URL on Heroku. To do this type this on your console:
+
+
+    heroku config postgres://path-to-your-database
+
+If you push or pull a database using taps, your spacial column types will not be saved. On your console type:
+
+    heroku pg:psql
+    ALTER TABLE addresses ALTER point TYPE Geometry USING ST_GeomFromText(point);
+    ALTER TABLE streets ALTER the_geom TYPE Geometry USING ST_GeomFromText(the_geom);
+
+This will convert the data from text to the proper geometry type.
 
 ## <a name="contributing"></a>Contributing
 In the spirit of [free software][free-sw], **everyone** is encouraged to help
