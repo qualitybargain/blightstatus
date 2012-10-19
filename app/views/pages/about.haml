@@ -23,23 +23,12 @@
 
       %p We’ve partnered with New Orleans City Hall and NORA to create this site to provide accurate and up-to-date information about the City’s efforts to reduce blight that everybody can use. We hope that this simple and publicly-accessible resource will make the work of these great organizations just a little bit easier.
 
-    / .block
-    /   %h2 BlightSTATUS in your city
-    /   %p We know this problem isn’t unique to New Orleans - there are numerous municipalities across the country tasked with managing a large number of vacant or blighted properties. We want to put blightSTATUS to work for you, too!
-
-    /   %p 
-    /     Get in touch: 
-    /     =mail_to "neworleans@codeforamerica.org", "neworleans@codeforamerica.org"
-
-
     .block
       %h2 Help us help you!
       %p 
         We want BlightStatus to make your work easier, not harder. If something is confusing or there is a feature missing that would make your work easier, please, 
-        %a{:href => "mailto:blightstatus@codeforamerica.org"} 
+        =link_to('#contact-form-prompt', "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-toggle"=>"modal", "data-title"=>"Receive notifications when the status of this property changes") do
           let us know!
-
-
 
   .right-bar.span4
     / .meet-the-team
@@ -87,8 +76,13 @@
       %p
         Feedback, suggestions, or bugs:
         %p{:style => "padding-left: 10px"}
-          %a{:href => "mailto:blightstatus@codeforamerica.org"} 
-            > blightstatus@codeforamerica.org
+          %a{:href => "mailto:blightstatus@nola.gov"} 
+            > blightstatus@nola.gov
+      %br
+      %p
+        Check out the code:
+        %p{:style => "padding-left: 10px"}
+          %a{:href => "http://www.github.com/codeforamerica/blightstatus"} > BlightStatus on Github
 
       / %p
       /   Twitter:

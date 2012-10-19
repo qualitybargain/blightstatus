@@ -95,7 +95,7 @@ html{
       }
 
       p{
-        padding-top: 10px;
+        padding: 10px 70px 0 0;
         font-size: 150%;  
         line-height: 125%;  
         font-weight: 300;
@@ -163,7 +163,7 @@ html{
     a{
       border: 0;
       background-color: $lighterTeal;
-      border-radius: 20px 20px 0 0;
+      border-radius: 10px 10px 0 0;
       border-style: solid;
       border-width: 1px 1px 0 1px;
       border-color:  #ccc;
@@ -177,7 +177,43 @@ html{
     &.active{
       a{
         background-color: white;
-        border-radius: 20px 20px 0 0;
+        border-radius: 10px 10px 0 0;
+        margin-bottom: -1px;          
+        color: $darkGrey;       
+
+      }
+    }
+  }
+}
+
+.account-tabs{
+  padding-bottom: 0;
+  margin-bottom: 0;
+
+  &.nav-tabs{
+    border: 0px;
+  }
+
+  li{
+    margin: 10px 0px -2px 0;
+
+    a{
+      border: 0;
+      background-color: $lighterTeal;
+      border-radius: 10px 10px 0 0;
+      border-style: solid;
+      border-width: 1px 1px 0 1px;
+      border-color:  #ccc;
+      font-size: 125%;
+      padding: 10px 20px;
+      color: $darkGrey;       
+
+    }
+
+    &.active{
+      a{
+        background-color: white;
+        border-radius: 10px 10px 0 0;
         margin-bottom: -1px;          
         color: $darkGrey;       
 
@@ -207,7 +243,7 @@ html{
 
   .span3 {
     background: rgba(0, 0, 0, 0.1);
-    padding: 20px 10px 20px 20px;
+    padding: 30px 35px 30px 30px;
     margin-top: 10px;
     margin-right: -40px;
     float: right;
@@ -274,7 +310,7 @@ navbar
       }
 
       &.sign-up {
-        font-size: 90%;
+        font-size: 85%;
         a {
           display: inline;
           padding: 3px 20px;
@@ -344,9 +380,8 @@ navbar
 
   a{
     &:hover{
-      background: $orange;
-      color: white;
-      text-decoration: none;
+      color: $lightTeal;
+      background-color: transparent;
     } 
   }  
 
@@ -513,7 +548,7 @@ navbar
 
 
 .leaflet-control-attribution{
-	display: none;
+	display: block;
 }
 
 .leaflet-container{
@@ -724,6 +759,13 @@ hr.soften {
   }
   b{
     font-weight:700;
+  }
+}
+
+#why-data-incomplete, #contact-form-prompt{
+  h2{
+    font-weight: 300;    
+    text-align:center;
   }
 }
 

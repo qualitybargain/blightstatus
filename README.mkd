@@ -1,6 +1,6 @@
 # BlightSTATUS
 
-Built in partnership with the City of New Orleans, BlightSTATUS makes it simple for residents to find out what’s going on with blighted properties in their community – no long waits on the telephone or visits to City Hall required.
+Built in partnership with the City of New Orleans, BlightStatus makes it simple for residents to find out what’s going on with blighted properties in their community – no long waits on the telephone or visits to City Hall required.
 
 ## <a name="why"></a>Why does this matter?
 
@@ -15,20 +15,18 @@ If you'd just like to try out the site, you can do that [here.](http://blightsta
 Or, if you'd like to contribute to this project, read on!
 
 ## <a name="build"></a>Build Status
-[![Build Status](https://secure.travis-ci.org/codeforamerica/cfa_template.png?branch=master)][travis]
-
-[travis]: http://travis-ci.org/codeforamerica/openblight
+[![Build Status](https://secure.travis-ci.org/codeforamerica/blightstatus.png)](http://travis-ci.org/codeforamerica/blightstatus)
+[travis]: http://travis-ci.org/codeforamerica/blightstatus
 
 ## <a name="dependencies"></a>Dependency Status
-[![Dependency Status](https://gemnasium.com/codeforamerica/cfa_template.png?travis)][gemnasium]
-
-[gemnasium]: https://gemnasium.com/codeforamerica/openblight
+[![Dependency Status](https://gemnasium.com/codeforamerica/blightstatus.png)](https://gemnasium.com/codeforamerica/blightstatus)
+[gemnasium]: https://gemnasium.com/codeforamerica/blightstatus
 
 ## <a name="demo"></a>Demo
-You can see a running version of the application at
-[http://blightstatus-dev.herokuapp.com/][demo].
+You can see a live instance of BlightStatus running at 
+[http://blightstatus.nola.gov/][demo].
 
-[demo]: http://blightstatus-dev.herokuapp.com/
+[demo]: http://blightstatus.nola.gov
 
 ## <a name="installation"></a>Installation
 
@@ -38,8 +36,8 @@ You can see a running version of the application at
 
 
 
-    git clone git://github.com/codeforamerica/openblight.git
-    cd openblight
+    git clone git://github.com/codeforamerica/blightstatus.git
+    cd blightstatus
     bundle install
     rake db:migrate
 

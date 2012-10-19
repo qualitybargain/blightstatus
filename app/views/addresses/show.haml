@@ -10,11 +10,11 @@
             -if(@account_subscribed)
               =link_to('Watching', "/subscriptions/#{@address.id}", :remote => true, :method => :delete, 'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button tooltip-hover' , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Stop Receiving notifications when the status of this property changes")
             -else
-              =link_to("/subscriptions/#{@address.id}", :remote => true, :method => :put,  'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button-plus tooltip-hover'  , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Receive notifications when the status of this property changes") do
+              =link_to("/subscriptions/#{@address.id}", :remote => true, :method => :put,  'data-type' => 'json', :class => 'btn btn-primary btn-tight subscribe-button tooltip-hover'  , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-title"=>"Receive notifications when the status of this property changes") do
                 <img class="add-icon" src="/assets/+icon.png"> Watchlist
 
           -else
-            =link_to('#register-login-prompt', :class => 'btn btn-primary btn-tight subscribe-button-plus tooltip-hover' , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-toggle"=>"modal", "data-title"=>"Receive notifications when the status of this property changes") do
+            =link_to('#register-login-prompt', :class => 'btn btn-primary btn-tight subscribe-button tooltip-hover' , :id => "subscribe-button", "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-toggle"=>"modal", "data-title"=>"Receive notifications when the status of this property changes") do
               <img class="add-icon" src="/assets/+icon.png"> Watchlist
 
 
@@ -104,8 +104,14 @@
             =link_to "parcel, tax, and ownership details", @address.assessor_url
           %p
             via the Orleans Parish Assessor’s website
+        -else
+          .parcel-link
+            =link_to "Search for more information", 'http://nolaassessor.com'
+          %p
+            via the Orleans Parish Assessor’s website
 
 
+ 
 
       .faq.centered.question-list
         %h3
@@ -118,7 +124,7 @@
           - when 'Judgement'
             =render "pages/help/questions/judgements"
           - when 'Resolution'
-            =render "pages/help/questions/abatement"
+            =render "pages/help/questions/resolution"
           - when 'Reset'
             =render "pages/help/questions/reset"
           - else 
@@ -129,18 +135,15 @@
 
 
 
-      / .faq.centered.question-list
-      /   %h3
-      /     Data Quality
-      /   %ul
-      /     %li
-      /       What data is included?
-      /       %ul
-      /         %li hello world              
-      /         %li hello world
+      .faq.centered.question-list
+        %h3
+          Data Sources
+        .questions{:style => "padding-left: 20px; padding-right: 5px"}
+          / #data-quality-1.answer.collapse
+          %p
+            Data in BlightStatus comes from:
+          %ul
+            %li City of New Orleans Permits & Licensing system
+            %li City of New Orleans & Road Home Program <a href="https://data.nola.gov/Administrative-Data/BlightStat-Demolitions/abvi-rghr">demolition data</a>
+            %li <a href="http://civilsheriff.com/">Orleans Parish Sheriff</a>’s foreclosure data
 
-      /     %li
-      /       What data is not included?
-      /       %ul
-      /         %li hello world              
-      /         %li hello world

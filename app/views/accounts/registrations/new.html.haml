@@ -1,15 +1,15 @@
 .container.container-accounts
   .span2
   .span10
-    %ul.nav.nav-tabs.page-tabs
+    %ul.nav.nav-tabs.account-tabs
       %li.active
-        =link_to "Need an account? Sign Up", "#"
+        =link_to "Need an account?  SIGN UP", "#"
       %li
-        =link_to "Have an account? Log In", new_account_session_path
+        =link_to "Have an account?  LOG IN", new_account_session_path
     .tab-content.tab-pane-content
       .span8
         %h2 Keep track of the properties you care about the most
-      .span5
+      .span4
         = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
           = devise_error_messages!
           %div
@@ -17,16 +17,16 @@
             = f.email_field :email
           %div
             = f.label :password
-            = f.password_field :password, :placeholder => "Choose a password please"
+            = f.password_field :password, :placeholder => "Create a password"
             %br/
             = f.password_field :password_confirmation, :placeholder => "Re-type password to verify"
           %div= f.submit "Create Account", :class => "btn btn-primary"
       .span3
         %h3 Why create an account?
         %ul
-          %li Add the properties you care about the most to your watchlist
+          %li Add multiple properties to your Watchlist to keep track of them all in one place
           %li Receive email alerts as soon as the status changes on any of the properties you're watching
-          %li Never miss a hearing or sheriff's sale
+          %li Never miss a hearing or Sheriff's sale
         / %div
         /   Not sure yet? 
         /   =link_to "Take a tour"

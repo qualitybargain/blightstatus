@@ -2,6 +2,9 @@ class Foreclosure < ActiveRecord::Base
   belongs_to :address
   belongs_to :case, :foreign_key => :case_number, :primary_key => :case_number
 
+  validates_uniqueness_of :case_number, :scope => :sale_date
+  validates_uniqueness_of :address_id, :scope => :sale_date
+
   after_save do
     if self.case
       self.case.update_status(self)

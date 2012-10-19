@@ -9,6 +9,8 @@ class Account < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  include Devise::Async::Model
+
   validates_presence_of :email
 
   def send_digest

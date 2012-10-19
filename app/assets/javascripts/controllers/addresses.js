@@ -19,10 +19,6 @@ OpenBlight.addresses = {
           });
         });
      });
-
-
-
-
   },
 
   show: function(){
@@ -127,24 +123,26 @@ OpenBlight.addresses = {
       $ul.html('');
 
       var current_feature = 0;
-      var icon = OpenBlight.addresses.getCircleIcon();
+      var icon = OpenBlight.addresses.getCustomIcon();
 
 
 
       OpenBlight.addresses.layergroup = L.geoJson(features, {
         pointToLayer: function (feature, latlng) {
-          return L.circleMarker(latlng, icon);
+          return L.marker(latlng, {icon: new icon() });
         },
 
         onEachFeature: function(feature, layer) {
           var point = feature.coordinates;
           var y = point[1], x= point[0];
           var link = '/addresses/'+ data[current_feature].id;
-          var popupContent = '<h3><a href="' + link + '">' + data[current_feature].address_long + '</a></h3>' + 
-          '<img src="http://maps.googleapis.com/maps/api/streetview?location='+y+','+x+'&size=200x100&sensor=false" >';
+          var popupContent = '<h3><a href="' + link + '">' + data[current_feature].address_long + '</a></h3>';
 
           if(data[current_feature].latest_type && data[current_feature].latest_type.length){
-            popupContent = popupContent + '<p>The most recent activity is: <br><b>'+ data[current_feature].latest_type + '</b></p>';
+            popupContent = popupContent + '<hr class="soften"/><p>The most recent activity is: <br><b>'+ data[current_feature].latest_type + '</b></p>';
+          }
+          else{
+            popupContent = popupContent + '<hr class="soften"/><p>A case has been created: <br><b>No further steps have taken place</b></p>';            
           }
           layer.id = data[current_feature].id;
           OpenBlight.addresses.markers.push( layer );

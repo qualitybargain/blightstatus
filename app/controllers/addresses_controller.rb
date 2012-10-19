@@ -97,14 +97,14 @@ class AddressesController < ApplicationController
           sql_params[:status_type] = "Notification"
         when 'hearings'
           sql_params[:status_type] = "Hearing"
-        when 'judgements'
+        when 'judgement'
           sql_params[:status_type] = "Judgement"
         when 'foreclosures'
           sql_params[:status_type] = "Foreclosure"
         when 'demolitions'
           sql_params[:status_type] = "Demolition"
-        when 'abatement'
-          sql_params[:status_type] = "Maintenance"
+        # when 'abatement'
+        #   sql_params[:status_type] = "Maintenance"
       end
     end
 
@@ -124,24 +124,22 @@ class AddressesController < ApplicationController
         cases = Case.includes(:address, :notifications).where(" cases.address_id = addresses.id  AND notified > :start_date  AND notified < :end_date #{append_sql_query}",   sql_params)
       when 'hearings'
         cases = Case.includes(:address, :hearings).where(" cases.address_id = addresses.id  AND  hearing_date > :start_date  AND hearing_date < :end_date #{append_sql_query}",   sql_params )
-      when 'judgements'
+      when 'judgement'
         cases = Case.includes(:address, :judgements).where(" cases.address_id = addresses.id  AND  judgement_date > :start_date  AND judgement_date < :end_date #{append_sql_query}", sql_params )
       when "foreclosures"
-        case_addresses = Address.includes(:foreclosures).where(" demolitions.sale_date > :start_date  AND demolitions.sale_date <  :end_date  " ,  sql_params )
+        case_addresses = Address.includes(:foreclosures).where(" foreclosures.sale_date > :start_date  AND foreclosures.sale_date <  :end_date  " ,  sql_params )
       when "demolitions"
         case_addresses = Address.includes(:demolitions).where(" demolitions.date_completed > :start_date AND demolitions.date_completed < :end_date  ",   sql_params)
-
-      # when 'foreclosures'
-      #   cases = Case.includes(:address, :foreclosures).where(" cases.address_id = addresses.id  AND  sale_date > :start_date   AND sale_date < :end_date #{append_sql_query}",  sql_params )
-      # when 'demolitions'
-      #   cases = Case.includes(:address, :demolitions).where(" cases.address_id = addresses.id  AND  date_completed > :start_date  AND date_completed <  :end_date  #{append_sql_query}" ,  sql_params )
       # when 'abatement'
       #   cases = Case.includes(:address, :maintenances).where(" cases.address_id = addresses.id  AND  date_completed > :start_date   AND date_completed < :end_date  #{append_sql_query}",   sql_params)
     end
 
 
     # TODO: REWRITE FRONTEND SO IT CAN HANDLE RETURNED ARRAY OF ADDRESSES
-    unless params[:status] == 'demolitions'
+    # puts "entering loop"
+    puts case_addresses.inspect
+    if params[:status] == 'inspections' || params[:status] == 'notifications' || params[:status] == 'hearings'|| params[:status] == 'judgement'
+      # puts "inside loop"
       if cases.nil?
         cases = {}
       end
@@ -153,7 +151,6 @@ class AddressesController < ApplicationController
       }
     end
 
-    puts case_addresses.inspect
     respond_to do |format|
         format.json { render :json => case_addresses.to_json(:only => [ :id, :address_long, :latest_type, :status_type, :point ]) }
     end

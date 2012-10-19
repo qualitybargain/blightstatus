@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121011041037) do
+ActiveRecord::Schema.define(:version => 20121017012147) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email",                  :default => "",   :null => false
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20121011041037) do
     t.spatial  "point",            :limit => {:srid=>-1, :type=>"geometry"}
     t.string   "latest_type"
     t.integer  "latest_id"
+    t.integer  "double_id"
   end
 
   add_index "addresses", ["address_long"], :name => "index_addresses_on_address_long"
@@ -140,6 +141,7 @@ ActiveRecord::Schema.define(:version => 20121011041037) do
     t.datetime "date_completed"
     t.integer  "address_match_confidence"
     t.boolean  "case_confidence"
+    t.string   "demo_number"
   end
 
   add_index "demolitions", ["address_id"], :name => "index_demolitions_on_address_id"

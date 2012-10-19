@@ -29,8 +29,9 @@
         We get the bulk of our data for BlightStatus from the Department of Code Enforcement’s internal data management system, and the Department is currently transitioning from an older system to a newer one. While this transition is in progress, it is possible that some of the information will be appear duplicated or incomplete in BlightStatus.
       %p
         However, the data will continue to improve every day, so stay tuned, and please report any technical bugs you notice to 
-        %a{:href => "mailto:blightstatus@codeforamerica.org"} 
-          blightstatus@codeforamerica.org.
+        =link_to('#contact-form-prompt', "data-animation" => "true", :trigger => "hover", :delay => 100, "data-placement"=>"bottom", :rel=>"tooltip", "data-toggle"=>"modal", "data-title"=>"Receive notifications when the status of this property changes") do
+          blightstatus@nola.gov.
+          
 
 
     .question.collapsed{"data-toggle"=>"collapse", "data-target"=>"#common-questions-4"}

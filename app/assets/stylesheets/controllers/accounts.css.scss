@@ -1,6 +1,6 @@
 @import "variables.css.scss";
 
-.container-registrations, .container-sessions{
+.container-registrations, .container-sessions, .container-passwords{
 
   .container-accounts{
     margin-top: 50px;
@@ -117,6 +117,8 @@
 
 
 
+
+
   .leaflet-map{
     border: 1px solid #aaa; 
     padding: 0 10px 0 0; 
@@ -221,3 +223,13 @@
 
   }
 }
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+
+#map, .email-notification{
+  position: absolute !important;
+}
+
+}
+
