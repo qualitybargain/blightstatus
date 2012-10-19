@@ -1,4 +1,4 @@
-# BlightSTATUS
+# BlightStatus
 
 Built in partnership with the City of New Orleans, BlightStatus makes it simple for residents to find out what’s going on with blighted properties in their community – no long waits on the telephone or visits to City Hall required.
 
