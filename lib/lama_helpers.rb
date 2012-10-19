@@ -202,7 +202,7 @@ module LAMAHelpers
           spawn_hash.delete(event.SpawnID)
         else
           c = Complaint.new(:case_number => kase.case_number, :date_received => event.DateEvent, :status => event.Status)
-          c.save if Complaint.where("case_number = '#{kase.case_number}' and (date_received >= '#{r.date.beginning_of_day.to_formatted_s(:db)}' and date_received <= '#{r.date.end_of_day.to_formatted_s(:db)}')").count == 0
+          c.save if Complaint.where("case_number = '#{kase.case_number}' and (date_received >= '#{c.date.beginning_of_day.to_formatted_s(:db)}' and date_received <= '#{c.date.end_of_day.to_formatted_s(:db)}')").count == 0
         end
       elsif (event.Name =~ /Guilty/ || event.Status =~ /Guilty/ || event.Type =~ /Guilty/) && (event.Name =~ /Hearing/ || event.Status =~ /Hearing/ || event.Type =~ /Hearing/)#event.Name =~ /Hearing/
         if event.Name =~ /Guilty/
@@ -342,18 +342,18 @@ module LAMAHelpers
       #   end
       # end
     end
-    return nil unless action_spawn[:step]
+    return nil if action_spawn && action_spawn[:step].nil?
     action_spawn
   end
   def parseStatus(kase,case_status,date)
     if case_status =~ /Compliance/ 
       kase.outcome = "Closed: In Compliance"
       Judgement.where(:case_number => kase.case_number, :status => nil).destroy_all
-      Judgement.create(:case_number => kase.case_number, :status => 'Closed', :judgement_date => date, :notes => case_status)
+      Judgement.find_or_create_by_case_number_and_status(:case_number => kase.case_number, :status => 'Closed', :judgement_date => date, :notes => case_status)
     elsif case_status =~ /Dismiss/ || case_status =~ /dismiss/
       kase.outcome = 'Closed: Dismissed'
       Judgement.where(:case_number => kase.case_number, :status => nil).destroy_all
-      Judgement.create(:case_number => kase.case_number, :status => 'Closed', :judgement_date => date, :notes => case_status)
+      Judgement.find_or_create_by_case_number_and_status(:case_number => kase.case_number, :status => 'Closed', :judgement_date => date, :notes => case_status)
     elsif case_status =~ /Closed/ 
       kase.outcome = 'Closed'
     elsif case_status =~ /Guilty/
@@ -363,7 +363,7 @@ module LAMAHelpers
         kase.outcome = 'Guilty'
       end
         Judgement.where(:case_number => kase.case_number, :status => nil).destroy_all
-        Judgement.create(:case_number => kase.case_number, :status => kase.outcome, :judgement_date => date, :notes => case_status)
+        Judgement.find_or_create_by_case_number_and_status(:case_number => kase.case_number, :status => kase.outcome, :judgement_date => date, :notes => case_status)
     elsif case_status =~ /Judgment/ && (case_status =~ /Posting/ || case_status =~ /Notice/ || case_status =~ /Recordation/)
       j = Judgement.find_or_create_by_case_number(:case_number => kase.case_number, :judgement_date => date, :notes => case_status)
       unless j.status
@@ -512,9 +512,8 @@ module LAMAHelpers
     spawnHash.each do |spawn_id,spawn|
       puts "spawn => #{spawn.inspect}"
       if spawn[:step] == Judgement.to_s
-        Hearing.create(:case_number => kase.case_number, :hearing_date => spawn[:date], :hearing_status => spawn[:status], :hearing_type => event.Type, :is_complete => true)#, :is_valid => true)
+        Hearing.create(:case_number => kase.case_number, :hearing_date => spawn[:date], :hearing_status => spawn[:status], :hearing_type => spawn[:notes], :is_complete => true)#, :is_valid => true)
         Judgement.create(:case_number => kase.case_number, :notes => spawn[:notes], :judgement_date => spawn[:date], :status => spawn[:status])
-        spawn_hash.delete(event.SpawnID)
       elsif spawn[:step] == Inspection.to_s
         Inspection.create(:case_number => kase.case_number, :inspection_date => spawn[:date], :notes => spawn[:notes])
       elsif spawn[:step] == Notification.to_s

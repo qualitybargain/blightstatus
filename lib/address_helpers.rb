@@ -1,7 +1,7 @@
 #move this to better spot
 class String
   def single_space
-    self.split.join(' ')
+    self.split.join(' ').strip
   end
 end
 
