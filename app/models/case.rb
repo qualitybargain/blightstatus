@@ -63,6 +63,10 @@
     self.accela_steps.sort{ |a, b| a.date <=> b.date }.first
   end
 
+  def last_status
+    self.ordered_case_steps.last
+  end
+
   def status
     step = nil
     if self.status_type && self.status_id 
