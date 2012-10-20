@@ -1,5 +1,5 @@
 class AccountMailer < ActionMailer::Base
-  default from: "blightstatus@codeforamerica.org"
+  default from: "blightstatus@nola.gov"
 
   def deliver_digest(account, subs)
     @account = account

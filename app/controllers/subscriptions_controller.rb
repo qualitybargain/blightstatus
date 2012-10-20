@@ -14,7 +14,7 @@ class SubscriptionsController < ApplicationController
 
     # polygon = factory.polygon(factory.linear_ring(points))
 
-    @subscription = Subscription.find_or_create_by_address_id_and_account_id({:address_id => params[:id], :account_id => account.id})
+    @subscription = Subscription.find_or_create_by_address_id_and_account_id({:address_id => params[:id], :account_id => account.id, :date_notified => Time.now })
 
 
     if @subscription.save
